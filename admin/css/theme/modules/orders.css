@@ -1,0 +1,358 @@
+.yr-admin-dashboard-page .yr-admin-orders-module {
+  --yr-admin-order-status-pending-bg: var(--yr-admin-warning-bg);
+  --yr-admin-order-status-pending-text: var(--yr-admin-warning-text);
+  --yr-admin-order-status-pending-border: var(--yr-admin-warning-border);
+  --yr-admin-order-status-processing-bg: var(--yr-admin-info-bg);
+  --yr-admin-order-status-processing-text: var(--yr-admin-info-text);
+  --yr-admin-order-status-processing-border: var(--yr-admin-info-border);
+  --yr-admin-order-status-shipped-bg: var(--yr-admin-primary-soft);
+  --yr-admin-order-status-shipped-text: var(--yr-admin-primary-hover);
+  --yr-admin-order-status-shipped-border: var(--yr-admin-border-strong);
+  --yr-admin-order-status-completed-bg: var(--yr-admin-success-bg);
+  --yr-admin-order-status-completed-text: var(--yr-admin-success-text);
+  --yr-admin-order-status-completed-border: var(--yr-admin-success-border);
+  --yr-admin-order-status-returned-bg: var(--yr-admin-danger-bg);
+  --yr-admin-order-status-returned-text: var(--yr-admin-danger-text);
+  --yr-admin-order-status-returned-border: var(--yr-admin-danger-border);
+  --yr-admin-order-status-cancelled-bg: var(--yr-admin-neutral-bg);
+  --yr-admin-order-status-cancelled-text: var(--yr-admin-neutral-text);
+  --yr-admin-order-status-cancelled-border: var(--yr-admin-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-card {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .card-header {
+  background: var(--yr-admin-surface);
+  border-bottom: 1px solid var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-title {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-description {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-toolbar {
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-period-label {
+  color: var(--yr-admin-text-muted);
+  font-weight: 500;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-result-count {
+  color: var(--yr-admin-text-muted);
+  border-top: 1px solid var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-result-count--error {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-table {
+  --bs-table-bg: var(--yr-admin-table-bg);
+  --bs-table-color: var(--yr-admin-text);
+  --bs-table-border-color: var(--yr-admin-table-border);
+  --bs-table-hover-bg: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-th {
+  background: var(--yr-admin-table-header-bg);
+  color: var(--yr-admin-text);
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-row > td {
+  vertical-align: middle;
+  border-color: var(--yr-admin-table-border);
+  background: var(--yr-admin-table-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-row:hover > td {
+  background: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-order-id {
+  color: var(--yr-admin-primary-hover);
+  text-decoration: underline;
+  text-decoration-color: var(--yr-admin-data-link-underline);
+  text-underline-offset: 3px;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-order-id:hover {
+  color: var(--yr-admin-text);
+  text-decoration-color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-amount {
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-status-col {
+  min-width: 124px;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-actions-col,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-actions {
+  min-width: 108px;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-action-btn {
+  min-height: 32px;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-action-btn--primary {
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+  background: var(--yr-admin-success-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-action-btn--secondary {
+  border-color: var(--yr-admin-info-border);
+  color: var(--yr-admin-info-text);
+  background: var(--yr-admin-info-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-action-btn--primary:hover {
+  border-color: var(--yr-admin-success);
+  color: var(--yr-admin-success-text);
+  background: var(--yr-admin-success-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-action-btn--secondary:hover {
+  border-color: var(--yr-admin-info);
+  color: var(--yr-admin-info-text);
+  background: var(--yr-admin-info-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-table :is(th:first-child, td:first-child) {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--yr-admin-table-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-table thead th:first-child {
+  z-index: 3;
+  background: var(--yr-admin-table-header-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-empty,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-loading,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-error {
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-error {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .filter-dropdown {
+  background: var(--yr-admin-dropdown-bg);
+  border: 1px solid var(--yr-admin-dropdown-border);
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .filter-dropdown label {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .filter-dropdown label:hover {
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .sort-icon,
+.yr-admin-dashboard-page .yr-admin-orders-module .filter-icon {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .sort-icon.sort-active,
+.yr-admin-dashboard-page .yr-admin-orders-module .filter-icon.active {
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .filter-dot {
+  background: var(--yr-admin-danger);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-payment-status,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-payment-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status--pending,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status--pending {
+  background: var(--yr-admin-order-status-pending-bg);
+  color: var(--yr-admin-order-status-pending-text);
+  border-color: var(--yr-admin-order-status-pending-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status--processing,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status--processing,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status--shipped,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status--shipped {
+  background: var(--yr-admin-order-status-processing-bg);
+  color: var(--yr-admin-order-status-processing-text);
+  border-color: var(--yr-admin-order-status-processing-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status--completed,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status--completed,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-payment-status--paid,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-payment-status--paid {
+  background: var(--yr-admin-order-status-completed-bg);
+  color: var(--yr-admin-order-status-completed-text);
+  border-color: var(--yr-admin-order-status-completed-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status--returned,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status--returned,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-payment-status--failed,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-payment-status--failed {
+  background: var(--yr-admin-order-status-returned-bg);
+  color: var(--yr-admin-order-status-returned-text);
+  border-color: var(--yr-admin-order-status-returned-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status--cancelled,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status--cancelled,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-payment-status--refunded,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-payment-status--refunded,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-order-status--unknown,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-status--unknown,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-payment-status--unknown,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-payment-status--unknown {
+  background: var(--yr-admin-neutral-bg);
+  color: var(--yr-admin-neutral-text);
+  border-color: var(--yr-admin-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-payment-status--unpaid,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-payment-status--unpaid {
+  background: var(--yr-admin-warning-bg);
+  color: var(--yr-admin-warning-text);
+  border-color: var(--yr-admin-warning-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-payment-status--cod,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-payment-status--cod {
+  background: var(--yr-admin-info-bg);
+  color: var(--yr-admin-info-text);
+  border-color: var(--yr-admin-info-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .modal-content {
+  background: var(--yr-admin-modal-bg);
+  border: 1px solid var(--yr-admin-modal-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .modal-header,
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .modal-footer {
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .modal-title {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal #modalOrderId {
+  font-family: 'Consolas', 'Menlo', 'Monaco', monospace;
+  color: var(--yr-admin-text-muted);
+  font-size: 0.93em;
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-detail-total {
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-note {
+  background: var(--yr-admin-surface-muted);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-history {
+  border-left: 2px solid var(--yr-admin-divider);
+  padding-left: 0.75rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-history__item {
+  position: relative;
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-history__dot {
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-history__time {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-order-detail-modal .yr-admin-order-history__action {
+  color: var(--yr-admin-text);
+}
+
+@media (max-width: 1024px) {
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-toolbar__filters {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-toolbar {
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-period-buttons {
+    flex-wrap: wrap;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-actions {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 390px) {
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-toolbar__search,
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-toolbar__filters {
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-toolbar {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-date-input {
+    max-width: none !important;
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-order-detail-modal .modal-body {
+    overflow-x: hidden;
+  }
+}

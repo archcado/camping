@@ -95,10 +95,11 @@ window.initOrders = function () {
       applyFiltersAndSort();
     }).fail(function () {
       $('#ordersTableBody').html(
-        '<tr><td colspan="7" class="text-center text-danger py-4">' +
+        '<tr><td colspan="7" class="text-center py-4 yr-admin-orders-error">' +
         '<i class="fas fa-exclamation-triangle me-2"></i>載入訂單數據失敗' +
         '</td></tr>'
       );
+      updateOrdersResultCount(0, true);
     });
   }
 
@@ -563,35 +564,29 @@ function updateFilterUI() {
  * @param {Array} orders - 已篩選並排序完畢的訂單陣列
  */
 function renderOrdersTable(orders) {
-  if (!orders || orders.length === 0) {
+  if (!Array.isArray(orders)) {
     $('#ordersTableBody').html(
-      '<tr><td colspan="7" class="text-center text-muted py-4">' +
-      '<i class="fas fa-inbox me-2"></i>沒有符合條件的訂單' +
+      '<tr><td colspan="7" class="text-center py-4 yr-admin-orders-error">' +
+      '<i class="fas fa-exclamation-circle me-2"></i>訂單資料格式錯誤' +
       '</td></tr>'
     );
+    updateOrdersResultCount(0, true);
     return;
   }
 
-  // 付款狀態 badge（3 種）
-  // paid = 已付款（綠）/ unpaid = 未付款（黃）/ cod = 貨到付款（藍）
-  var payBadgeMap = {
-    paid:   '<span class="badge bg-success">已付款</span>',
-    unpaid: '<span class="badge bg-warning text-dark">未付款</span>',
-    cod:    '<span class="badge bg-info text-dark">貨到付款</span>'
-  };
-
-  // 訂單狀態 badge（4 種）
-  // unshipped = 黃色 / shipped = 綠色 / returned = 紅色 / completed = 藍色
-  var orderStatusMap = {
-    unshipped: '<span class="badge bg-warning text-dark order-status-badge">未出貨</span>',
-    shipped:   '<span class="badge bg-success order-status-badge">已出貨</span>',
-    returned:  '<span class="badge bg-danger order-status-badge">已退貨</span>',
-    completed: '<span class="badge bg-primary order-status-badge">已完成</span>'
-  };
+  if (orders.length === 0) {
+    $('#ordersTableBody').html(
+      '<tr><td colspan="7" class="text-center py-4 yr-admin-orders-empty">' +
+      '<i class="fas fa-inbox me-2"></i>沒有符合條件的訂單' +
+      '</td></tr>'
+    );
+    updateOrdersResultCount(0, false);
+    return;
+  }
 
   var html = orders.map(function (order) {
-    var payBadge    = payBadgeMap[order.paymentStatus]  || '';
-    var statusBadge = orderStatusMap[order.orderStatus] || '';
+    var payBadge = renderPaymentStatusTag(order.paymentStatus);
+    var statusBadge = renderOrderStatusTag(order.orderStatus);
 
     // 操作欄按鈕邏輯：
     //   未出貨               → 顯示「出貨」按鈕
@@ -599,10 +594,10 @@ function renderOrdersTable(orders) {
     //   其餘狀態             → 不顯示按鈕
     var actionBtn = '';
     if (order.orderStatus === 'unshipped') {
-      actionBtn = '<button class="btn btn-sm btn-outline-success btn-ship-order" title="確認出貨">' +
+      actionBtn = '<button class="btn btn-sm btn-outline-success btn-ship-order yr-admin-orders-action-btn yr-admin-orders-action-btn--primary" title="確認出貨">' +
                   '<i class="fas fa-truck me-1"></i>出貨</button>';
     } else if (order.orderStatus === 'shipped' && order.paymentStatus !== 'cod') {
-      actionBtn = '<button class="btn btn-sm btn-outline-primary btn-complete-order" title="確認送達完成">' +
+      actionBtn = '<button class="btn btn-sm btn-outline-primary btn-complete-order yr-admin-orders-action-btn yr-admin-orders-action-btn--secondary" title="確認送達完成">' +
                   '<i class="fas fa-check-circle me-1"></i>完成</button>';
     }
 
@@ -610,25 +605,26 @@ function renderOrdersTable(orders) {
     var date = order.createdAt.split(' ')[0] || '';
 
     // 訂單編號：可點擊連結樣式
-    var idLink = '<span class="order-id-link text-primary fw-semibold" ' +
+    var idLink = '<span class="order-id-link yr-admin-orders-order-id fw-semibold" ' +
                  'data-order-id="' + order.id + '" ' +
-                 'style="cursor:pointer; text-decoration:underline dotted;" ' +
+                'style="cursor:pointer;" ' +
                  'title="點擊查看訂單明細">' +
                  order.id + '</span>';
 
     return '<tr data-order-id="' + order.id + '"' +
-           ' data-order-status="' + order.orderStatus + '">' +
+           ' data-order-status="' + order.orderStatus + '" class="yr-admin-orders-row">' +
            '<td>' + idLink + '</td>' +
            '<td>' + date + '</td>' +
            '<td class="fw-semibold">' + order.buyerName + '</td>' +
-           '<td class="fw-semibold">NT$ ' + order.total.toLocaleString() + '</td>' +
+           '<td class="fw-semibold text-end yr-admin-orders-amount">NT$ ' + order.total.toLocaleString() + '</td>' +
            '<td>' + payBadge + '</td>' +
            '<td>' + statusBadge + '</td>' +
-           '<td>' + actionBtn + '</td>' +
+           '<td class="yr-admin-orders-actions">' + actionBtn + '</td>' +
            '</tr>';
   }).join('');
 
   $('#ordersTableBody').html(html);
+  updateOrdersResultCount(orders.length, false);
 
   // 依編輯權限停用出貨按鈕
   if (typeof window.applyEditPermission === 'function') {
@@ -649,14 +645,7 @@ window.showOrderModal = function (order) {
   $('#modalOrderId').text(order.id);
   $('#modalBuyerName').text(order.buyerName);
 
-  // 訂單狀態 badge（4 種，需與 renderOrdersTable 的 orderStatusMap 保持一致）
-  var statusMap = {
-    unshipped: '<span class="badge bg-warning text-dark">未出貨</span>',
-    shipped:   '<span class="badge bg-success">已出貨</span>',
-    returned:  '<span class="badge bg-danger">已退貨</span>',
-    completed: '<span class="badge bg-primary">已完成</span>'
-  };
-  $('#modalOrderStatus').html(statusMap[order.orderStatus] || '');
+  $('#modalOrderStatus').html(renderOrderStatusTag(order.orderStatus));
 
   // 商品清單
   var itemsHtml = (order.items || []).map(function (item) {
@@ -686,13 +675,89 @@ window.showOrderModal = function (order) {
 
   // 訂單紀錄時間軸
   var historyHtml = (order.history || []).map(function (entry) {
-    return '<li class="d-flex align-items-start gap-2 mb-1">' +
-           '<i class="fas fa-circle mt-1" style="font-size:6px; color:var(--admin-brand-accent); flex-shrink:0;"></i>' +
-           '<span><span class="text-muted me-2">' + entry.time + '</span>' + entry.action + '</span>' +
+    return '<li class="yr-admin-order-history__item d-flex align-items-start gap-2 mb-1">' +
+           '<i class="fas fa-circle mt-1 yr-admin-order-history__dot" style="font-size:6px; flex-shrink:0;"></i>' +
+           '<span><span class="text-muted me-2 yr-admin-order-history__time">' + entry.time + '</span>' +
+           '<span class="yr-admin-order-history__action">' + entry.action + '</span></span>' +
            '</li>';
   }).join('');
-  $('#modalHistory').html(historyHtml || '<li class="text-muted">無紀錄</li>');
+  $('#modalHistory').html(historyHtml || '<li class="text-muted yr-admin-order-history__item">無紀錄</li>');
 
   // 開啟 modal
   new bootstrap.Modal('#orderDetailModal').show();
 };
+
+function updateOrdersResultCount(count, isError) {
+  var $el = $('#ordersResultCount');
+  if (!$el.length) return;
+  if (isError) {
+    $el.text('目前結果：載入失敗').addClass('yr-admin-orders-result-count--error');
+    return;
+  }
+  $el.removeClass('yr-admin-orders-result-count--error');
+  $el.text('目前結果：' + count + ' 筆');
+}
+
+function getOrderStatusClass(status) {
+  var statusClassMap = {
+    unshipped: 'yr-admin-order-status--pending',
+    shipped: 'yr-admin-order-status--shipped',
+    completed: 'yr-admin-order-status--completed',
+    returned: 'yr-admin-order-status--returned',
+    cancelled: 'yr-admin-order-status--cancelled',
+    processing: 'yr-admin-order-status--processing',
+    pending: 'yr-admin-order-status--pending'
+  };
+  return statusClassMap[status] || 'yr-admin-order-status--unknown';
+}
+
+function getOrderStatusMeta(status) {
+  var statusMetaMap = {
+    unshipped: { text: '未出貨', icon: 'fas fa-hourglass-half' },
+    shipped: { text: '已出貨', icon: 'fas fa-truck' },
+    completed: { text: '已完成', icon: 'fas fa-check-circle' },
+    returned: { text: '已退貨', icon: 'fas fa-undo' },
+    cancelled: { text: '已取消', icon: 'fas fa-ban' },
+    processing: { text: '處理中', icon: 'fas fa-gear' },
+    pending: { text: '待處理', icon: 'fas fa-clock' }
+  };
+  return statusMetaMap[status] || { text: status || '未知狀態', icon: 'fas fa-circle-question' };
+}
+
+function renderOrderStatusTag(status) {
+  var meta = getOrderStatusMeta(status);
+  return '<span class="yr-admin-order-status ' + getOrderStatusClass(status) + '">' +
+    '<i class="' + meta.icon + ' me-1" aria-hidden="true"></i>' +
+    '<span>' + meta.text + '</span>' +
+    '</span>';
+}
+
+function getPaymentStatusClass(status) {
+  var paymentClassMap = {
+    paid: 'yr-admin-payment-status--paid',
+    unpaid: 'yr-admin-payment-status--unpaid',
+    cod: 'yr-admin-payment-status--cod',
+    refunded: 'yr-admin-payment-status--refunded',
+    failed: 'yr-admin-payment-status--failed'
+  };
+  return paymentClassMap[status] || 'yr-admin-payment-status--unknown';
+}
+
+function getPaymentStatusMeta(status) {
+  var paymentMetaMap = {
+    paid: { text: '已付款', icon: 'fas fa-circle-check' },
+    unpaid: { text: '未付款', icon: 'fas fa-circle-exclamation' },
+    cod: { text: '貨到付款', icon: 'fas fa-money-bill-wave' },
+    refunded: { text: '已退款', icon: 'fas fa-rotate-left' },
+    failed: { text: '付款失敗', icon: 'fas fa-circle-xmark' }
+  };
+  return paymentMetaMap[status] || { text: status || '未知付款', icon: 'fas fa-circle-question' };
+}
+
+function renderPaymentStatusTag(status) {
+  var meta = getPaymentStatusMeta(status);
+  return '<span class="yr-admin-payment-status ' + getPaymentStatusClass(status) + '">' +
+    '<i class="' + meta.icon + ' me-1" aria-hidden="true"></i>' +
+    '<span>' + meta.text + '</span>' +
+    '</span>';
+}

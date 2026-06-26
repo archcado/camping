@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="css/theme/admin-theme-tokens.css">
   <link rel="stylesheet" href="css/theme/admin-theme-components.css">
   <link rel="stylesheet" href="css/theme/admin-shell.css">
+  <link rel="stylesheet" href="css/theme/modules/orders.css">
+  <link rel="stylesheet" href="css/theme/modules/bookings.css">
   <link rel="stylesheet" href="css/theme/modules/products.css">
   <link rel="stylesheet" href="css/theme/modules/analytics.css">
   <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
@@ -257,7 +259,7 @@
   <!-- ============================================================
        全域 Modal：訂單明細（靜態放在 dashboard，由 orders.js 填入內容）
        ============================================================ -->
-  <div class="modal fade" id="orderDetailModal" tabindex="-1"
+  <div class="modal fade yr-admin-order-detail-modal" id="orderDetailModal" tabindex="-1"
        aria-labelledby="orderDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
@@ -270,7 +272,7 @@
         <div class="modal-body">
 
           <!-- 訂單基本資訊 -->
-          <div class="row g-3 mb-3">
+          <div class="row g-3 mb-3 yr-admin-order-detail-section yr-admin-order-detail-meta">
             <div class="col-md-6">
               <small class="text-muted d-block">買家姓名</small>
               <span id="modalBuyerName" class="fw-semibold"></span>
@@ -285,6 +287,7 @@
           <h6 class="fw-semibold mb-2 mt-3">
             <i class="fas fa-list me-2 text-muted"></i>商品清單
           </h6>
+          <div class="table-responsive yr-admin-order-detail-section">
           <table class="table table-sm table-bordered mb-0">
             <thead class="table-light">
               <tr>
@@ -298,10 +301,11 @@
             <tfoot class="table-light">
               <tr>
                 <td colspan="3" class="text-end fw-semibold">合計</td>
-                <td class="text-end fw-bold" id="modalTotal"></td>
+                <td class="text-end fw-bold yr-admin-order-detail-total" id="modalTotal"></td>
               </tr>
             </tfoot>
           </table>
+          </div>
 
           <hr class="my-3">
 
@@ -309,13 +313,13 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-map-marker-alt me-2 text-muted"></i>收件資訊
           </h6>
-          <p id="modalAddress" class="text-muted mb-0"></p>
+          <p id="modalAddress" class="text-muted mb-0 yr-admin-order-detail-section"></p>
 
           <hr class="my-3">
 
           <!-- 顧客備註（customerNote 有值才顯示，否則 d-none）-->
           <!-- orders.js 的 showOrderModal() 會動態控制此區塊的顯隱 -->
-          <div id="modalCustomerNoteSection" class="d-none">
+          <div id="modalCustomerNoteSection" class="d-none yr-admin-order-note">
             <h6 class="fw-semibold mb-2">
               <i class="fas fa-comment-dots me-2 text-muted"></i>顧客備註
             </h6>
@@ -332,7 +336,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-history me-2 text-muted"></i>訂單紀錄
           </h6>
-          <ul id="modalHistory" class="list-unstyled small mb-0">
+          <ul id="modalHistory" class="list-unstyled small mb-0 yr-admin-order-history">
             <!-- 每筆格式：時間 + 動作，由 orders.js 動態產生 -->
           </ul>
 
@@ -347,7 +351,7 @@
   <!-- ============================================================
        全域 Modal：預約明細（靜態放在 dashboard，由 bookings.js 填入內容）
        ============================================================ -->
-  <div class="modal fade" id="bookingDetailModal" tabindex="-1"
+  <div class="modal fade yr-admin-booking-detail-modal" id="bookingDetailModal" tabindex="-1"
        aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
@@ -365,7 +369,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-user me-2 text-muted"></i>訂購人資訊
           </h6>
-          <div class="row g-2 mb-3">
+          <div class="row g-2 mb-3 yr-admin-booking-detail-meta">
             <div class="col-6 col-md-3">
               <small class="text-muted d-block">姓名</small>
               <span id="bkModalName" class="fw-semibold"></span>
@@ -390,7 +394,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-campground me-2 text-muted"></i>住宿明細
           </h6>
-          <div id="bkModalStayDetail" class="mb-3"></div>
+          <div id="bkModalStayDetail" class="mb-3 yr-admin-booking-detail-section yr-admin-booking-detail-stay"></div>
 
           <hr class="my-3">
 
@@ -398,7 +402,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-toolbox me-2 text-muted"></i>裝備租借明細
           </h6>
-          <div id="bkModalRentalDetail" class="mb-3"></div>
+          <div id="bkModalRentalDetail" class="mb-3 yr-admin-booking-detail-section yr-admin-booking-detail-rental"></div>
 
           <hr class="my-3">
 
@@ -406,7 +410,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-receipt me-2 text-muted"></i>費用明細
           </h6>
-          <div id="bkModalCostBreakdown" class="mb-3"></div>
+          <div id="bkModalCostBreakdown" class="mb-3 yr-admin-booking-detail-section yr-admin-booking-detail-cost"></div>
 
           <hr class="my-3">
 
@@ -427,7 +431,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-history me-2 text-muted"></i>狀態紀錄
           </h6>
-          <ul id="bkModalHistory" class="list-unstyled small mb-0">
+          <ul id="bkModalHistory" class="list-unstyled small mb-0 yr-admin-booking-history">
             <!-- 由 bookings.js 的 showBookingModal() 動態填入 -->
           </ul>
 
@@ -448,7 +452,7 @@
   <!-- ============================================================
        全域 Modal：取消預約確認（靜態放在 dashboard，由 bookings.js 控制）
        ============================================================ -->
-  <div class="modal fade" id="bookingCancelModal" tabindex="-1"
+  <div class="modal fade yr-admin-booking-cancel-modal" id="bookingCancelModal" tabindex="-1"
        aria-labelledby="bookingCancelModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">

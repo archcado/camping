@@ -107,6 +107,59 @@
   --bk-radius:          var(--yc-radius-card);
   --bk-radius-sm:       var(--yc-radius-control);
   --bk-transition:      all var(--yc-duration-normal) var(--yc-ease-soft);
+
+  /* ── yr-* token bridge ────────────────────────────────────────────────
+     theme-panel.css（由上方 @import 載入）與 theme-header.css 使用 --yr-*
+     CSS 變數。這些變數在 css/theme/theme-tokens.css 中定義於 .yr-theme 類別，
+     但 booking 頁面的 body 使用 .yr-booking-theme，無 .yr-theme 祖先。
+     在 :root 橋接這些變數，確保 theme-panel.css 中所有 var() 都能解析。
+  ────────────────────────────────────────────────────────────────────── */
+  --yr-color-surface:       #fffdf9;
+  --yr-color-surface-muted: #f7f0e5;
+  --yr-color-surface-oat:   #eee1cf;
+  --yr-color-bg:             #fcf8ef;
+  --yr-color-border:        #e5d8c7;
+  --yr-color-text:           #30372f;
+  --yr-color-text-muted:     #5d6259;
+  --yr-color-text-subtle:    #79756d;
+  --yr-color-text-on-brand:  #fffdf8;
+  --yr-color-brand:          #8fa784;
+  --yr-color-brand-strong:   #607657;
+  --yr-color-brand-hover:    #506648;
+  --yr-color-brand-pale:     #edf3e9;
+  --yr-color-brand-soft:     #d5e2cf;
+  --yr-color-accent:         #d5b88f;
+  --yr-color-accent-soft:    #f4e6d4;
+  --yr-color-price:          #5d7555;
+  --yr-color-focus-ring:     rgba(143, 167, 132, 0.38);
+  --yr-shadow-lg:             0 18px 38px rgba(63, 70, 61, 0.09);
+  --yr-radius-sm:            0.5rem;
+  --yr-radius-md:            0.75rem;
+  --yr-header-surface:       rgba(255, 253, 248, 0.96);
+  --yr-header-border:        rgba(96, 118, 87, 0.14);
+  --yr-drawer-surface:       rgba(255, 254, 250, 0.94);
+  --yr-drawer-border:        rgba(96, 118, 87, 0.18);
+  --yr-drawer-hover:         rgba(143, 167, 132, 0.15);
+  --yr-drawer-active:        rgba(143, 167, 132, 0.19);
+  --yr-drawer-divider:       rgba(96, 118, 87, 0.12);
+  --yr-drawer-overlay:       rgba(38, 45, 37, 0.34);
+}
+
+/* ============================================================
+   1-B. Booking 共用 Icon 樣式
+        搭配 Bootstrap Icons（.bi.*），確保線性圖示在 Drawer / 表單 /
+        按鈕中尺寸、粗細、顏色一致。
+   ============================================================ */
+.yr-booking-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--yr-color-brand-strong, #607657);
 }
 
 /* ============================================================

@@ -159,7 +159,7 @@
     var userMenu = document.querySelector('.booking-header .navbar-user-menu');
     var userInfo = userMenu ? userMenu.querySelector('.user-info') : null;
     var dropdown = userMenu ? userMenu.querySelector('.navbar-user-dropdown') : null;
-    var logoutBtn = userMenu ? userMenu.querySelector('.navbar-logout-btn') : null;
+    var logoutBtn = userMenu ? userMenu.querySelector('[data-action="logout"], .navbar-logout-btn') : null;
 
     if (!userMenu || !userInfo || !dropdown) return;
     if (userMenu.dataset.dropdownBound === 'true') return;
@@ -204,6 +204,8 @@
       if (logoutItemMobile) logoutItemMobile.hidden = true;
       closeUserDropdown();
     }
+
+    window.updateBookingHeaderLoginState = checkLoginState;
   }
 
   /**

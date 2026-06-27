@@ -11,6 +11,8 @@
     bookingUser: 'yuruiUser'
   };
 
+  var AUTH_LOGOUT_SELECTORS = '[data-action="logout"], #logoutBtn, .logout-btn, .btn-logout, .navbar-logout-btn, #bkLogoutBtnMobile';
+
   /**
    * 安全讀取 localStorage JSON。
    * @param {string} key - localStorage key。
@@ -80,6 +82,54 @@
       localStorage.removeItem(STORAGE_KEYS.bookingUser);
     }
     syncAppState(user);
+  }
+
+  /**
+   * Close all auth-related UI surfaces without touching carts or preferences.
+   * @param {Function=} closeCallback - Optional UI close callback.
+   */
+  function closeAuthUi(closeCallback) {
+    if (typeof closeCallback === 'function') {
+      closeCallback();
+    }
+
+    if (typeof window.closeMainHeaderDialogs === 'function') {
+      window.closeMainHeaderDialogs();
+    }
+
+    if (typeof window.updateNavbarLoginState === 'function') {
+      window.updateNavbarLoginState();
+    }
+
+    if (typeof window.updateBookingHeaderLoginState === 'function') {
+      window.updateBookingHeaderLoginState();
+    }
+  }
+
+  /**
+   * Clears only authentication state keys that are used by the site.
+   */
+  function clearAuthStorage() {
+    localStorage.removeItem(STORAGE_KEYS.isLoggedIn);
+    localStorage.removeItem(STORAGE_KEYS.currentUser);
+    localStorage.removeItem(STORAGE_KEYS.bookingUser);
+  }
+
+  /**
+   * Shared sign-out implementation used by main and booking headers.
+   * @param {{ close?: Function, showToast?: boolean }=} options - UI callback options.
+   */
+  function performLogout(options) {
+    options = options || {};
+
+    syncAppState(null);
+    clearAuthStorage();
+    emitAuthChanged('logout', null);
+    closeAuthUi(options.close);
+
+    if (options.showToast !== false && typeof window.showToast === 'function') {
+      window.showToast('已成功登出', 'success');
+    }
   }
 
   /**
@@ -154,14 +204,7 @@
    * @param {{close?: Function, showToast?: boolean}=} options - UI callback 選項。
    */
   function logout(options) {
-    options = options || {};
-    persistUser(null);
-    emitAuthChanged('logout', null);
-
-    if (typeof options.close === 'function') options.close();
-    if (options.showToast !== false && typeof window.showToast === 'function') {
-      window.showToast('已成功登出', 'success');
-    }
+    performLogout(options);
   }
 
   window.YuruiAuth = {
@@ -188,6 +231,30 @@
     if (window.YuruiAuth && typeof window.YuruiAuth.sync === 'function') {
       window.YuruiAuth.sync();
     }
+    bindLogoutHandler();
     return window.YuruiAuth;
   };
+
+  /**
+   * Installs a single delegated logout click handler.
+   */
+  function bindLogoutHandler() {
+    if (document.documentElement.dataset.logoutBound === 'true') return;
+    document.documentElement.dataset.logoutBound = 'true';
+
+    document.addEventListener('click', function (event) {
+      var trigger = event.target.closest(AUTH_LOGOUT_SELECTORS);
+      if (!trigger || event.defaultPrevented) return;
+
+      event.preventDefault();
+      if (typeof window.handleLogout === 'function') {
+        window.handleLogout();
+        return;
+      }
+
+      performLogout();
+    });
+  }
+
+  bindLogoutHandler();
 }());

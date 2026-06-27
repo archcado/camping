@@ -245,7 +245,7 @@ function _renderUserBlock(context) {
         <a href="${memberHref}" class="dropdown-item">
           <i class="bi bi-person" aria-hidden="true"></i> 會員中心
         </a>
-        <button class="navbar-logout-btn">
+        <button class="navbar-logout-btn" type="button">
           <i class="bi bi-box-arrow-right" aria-hidden="true"></i> 登出
         </button>
       </div>
@@ -674,7 +674,7 @@ function _bindAuthStateEvents() {
 function _initUserMenuDropdown(userMenu) {
   const userInfo = userMenu.querySelector('.user-info');
   const dropdown = userMenu.querySelector('.navbar-user-dropdown');
-  const logoutBtn = userMenu.querySelector('.navbar-logout-btn');
+  const logoutBtn = userMenu.querySelector('[data-action="logout"], .navbar-logout-btn');
 
   if (!userInfo || !dropdown) return;
   if (userMenu.dataset.dropdownBound === 'true') return;
@@ -724,7 +724,9 @@ window.handleLogout = () => {
     return;
   }
 
-  window.logout();
+  if (typeof window.logout === 'function') {
+    window.logout();
+  }
   _closeNavbarUserDropdown();
   window.updateNavbarLoginState();
   window.showToast?.('已成功登出', 'success');

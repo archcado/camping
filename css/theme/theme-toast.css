@@ -1,0 +1,161 @@
+/* ============================================================
+   theme-toast.css — 全站共用 Toast 通知元件
+   Selector: .yr-toast-container / .yr-toast
+   ============================================================ */
+
+/* ── Container ──────────────────────────────────────────── */
+.yr-toast-container {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  width: min(22rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+/* ── Individual Toast ────────────────────────────────────── */
+.yr-toast {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+
+  min-height: 3.25rem;
+  padding: 0.875rem 1rem;
+
+  border: 1px solid var(--yr-color-border, #e5d8c7);
+  border-radius: 0.875rem;
+
+  background: var(--yr-color-surface, #fffdf9);
+  color: var(--yr-color-text, #30372f);
+
+  font-size: 0.9rem;
+  line-height: 1.45;
+
+  box-shadow: 0 10px 28px rgba(69, 73, 65, 0.14);
+  pointer-events: all;
+
+  animation: yr-toast-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Type variants ───────────────────────────────────────── */
+.yr-toast--success {
+  border-color: var(--yr-color-brand-soft, #d5e2cf);
+  background: var(--yr-color-brand-pale, #edf3e9);
+}
+
+.yr-toast--error {
+  border-color: #f5c6c6;
+  background: #fdf3f3;
+}
+
+.yr-toast--warning {
+  border-color: #f5dfa0;
+  background: #fdf8ec;
+}
+
+.yr-toast--info {
+  border-color: var(--yr-color-border, #e5d8c7);
+  background: var(--yr-color-surface, #fffdf9);
+}
+
+/* ── Icon (first grid column) ────────────────────────────── */
+.yr-toast__icon {
+  font-size: 1rem;
+  line-height: 1;
+  align-self: center;
+}
+
+.yr-toast--success .yr-toast__icon {
+  color: var(--yr-color-brand-strong, #607657);
+}
+.yr-toast--error .yr-toast__icon {
+  color: #b94444;
+}
+.yr-toast--warning .yr-toast__icon {
+  color: #9c6b1a;
+}
+.yr-toast--info .yr-toast__icon {
+  color: var(--yr-color-text-muted, #5d6259);
+}
+
+/* ── Message (second grid column) ───────────────────────── */
+.yr-toast__message {
+  word-break: break-word;
+}
+
+/* ── Close button (third grid column) ───────────────────── */
+.yr-toast__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+
+  background: none;
+  border: none;
+  border-radius: 0.25rem;
+
+  cursor: pointer;
+  color: var(--yr-color-text-subtle, #79756d);
+  font-size: 0.85rem;
+  line-height: 1;
+  opacity: 0.65;
+
+  transition: opacity 0.15s;
+}
+
+.yr-toast__close:hover {
+  opacity: 1;
+}
+
+/* ── Exit state ──────────────────────────────────────────── */
+.yr-toast.is-hiding {
+  opacity: 0;
+  transform: translateX(1.5rem);
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s ease;
+  pointer-events: none;
+}
+
+/* ── Enter animation ─────────────────────────────────────── */
+@keyframes yr-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .yr-toast {
+    animation: none;
+  }
+
+  .yr-toast.is-hiding {
+    transition: opacity 0.15s;
+    transform: none;
+  }
+}
+
+/* ── RWD: mobile ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .yr-toast-container {
+    top: 0.75rem;
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+  }
+}

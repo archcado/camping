@@ -64,6 +64,11 @@
     });
   }
 
-  window.showToast = showToast;
+  // Install only when the canonical implementation (js/components/toast.js, loaded via
+  // layout.js) has not yet been registered. On pages where layout.js loads toast.js
+  // dynamically, that later load will override this and become the active implementation.
+  if (typeof window.showToast !== 'function') {
+    window.showToast = showToast;
+  }
 
 }());

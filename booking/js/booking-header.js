@@ -31,45 +31,16 @@
   }
 
   /**
-   * Installs a small toast fallback for pages that have not loaded booking-utils.js.
+   * Ensures window.showToast exists as a last-resort fallback.
+   * js/components/toast.js (loaded by layout.js) provides the canonical implementation
+   * and will already be defined before this runs in the normal loading chain.
    */
   function ensureToastFallback() {
     if (typeof window.showToast === 'function') return;
 
-    window.showToast = function showToast(message, type) {
-      var icons = {
-        info: 'bi bi-info-circle-fill',
-        warning: 'bi bi-exclamation-triangle-fill',
-        error: 'bi bi-x-octagon-fill',
-        success: 'bi bi-check-circle-fill'
-      };
-      var toastType = icons[type] ? type : 'info';
-      var container = getToastContainer();
-      var toast = document.createElement('div');
-      var icon = document.createElement('i');
-      var text = document.createElement('span');
-      var closeBtn = document.createElement('button');
-
-      toast.className = 'bk-toast bk-toast--' + toastType;
-      icon.className = icons[toastType];
-      icon.setAttribute('aria-hidden', 'true');
-      text.className = 'bk-toast__text';
-      text.textContent = message;
-      closeBtn.className = 'bk-toast__close';
-      closeBtn.setAttribute('aria-label', '關閉');
-      closeBtn.innerHTML = '&times;';
-      closeBtn.addEventListener('click', function () { dismissToast(toast); });
-
-      toast.appendChild(icon);
-      toast.appendChild(text);
-      toast.appendChild(closeBtn);
-      container.appendChild(toast);
-
-      var timer = setTimeout(function () { dismissToast(toast); }, 3500);
-      toast.addEventListener('mouseenter', function () { clearTimeout(timer); });
-      toast.addEventListener('mouseleave', function () {
-        timer = setTimeout(function () { dismissToast(toast); }, 2000);
-      });
+    // Minimal fallback: log to console so messages are not silently lost.
+    window.showToast = function fallbackToast(message, type) {
+      console.warn('[Toast fallback] ' + (type || 'info') + ': ' + message);
     };
   }
 
@@ -270,7 +241,10 @@
     }
     if (logoutBtnMobile && logoutBtnMobile.dataset.logoutBound !== 'true') {
       logoutBtnMobile.dataset.logoutBound = 'true';
-      logoutBtnMobile.addEventListener('click', function () {
+      logoutBtnMobile.addEventListener('click', function (event) {
+        // Prevent auth.js delegated handler (document-level) from triggering a second logout.
+        event.preventDefault();
+        event.stopPropagation();
         closeOffcanvasFromAnywhere();
         logout();
       });

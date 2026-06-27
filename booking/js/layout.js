@@ -78,9 +78,14 @@ function loadScriptOnce(src, flagName) {
 
 /**
  * Loads shared-header runtime first, then booking utilities.
+ * toast.js is loaded first so window.showToast is the unified implementation
+ * before booking-header.js's ensureToastFallback() runs.
  */
 function loadBookingHeaderScriptShared() {
-  return loadScriptOnce('../../js/components/header.js', '__sharedHeaderScriptLoaded')
+  return loadScriptOnce('../../js/components/toast.js', '__toastScriptLoaded')
+    .then(function () {
+      return loadScriptOnce('../../js/components/header.js', '__sharedHeaderScriptLoaded');
+    })
     .then(function () {
       if (typeof window.initNavbar === 'function') window.initNavbar();
       return loadScriptOnce('../../js/components/auth.js', '__yuruiAuthScriptLoaded');
@@ -99,7 +104,10 @@ function loadBookingHeaderScriptShared() {
  * Loads booking header runtime scripts in legacy mode.
  */
 function loadBookingHeaderScriptLegacy() {
-  return loadScriptOnce('../../js/components/auth.js', '__yuruiAuthScriptLoaded')
+  return loadScriptOnce('../../js/components/toast.js', '__toastScriptLoaded')
+    .then(function () {
+      return loadScriptOnce('../../js/components/auth.js', '__yuruiAuthScriptLoaded');
+    })
     .then(function () {
       if (typeof window.initAuth === 'function') window.initAuth();
       return loadScriptOnce('../js/booking-header.js', '__bookingHeaderScriptLoaded');

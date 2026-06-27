@@ -1,0 +1,436 @@
+{
+  "version": "2.0-single-image",
+  "sourceData": "data/products.json",
+  "productCount": 18,
+  "targetProjectPath": "assets/images/products/",
+  "folderPattern": "assets/images/products/{productId}/",
+  "imagePolicy": {
+    "imagesPerProduct": 1,
+    "filename": "main.webp",
+    "aspectRatio": "4:3",
+    "recommendedSize": "1200x900",
+    "format": "WebP",
+    "composition": "商品本體為主，背景採網站底色系留白，不使用多視角圖"
+  },
+  "products": [
+    {
+      "productId": "prod-001",
+      "brand": "SNOW PEAK",
+      "productName": "輕量化露營帳篷 2人",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/tent1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/tent1/400/300",
+          "https://picsum.photos/seed/tent1b/400/300",
+          "https://picsum.photos/seed/tent1c/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-001/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-002",
+      "brand": "OSPREY",
+      "productName": "專業登山背包 65L",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/pack1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/pack1/400/300",
+          "https://picsum.photos/seed/pack1b/400/300",
+          "https://picsum.photos/seed/pack1c/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-002/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-003",
+      "brand": "MSR",
+      "productName": "便攜式瓦斯爐",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/stove1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/stove1/400/300",
+          "https://picsum.photos/seed/stove1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-003/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-004",
+      "brand": "NIGHTREST",
+      "productName": "四季防水睡袋 -5°C",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/sleep1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/sleep1/400/300",
+          "https://picsum.photos/seed/sleep1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-004/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-005",
+      "brand": "BRIGHTCAMP",
+      "productName": "USB 充電 LED 露營燈",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/lamp1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/lamp1/400/300",
+          "https://picsum.photos/seed/lamp1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-005/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-006",
+      "brand": "HELINOX",
+      "productName": "戶外輕量折疊椅",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/chair1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/chair1/400/300",
+          "https://picsum.photos/seed/chair1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-006/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-007",
+      "brand": "PATAGONIA",
+      "productName": "防風防水戶外衝鋒衣",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/jacket1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/jacket1/400/300",
+          "https://picsum.photos/seed/jacket1b/400/300",
+          "https://picsum.photos/seed/jacket1c/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-007/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-008",
+      "brand": "SAWYER",
+      "productName": "攜帶式淨水器",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/filter1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/filter1/400/300",
+          "https://picsum.photos/seed/filter1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-008/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-009",
+      "brand": "BLACK DIAMOND",
+      "productName": "戶外登山頭燈 350流明",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/headlamp1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/headlamp1/400/300",
+          "https://picsum.photos/seed/headlamp1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-009/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-010",
+      "brand": "COLEMAN",
+      "productName": "Coleman 4人家庭帳篷",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/tent2/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/tent2/400/300",
+          "https://picsum.photos/seed/tent2b/400/300",
+          "https://picsum.photos/seed/tent2c/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-010/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-011",
+      "brand": "LEKI",
+      "productName": "登山健行手杖（一對）",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/poles1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/poles1/400/300",
+          "https://picsum.photos/seed/poles1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-011/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-012",
+      "brand": "SNOW PEAK",
+      "productName": "鈦合金炊具組 4件套",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/cook1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/cook1/400/300",
+          "https://picsum.photos/seed/cook1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-012/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-013",
+      "brand": "THERM-A-REST",
+      "productName": "自動充氣睡墊",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/mat1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/mat1/400/300",
+          "https://picsum.photos/seed/mat1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-013/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-014",
+      "brand": "DEUTER",
+      "productName": "26L 輕量日用背包",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/daypack1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/daypack1/400/300",
+          "https://picsum.photos/seed/daypack1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-014/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-015",
+      "brand": "BRIGHTCAMP",
+      "productName": "太陽能行動電源 20000mAh",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/solar1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/solar1/400/300",
+          "https://picsum.photos/seed/solar1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-015/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-016",
+      "brand": "OGAWA",
+      "productName": "戶外防水野餐墊 200x200",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/blanket1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/blanket1/400/300",
+          "https://picsum.photos/seed/blanket1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-016/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-017",
+      "brand": "COLUMBIA",
+      "productName": "快乾排汗機能T恤",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/tshirt1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/tshirt1/400/300",
+          "https://picsum.photos/seed/tshirt1b/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-017/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    },
+    {
+      "productId": "prod-018",
+      "brand": "OGAWA",
+      "productName": "Ogawa 豪華天幕帳 6x8m",
+      "sourceData": {
+        "mainImage": "https://picsum.photos/seed/tarp1/400/300",
+        "originalGalleryImages": [
+          "https://picsum.photos/seed/tarp1/400/300",
+          "https://picsum.photos/seed/tarp1b/400/300",
+          "https://picsum.photos/seed/tarp1c/400/300"
+        ]
+      },
+      "localImage": "assets/images/products/prod-018/main.webp",
+      "imagePolicy": {
+        "singleImageOnly": true,
+        "filename": "main.webp",
+        "aspectRatio": "4:3",
+        "recommendedSize": "1200x900",
+        "background": "網站底色系留白背景",
+        "composition": "單一商品完整置中，不使用多視角或複雜情境"
+      },
+      "status": "pending",
+      "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+    }
+  ]
+}

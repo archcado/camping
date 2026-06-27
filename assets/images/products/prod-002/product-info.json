@@ -1,0 +1,24 @@
+{
+  "productId": "prod-002",
+  "brand": "OSPREY",
+  "productName": "專業登山背包 65L",
+  "sourceData": {
+    "mainImage": "https://picsum.photos/seed/pack1/400/300",
+    "originalGalleryImages": [
+      "https://picsum.photos/seed/pack1/400/300",
+      "https://picsum.photos/seed/pack1b/400/300",
+      "https://picsum.photos/seed/pack1c/400/300"
+    ]
+  },
+  "localImage": "assets/images/products/prod-002/main.webp",
+  "imagePolicy": {
+    "singleImageOnly": true,
+    "filename": "main.webp",
+    "aspectRatio": "4:3",
+    "recommendedSize": "1200x900",
+    "background": "網站底色系留白背景",
+    "composition": "單一商品完整置中，不使用多視角或複雜情境"
+  },
+  "status": "pending",
+  "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+}

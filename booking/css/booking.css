@@ -2551,45 +2551,58 @@
    沿用買家端 4 欄式排版，確保視覺一致
    ============================================================ */
 .booking-footer {
-  background: var(--yc-footer-bg);
-  color: var(--yc-on-dark-muted);
-  padding: 3rem 0 1.5rem;
+  background: var(--yr-color-bg, #fcf8ef);
+  border-top: 1px solid var(--yr-color-border, #e5dbce);
+  color: var(--yr-color-text-muted, #66645d);
+  font-family: var(--yr-font-family-body, "Noto Sans TC", sans-serif);
   margin-top: 4rem;
+  padding: 4rem 0 2.25rem;
+}
+
+.booking-footer * {
+  font-family: inherit;
 }
 
 .bk-footer__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  margin-inline: auto;
+  width: min(calc(100% - 3rem), 90rem);
 }
 
 /* 四欄 Grid */
 .bk-footer__grid {
+  align-items: start;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns:
+    minmax(14rem, 1.15fr)
+    minmax(11rem, 0.9fr)
+    minmax(16rem, 1.15fr)
+    minmax(12rem, 0.9fr);
+  margin-bottom: 3.25rem;
 }
 
 /* 欄位標題 */
 .bk-footer__heading {
-  font-size: 1rem;
+  color: var(--yr-color-text, #454941);
+  font-size: 1.125rem;
   font-weight: 700;
-  color: #fff;
+  line-height: 1.3;
   margin-bottom: 1rem;
 }
 
 .bk-footer__subheading {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--yc-sage-light);
-  margin-bottom: 0.75rem;
+  color: var(--yr-color-text, #454941);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 1rem;
 }
 
 /* 標語文字 */
 .bk-footer__tagline {
-  font-size: 0.875rem;
-  color: rgba(255, 253, 249, 0.7);
+  color: var(--yr-color-text-muted, #66645d);
+  font-size: 0.9375rem;
+  font-weight: 400;
   line-height: 1.7;
   margin-bottom: 0.5rem;
 }
@@ -2601,47 +2614,94 @@
   padding: 0;
 }
 
-.bk-footer__links li { margin-bottom: 0.5rem; }
+.bk-footer__links li {
+  margin-bottom: 0.5rem;
+}
 
 .bk-footer__links a {
-  font-size: 0.875rem;
-  color: rgba(255, 253, 249, 0.72);
+  color: var(--yr-color-text-muted, #66645d);
+  display: inline-block;
+  font-size: 0.9375rem;
+  font-weight: 400;
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.bk-footer__links a:hover { color: var(--yc-on-dark); }
+.bk-footer__links a:hover {
+  color: var(--yr-color-brand-hover, #697763);
+}
 
 /* 重要連結（取消退款等）加強調 */
-.bk-footer__links a.important { color: var(--yc-on-dark); font-weight: 600; }
-.bk-footer__links a.important:hover { color: #fff; }
+.bk-footer__links a.important {
+  color: var(--yr-color-text, #454941);
+  font-weight: 500;
+}
+
+.bk-footer__links a.important:hover {
+  color: var(--yr-color-brand-hover, #697763);
+}
 
 /* 聯絡資訊 */
 .bk-footer__contact-item {
-  font-size: 0.875rem;
-  color: rgba(255, 253, 249, 0.7);
+  color: var(--yr-color-text-muted, #66645d);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.65;
   margin-bottom: 0.5rem;
-  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
-.bk-footer__contact-item strong { color: var(--yc-on-dark); }
+.bk-footer__contact-item strong {
+  color: var(--yr-color-text, #454941);
+  font-weight: 700;
+}
 
 /* 社群連結 */
-.social {
+.booking-footer .social {
+  align-items: center;
   display: flex;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.booking-footer .social li {
+  margin: 0;
+}
+
+.booking-footer .social a {
+  align-items: center;
+  background: var(--yr-color-surface, #fffdf8);
+  border: 1px solid var(--yr-color-border, #e5dbce);
+  border-radius: 0.875rem;
+  color: var(--yr-color-brand-strong, #7c8b76);
+  display: inline-flex;
+  height: 44px;
   justify-content: center;
-  margin-bottom: 18px;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+  width: 44px;
 }
 
-.social a i {
-  color: var(--yc-on-dark);
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-  padding: 20px;
+.booking-footer .social a:hover,
+.booking-footer .social a:focus-visible {
+  background: var(--yr-color-brand-pale, #e1e9dc);
+  border-color: var(--yr-color-brand-strong, #7c8b76);
+  color: var(--yr-color-brand-hover, #697763);
+  transform: translateY(-1px);
 }
 
-.social a i:hover {
-  color: var(--yc-cta);
+.booking-footer .social a i {
+  color: currentColor;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.booking-footer .social a i:hover {
+  color: currentColor;
 }
 
 .site-footer p {
@@ -2651,55 +2711,174 @@
 /* 分隔線 */
 .bk-footer__divider {
   border: none;
-  border-top: 1px solid rgba(255, 253, 249, 0.15);
-  margin: 0 0 1.5rem;
+  border-top: 1px solid var(--yr-color-border, #e5dbce);
+  margin: 0 0 2.25rem;
 }
 
 /* 版權區塊 */
-.bk-footer__bottom { text-align: center; }
+.bk-footer__bottom {
+  text-align: center;
+}
 
 .bk-footer__copyright {
-  font-size: 0.8rem;
-  color: rgba(255, 253, 249, 0.5);
-  margin-bottom: 0.75rem;
+  color: var(--yr-color-text-muted, #66645d);
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin: 0 0 1.125rem;
 }
 
 /* 政策連結 */
-.bk-footer__policy { margin-bottom: 1rem; }
+.bk-footer__policy {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 0 0 1.625rem;
+}
 
 .bk-footer__policy a {
-  font-size: 0.8rem;
-  color: rgba(255, 253, 249, 0.52);
+  color: var(--yr-color-text-muted, #66645d);
+  font-size: 0.875rem;
+  font-weight: 400;
   text-decoration: none;
-  margin: 0 0.75rem;
   transition: color 0.2s;
 }
 
-.bk-footer__policy a:hover { color: rgba(255, 253, 249, 0.85); }
+.bk-footer__policy a:hover {
+  color: var(--yr-color-brand-hover, #697763);
+}
 
 /* 付款圖示列 */
 .bk-footer__payment {
-  font-size: 0.8rem;
-  color: rgba(255, 253, 249, 0.52);
-  margin-bottom: 0.5rem;
+  color: var(--yr-color-text-muted, #66645d);
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin: 0 0 0.875rem;
 }
 
 .bk-footer__payment-icons {
+  align-items: center;
   display: flex;
-  justify-content: center;
-  gap: 1rem;
   font-size: 1.5rem;
+  gap: 1.25rem;
+  justify-content: center;
+}
+
+.bk-footer__payment-icons i {
+  color: var(--yr-color-brand-strong, #7c8b76);
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.bk-footer__payment-icons i:hover {
+  color: var(--yr-color-brand-hover, #697763);
 }
 
 /* ============================================================
-   23-A. Footer RWD（≤ 768px）
+   23-A. Footer RWD（≤ 1024px）
    ============================================================ */
-@media (max-width: 768px) {
-  .bk-footer__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+@media (max-width: 1024px) {
+  .bk-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-@media (max-width: 480px) {
-  .bk-footer__grid { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+  .booking-footer {
+    padding: 3rem 0 2rem;
+  }
+
+  .bk-footer__inner {
+    width: min(calc(100% - 2rem), 90rem);
+  }
+
+  .bk-footer__grid {
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 2.75rem;
+  }
+}
+
+.yr-booking-theme footer.booking-footer {
+  background: var(--yr-color-bg, #fcf8ef);
+  border-top-color: var(--yr-color-border, #e5dbce);
+  color: var(--yr-color-text-muted, #66645d);
+  font-family: var(--yr-font-family-body, "Noto Sans TC", sans-serif);
+  margin-top: 4rem;
+  padding: 4rem 0 2.25rem;
+}
+
+.yr-booking-theme footer.booking-footer .bk-footer__inner {
+  margin-inline: auto;
+  max-width: none;
+  padding: 0;
+  width: min(calc(100% - 3rem), 90rem);
+}
+
+.yr-booking-theme footer.booking-footer .bk-footer__heading,
+.yr-booking-theme footer.booking-footer .bk-footer__subheading,
+.yr-booking-theme footer.booking-footer .bk-footer__contact-item strong {
+  color: var(--yr-color-text, #454941);
+}
+
+.yr-booking-theme footer.booking-footer .bk-footer__tagline,
+.yr-booking-theme footer.booking-footer .bk-footer__links a,
+.yr-booking-theme footer.booking-footer .bk-footer__contact-item,
+.yr-booking-theme footer.booking-footer .bk-footer__copyright,
+.yr-booking-theme footer.booking-footer .bk-footer__policy a,
+.yr-booking-theme footer.booking-footer .bk-footer__payment {
+  color: var(--yr-color-text-muted, #66645d);
+}
+
+.yr-booking-theme footer.booking-footer .bk-footer__links a:hover,
+.yr-booking-theme footer.booking-footer .bk-footer__links a.important:hover,
+.yr-booking-theme footer.booking-footer .bk-footer__policy a:hover {
+  color: var(--yr-color-brand-hover, #697763);
+}
+
+.yr-booking-theme footer.booking-footer .bk-footer__divider {
+  border-top-color: var(--yr-color-border, #e5dbce);
+}
+
+.yr-booking-theme footer.booking-footer .social a {
+  border-color: var(--yr-color-border, #e5dbce);
+  border-radius: 0.875rem;
+  color: var(--yr-color-brand-strong, #7c8b76);
+  height: 44px;
+  width: 44px;
+}
+
+.yr-booking-theme footer.booking-footer .social a i {
+  font-size: 1.25rem;
+}
+
+.yr-booking-theme footer.booking-footer .social a:hover,
+.yr-booking-theme footer.booking-footer .social a:focus-visible {
+  background: var(--yr-color-brand-pale, #e1e9dc);
+  border-color: var(--yr-color-brand-strong, #7c8b76);
+  color: var(--yr-color-brand-hover, #697763);
+}
+
+.yr-booking-theme footer.booking-footer .bk-footer__payment-icons i {
+  color: var(--yr-color-brand-strong, #7c8b76);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.yr-booking-theme footer.booking-footer .bk-footer__payment-icons i:hover {
+  color: var(--yr-color-brand-hover, #697763);
+}
+
+@media (max-width: 768px) {
+  .yr-booking-theme footer.booking-footer {
+    padding: 3rem 0 2rem;
+  }
+
+  .yr-booking-theme footer.booking-footer .bk-footer__inner {
+    width: min(calc(100% - 2rem), 90rem);
+  }
 }
 
 /* ============================================================

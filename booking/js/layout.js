@@ -149,6 +149,7 @@ function loadBookingLayoutPartial(targetSelector, url, partSelector, callback) {
         partSelector === '[data-layout-part="shared-auth"]'
         || partSelector === '[data-layout-part="shared-booking-cart-panel"]'
         || partSelector === '[data-layout-part="shared-site-cart-panel"]'
+        || partSelector === '[data-layout-part="booking-camp-preference"]'
       ) {
         target.insertAdjacentHTML('beforeend', content);
       } else {
@@ -226,7 +227,14 @@ function loadBookingHeader() {
       if (target.dataset.sharedAuthLoaded === 'true') return true;
       return loadBookingLayoutPartial(targetInfo.selector, '../../components/header.partial', '[data-layout-part="shared-auth"]')
         .then(function (authOk) {
-          if (authOk) target.dataset.sharedAuthLoaded = 'true';
+          if (authOk) {
+            target.dataset.sharedAuthLoaded = 'true';
+            // Booking must not reuse the shop personalization questionnaire DOM.
+            var shopSurvey = target.querySelector('#personalizationModal');
+            var shopSurveyConfirm = target.querySelector('#surveyCloseConfirmModal');
+            if (shopSurvey) shopSurvey.remove();
+            if (shopSurveyConfirm) shopSurveyConfirm.remove();
+          }
           return authOk;
         });
     })
@@ -238,6 +246,18 @@ function loadBookingHeader() {
         targetInfo.selector,
         '../../components/header.partial',
         '[data-layout-part="shared-booking-cart-panel"]'
+      );
+    })
+    .then(function (ok) {
+      if (!ok) return false;
+      var path = window.location.pathname || '';
+      if (path.indexOf('/booking/pages/booking-cart') !== -1) return true;
+      if (path.indexOf('/booking/pages/booking-checkout') !== -1) return true;
+      if (document.getElementById('campPreferenceModal')) return true;
+      return loadBookingLayoutPartial(
+        'body',
+        '../components/camp-preference.partial',
+        '[data-layout-part="booking-camp-preference"]'
       );
     })
     .then(function (ok) { return !!ok; });

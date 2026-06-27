@@ -265,50 +265,50 @@
   </div>
 
   <!-- 主站與 booking 共用個人化問卷 Modal。 -->
-  <div id="personalizationModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="personalizationTitle">
-    <div class="modal-content modal-content--survey">
-      <div class="modal-header">
-        <h5 class="modal-title" id="personalizationTitle">告訴我們你的露營偏好</h5>
-        <button class="modal-close" type="button" title="跳過"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+  <div id="personalizationModal" class="modal yr-preference-modal" role="dialog" aria-modal="true" aria-labelledby="personalizationTitle">
+    <div class="modal-content modal-content--survey yr-preference-modal__dialog">
+      <div class="modal-header yr-preference-modal__header">
+        <h5 class="modal-title yr-preference-modal__title" id="personalizationTitle">告訴我們你的露營偏好</h5>
+        <button class="modal-close yr-preference-modal__close" type="button" title="跳過"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
       </div>
-      <div class="modal-body">
-        <div class="stepper-header">
-          <div class="stepper-dot active" data-dot="1">1</div>
-          <div class="stepper-line"></div>
-          <div class="stepper-dot" data-dot="2">2</div>
-          <span class="stepper-text">1 / 2</span>
+      <div class="modal-body yr-preference-modal__body">
+        <div class="stepper-header yr-preference-stepper">
+          <div class="stepper-dot yr-preference-stepper__dot active" data-dot="1">1</div>
+          <div class="stepper-line yr-preference-stepper__line"></div>
+          <div class="stepper-dot yr-preference-stepper__dot" data-dot="2">2</div>
+          <span class="stepper-text yr-preference-stepper__text">1 / 2</span>
         </div>
-        <div class="survey-step active" data-step="1">
-          <p class="survey-question">你喜歡哪種露營風格？</p>
-          <p class="survey-hint">至少選擇 2 個，讓推薦更貼近你的玩法。</p>
-          <div class="survey-tags">
-            <span class="survey-tag" data-value="glamping">豪華露營 Glamping</span>
-            <span class="survey-tag" data-value="backpacking">輕量背包客</span>
-            <span class="survey-tag" data-value="family">親子家庭</span>
-            <span class="survey-tag" data-value="solo">獨行俠</span>
-            <span class="survey-tag" data-value="hiking">登山健行</span>
-            <span class="survey-tag" data-value="car-camping">車頂帳</span>
-            <span class="survey-tag" data-value="ultralight">極輕量</span>
-            <span class="survey-tag" data-value="base-camp">基地營</span>
+        <div class="survey-step yr-preference-step active" data-step="1">
+          <p class="survey-question yr-preference-question">你喜歡哪種露營風格？</p>
+          <p class="survey-hint yr-preference-hint">至少選擇 2 個，讓推薦更貼近你的玩法。</p>
+          <div class="survey-tags yr-preference-options">
+            <span class="survey-tag yr-preference-option" data-value="glamping">豪華露營 Glamping</span>
+            <span class="survey-tag yr-preference-option" data-value="backpacking">輕量背包客</span>
+            <span class="survey-tag yr-preference-option" data-value="family">親子家庭</span>
+            <span class="survey-tag yr-preference-option" data-value="solo">獨行俠</span>
+            <span class="survey-tag yr-preference-option" data-value="hiking">登山健行</span>
+            <span class="survey-tag yr-preference-option" data-value="car-camping">車頂帳</span>
+            <span class="survey-tag yr-preference-option" data-value="ultralight">極輕量</span>
+            <span class="survey-tag yr-preference-option" data-value="base-camp">基地營</span>
           </div>
-          <button id="surveyNextBtn" class="btn btn-primary btn-block" type="button">下一步</button>
+          <button id="surveyNextBtn" class="btn btn-primary btn-block yr-btn--primary" type="button">下一步</button>
         </div>
-        <div class="survey-step" data-step="2">
-          <p class="survey-question">你最想添購哪類裝備？</p>
-          <p class="survey-hint">至少選擇 2 個，之後會同步到會員中心偏好。</p>
-          <div class="survey-tags">
-            <span class="survey-tag" data-value="tent">帳篷</span>
-            <span class="survey-tag" data-value="sleeping-bag">睡袋</span>
-            <span class="survey-tag" data-value="backpack">登山背包</span>
-            <span class="survey-tag" data-value="cooking">炊具</span>
-            <span class="survey-tag" data-value="lighting">照明設備</span>
-            <span class="survey-tag" data-value="clothing">戶外服飾</span>
-            <span class="survey-tag" data-value="chair">桌椅</span>
-            <span class="survey-tag" data-value="navigation">導航裝備</span>
-            <span class="survey-tag" data-value="safety">安全急救</span>
-            <span class="survey-tag" data-value="photography">攝影器材</span>
+        <div class="survey-step yr-preference-step" data-step="2">
+          <p class="survey-question yr-preference-question">你最想添購哪類裝備？</p>
+          <p class="survey-hint yr-preference-hint">至少選擇 2 個，之後會同步到會員中心偏好。</p>
+          <div class="survey-tags yr-preference-options">
+            <span class="survey-tag yr-preference-option" data-value="tent">帳篷</span>
+            <span class="survey-tag yr-preference-option" data-value="sleeping-bag">睡袋</span>
+            <span class="survey-tag yr-preference-option" data-value="backpack">登山背包</span>
+            <span class="survey-tag yr-preference-option" data-value="cooking">炊具</span>
+            <span class="survey-tag yr-preference-option" data-value="lighting">照明設備</span>
+            <span class="survey-tag yr-preference-option" data-value="clothing">戶外服飾</span>
+            <span class="survey-tag yr-preference-option" data-value="chair">桌椅</span>
+            <span class="survey-tag yr-preference-option" data-value="navigation">導航裝備</span>
+            <span class="survey-tag yr-preference-option" data-value="safety">安全急救</span>
+            <span class="survey-tag yr-preference-option" data-value="photography">攝影器材</span>
           </div>
-          <button id="surveyFinishBtn" class="btn btn-primary btn-block" type="button">完成設定</button>
+          <button id="surveyFinishBtn" class="btn btn-primary btn-block yr-btn--primary" type="button">完成設定</button>
         </div>
       </div>
     </div>

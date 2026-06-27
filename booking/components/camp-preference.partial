@@ -1,0 +1,67 @@
+<div data-layout-part="booking-camp-preference">
+  <div id="campPreferenceModal" class="modal yr-preference-modal" role="dialog" aria-modal="true" aria-labelledby="campPreferenceTitle" aria-hidden="true" hidden>
+    <div class="modal-content yr-preference-modal__dialog">
+      <div class="modal-header yr-preference-modal__header">
+        <h5 class="modal-title yr-preference-modal__title" id="campPreferenceTitle">告訴我們你的露營偏好</h5>
+        <button class="modal-close yr-preference-modal__close" type="button" title="關閉" aria-label="關閉">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="modal-body yr-preference-modal__body">
+        <div class="stepper-header yr-preference-stepper">
+          <div class="stepper-dot yr-preference-stepper__dot active" data-dot="1">1</div>
+          <div class="stepper-line yr-preference-stepper__line"></div>
+          <div class="stepper-dot yr-preference-stepper__dot" data-dot="2">2</div>
+          <span class="stepper-text yr-preference-stepper__text">1 / 2</span>
+        </div>
+        <div class="survey-step yr-preference-step active" data-step="1">
+          <p class="survey-question yr-preference-question">你喜歡哪種露營風格？</p>
+          <p class="survey-hint yr-preference-hint">至少選擇 2 個，讓營區推薦更貼近你的旅行方式。</p>
+          <div class="survey-tags yr-preference-options">
+            <span class="survey-tag yr-preference-option" data-value="glamping">豪華露營</span>
+            <span class="survey-tag yr-preference-option" data-value="backpacking">輕量背包客</span>
+            <span class="survey-tag yr-preference-option" data-value="family">親子家庭</span>
+            <span class="survey-tag yr-preference-option" data-value="solo">獨行露營</span>
+            <span class="survey-tag yr-preference-option" data-value="hiking">登山健行</span>
+            <span class="survey-tag yr-preference-option" data-value="car-camping">車頂帳</span>
+            <span class="survey-tag yr-preference-option" data-value="base-camp">基地營</span>
+          </div>
+          <button id="campSurveyNextBtn" class="btn btn-primary btn-block yr-btn--primary" type="button">下一步</button>
+        </div>
+        <div class="survey-step yr-preference-step" data-step="2">
+          <p class="survey-question yr-preference-question">你偏好的營地環境是？</p>
+          <p class="survey-hint yr-preference-hint">至少選擇 2 個，後續會優先展示相關營區。</p>
+          <div class="survey-tags yr-preference-options">
+            <span class="survey-tag yr-preference-option" data-value="forest">森林系</span>
+            <span class="survey-tag yr-preference-option" data-value="mountain-view">山景視野</span>
+            <span class="survey-tag yr-preference-option" data-value="streamside">溪流水岸</span>
+            <span class="survey-tag yr-preference-option" data-value="lakeside">湖畔景色</span>
+            <span class="survey-tag yr-preference-option" data-value="stargazing">觀星夜景</span>
+            <span class="survey-tag yr-preference-option" data-value="family-friendly">親子友善</span>
+            <span class="survey-tag yr-preference-option" data-value="pet-friendly">寵物友善</span>
+            <span class="survey-tag yr-preference-option" data-value="quiet">安靜放鬆</span>
+          </div>
+          <button id="campSurveyFinishBtn" class="btn btn-primary btn-block yr-btn--primary" type="button">完成設定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="campPreferenceCloseConfirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="campPreferenceCloseConfirmTitle" aria-hidden="true" hidden>
+    <div class="modal-content modal-content--confirm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="campPreferenceCloseConfirmTitle">露營偏好尚未完成</h5>
+        <button class="modal-close" type="button" title="關閉" aria-label="關閉">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-confirm-message">你還沒完成露營偏好設定，確定要先關閉嗎？</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--outline" type="button" data-camp-survey-close-cancel>繼續填寫</button>
+        <button class="btn btn-primary" type="button" data-camp-survey-close-confirm>稍後再填</button>
+      </div>
+    </div>
+  </div>
+</div>

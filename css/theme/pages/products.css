@@ -117,6 +117,115 @@
   color: var(--yr-theme-brand-strong);
 }
 
+.yr-products-page .yr-page-banner {
+  padding: 2rem 0 1.75rem;
+  margin-bottom: 1.5rem;
+  background:
+    linear-gradient(
+      180deg,
+      #fcfaf4 0%,
+      #fbf8ef 74%,
+      rgba(225, 233, 220, 0.24) 100%
+    );
+  border-bottom: 1px solid rgba(229, 219, 206, 0.45);
+}
+
+.yr-products-page .yr-page-banner .container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #66645d;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb-item a {
+  color: #7c8b76;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb-item.active {
+  color: #454941;
+  font-weight: 600;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb-sep {
+  color: rgba(102, 100, 93, 0.48);
+}
+
+.yr-products-page .yr-page-banner-title {
+  display: inline-block;
+  color: #697763;
+  font-family: var(--yr-font-family-heading);
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.55rem;
+}
+
+.yr-products-page .yr-page-banner-title::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: 0.75rem;
+  background: #c7d4c1;
+  border-radius: 999px;
+}
+
+.yr-products-page .yr-page-banner-sub {
+  max-width: 36rem;
+  margin: 0;
+  color: #66645d;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.yr-products-page .page-banner + .ad-carousel-container {
+  margin-top: 0.85rem;
+}
+
+@media (max-width: 1024px) {
+  .yr-products-page .yr-page-banner {
+    padding: 1.8rem 0 1.55rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-products-page .yr-page-banner {
+    padding: 1.65rem 0 1.4rem;
+  }
+
+  .yr-products-page .yr-page-banner-sub {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .yr-products-page .yr-page-banner {
+    padding: 1.4rem 0 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .yr-products-page .yr-page-banner-title {
+    font-size: 2rem;
+  }
+
+  .yr-products-page .yr-page-banner-sub {
+    font-size: 0.95rem;
+  }
+
+  .yr-products-page .yr-page-banner .breadcrumb {
+    margin-bottom: 0.4rem;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+}
+
 
 @media (max-width: 1024px) {
   .yr-theme .ad-carousel-slide {

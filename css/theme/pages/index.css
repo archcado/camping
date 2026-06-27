@@ -1,0 +1,522 @@
+/* ============================================================
+   index.css — 根目錄 index.html 品牌視覺統一
+   Scope: .yr-index-page（body 上的 class）
+   所有規則必須以 .yr-index-page 開頭，不影響其他頁面。
+   ============================================================ */
+
+/* ---- 頁面基礎 ---- */
+.yr-index-page {
+  min-height: 100vh;
+  background: var(--yr-color-bg, #fcf8ef);
+  color: var(--yr-color-text, #30372f);
+}
+
+.yr-index-page h1,
+.yr-index-page h2,
+.yr-index-page h3,
+.yr-index-page h4,
+.yr-index-page h5,
+.yr-index-page h6 {
+  color: var(--yr-color-text, #30372f);
+}
+
+/* ---- Navbar ---- */
+.yr-index-page .navbar {
+  background: var(--yr-color-surface, #fffefa);
+  border-bottom: 1px solid var(--yr-color-border, #e5d8c7);
+  box-shadow: 0 1px 6px rgba(63, 70, 61, 0.06);
+}
+
+.yr-index-page .navbar-brand {
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+.yr-index-page .navbar-brand a {
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+.yr-index-page .navbar-items a {
+  color: var(--yr-color-text, #30372f);
+}
+
+.yr-index-page .navbar-items a:hover {
+  color: var(--yr-color-brand-strong, #607657);
+  background: var(--yr-color-brand-pale, #edf3e9);
+  border-radius: 6px;
+}
+
+.yr-index-page .navbar-login-btn {
+  background: var(--yr-color-brand-strong, #607657);
+  border: 1px solid var(--yr-color-brand-strong, #607657);
+  color: var(--yr-theme-on-brand, #fffefa);
+  border-radius: 0.625rem;
+}
+
+.yr-index-page .navbar-login-btn:hover {
+  background: var(--yr-color-brand-hover, #506648);
+  border-color: var(--yr-color-brand-hover, #506648);
+}
+
+.yr-index-page .navbar-cart-btn {
+  color: var(--yr-color-text-muted, #5d6259);
+}
+
+.yr-index-page .navbar-hamburger {
+  background: transparent;
+  border: 1px solid var(--yr-color-border, #e5d8c7);
+  border-radius: 6px;
+  color: var(--yr-color-text-muted, #5d6259);
+}
+
+.yr-index-page .navbar-search-input {
+  background: var(--yr-color-surface, #fffefa);
+  border-color: var(--yr-color-border, #e5d8c7);
+  color: var(--yr-color-text, #30372f);
+  border-radius: 8px;
+}
+
+.yr-index-page .navbar-search-input:focus {
+  border-color: var(--yr-color-brand-soft, #d5e2cf);
+  box-shadow: 0 0 0 3px var(--yr-color-focus-ring, rgba(143, 167, 132, 0.38));
+}
+
+.yr-index-page .navbar-search-btn {
+  color: var(--yr-color-text-muted, #5d6259);
+}
+
+.yr-index-page .navbar-search-btn:hover {
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+/* ---- Offcanvas ---- */
+.yr-index-page .navbar-offcanvas,
+.yr-index-page .offcanvas {
+  background: var(--yr-color-surface, #fffefa);
+  border-left: 1px solid var(--yr-color-border, #e5d8c7);
+  box-shadow: -8px 0 24px rgba(63, 70, 61, 0.1);
+}
+
+.yr-index-page .offcanvas-backdrop {
+  background: rgba(48, 55, 47, 0.42);
+}
+
+.yr-index-page .offcanvas-header {
+  border-bottom: 1px solid var(--yr-color-border, #e5d8c7);
+  background: var(--yr-color-surface, #fffefa);
+}
+
+.yr-index-page .yr-index-offcanvas-brand {
+  color: var(--yr-color-brand-strong, #607657) !important;
+}
+
+.yr-index-page .offcanvas-close {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--yr-color-text-muted, #5d6259);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.yr-index-page .offcanvas-close:hover {
+  border-color: var(--yr-color-border, #e5d8c7);
+  background: var(--yr-color-brand-pale, #edf3e9);
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+.yr-index-page .offcanvas-body .navbar-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.yr-index-page .offcanvas-body .navbar-items li {
+  border-bottom: 1px solid var(--yr-color-border, #e5d8c7);
+}
+
+.yr-index-page .offcanvas-body .navbar-items a {
+  display: block;
+  padding: 0.875rem 0.5rem;
+  color: var(--yr-color-text, #30372f);
+  font-weight: 600;
+  border-radius: 0;
+}
+
+.yr-index-page .offcanvas-body .navbar-items a:hover {
+  color: var(--yr-color-brand-strong, #607657);
+  background: var(--yr-color-brand-pale, #edf3e9);
+  border-radius: 8px;
+}
+
+/* ---- 主內容 Hero 區 ---- */
+.yr-index-page .yr-index-hero__wrap {
+  padding: 5rem 1.25rem;
+  text-align: center;
+  background: linear-gradient(
+    160deg,
+    var(--yr-color-surface, #fffefa) 0%,
+    var(--yr-color-surface-muted, #f7f0e5) 100%
+  );
+}
+
+.yr-index-page .yr-index-hero__title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--yr-color-text, #30372f);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.yr-index-page .yr-index-hero__desc {
+  font-size: 1.25rem;
+  color: var(--yr-color-text-muted, #5d6259);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.yr-index-page .yr-index-hero__cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---- Buttons（限 index.html 主内容範圍）---- */
+.yr-index-page .yr-index-hero__wrap .btn-primary {
+  background: var(--yr-color-brand-strong, #607657);
+  border-color: var(--yr-color-brand-strong, #607657);
+  color: var(--yr-theme-on-brand, #fffefa);
+  border-radius: 0.75rem;
+  box-shadow: none;
+}
+
+.yr-index-page .yr-index-hero__wrap .btn-primary:hover {
+  background: var(--yr-color-brand-hover, #506648);
+  border-color: var(--yr-color-brand-hover, #506648);
+  color: var(--yr-theme-on-brand, #fffefa);
+}
+
+.yr-index-page .yr-index-hero__wrap .btn-outline {
+  background: var(--yr-color-surface, #fffefa);
+  color: var(--yr-color-brand-strong, #607657);
+  border-color: var(--yr-color-brand-soft, #d5e2cf);
+  border-radius: 0.75rem;
+}
+
+.yr-index-page .yr-index-hero__wrap .btn-outline:hover {
+  background: var(--yr-color-brand-pale, #edf3e9);
+  color: var(--yr-color-brand-hover, #506648);
+  border-color: var(--yr-color-brand-strong, #607657);
+}
+
+/* ---- Modal 遮罩與卡片 ---- */
+.yr-index-page .modal {
+  background: rgba(48, 55, 47, 0.42);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.yr-index-page #loginModal .modal-content,
+.yr-index-page #personalizationModal .modal-content {
+  border: 1px solid var(--yr-color-border, #e5d8c7);
+  border-radius: 1.5rem;
+  background: var(--yr-color-surface, #fffefa);
+  color: var(--yr-color-text, #30372f);
+  box-shadow: 0 20px 52px rgba(48, 55, 47, 0.16);
+}
+
+/* loginModal 是側邊抽屜，保留圓角只在左側 */
+.yr-index-page #loginModal .modal-content {
+  border-radius: 0;
+  border-left: 1px solid var(--yr-color-border, #e5d8c7);
+}
+
+.yr-index-page .modal-header {
+  background: var(--yr-color-surface, #fffefa);
+  border-bottom: 1px solid var(--yr-color-border, #e5d8c7);
+}
+
+.yr-index-page .modal-title {
+  color: var(--yr-color-text, #30372f);
+}
+
+.yr-index-page .modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--yr-color-text-muted, #5d6259);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.yr-index-page .modal-close:hover {
+  border-color: var(--yr-color-border, #e5d8c7);
+  background: var(--yr-color-brand-pale, #edf3e9);
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+.yr-index-page .modal-body {
+  background: var(--yr-color-surface, #fffefa);
+}
+
+/* ---- Modal Tab ---- */
+.yr-index-page .modal-tabs {
+  border-bottom: 2px solid var(--yr-color-border, #e5d8c7);
+}
+
+.yr-index-page .modal-tab-btn {
+  color: var(--yr-color-text-subtle, #79756d);
+}
+
+.yr-index-page .modal-tab-btn::after {
+  background: var(--yr-color-brand-strong, #607657);
+}
+
+.yr-index-page .modal-tab-btn.active {
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+/* ---- Form Inputs (Modal) ---- */
+.yr-index-page .modal-body input[type='text'],
+.yr-index-page .modal-body input[type='email'],
+.yr-index-page .modal-body input[type='password'] {
+  background: var(--yr-color-surface, #fffefa);
+  border-color: var(--yr-color-border, #e5d8c7);
+  color: var(--yr-color-text, #30372f);
+  border-radius: 0.625rem;
+}
+
+.yr-index-page .modal-body input[type='text']:focus,
+.yr-index-page .modal-body input[type='email']:focus,
+.yr-index-page .modal-body input[type='password']:focus {
+  border-color: var(--yr-color-brand-soft, #d5e2cf);
+  box-shadow: 0 0 0 3px var(--yr-color-focus-ring, rgba(143, 167, 132, 0.38));
+}
+
+/* ---- Modal Buttons ---- */
+.yr-index-page .modal-body .btn-primary {
+  background: var(--yr-color-brand-strong, #607657);
+  border-color: var(--yr-color-brand-strong, #607657);
+  color: var(--yr-theme-on-brand, #fffefa);
+  border-radius: 0.75rem;
+  box-shadow: none;
+}
+
+.yr-index-page .modal-body .btn-primary:hover {
+  background: var(--yr-color-brand-hover, #506648);
+  border-color: var(--yr-color-brand-hover, #506648);
+  color: var(--yr-theme-on-brand, #fffefa);
+}
+
+/* ---- OR 分隔線 ---- */
+.yr-index-page .divider-or {
+  color: var(--yr-color-text-subtle, #79756d);
+}
+
+.yr-index-page .divider-or::before,
+.yr-index-page .divider-or::after {
+  background: var(--yr-color-border, #e5d8c7);
+}
+
+/* ---- 社群登入按鈕 ---- */
+.yr-index-page .btn-google-login {
+  background: var(--yr-color-surface, #fffefa);
+  border-color: var(--yr-color-border, #e5d8c7);
+  color: var(--yr-color-text, #30372f);
+  border-radius: 0.75rem;
+}
+
+.yr-index-page .btn-google-login:hover {
+  background: var(--yr-color-surface-muted, #f7f0e5);
+  box-shadow: 0 2px 8px rgba(63, 70, 61, 0.08);
+}
+
+.yr-index-page .btn-line-login {
+  background: var(--yr-color-brand-strong, #607657);
+  border: 1px solid var(--yr-color-brand-strong, #607657);
+  color: var(--yr-theme-on-brand, #fffefa);
+  border-radius: 0.75rem;
+}
+
+.yr-index-page .btn-line-login:hover {
+  background: var(--yr-color-brand-hover, #506648);
+  border-color: var(--yr-color-brand-hover, #506648);
+}
+
+/* ---- 個人化問卷 Modal ---- */
+.yr-index-page #personalizationModal {
+  background: rgba(48, 55, 47, 0.42);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.yr-index-page #personalizationModal .modal-content {
+  width: min(32rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+.yr-index-page #personalizationModal .modal-header {
+  padding: 1.5rem 1.5rem 1.25rem;
+}
+
+.yr-index-page #personalizationModal .modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.yr-index-page #personalizationModal .stepper-dot {
+  border: 1px solid var(--yr-color-border, #e5d8c7);
+  background: var(--yr-color-surface-muted, #f7f0e5);
+  color: var(--yr-color-text-subtle, #79756d);
+}
+
+.yr-index-page #personalizationModal .stepper-dot.active {
+  border-color: var(--yr-color-brand-strong, #607657);
+  background: var(--yr-color-brand-strong, #607657);
+  color: var(--yr-theme-on-brand, #fffefa);
+}
+
+.yr-index-page #personalizationModal .stepper-line {
+  background: var(--yr-color-border, #e5d8c7);
+}
+
+.yr-index-page #personalizationModal .stepper-text {
+  color: var(--yr-color-text-subtle, #79756d);
+}
+
+.yr-index-page #personalizationModal .survey-question {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--yr-color-brand-hover, #506648);
+}
+
+.yr-index-page #personalizationModal .survey-hint {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  color: var(--yr-color-text-muted, #5d6259);
+}
+
+.yr-index-page #personalizationModal .survey-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-bottom: 1.5rem;
+  overflow: visible;
+}
+
+.yr-index-page #personalizationModal .survey-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--yr-color-border, #e5d8c7);
+  border-radius: 999px;
+  background: var(--yr-color-surface, #fffefa);
+  color: var(--yr-color-text-muted, #5d6259);
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.yr-index-page #personalizationModal .survey-tag:hover {
+  border-color: var(--yr-color-brand-soft, #d5e2cf);
+  background: var(--yr-color-brand-pale, #edf3e9);
+  color: var(--yr-color-brand-hover, #506648);
+}
+
+.yr-index-page #personalizationModal .survey-tag.active {
+  border-color: var(--yr-color-brand-strong, #607657);
+  background: var(--yr-color-brand-pale, #edf3e9);
+  color: var(--yr-color-brand-hover, #506648);
+  font-weight: 600;
+}
+
+/* ---- Footer ---- */
+.yr-index-page .footer {
+  background: var(--yr-color-surface-muted, #f7f0e5);
+  border-top: 1px solid var(--yr-color-border, #e5d8c7);
+  margin-top: 0;
+}
+
+.yr-index-page .footer h5,
+.yr-index-page .footer h6 {
+  color: var(--yr-color-text, #30372f);
+}
+
+.yr-index-page .footer p,
+.yr-index-page .footer .text-muted {
+  color: var(--yr-color-text-muted, #5d6259);
+}
+
+.yr-index-page .footer a {
+  color: var(--yr-color-text-muted, #5d6259);
+}
+
+.yr-index-page .footer a:hover {
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+.yr-index-page .footer hr {
+  border-color: var(--yr-color-border, #e5d8c7);
+  opacity: 1;
+}
+
+.yr-index-page .footer .social-links a {
+  color: var(--yr-color-text-muted, #5d6259);
+  font-weight: 600;
+}
+
+.yr-index-page .footer .social-links a:hover {
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+.yr-index-page .footer .yr-index-footer-link {
+  color: var(--yr-color-text-subtle, #79756d);
+}
+
+.yr-index-page .footer .yr-index-footer-link:hover {
+  color: var(--yr-color-brand-strong, #607657);
+}
+
+/* ---- RWD ---- */
+@media (max-width: 480px) {
+  .yr-index-page .yr-index-hero__wrap {
+    padding: 3.5rem 1rem;
+  }
+
+  .yr-index-page .yr-index-hero__title {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+
+  .yr-index-page .yr-index-hero__cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .yr-index-page .yr-index-hero__cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .yr-index-page #personalizationModal .modal-content {
+    width: calc(100% - 1.5rem);
+    border-radius: 1.25rem;
+  }
+}

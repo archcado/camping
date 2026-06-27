@@ -7,17 +7,21 @@
     <meta name="keywords" content="露營, 戶外, 登山, 帳篷, 背包" />
     <title>Yuruicamp - 露營選物品牌</title>
 
-    <meta name="theme-color" content="#244d4d" />
+    <meta name="theme-color" content="#607657" />
     <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
     <link rel="preconnect" href="https://picsum.photos" />
     <link rel="dns-prefetch" href="https://picsum.photos" />
     <!-- 樣式表 -->
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/theme/theme-tokens.css" />
+    <link rel="stylesheet" href="css/theme/theme-base.css" />
+    <link rel="stylesheet" href="css/theme/theme-layout.css" />
+    <link rel="stylesheet" href="css/theme/pages/index.css" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="./assets/icons/yuruicamp-favicon.svg" />
   </head>
-  <body>
+  <body class="yr-theme yr-index-page">
     <!-- =============================================
        導航欄（Navbar）- 步驟 3.1
        PC 版：左 Logo | 中 搜尋框 | 右 購物車+登入
@@ -97,7 +101,7 @@
        ============================================= -->
     <div class="navbar-offcanvas">
       <div class="offcanvas-header">
-        <span style="font-size: 1.1rem; font-weight: 700; color: #244d4d">🏕️ Yuruicamp</span>
+        <span class="yr-index-offcanvas-brand">🏕️ Yuruicamp</span>
         <button class="offcanvas-close" title="關閉">✕</button>
       </div>
       <div class="offcanvas-body">
@@ -367,10 +371,10 @@
        ============================================= -->
     <main id="main-content">
       <!-- 首頁歡迎訊息（示範用，實際頁面由各 pages/*.html 提供） -->
-      <div class="container" style="padding: 4rem 1.25rem; text-align: center">
-        <h1 style="color: #244d4d; margin-bottom: 1rem">🏕️ Yuruicamp</h1>
-        <p style="font-size: 1.25rem; color: #666; margin-bottom: 2rem">探索戶外，從這裡開始</p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap">
+      <div class="container yr-index-hero__wrap">
+        <h1 class="yr-index-hero__title">🏕️ Yuruicamp</h1>
+        <p class="yr-index-hero__desc">探索戶外，從這裡開始</p>
+        <div class="yr-index-hero__cta">
           <a href="pages/home.html" class="btn btn-primary btn-lg">進入首頁</a>
           <a href="pages/products.html" class="btn btn-outline btn-lg">瀏覽商品</a>
         </div>
@@ -413,13 +417,9 @@
             <h6>關注我們</h6>
             <p class="text-sm mb-md">追蹤最新資訊與優惠活動</p>
             <div class="social-links">
-              <a href="https://facebook.com" target="_blank" rel="noopener" style="color: #1877f2"
-                >Facebook</a
-              >
-              <a href="https://instagram.com" target="_blank" rel="noopener" style="color: #e1306c"
-                >Instagram</a
-              >
-              <a href="https://line.me" target="_blank" rel="noopener" style="color: #00b900">LINE</a>
+              <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://line.me" target="_blank" rel="noopener">LINE</a>
             </div>
           </div>
         </div>
@@ -429,9 +429,9 @@
         <div class="text-center text-sm text-muted">
           <p style="margin-bottom: 0.5rem">&copy; 2026 Yuruicamp 露營選物品牌. 版權所有。</p>
           <div>
-            <a href="#" style="color: #999; margin: 0 0.5rem">隱私政策</a>
-            <a href="#" style="color: #999; margin: 0 0.5rem">使用條款</a>
-            <a href="#" style="color: #999; margin: 0 0.5rem">退換貨政策</a>
+            <a href="#" class="yr-index-footer-link" style="margin: 0 0.5rem">隱私政策</a>
+            <a href="#" class="yr-index-footer-link" style="margin: 0 0.5rem">使用條款</a>
+            <a href="#" class="yr-index-footer-link" style="margin: 0 0.5rem">退換貨政策</a>
           </div>
         </div>
 

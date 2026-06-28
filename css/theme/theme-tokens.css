@@ -28,6 +28,9 @@
   --yr-color-text-subtle: #79756d;
   --yr-color-border: #e5d8c7;
   --yr-color-price: #5d7555;
+  --yr-color-rating: #d2b36f;
+  --yr-color-rating-soft: #dcc9a4;
+  --yr-color-rating-empty: #ddd7ca;
   --yr-theme-bg: var(--yr-color-bg);
   --yr-theme-surface: var(--yr-color-surface);
   --yr-theme-surface-warm: var(--yr-color-surface);

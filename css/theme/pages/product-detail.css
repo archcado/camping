@@ -92,11 +92,28 @@
 }
 
 .yr-product-detail-page #productRatingNum {
-  color: #4f584b !important;
+  color: var(--yr-color-text) !important;
 }
 
 .yr-product-detail-page #productReviewCount {
-  color: #8b867c !important;
+  color: var(--yr-color-text-muted) !important;
+}
+
+.yr-product-detail-page #productStars {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: initial;
+}
+
+.yr-product-detail-page #productStars .bi-star-fill,
+.yr-product-detail-page #productStars .bi-star-half {
+  color: var(--yr-color-rating);
+}
+
+.yr-product-detail-page #productStars .bi-star,
+.yr-product-detail-page #productStars .star.empty {
+  color: var(--yr-color-rating-empty);
 }
 
 .yr-product-detail-page .yr-pd-price-card {
@@ -169,26 +186,44 @@
 }
 
 .yr-product-detail-page .yr-pd-shipping {
-  background: #f6f3ea !important;
-  border: 1px solid #ddd1c2 !important;
+  background: color-mix(
+    in srgb,
+    var(--yr-color-surface-muted) 15%,
+    var(--yr-color-surface) 85%
+  ) !important;
+  border: 1px solid var(--yr-color-border) !important;
   border-radius: 12px !important;
 }
 
+.yr-product-detail-page .yr-pd-shipping > div:first-child > span:first-child {
+  color: var(--yr-color-brand-strong) !important;
+}
+
 .yr-product-detail-page .yr-pd-shipping .bi {
-  color: #74846f;
+  color: var(--yr-color-brand-strong);
   margin-right: 0.2rem;
 }
 
 .yr-product-detail-page #shippingProgressBar {
-  background: linear-gradient(90deg, #74846f, #62715e) !important;
+  background: var(--yr-color-brand) !important;
+  min-width: 0;
+  transition: width 240ms ease !important;
+}
+
+.yr-product-detail-page .yr-pd-shipping .shipping-progress-track {
+  background: var(--yr-color-brand-pale) !important;
 }
 
 .yr-product-detail-page #shippingProgressText {
-  color: #62715e !important;
+  color: var(--yr-color-text-muted) !important;
 }
 
 .yr-product-detail-page #shippingProgressHint {
-  color: #746f67 !important;
+  color: var(--yr-color-text-muted) !important;
+}
+
+.yr-product-detail-page .yr-pd-shipping.is-qualified #shippingProgressBar {
+  background: var(--yr-color-success) !important;
 }
 
 .yr-product-detail-page .yr-pd-actions #addToCartBtn,
@@ -298,6 +333,15 @@
 
 .yr-product-detail-page .review-images img {
   border-color: #e2d8ca !important;
+}
+
+.yr-product-detail-page .product-tab-panel[data-panel="reviews"] .review-card .yr-rating-stars .bi-star-fill,
+.yr-product-detail-page .product-tab-panel[data-panel="reviews"] .review-card .yr-rating-stars .bi-star-half {
+  color: var(--yr-color-rating-soft);
+}
+
+.yr-product-detail-page .product-tab-panel[data-panel="reviews"] .review-card .yr-rating-stars .bi-star {
+  color: var(--yr-color-rating-empty);
 }
 
 @media (max-width: 1024px) {

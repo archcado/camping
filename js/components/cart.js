@@ -105,6 +105,21 @@ function _updateCartDrawerSummary() {
 }
 
 /**
+ * 廣播購物車更新事件，供其他頁面元件同步使用。
+ */
+function _emitCartUpdated() {
+  const subtotal = window.calculateCartTotal(window.AppState.cart);
+  const threshold = Number(window.AppConfig?.CART?.FREE_SHIPPING_THRESHOLD) || 0;
+  window.dispatchEvent(new CustomEvent('yurui:cart-updated', {
+    detail: {
+      subtotal,
+      threshold,
+      cartSize: window.AppState.cart.length,
+    },
+  }));
+}
+
+/**
  * Renders the shared cart drawer body from AppState.cart.
  */
 window.renderCartDrawer = () => {
@@ -170,6 +185,7 @@ window.addToCart = (product, quantity = 1) => {
   window.saveAppState();
   window.updateCartBadge();
   window.renderCartDrawer();
+  _emitCartUpdated();
   window.showToast(`已加入購物車`, 'success');
 };
 
@@ -182,6 +198,7 @@ window.removeFromCart = (productId) => {
   window.saveAppState();
   window.updateCartBadge();
   window.renderCartDrawer();
+  _emitCartUpdated();
   window.showToast('已從購物車移除', 'info');
 };
 
@@ -201,6 +218,7 @@ window.updateCartQuantity = (productId, quantity) => {
       window.saveAppState();
       window.updateCartBadge();
       window.renderCartDrawer();
+      _emitCartUpdated();
     }
   }
 };
@@ -213,6 +231,7 @@ window.clearCart = () => {
   window.saveAppState();
   window.updateCartBadge();
   window.renderCartDrawer();
+  _emitCartUpdated();
 };
 
 /**

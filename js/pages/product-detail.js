@@ -63,6 +63,7 @@ window.initProductDetailPage = async () => {
     renderSizeOptions(product);
     renderSpecTable(product);
     renderShippingProgress();
+    initShippingProgressSync();
     initQtyStepper();
     initActionButtons(product);
     initTabSwitching();
@@ -440,46 +441,64 @@ function renderSpecTable(product) {
 // -----------------------------------------------
 // 渲染免運進度條
 // Render free shipping progress bar
-// 規則：購物車金額 + 本商品金額 = 目前進度
-// 免運門檻：NT$3000
 // -----------------------------------------------
 function renderShippingProgress() {
-  const threshold = 3000; // 免運門檻 Free shipping threshold
+  const configuredThreshold = Number(window.AppConfig?.CART?.FREE_SHIPPING_THRESHOLD);
+  const threshold = Number.isFinite(configuredThreshold) && configuredThreshold > 0 ? configuredThreshold : 3000;
 
-  // 計算目前購物車小計
-  // Calculate current cart subtotal
-  const cartTotal = window.calculateCartTotal ? window.calculateCartTotal() : 0;
+  const rawSubtotal = window.calculateCartTotal ? Number(window.calculateCartTotal()) : 0;
+  const subtotal = Number.isFinite(rawSubtotal) && rawSubtotal > 0 ? rawSubtotal : 0;
 
-  // 進度百分比（最高 100%）
-  // Progress percentage (max 100%)
-  const progressPct = Math.min(Math.round((cartTotal / threshold) * 100), 100);
-  const remaining = Math.max(threshold - cartTotal, 0);
+  const progress = Math.min(Math.max((subtotal / threshold) * 100, 0), 100);
+  const displayProgress = Math.round(progress);
+  const remaining = Math.max(threshold - subtotal, 0);
+  const isQualified = subtotal >= threshold;
 
   const progressBar = document.getElementById('shippingProgressBar');
   const progressText = document.getElementById('shippingProgressText');
   const progressHint = document.getElementById('shippingProgressHint');
+  const shippingCard = progressBar ? progressBar.closest('.yr-pd-shipping') : null;
+  const progressTrack = progressBar ? progressBar.parentElement : null;
 
   if (progressBar) {
-    // 若購物車是空的，示意性顯示 80%（用於說明功能）
-    // If cart is empty, show 80% as a demo
-    const displayPct = cartTotal === 0 ? 80 : progressPct;
-    progressBar.style.width = `${displayPct}%`;
+    progressBar.style.width = `${displayProgress}%`;
   }
 
   if (progressText) {
-    progressText.textContent = cartTotal >= threshold ? '已達免運！' : `${progressPct}%`;
+    progressText.textContent = `${displayProgress}%`;
   }
 
   if (progressHint) {
-    if (cartTotal >= threshold) {
-      progressHint.textContent = '🎊 恭喜！您已享有免運費優惠';
-      progressHint.style.color = '#16a34a';
-    } else if (cartTotal === 0) {
-      progressHint.textContent = `購物滿 NT$${threshold.toLocaleString()} 享免運費，還差 NT$${remaining.toLocaleString()}`;
+    if (isQualified) {
+      progressHint.textContent = '已達免運門檻，本筆訂單可享免運';
+    } else if (subtotal === 0) {
+      progressHint.textContent = `購物滿 ${window.formatCurrency(threshold)} 享免運，還差 ${window.formatCurrency(remaining)}`;
     } else {
-      progressHint.textContent = `還差 NT$${remaining.toLocaleString()} 即可享免運費`;
+      progressHint.textContent = `距離免運還差 ${window.formatCurrency(remaining)}`;
     }
   }
+
+  if (shippingCard) {
+    shippingCard.classList.toggle('is-qualified', isQualified);
+  }
+  if (progressTrack) {
+    progressTrack.classList.add('shipping-progress-track');
+  }
+}
+
+/**
+ * 讓免運進度條在購物車異動後保持同步。
+ */
+function initShippingProgressSync() {
+  if (document.body.dataset.shippingProgressBound === 'true') return;
+  document.body.dataset.shippingProgressBound = 'true';
+
+  window.addEventListener('yurui:cart-updated', renderShippingProgress);
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'yuruiAppState') {
+      renderShippingProgress();
+    }
+  });
 }
 
 // -----------------------------------------------

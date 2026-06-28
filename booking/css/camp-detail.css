@@ -319,6 +319,10 @@
   }
 
   .yr-camp-detail-page .booking-form-card {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    min-width: 0;
     position: static;
   }
 

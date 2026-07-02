@@ -20,10 +20,10 @@
       { "id": "cp-003", "code": "CAMP200", "discount": 200, "type": "fixed", "minOrder": 2000, "expiry": "2025-12-31", "used": true }
     ],
     "notifications": [
-      { "id": "notif-001", "type": "order", "icon": "📦", "title": "訂單 #ORD-20260510 已送達", "message": "您的商品已成功送達，歡迎留下評價！", "time": "2026-05-13", "read": false },
-      { "id": "notif-002", "type": "promo", "icon": "🎁", "title": "限時特賣！全館享 9 折", "message": "會員專屬優惠，即日起至本月底，購物滿千即享 9 折！", "time": "2026-05-10", "read": false },
-      { "id": "notif-003", "type": "order", "icon": "🚚", "title": "訂單 #ORD-20260215 已出貨", "message": "您的訂單已由宅配公司取件，預計 3-5 個工作天送達。", "time": "2026-02-17", "read": true },
-      { "id": "notif-004", "type": "system", "icon": "⚙️", "title": "帳戶安全提醒", "message": "您的帳號已在新裝置登入，如非本人操作請立即修改密碼。", "time": "2026-01-20", "read": true }
+      { "id": "notif-001", "type": "order", "icon": "bi-box-seam", "title": "訂單 #ORD-20260510 已送達", "message": "您的商品已成功送達，歡迎留下評價！", "time": "2026-05-13", "read": false },
+      { "id": "notif-002", "type": "promo", "icon": "bi-tag", "title": "限時特賣！全館享 9 折", "message": "會員專屬優惠，即日起至本月底，購物滿千即享 9 折！", "time": "2026-05-10", "read": false },
+      { "id": "notif-003", "type": "order", "icon": "bi-truck", "title": "訂單 #ORD-20260215 已出貨", "message": "您的訂單已由宅配公司取件，預計 3-5 個工作天送達。", "time": "2026-02-17", "read": true },
+      { "id": "notif-004", "type": "system", "icon": "bi-shield-lock", "title": "帳戶安全提醒", "message": "您的帳號已在新裝置登入，如非本人操作請立即修改密碼。", "time": "2026-01-20", "read": true }
     ]
   }
 ]

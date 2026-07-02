@@ -89,6 +89,17 @@
   var PREFERENCE_EQUIPMENT_VALUES = ['tent', 'sleeping-bag', 'backpack', 'cooking', 'lighting', 'clothing', 'chair', 'navigation', 'safety', 'photography'];
   var PURCHASE_TAB_FILTERS = ['all', 'unshipped', 'shipped', 'returned'];
   var RENTAL_TAB_FILTERS = ['all', 'pending', 'confirmed', 'refunded'];
+  var BOOTSTRAP_ICON_CLASS_PATTERN = /^bi-[a-z0-9-]+$/;
+  var EMOJI_ICON_PATTERN = /[\u{1F300}-\u{1FAFF}\u2600-\u27BF]/u;
+  var NOTIFICATION_TYPE_ICON_MAP = {
+    order: 'bi-box-seam',
+    promo: 'bi-tag',
+    coupon: 'bi-tag',
+    shipping: 'bi-truck',
+    security: 'bi-shield-lock',
+    account: 'bi-person',
+    system: 'bi-bell'
+  };
 
   function joinPath(base, fileName) {
     return String(base || '').replace(/\/+$/, '') + '/' + fileName;
@@ -215,6 +226,31 @@
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
+  }
+
+  function getNotificationFallbackIconClass(type) {
+    var normalizedType = normalizeIdentifier(type).toLowerCase();
+    return NOTIFICATION_TYPE_ICON_MAP[normalizedType] || 'bi-bell';
+  }
+
+  function isEmojiIcon(value) {
+    var icon = normalizeIdentifier(value);
+    return Boolean(icon) && EMOJI_ICON_PATTERN.test(icon);
+  }
+
+  /** 重點：通知圖示只允許安全的 bi-* class，其他值改走 emoji 或 type fallback。 */
+  function getNotificationIconHtml(notification) {
+    var icon = normalizeIdentifier(notification && notification.icon);
+    if (BOOTSTRAP_ICON_CLASS_PATTERN.test(icon)) {
+      return '<div class="notif-item__icon" aria-hidden="true"><i class="bi ' + icon + '" aria-hidden="true"></i></div>';
+    }
+
+    if (isEmojiIcon(icon)) {
+      return '<div class="notif-item__icon notif-item__icon--emoji" aria-hidden="true">' + escapeHtml(icon) + '</div>';
+    }
+
+    var fallbackClass = getNotificationFallbackIconClass(notification && notification.type);
+    return '<div class="notif-item__icon" aria-hidden="true"><i class="bi ' + fallbackClass + '" aria-hidden="true"></i></div>';
   }
 
   function showMcToast(message, type) {
@@ -1029,9 +1065,10 @@
     // 重點：通知讀取後只更新畫面內狀態，不回寫 JSON，避免靜態資料檔被瀏覽器直接改寫。
     container.innerHTML = notifications.map(function (notification) {
       var read = Boolean(notification.read);
-      return '<div class="notif-item" id="notif-' + escapeHtml(notification.id) + '" data-notif-id="' + escapeHtml(notification.id) + '">'
+      return '<div class="notif-item' + (read ? ' read' : '') + '" id="notif-' + escapeHtml(notification.id) + '" data-notif-id="' + escapeHtml(notification.id) + '">'
         + '<div class="notif-item__dot' + (read ? ' read' : '') + '"></div>'
-        + '<div>'
+        + getNotificationIconHtml(notification)
+        + '<div class="notif-item__content">'
         + '<div class="notif-item__title">' + linkNotificationText(notification.title) + '</div>'
         + '<div class="notif-item__body">' + linkNotificationText(notification.message) + '</div>'
         + '<div class="notif-item__date">' + escapeHtml(notification.time) + '</div>'

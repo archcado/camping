@@ -559,46 +559,148 @@
   margin-bottom: 1.25rem;
 }
 
-.notif-header h5 { margin-bottom: 0; }
+.notif-header h5 {
+  margin-bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #667760;
+  font-size: 1.125rem;
+  font-weight: 650;
+}
+
+.notif-header h5 .bi {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+#markAllReadBtn {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid #cdd5c8;
+  border-radius: 12px;
+  background: #fbfcf9;
+  color: #52604d;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+#markAllReadBtn:hover {
+  background: #eef2eb;
+  border-color: #aebca8;
+  color: #52604d;
+}
+
+#markAllReadBtn:focus-visible {
+  outline: 2px solid #b9c6b3;
+  outline-offset: 2px;
+}
+
+#markAllReadBtn:disabled {
+  background: #f3f4f0;
+  border-color: #d6dbd1;
+  color: #97a091;
+  cursor: not-allowed;
+}
 
 .notif-item {
   display: flex;
-  gap: 0.75rem;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--bk-bg);
-  align-items: flex-start;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 19px 4px;
+  border-bottom: 1px solid #ebe7df;
+  border-radius: 10px;
+  transition: background-color 160ms ease, border-color 160ms ease;
 }
 
-.notif-item:last-child { border-bottom: none; }
+.notif-item:hover {
+  background: #f7f7f2;
+}
+
+.notif-item:focus-within {
+  background: #f7f7f2;
+  border-color: #dcd8d0;
+}
+
+.notif-item[data-notif-id] {
+  cursor: pointer;
+}
+
+.notif-item:last-child {
+  border-bottom: none;
+}
+
+.notif-item.read {
+  background: transparent;
+}
 
 .notif-item__dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
   border-radius: 50%;
-  background: var(--bk-primary);
-  margin-top: 0.4rem;
-  flex-shrink: 0;
+  background: #71836b;
+  margin-top: 0;
+  align-self: center;
 }
 
-.notif-item__dot.read { background: var(--bk-border); }
+.notif-item__dot.read {
+  background: #d8d4cb;
+}
+
+.notif-item__icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 50%;
+  background: #eef1eb;
+  color: #667760;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+}
+
+.notif-item__icon .bi {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.notif-item__icon--emoji {
+  font-size: 17px;
+  line-height: 1;
+  color: #667760;
+}
+
+.notif-item__content {
+  min-width: 0;
+  flex: 1;
+}
 
 .notif-item__title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--bk-text);
-  margin-bottom: 0.15rem;
+  margin: 0 0 4px;
+  color: #3f463c;
+  font-size: 1rem;
+  line-height: 1.45;
+  font-weight: 650;
+}
+
+.notif-item.read .notif-item__title {
+  font-weight: 550;
 }
 
 .notif-item__body {
-  font-size: 0.8rem;
-  color: var(--bk-text-muted);
-  line-height: 1.5;
+  margin: 0 0 5px;
+  color: #777b72;
+  font-size: 0.875rem;
+  line-height: 1.65;
 }
 
 .notif-item__link {
   background: none;
   border: none;
-  color: var(--bk-primary);
+  color: #667760;
   cursor: pointer;
   font: inherit;
   font-weight: 700;
@@ -607,9 +709,10 @@
 }
 
 .notif-item__date {
-  font-size: 0.72rem;
-  color: var(--bk-text-muted);
-  margin-top: 0.2rem;
+  margin: 0;
+  color: #99968e;
+  font-size: 0.8125rem;
+  line-height: 1.4;
 }
 
 /* ============================================================
@@ -991,10 +1094,6 @@
   text-decoration: none;
 }
 
-.notif-item[data-notif-id] {
-  cursor: pointer;
-}
-
 /* ============================================================
    RWD（≤ 768px）
 ============================================================ */
@@ -1150,4 +1249,52 @@
   .rec-item { align-items: flex-start; flex-direction: column; }
   .rec-item__right { width: 100%; text-align: left; }
   .coupon-grid { grid-template-columns: 1fr; }
+
+  .notif-header {
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .notif-header h5 {
+    font-size: 1.0625rem;
+  }
+
+  #markAllReadBtn {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.8125rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .notif-item {
+    gap: 10px;
+    padding: 16px 4px;
+  }
+
+  .notif-item__dot {
+    margin-top: 0;
+  }
+
+  .notif-item__icon {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+  }
+
+  .notif-item__icon .bi {
+    font-size: 15px;
+  }
+
+  .notif-item__icon--emoji {
+    font-size: 15px;
+  }
+
+  .notif-item__title {
+    font-size: 0.9375rem;
+  }
+
+  .notif-item__body {
+    font-size: 0.8125rem;
+  }
 }

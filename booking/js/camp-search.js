@@ -40,6 +40,9 @@ $(document).ready(function () {
     $(this).attr('aria-expanded', !isOpen);
   });
 
+  // 步驟 5：卡片標籤 +N 展開互動 / Step 5: card tag popover toggle
+  bindCardTagEvents();
+
 });
 
 // ============================================================
@@ -64,6 +67,7 @@ function loadCampgrounds() {
   .done(function (data) {
     allCampgrounds = data;           // 快取原始資料 / Cache raw data
     renderCampCards(allCampgrounds); // 渲染全部 / Render all
+    updateFilterMeta();
   })
   .fail(function (xhr, textStatus, errorThrown) {
     // 資料載入失敗，顯示錯誤訊息 / Show error message on failure
@@ -112,19 +116,30 @@ function renderCampCards(camps) {
 
     // 計算最低平日價（所有 zone 中取最小值）/ Min weekday price across all zones
     const minWeekdayPrice = Math.min(...camp.zones.map(z => z.price_weekday));
-    // 計算最高假日價（所有 zone 中取最大值）/ Max holiday price
-    const maxHolidayPrice = Math.max(...camp.zones.map(z => z.price_holiday));
-
-    // 環境標籤 HTML / Environment tags HTML
-    const envTagsHTML = camp.environment_tags
-      .map(t => `<span class="tag tag--env">${t}</span>`)
-      .join('');
-
-    // 設施標籤 HTML（最多顯示 3 個）/ Facility tags HTML (max 3)
-    const facTagsHTML = camp.facility_tags
-      .slice(0, 3)
-      .map(t => `<span class="tag tag--facility">${t}</span>`)
-      .join('');
+    const detailUrl = `./camp-detail.html?id=${camp.campground_id}`;
+    const { featured, remaining } = selectCardTags(camp);
+    const featuredTagsHTML = featured.map(renderCampTag).join('');
+    const remainingTagsHTML = remaining.map(renderCampTag).join('');
+    const hasMoreTags = remaining.length > 0;
+    const popoverId = `campTagPopover-${camp.campground_id}`;
+    const moreToggleHTML = hasMoreTags
+      ? `
+          <button
+            type="button"
+            class="camp-card__more-button"
+            aria-expanded="false"
+            aria-controls="${popoverId}"
+            aria-label="顯示${camp.name}的其他 ${remaining.length} 個特色"
+          >+${remaining.length}</button>
+          <div
+            class="camp-card__tag-popover"
+            id="${popoverId}"
+            role="group"
+            aria-label="${camp.name} 其餘特色標籤"
+            hidden
+          >${remainingTagsHTML}</div>
+        `
+      : '';
 
     const imageSrc =
       camp.image ||
@@ -138,26 +153,29 @@ function renderCampCards(camps) {
            data-env="${camp.environment_tags.join(',')}"
            data-facility="${camp.facility_tags.join(',')}">
 
-        <div class="camp-card__image">
-          <img src="${imageSrc}"
-               alt="${camp.name}"
-               loading="lazy"
-               decoding="async">
-          <span class="camp-card__badge">${camp.region}</span>
-        </div>
+        <a href="${detailUrl}" class="camp-card__media" aria-label="查看 ${camp.name} 營區詳情">
+          <div class="camp-card__image">
+            <img src="${imageSrc}"
+                 alt="${camp.name}"
+                 loading="lazy"
+                 decoding="async">
+            <span class="camp-card__badge">${camp.region}</span>
+          </div>
+        </a>
 
         <div class="camp-card__body">
-          <h3 class="camp-card__name">${camp.name}</h3>
+          <h3 class="camp-card__name">
+            <a href="${detailUrl}" class="camp-card__name-link">${camp.name}</a>
+          </h3>
           <p class="camp-card__price">
-            平日 <strong>NT$${minWeekdayPrice.toLocaleString()}</strong>
-            ／ 假日 <strong>NT$${maxHolidayPrice.toLocaleString()}</strong> 起
+            平日 <strong>NT$${minWeekdayPrice.toLocaleString()}</strong> 起
           </p>
-          <div class="camp-card__tags">${envTagsHTML}${facTagsHTML}</div>
-        </div>
-
-        <div class="camp-card__footer">
-          <a href="./camp-detail.html?id=${camp.campground_id}" class="btn btn--primary">
-            查看詳情 <i class="bi bi-arrow-right"></i>
+          <div class="camp-card__tags">
+            ${featuredTagsHTML}
+            ${moreToggleHTML}
+          </div>
+          <a href="${detailUrl}" class="camp-card__detail-link">
+            查看營區 <span aria-hidden="true">→</span>
           </a>
         </div>
 
@@ -169,6 +187,176 @@ function renderCampCards(camps) {
 
   // 更新結果數量 / Update result count
   $('#resultCount').text(`共 ${camps.length} 個營區`);
+}
+
+/**
+ * 選出卡片預設顯示的代表性標籤與剩餘標籤
+ * 規則：先環境第一個、再設施第一個，再依原始順序補滿最多 2 個
+ */
+function selectCardTags(camp) {
+  const envTags = (camp.environment_tags || []).map(function (text) {
+    return { text, type: 'env' };
+  });
+  const facilityTags = (camp.facility_tags || []).map(function (text) {
+    return { text, type: 'facility' };
+  });
+
+  const allOrdered = uniqueTagEntries(envTags.concat(facilityTags));
+  const featured = [];
+  const featuredSet = new Set();
+
+  function pushFeatured(entry) {
+    if (!entry || featuredSet.has(entry.text) || featured.length >= 2) return;
+    featured.push(entry);
+    featuredSet.add(entry.text);
+  }
+
+  pushFeatured(envTags[0]);
+  pushFeatured(facilityTags[0]);
+
+  allOrdered.forEach(function (entry) {
+    pushFeatured(entry);
+  });
+
+  const remaining = allOrdered.filter(function (entry) {
+    return !featuredSet.has(entry.text);
+  });
+
+  return { featured, remaining };
+}
+
+/**
+ * 依標籤文字去重，保留首次出現順序
+ */
+function uniqueTagEntries(entries) {
+  const seen = new Set();
+  return entries.filter(function (entry) {
+    if (!entry || !entry.text || seen.has(entry.text)) return false;
+    seen.add(entry.text);
+    return true;
+  });
+}
+
+/**
+ * 單一標籤 HTML
+ */
+function renderCampTag(entry) {
+  const className = entry.type === 'facility' ? 'tag tag--facility' : 'tag tag--env';
+  return `<span class="${className}">${entry.text}</span>`;
+}
+
+/**
+ * 關閉所有卡片 +N 標籤面板
+ */
+function closeCardTagPopovers() {
+  $('.camp-card.is-tags-open').removeClass('is-tags-open');
+  $('.camp-card__more-button[aria-expanded="true"]').attr('aria-expanded', 'false');
+  $('.camp-card__tag-popover').attr('hidden', true);
+}
+
+/**
+ * 桌面版校正標籤浮動面板位置，避免超出右側視窗
+ */
+function positionCardTagPopover($popover) {
+  if (!$popover || !$popover.length) return;
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    $popover.css({ left: '', right: '' });
+    return;
+  }
+
+  $popover.css({ left: '0', right: 'auto' });
+  const rect = $popover[0].getBoundingClientRect();
+  if (rect.right > window.innerWidth - 8) {
+    $popover.css({ left: 'auto', right: '0' });
+  }
+}
+
+/**
+ * 綁定卡片 +N 標籤展開事件
+ */
+function bindCardTagEvents() {
+  $(document)
+    .off('click.campCardTagToggle')
+    .on('click.campCardTagToggle', '.camp-card__more-button', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const $button = $(this);
+      const isExpanded = $button.attr('aria-expanded') === 'true';
+      const targetId = $button.attr('aria-controls');
+      const $popover = $('#' + targetId);
+      const $card = $button.closest('.camp-card');
+
+      closeCardTagPopovers();
+      if (isExpanded || !$popover.length) return;
+
+      $card.addClass('is-tags-open');
+      $button.attr('aria-expanded', 'true');
+      $popover.attr('hidden', false);
+      positionCardTagPopover($popover);
+    });
+
+  $(document)
+    .off('click.campCardTagOutside')
+    .on('click.campCardTagOutside', function (event) {
+      if ($(event.target).closest('.camp-card__more-button, .camp-card__tag-popover').length) return;
+      closeCardTagPopovers();
+    });
+
+  $(document)
+    .off('keydown.campCardTagEsc')
+    .on('keydown.campCardTagEsc', function (event) {
+      if (event.key === 'Escape') closeCardTagPopovers();
+    });
+
+  $(window)
+    .off('resize.campCardTagPopover')
+    .on('resize.campCardTagPopover', function () {
+      const $openPopover = $('.camp-card.is-tags-open .camp-card__tag-popover:not([hidden])').first();
+      if ($openPopover.length) {
+        positionCardTagPopover($openPopover);
+      }
+    });
+}
+
+/**
+ * 更新篩選摘要（已選數量與 chips）
+ */
+function updateFilterMeta() {
+  const envValues = $('input[name="env"]:checked').map(function () {
+    return $(this).val();
+  }).get();
+  const facilityValues = $('input[name="facility"]:checked').map(function () {
+    return $(this).val();
+  }).get();
+  const selectedRegion = $('#regionFilter').val();
+
+  const minBudget = parseInt($('#priceMin').val(), 10);
+  const maxBudget = parseInt($('#priceMax').val(), 10);
+  const hasPriceFilter = minBudget > 500 || maxBudget < 5000;
+
+  const chips = [];
+  envValues.forEach(function (v) { chips.push(v); });
+  facilityValues.forEach(function (v) { chips.push(v); });
+  if (selectedRegion) chips.push(`地區：${selectedRegion}`);
+  if (hasPriceFilter) chips.push(`預算：NT$${minBudget.toLocaleString()} - ${maxBudget >= 5000 ? 'NT$5,000+' : `NT$${maxBudget.toLocaleString()}`}`);
+
+  const summaryCount = chips.length;
+  $('#selectedFilterSummary').text(`已選 ${summaryCount} 項條件`);
+  $('#envFilterCount').text(envValues.length);
+  $('#facilityFilterCount').text(facilityValues.length);
+
+  const $chips = $('#selectedFilterChips');
+  if ($chips.length) {
+    $chips.empty();
+    if (chips.length === 0) {
+      $chips.append('<span class="filter-chip">尚未選擇</span>');
+    } else {
+      chips.forEach(function (chip) {
+        $chips.append(`<span class="filter-chip">${chip}</span>`);
+      });
+    }
+  }
 }
 
 // ============================================================
@@ -278,6 +466,7 @@ function filterCampgrounds() {
   });
 
   renderCampCards(filtered);
+  updateFilterMeta();
 }
 
 // ============================================================

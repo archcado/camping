@@ -77,15 +77,44 @@ function loadScriptOnce(src, flagName) {
 }
 
 /**
- * Loads shared auth first, then the booking header controller.
+ * Loads shared-header runtime first, then booking utilities.
+ * toast.js is loaded first so window.showToast is the unified implementation
+ * before booking-header.js's ensureToastFallback() runs.
  */
-function loadBookingHeaderScript() {
-  loadScriptOnce('../../js/components/auth.js', '__yuruiAuthScriptLoaded')
+function loadBookingHeaderScriptShared() {
+  return loadScriptOnce('../../js/components/toast.js', '__toastScriptLoaded')
     .then(function () {
+      return loadScriptOnce('../../js/components/header.js', '__sharedHeaderScriptLoaded');
+    })
+    .then(function () {
+      if (typeof window.initNavbar === 'function') window.initNavbar();
+      return loadScriptOnce('../../js/components/auth.js', '__yuruiAuthScriptLoaded');
+    })
+    .then(function () {
+      if (typeof window.initAuth === 'function') window.initAuth();
       return loadScriptOnce('../js/booking-header.js', '__bookingHeaderScriptLoaded');
     })
     .catch(function (error) {
       console.error(error);
+      return false;
+    });
+}
+
+/**
+ * Loads booking header runtime scripts in legacy mode.
+ */
+function loadBookingHeaderScriptLegacy() {
+  return loadScriptOnce('../../js/components/toast.js', '__toastScriptLoaded')
+    .then(function () {
+      return loadScriptOnce('../../js/components/auth.js', '__yuruiAuthScriptLoaded');
+    })
+    .then(function () {
+      if (typeof window.initAuth === 'function') window.initAuth();
+      return loadScriptOnce('../js/booking-header.js', '__bookingHeaderScriptLoaded');
+    })
+    .catch(function (error) {
+      console.error(error);
+      return false;
     });
 }
 
@@ -115,8 +144,13 @@ function loadBookingLayoutPartial(targetSelector, url, partSelector, callback) {
       const part = template.content.querySelector(partSelector);
       const content = part ? part.innerHTML : html;
 
-      // Shared auth is appended after the booking header so both systems use one modal.
-      if (partSelector === '[data-layout-part="shared-auth"]') {
+      // Shared auth and business panels are appended; header/footer fragments replace the target shell.
+      if (
+        partSelector === '[data-layout-part="shared-auth"]'
+        || partSelector === '[data-layout-part="shared-booking-cart-panel"]'
+        || partSelector === '[data-layout-part="shared-site-cart-panel"]'
+        || partSelector === '[data-layout-part="booking-camp-preference"]'
+      ) {
         target.insertAdjacentHTML('beforeend', content);
       } else {
         target.innerHTML = content;
@@ -126,7 +160,11 @@ function loadBookingLayoutPartial(targetSelector, url, partSelector, callback) {
       return true;
     })
     .catch(function (error) {
-      console.error(error);
+      if (partSelector === '[data-layout-part="shared-site-header"]') {
+        console.error('[Booking Layout] Failed to load shared-site-header', error);
+      } else {
+        console.error(error);
+      }
       if (callback) callback(false);
       return false;
     });
@@ -135,14 +173,124 @@ function loadBookingLayoutPartial(targetSelector, url, partSelector, callback) {
 /**
  * Loads the booking header, shared auth modal, and footer for booking pages.
  */
-window.loadBookingSharedLayout = function () {
-  loadBookingLayoutPartial('#booking-header', '../../components/header.partial', '[data-layout-part="booking-header"]', function (ok) {
-    if (!ok) return;
-    loadBookingLayoutPartial('#booking-header', '../../components/header.partial', '[data-layout-part="shared-auth"]', function () {
-      loadBookingHeaderScript();
+function resolveBookingHeaderTarget() {
+  const sharedHeader = document.querySelector('#header[data-header-context="camp"]');
+  if (sharedHeader) {
+    return {
+      selector: '#header',
+      target: sharedHeader,
+      useSharedController: true,
+    };
+  }
+
+  const legacyHeader = document.querySelector('#booking-header');
+  if (legacyHeader) {
+    console.warn('[Booking Layout] Legacy #booking-header is still in use.');
+    return {
+      selector: '#booking-header',
+      target: legacyHeader,
+      useSharedController: false,
+    };
+  }
+
+  return null;
+}
+
+function loadBookingHeader() {
+  const targetInfo = resolveBookingHeaderTarget();
+  if (!targetInfo) {
+    console.error('[Booking Layout] Missing header root: expected #header[data-header-context="camp"] or #booking-header.');
+    return Promise.resolve(false);
+  }
+
+  const target = targetInfo.target;
+  if (targetInfo.useSharedController && !target.dataset.headerContext) {
+    target.dataset.headerContext = 'camp';
+  }
+
+  const injectHeader = target.dataset.bookingHeaderLoaded === 'true'
+    ? Promise.resolve(true)
+    : loadBookingLayoutPartial(
+      targetInfo.selector,
+      '../../components/header.partial',
+      targetInfo.useSharedController ? '[data-layout-part="shared-site-header"]' : '[data-layout-part="booking-header"]'
+    )
+      .then(function (ok) {
+        if (!ok) return false;
+        target.dataset.bookingHeaderLoaded = 'true';
+        return true;
+      });
+
+  return injectHeader
+    .then(function (ok) {
+      if (!ok) return false;
+      if (target.dataset.sharedAuthLoaded === 'true') return true;
+      return loadBookingLayoutPartial(targetInfo.selector, '../../components/header.partial', '[data-layout-part="shared-auth"]')
+        .then(function (authOk) {
+          if (authOk) {
+            target.dataset.sharedAuthLoaded = 'true';
+            // Booking must not reuse the shop personalization questionnaire DOM.
+            var shopSurvey = target.querySelector('#personalizationModal');
+            var shopSurveyConfirm = target.querySelector('#surveyCloseConfirmModal');
+            if (shopSurvey) shopSurvey.remove();
+            if (shopSurveyConfirm) shopSurveyConfirm.remove();
+          }
+          return authOk;
+        });
+    })
+    .then(function (ok) {
+      if (!ok) return false;
+      if (!targetInfo.useSharedController) return true;
+      if (document.getElementById('cartPanel')) return true;
+      return loadBookingLayoutPartial(
+        targetInfo.selector,
+        '../../components/header.partial',
+        '[data-layout-part="shared-booking-cart-panel"]'
+      );
+    })
+    .then(function (ok) {
+      if (!ok) return false;
+      var path = window.location.pathname || '';
+      if (path.indexOf('/booking/pages/booking-cart') !== -1) return true;
+      if (path.indexOf('/booking/pages/booking-checkout') !== -1) return true;
+      if (document.getElementById('campPreferenceModal')) return true;
+      return loadBookingLayoutPartial(
+        'body',
+        '../components/camp-preference.partial',
+        '[data-layout-part="booking-camp-preference"]'
+      );
+    })
+    .then(function (ok) { return !!ok; });
+}
+
+function loadBookingFooter() {
+  const footer = document.querySelector('#booking-footer');
+  if (!footer) return Promise.resolve(false);
+  if (footer.dataset.bookingFooterLoaded === 'true') return Promise.resolve(true);
+
+  return loadBookingLayoutPartial('#booking-footer', '../../components/footer.partial', '[data-layout-part="booking-footer"]')
+    .then(function (ok) {
+      if (ok) footer.dataset.bookingFooterLoaded = 'true';
+      return ok;
     });
-  });
-  loadBookingLayoutPartial('#booking-footer', '../../components/footer.partial', '[data-layout-part="booking-footer"]');
+}
+
+window.loadBookingHeader = loadBookingHeader;
+window.loadBookingFooter = loadBookingFooter;
+window.loadBookingSharedLayout = function () {
+  return loadBookingHeader()
+    .then(function (headerOk) {
+      if (!headerOk) return false;
+      return loadBookingFooter().then(function () { return true; });
+    })
+    .then(function (ok) {
+      if (!ok) return false;
+      const targetInfo = resolveBookingHeaderTarget();
+      if (!targetInfo) return false;
+      return targetInfo.useSharedController
+        ? loadBookingHeaderScriptShared()
+        : loadBookingHeaderScriptLegacy();
+    });
 };
 
 document.addEventListener('DOMContentLoaded', initFloatingActions);

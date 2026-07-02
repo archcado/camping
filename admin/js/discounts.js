@@ -21,9 +21,9 @@
  */
 function formatDateDisplay(val) {
   if (!val) return '—';
-  var parts    = val.split('T');                  // ["2026-08-31", "23:59"]
-  var datePart = parts[0].replace(/-/g, '/');     // "2026/08/31"
-  return datePart + ' ' + (parts[1] || '');       // "2026/08/31 23:59"
+  var parts = val.split('T'); // ["2026-08-31", "23:59"]
+  var datePart = parts[0].replace(/-/g, '/'); // "2026/08/31"
+  return datePart + ' ' + (parts[1] || ''); // "2026/08/31 23:59"
 }
 
 window.initDiscounts = function () {
@@ -34,8 +34,8 @@ window.initDiscounts = function () {
   }).fail(function () {
     $('#couponsTableBody').html(
       '<tr><td colspan="9" class="text-center text-danger py-4">' +
-      '<i class="fas fa-exclamation-triangle me-2"></i>載入優惠券數據失敗' +
-      '</td></tr>'
+        '<i class="fas fa-exclamation-triangle me-2"></i>載入優惠券數據失敗' +
+        '</td></tr>'
     );
   });
 
@@ -67,11 +67,11 @@ window.initDiscounts = function () {
 
   // 「現在」按鈕：將起始時間填入當下時間（精度到分鐘）
   $(document).on('click.discounts', '#setCouponStartNow', function () {
-    var now    = new Date();
-    var year   = now.getFullYear();
-    var month  = String(now.getMonth() + 1).padStart(2, '0');
-    var day    = String(now.getDate()).padStart(2, '0');
-    var hour   = String(now.getHours()).padStart(2, '0');
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = String(now.getMonth() + 1).padStart(2, '0');
+    var day = String(now.getDate()).padStart(2, '0');
+    var hour = String(now.getHours()).padStart(2, '0');
     var minute = String(now.getMinutes()).padStart(2, '0');
     // datetime-local 格式必須是 "YYYY-MM-DDTHH:MM"
     $('#newCouponStart').val(year + '-' + month + '-' + day + 'T' + hour + ':' + minute);
@@ -80,7 +80,7 @@ window.initDiscounts = function () {
   // 產生隨機優惠碼（8碼英數）
   $(document).on('click.discounts', '#generateCouponCode', function () {
     var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    var code  = '';
+    var code = '';
     for (var i = 0; i < 8; i++) {
       code += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -89,9 +89,9 @@ window.initDiscounts = function () {
 
   // 啟用 / 停用優惠券
   $(document).on('click.discounts', '.btn-toggle-coupon', function () {
-    var $btn     = $(this);
-    var $row     = $btn.closest('tr');
-    var code     = $row.data('coupon-code');
+    var $btn = $(this);
+    var $row = $btn.closest('tr');
+    var code = $row.data('coupon-code');
     var isActive = $row.data('coupon-status') === 'active';
 
     if (isActive) {
@@ -112,18 +112,20 @@ window.initDiscounts = function () {
     var $row = $(this).closest('tr');
     var code = $row.data('coupon-code');
     if (!window.confirm('確定要刪除優惠券「' + code + '」嗎？')) return;
-    $row.fadeOut(300, function () { $(this).remove(); });
+    $row.fadeOut(300, function () {
+      $(this).remove();
+    });
     window.showAdminToast('優惠券 ' + code + ' 已刪除', 'danger');
   });
 
   // 新增優惠券（inline form，無 Modal）
   $(document).on('click.discounts', '#submitAddCoupon', function () {
-    var code       = $('#newCouponCode').val().trim().toUpperCase();
+    var code = $('#newCouponCode').val().trim().toUpperCase();
     var discountRaw = parseFloat($('#newCouponDiscount').val()) || 0;
-    var quantity   = parseInt($('#newCouponQty').val(), 10) || 50;
-    var startVal   = $('#newCouponStart').val(); // "YYYY-MM-DDTHH:MM" 或空字串
-    var endVal     = $('#newCouponEnd').val();   // "YYYY-MM-DDTHH:MM" 或空字串
-    var isPercent  = $('#discountTypeSwitch').is(':checked'); // true = 折數
+    var quantity = parseInt($('#newCouponQty').val(), 10) || 50;
+    var startVal = $('#newCouponStart').val(); // "YYYY-MM-DDTHH:MM" 或空字串
+    var endVal = $('#newCouponEnd').val(); // "YYYY-MM-DDTHH:MM" 或空字串
+    var isPercent = $('#discountTypeSwitch').is(':checked'); // true = 折數
 
     // --- 驗證 ---
     if (!code) {
@@ -149,22 +151,37 @@ window.initDiscounts = function () {
     }
 
     // --- 折扣欄位顯示文字 ---
-    // 金額：折抵 NT$ 200；折數：8 折
-    var discountDisplay = isPercent
-      ? discountRaw + ' 折'
-      : '折抵 NT$ ' + Math.floor(discountRaw);
+    // 金額：NT$ 200；折數：8 折
+    var discountDisplay = isPercent ? discountRaw + ' 折' : 'NT$ ' + Math.floor(discountRaw).toLocaleString();
 
     // --- 組合新表格列 ---
     // startVal / endVal 直接傳入 formatDateDisplay()，空值自動顯示 "—"
+    var discountCellClass = isPercent ? '' : ' class="admin-cell-amount"';
     var newRow =
-      '<tr data-coupon-code="' + code + '" data-coupon-status="active">' +
-      '<td><code class="fw-bold">' + code + '</code></td>' +
-      '<td>' + discountDisplay + '</td>' +
-      '<td class="text-center">' + quantity + '</td>' +
+      '<tr data-coupon-code="' +
+      code +
+      '" data-coupon-status="active">' +
+      '<td><code class="fw-bold">' +
+      code +
+      '</code></td>' +
+      '<td' +
+      discountCellClass +
+      '>' +
+      discountDisplay +
+      '</td>' +
+      '<td class="text-center">' +
+      quantity +
+      '</td>' +
       '<td class="text-center">0</td>' +
-      '<td class="text-center">' + quantity + '</td>' +
-      '<td>' + formatDateDisplay(startVal) + '</td>' +
-      '<td>' + formatDateDisplay(endVal)   + '</td>' +
+      '<td class="text-center">' +
+      quantity +
+      '</td>' +
+      '<td>' +
+      formatDateDisplay(startVal) +
+      '</td>' +
+      '<td>' +
+      formatDateDisplay(endVal) +
+      '</td>' +
       '<td><span class="badge bg-success status-badge">啟用中</span></td>' +
       '<td>' +
       '<button class="btn btn-sm btn-outline-warning btn-toggle-coupon me-1">停用</button>' +
@@ -198,35 +215,59 @@ function renderCouponsTable(coupons) {
     return;
   }
 
-  var html = coupons.map(function (coupon) {
-    var isActive  = coupon.status === 'active';
-    var remaining = coupon.quantity - coupon.used;
+  var html = coupons
+    .map(function (coupon) {
+      var isActive = coupon.status === 'active';
+      var remaining = coupon.quantity - coupon.used;
 
-    var remainDisplay = remaining <= 5
-      ? '<span class="text-danger fw-bold">' + remaining + '</span>'
-      : remaining;
+      var remainDisplay =
+        remaining <= 5 ? '<span class="text-danger fw-bold">' + remaining + '</span>' : remaining;
 
-    var statusBadge = isActive
-      ? '<span class="badge bg-success status-badge">啟用中</span>'
-      : '<span class="badge bg-secondary status-badge">已停用</span>';
+      var statusBadge = isActive
+        ? '<span class="badge bg-success status-badge">啟用中</span>'
+        : '<span class="badge bg-secondary status-badge">已停用</span>';
 
-    var toggleBtn = isActive
-      ? '<button class="btn btn-sm btn-outline-warning btn-toggle-coupon me-1">停用</button>'
-      : '<button class="btn btn-sm btn-outline-success btn-toggle-coupon me-1">啟用</button>';
+      var toggleBtn = isActive
+        ? '<button class="btn btn-sm btn-outline-warning btn-toggle-coupon me-1">停用</button>'
+        : '<button class="btn btn-sm btn-outline-success btn-toggle-coupon me-1">啟用</button>';
 
-    return '<tr data-coupon-code="' + coupon.code + '" data-coupon-status="' + coupon.status + '">' +
-      '<td><code class="fw-bold">' + coupon.code + '</code></td>' +
-      '<td>折抵 NT$ ' + coupon.discount + '</td>' +
-      '<td class="text-center">' + coupon.quantity + '</td>' +
-      '<td class="text-center">' + coupon.used + '</td>' +
-      '<td class="text-center">' + remainDisplay + '</td>' +
-      '<td>' + formatDateDisplay(coupon.startDate) + '</td>' +
-      '<td>' + formatDateDisplay(coupon.endDate)   + '</td>' +
-      '<td>' + statusBadge + '</td>' +
-      '<td>' + toggleBtn +
-      '<button class="btn btn-sm btn-outline-danger btn-delete-coupon">刪除</button>' +
-      '</td></tr>';
-  }).join('');
+      return (
+        '<tr data-coupon-code="' +
+        coupon.code +
+        '" data-coupon-status="' +
+        coupon.status +
+        '">' +
+        '<td><code class="fw-bold">' +
+        coupon.code +
+        '</code></td>' +
+        '<td class="admin-cell-amount">NT$ ' +
+        coupon.discount.toLocaleString() +
+        '</td>' +
+        '<td class="text-center">' +
+        coupon.quantity +
+        '</td>' +
+        '<td class="text-center">' +
+        coupon.used +
+        '</td>' +
+        '<td class="text-center">' +
+        remainDisplay +
+        '</td>' +
+        '<td>' +
+        formatDateDisplay(coupon.startDate) +
+        '</td>' +
+        '<td>' +
+        formatDateDisplay(coupon.endDate) +
+        '</td>' +
+        '<td>' +
+        statusBadge +
+        '</td>' +
+        '<td>' +
+        toggleBtn +
+        '<button class="btn btn-sm btn-outline-danger btn-delete-coupon">刪除</button>' +
+        '</td></tr>'
+      );
+    })
+    .join('');
 
   $('#couponsTableBody').html(html);
 

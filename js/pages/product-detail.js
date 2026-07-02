@@ -17,7 +17,7 @@
  * 這是頁面的主入口函數，會在 DOMContentLoaded 後呼叫
  */
 window.initProductDetailPage = async () => {
-  console.log('🛍️ 商品詳情頁初始化...');
+  console.log('商品詳情頁初始化...');
 
   // -----------------------------------------------
   // Step 1: 從 URL 讀取商品 ID
@@ -33,7 +33,7 @@ window.initProductDetailPage = async () => {
     productId = 'prod-001';
   }
 
-  console.log(`📦 正在載入商品 ID: ${productId}`);
+  console.log(`正在載入商品 ID: ${productId}`);
 
   // 顯示載入中狀態 / Show loading state
   document.getElementById('productLoading').style.display = 'block';
@@ -46,7 +46,7 @@ window.initProductDetailPage = async () => {
     // Call API to get product data
     // -----------------------------------------------
     const product = await window.API.products.getById(productId);
-    console.log('✅ 商品資料取得成功:', product);
+    console.log('商品資料取得成功:', product);
 
     // 隱藏載入中，顯示商品內容
     // Hide loading, show content
@@ -63,6 +63,7 @@ window.initProductDetailPage = async () => {
     renderSizeOptions(product);
     renderSpecTable(product);
     renderShippingProgress();
+    initShippingProgressSync();
     initQtyStepper();
     initActionButtons(product);
     initTabSwitching();
@@ -80,7 +81,7 @@ window.initProductDetailPage = async () => {
   } catch (error) {
     // 發生錯誤：顯示錯誤狀態
     // Error occurred: show error state
-    console.error('❌ 商品載入失敗:', error);
+    console.error('商品載入失敗:', error);
     document.getElementById('productLoading').style.display = 'none';
     document.getElementById('productError').style.display = 'block';
   }
@@ -113,7 +114,7 @@ function renderProductInfo(product) {
 
   const starsEl = document.getElementById('productStars');
   if (starsEl) {
-    starsEl.textContent = renderStars(rating);
+    starsEl.innerHTML = renderStars(rating);
     starsEl.setAttribute('data-rating', rating.toFixed(2));
     // 設定 CSS 變數以支援進度條背景
     const ratingPercent = (rating / 5) * 100;
@@ -166,19 +167,20 @@ function renderProductInfo(product) {
 }
 
 /**
- * 把數字評分轉成星星字串（純★☆格式）
- * Convert numeric rating to star string (★ and ☆ only)
+ * 把數字評分轉成星星 icon HTML
+ * Convert numeric rating to star icon HTML
  * @param {number} rating - 評分（0~5）
- * @returns {string} - 星星字串，例：'★★★☆☆'
+ * @returns {string}
  */
 function renderStars(rating) {
-  const filledStars = Math.round(rating);    // 四捨五入到整數星星數
-  const emptyStars = 5 - filledStars;        // 空心星星數
-
-  return (
-    '★'.repeat(filledStars) +
-    '☆'.repeat(Math.max(0, emptyStars))
-  );
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5;
+  const empty = 5 - full - (half ? 1 : 0);
+  let html = '';
+  for (let i = 0; i < full; i++) html += '<i class="bi bi-star-fill star" aria-hidden="true"></i>';
+  if (half) html += '<i class="bi bi-star-half star" aria-hidden="true"></i>';
+  for (let i = 0; i < empty; i++) html += '<i class="bi bi-star star empty" aria-hidden="true"></i>';
+  return `<span class="yr-rating-stars" aria-label="評分 ${rating.toFixed(1)} 分">${html}</span>`;
 }
 
 /**
@@ -191,6 +193,15 @@ function getReviewCardRatings() {
   const ratings = [];
 
   ratingElements.forEach(card => {
+    const ratedEl = card.querySelector('[data-rating]');
+    if (ratedEl) {
+      const parsed = parseFloat(ratedEl.getAttribute('data-rating'));
+      if (Number.isFinite(parsed)) {
+        ratings.push(parsed);
+        return;
+      }
+    }
+
     const starText = Array.from(card.querySelectorAll('*'))
       .map(el => el.textContent || '')
       .join(' ')
@@ -419,7 +430,7 @@ function renderSpecTable(product) {
   const featuresEl = document.getElementById('productFeatures');
   if (featuresEl && product.tags && product.tags.length > 0) {
     featuresEl.innerHTML = `
-      <h4 style="font-size:0.95rem;font-weight:700;color:#374151;margin-bottom:0.75rem;">✨ 商品特色</h4>
+      <span class="yr-product-feature-heading"><i class="bi bi-stars" aria-hidden="true"></i> 商品特色</span>
       <ul style="padding-left:1.25rem;color:#4b5563;font-size:0.9rem;line-height:2;">
         ${product.tags.map(tag => `<li>${tag}</li>`).join('')}
       </ul>
@@ -430,46 +441,64 @@ function renderSpecTable(product) {
 // -----------------------------------------------
 // 渲染免運進度條
 // Render free shipping progress bar
-// 規則：購物車金額 + 本商品金額 = 目前進度
-// 免運門檻：NT$3000
 // -----------------------------------------------
 function renderShippingProgress() {
-  const threshold = 3000; // 免運門檻 Free shipping threshold
+  const configuredThreshold = Number(window.AppConfig?.CART?.FREE_SHIPPING_THRESHOLD);
+  const threshold = Number.isFinite(configuredThreshold) && configuredThreshold > 0 ? configuredThreshold : 3000;
 
-  // 計算目前購物車小計
-  // Calculate current cart subtotal
-  const cartTotal = window.calculateCartTotal ? window.calculateCartTotal() : 0;
+  const rawSubtotal = window.calculateCartTotal ? Number(window.calculateCartTotal()) : 0;
+  const subtotal = Number.isFinite(rawSubtotal) && rawSubtotal > 0 ? rawSubtotal : 0;
 
-  // 進度百分比（最高 100%）
-  // Progress percentage (max 100%)
-  const progressPct = Math.min(Math.round((cartTotal / threshold) * 100), 100);
-  const remaining = Math.max(threshold - cartTotal, 0);
+  const progress = Math.min(Math.max((subtotal / threshold) * 100, 0), 100);
+  const displayProgress = Math.round(progress);
+  const remaining = Math.max(threshold - subtotal, 0);
+  const isQualified = subtotal >= threshold;
 
   const progressBar = document.getElementById('shippingProgressBar');
   const progressText = document.getElementById('shippingProgressText');
   const progressHint = document.getElementById('shippingProgressHint');
+  const shippingCard = progressBar ? progressBar.closest('.yr-pd-shipping') : null;
+  const progressTrack = progressBar ? progressBar.parentElement : null;
 
   if (progressBar) {
-    // 若購物車是空的，示意性顯示 80%（用於說明功能）
-    // If cart is empty, show 80% as a demo
-    const displayPct = cartTotal === 0 ? 80 : progressPct;
-    progressBar.style.width = `${displayPct}%`;
+    progressBar.style.width = `${displayProgress}%`;
   }
 
   if (progressText) {
-    progressText.textContent = cartTotal >= threshold ? '已達免運！🎉' : `${progressPct}%`;
+    progressText.textContent = `${displayProgress}%`;
   }
 
   if (progressHint) {
-    if (cartTotal >= threshold) {
-      progressHint.textContent = '🎊 恭喜！您已享有免運費優惠';
-      progressHint.style.color = '#16a34a';
-    } else if (cartTotal === 0) {
-      progressHint.textContent = `購物滿 NT$${threshold.toLocaleString()} 享免運費，還差 NT$${remaining.toLocaleString()}`;
+    if (isQualified) {
+      progressHint.textContent = '已達免運門檻，本筆訂單可享免運';
+    } else if (subtotal === 0) {
+      progressHint.textContent = `購物滿 ${window.formatCurrency(threshold)} 享免運，還差 ${window.formatCurrency(remaining)}`;
     } else {
-      progressHint.textContent = `還差 NT$${remaining.toLocaleString()} 即可享免運費 🚚`;
+      progressHint.textContent = `距離免運還差 ${window.formatCurrency(remaining)}`;
     }
   }
+
+  if (shippingCard) {
+    shippingCard.classList.toggle('is-qualified', isQualified);
+  }
+  if (progressTrack) {
+    progressTrack.classList.add('shipping-progress-track');
+  }
+}
+
+/**
+ * 讓免運進度條在購物車異動後保持同步。
+ */
+function initShippingProgressSync() {
+  if (document.body.dataset.shippingProgressBound === 'true') return;
+  document.body.dataset.shippingProgressBound = 'true';
+
+  window.addEventListener('yurui:cart-updated', renderShippingProgress);
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'yuruiAppState') {
+      renderShippingProgress();
+    }
+  });
 }
 
 // -----------------------------------------------

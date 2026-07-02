@@ -1,232 +1,291 @@
-/* ══ Checkout-style 兩欄佈局 ══ */
-    .bk-checkout-layout {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 2rem;
-      align-items: start;
-      padding: 1.5rem 0 4rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+.yr-booking-checkout-page .booking-cart-page {
+  max-width: min(100% - 3rem, 1200px);
+  margin: 0 auto;
+  padding-top: 1.25rem;
+}
 
-    /* ── 手風琴面板 ── */
-    .bk-panel { margin-bottom: 0.75rem; }
+.yr-booking-checkout-page .step-progress--checkout {
+  padding-top: 1rem;
+}
 
-    .bk-panel__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.1rem 1.25rem;
-      cursor: pointer;
-      background: var(--bk-white);
-      border: 1px solid var(--bk-border);
-      border-radius: var(--bk-radius);
-      transition: background 0.15s;
-      user-select: none;
-    }
+.yr-booking-checkout-page .step span {
+  border-radius: 8px;
+  border: 1px solid #e2d8ca;
+  background: #fffdf8;
+  color: #6d6a62;
+  box-shadow: none;
+}
 
-    .bk-panel__header:hover { background: var(--bk-bg); }
+.yr-booking-checkout-page .step.completed span {
+  border-color: #ccd7c7;
+  background: #e7ece2;
+  color: #62715e;
+}
 
-    .bk-panel.is-open .bk-panel__header {
-      border-radius: var(--bk-radius) var(--bk-radius) 0 0;
-    }
+.yr-booking-checkout-page .step.active span {
+  border-color: #62715e;
+  background: #62715e;
+  color: #fffdf8;
+}
 
-    .bk-panel__title {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--bk-text);
-    }
+.yr-booking-checkout-page .step.active {
+  color: #62715e;
+}
 
-    .bk-panel__num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--bk-primary);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-    }
+.yr-booking-checkout-page .bk-checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 1.5rem;
+  align-items: start;
+}
 
-    .bk-panel__body {
-      background: var(--bk-white);
-      border: 1px solid var(--bk-border);
-      border-top: none;
-      border-radius: 0 0 var(--bk-radius) var(--bk-radius);
-      padding: 1.5rem;
-    }
+.yr-booking-checkout-page .bk-panel {
+  margin-bottom: 0.8rem;
+}
 
-    .bk-panel__arrow {
-      font-size: 1rem;
-      color: var(--bk-text-muted);
-      transition: transform 0.2s;
-    }
+.yr-booking-checkout-page .bk-panel__header {
+  border: 1px solid #e2d8ca;
+  border-radius: 16px;
+  background: #fffdf8;
+  padding: 1rem 1.15rem;
+}
 
-    .bk-panel:not(.is-open) .bk-panel__arrow { transform: rotate(-90deg); }
-    .bk-panel.is-open       .bk-panel__arrow { transform: rotate(0deg); }
+.yr-booking-checkout-page .bk-panel__title {
+  color: #3f463d;
+  font-weight: 600;
+}
 
-    /* ── 右側 Sticky 摘要 ── */
-    .bk-checkout-summary-col {
-      position: sticky;
-      top: 5rem;
-    }
+.yr-booking-checkout-page .bk-panel__num {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #e2d8ca;
+  background: #fffdf8;
+  color: #6d6a62;
+}
 
-    .bk-summary-card {
-      background: var(--bk-white);
-      border: 1px solid var(--bk-border);
-      border-radius: var(--bk-radius);
-      padding: 1.5rem;
-    }
+.yr-booking-checkout-page .bk-panel.is-open .bk-panel__num {
+  border-color: #62715e;
+  background: #62715e;
+  color: #fffdf8;
+}
 
-    .bk-summary-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--bk-primary);
-      margin: 0 0 1.25rem 0;
-    }
+.yr-booking-checkout-page .bk-panel.is-open .bk-panel__header {
+  border-radius: 16px 16px 0 0;
+}
 
-    /* ── 付款方式 ── */
-    .payment-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.875rem;
-      padding: 0.875rem 1rem;
-      border: 2px solid var(--bk-border);
-      border-radius: var(--bk-radius);
-      cursor: pointer;
-      margin-bottom: 0.6rem;
-      background: var(--bk-white);
-      transition: border-color 0.15s, background 0.15s;
-    }
+.yr-booking-checkout-page .bk-panel__arrow {
+  color: #6d6a62;
+}
 
-    .payment-option.is-selected {
-      border-color: var(--bk-primary);
-      background: var(--bk-primary-light, #edf5f5);
-    }
+.yr-booking-checkout-page .bk-panel__body {
+  border: 1px solid #e2d8ca;
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: #fffdf8;
+  padding: 1.15rem;
+}
 
-    .payment-option input[type="radio"] {
-      margin-top: 0.15rem;
-      accent-color: var(--bk-primary);
-      width: 17px;
-      height: 17px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
+.yr-booking-checkout-page .cart-section {
+  border: 1px solid #e2d8ca;
+  border-radius: 14px;
+  background: #fffdf8;
+  box-shadow: none;
+}
 
-    .payment-option__title {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--bk-text);
-    }
+.yr-booking-checkout-page .cart-section__title {
+  color: #3f463d;
+  border-bottom-color: #e2d8ca;
+}
 
-    .payment-option__desc {
-      font-size: 0.8rem;
-      color: var(--bk-text-muted);
-      margin-top: 0.2rem;
-    }
+.yr-booking-checkout-page .upsell-section__title {
+  color: #62715e;
+}
 
-    /* 信用卡輸入區 */
-    #creditCardSection {
-      margin-top: 0.75rem;
-      padding: 1.1rem;
-      background: var(--bk-bg, #f5f9f9);
-      border-radius: var(--bk-radius);
-      border: 1px solid var(--bk-border);
-    }
+.yr-booking-checkout-page .upsell-section__desc {
+  margin-bottom: 1rem;
+  color: #6d6a62;
+  font-size: 0.9rem;
+}
 
-    .cc-label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--bk-primary);
-      margin-bottom: 0.3rem;
-    }
+.yr-booking-checkout-page .contact-form--panel {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin: 0;
+}
 
-    .cc-input {
-      width: 100%;
-      padding: 0.55rem 0.8rem;
-      border: 1.5px solid var(--bk-border);
-      border-radius: var(--bk-radius-sm);
-      font-size: 0.9rem;
-      color: var(--bk-text);
-      background: var(--bk-white);
-      outline: none;
-      box-sizing: border-box;
-      transition: border-color 0.2s;
-      font-family: inherit;
-      letter-spacing: 0.03em;
-    }
+.yr-booking-checkout-page .contact-form--panel .form-control {
+  margin-bottom: 0.65rem;
+}
 
-    .cc-input:focus { border-color: var(--bk-primary); }
-    .cc-field { margin-bottom: 0.75rem; }
-    .cc-field:last-child { margin-bottom: 0; }
+.yr-booking-checkout-page .contact-help-note {
+  margin: 0.25rem 0 0;
+  color: #6d6a62;
+  font-size: 0.78rem;
+}
 
-    .cc-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
+.yr-booking-checkout-page .payment-option {
+  border: 1px solid #e2d8ca;
+  border-radius: 10px;
+  background: #fffdf8;
+}
 
-    /* 確認按鈕區 */
-    .bk-confirm-area { margin-top: 1.5rem; }
+.yr-booking-checkout-page .payment-option.is-selected {
+  border-color: #ccd7c7;
+  background: #e7ece2;
+}
 
-    .bk-terms-note {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--bk-text-muted);
-      margin-top: 0.4rem;
-    }
+.yr-booking-checkout-page .payment-option input[type="radio"] {
+  accent-color: #62715e;
+}
 
-    .ssl-note {
-      font-size: 0.75rem;
-      color: var(--bk-text-muted);
-      text-align: center;
-      margin-top: 0.6rem;
-    }
+.yr-booking-checkout-page .payment-option__title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #3f463d;
+}
 
-    /* 未登入提示橫幅 */
-    .bk-login-notice {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      padding: 0.875rem 1rem;
-      background: var(--yc-warning-soft, #F4ECE2);
-      border: 1.5px solid var(--yc-warning, #9A7455);
-      border-radius: var(--bk-radius);
-      font-size: 0.875rem;
-      color: var(--yc-warning-dark, #6B4D32);
-      margin-bottom: 1rem;
-    }
+.yr-booking-checkout-page .payment-option__title i {
+  color: #74846f;
+}
 
-    .bk-login-notice__btn {
-      margin-left: auto;
-      padding: 0.35rem 0.9rem;
-      border: 1.5px solid var(--bk-primary);
-      background: var(--bk-white);
-      color: var(--bk-primary);
-      border-radius: var(--bk-radius-sm);
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
+.yr-booking-checkout-page [id='creditCardSection'] {
+  border-radius: 10px;
+  border-color: #e2d8ca;
+  background: #f5efe5;
+}
 
-    .bk-login-notice__btn:hover {
-      background: var(--bk-primary);
-      color: #fff;
-    }
+.yr-booking-checkout-page .cc-label {
+  color: #3f463d;
+  font-weight: 600;
+}
 
-    /* RWD */
-    @media (max-width: 900px) {
-      .bk-checkout-layout { grid-template-columns: 1fr; }
-      .bk-checkout-summary-col { position: static; order: -1; }
-    }
+.yr-booking-checkout-page .cc-input {
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #e2d8ca;
+  color: #3f463d;
+}
+
+.yr-booking-checkout-page .cc-input:focus {
+  border-color: #74846f;
+}
+
+.yr-booking-checkout-page .bk-confirm-area {
+  margin-top: 1.2rem;
+}
+
+.yr-booking-checkout-page .bk-login-notice {
+  border-radius: 10px;
+  border: 1px solid #e7d3cb;
+  background: #f3e7e1;
+  color: #9a675d;
+}
+
+.yr-booking-checkout-page .bk-login-notice__btn {
+  border-radius: 10px;
+  border-color: #9a675d;
+  color: #9a675d;
+}
+
+.yr-booking-checkout-page .bk-login-notice__btn:hover {
+  background: #f3e7e1;
+  color: #9a675d;
+}
+
+.yr-booking-checkout-page .confirm-pay-btn {
+  padding: 1rem;
+  font-size: 1.05rem;
+  border-radius: 10px;
+}
+
+.yr-booking-checkout-page .bk-terms-note,
+.yr-booking-checkout-page .ssl-note {
+  color: #6d6a62;
+}
+
+.yr-booking-checkout-page .booking-cart-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.yr-booking-checkout-page .bk-checkout-summary-col {
+  position: sticky;
+  top: 96px;
+}
+
+.yr-booking-checkout-page .bk-summary-card {
+  border: 1px solid #e2d8ca;
+  border-radius: 16px;
+  background: #fffdf8;
+  box-shadow: 0 6px 18px rgb(63 70 61 / 5%);
+}
+
+.yr-booking-checkout-page .bk-summary-card h3 {
+  color: #3f463d;
+}
+
+.yr-booking-checkout-page .cost-total {
+  border-top-color: #e2d8ca;
+}
+
+.yr-booking-checkout-page .cost-total__amount {
+  color: #62715e;
+}
+
+.yr-booking-checkout-page .checkout-summary-security {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2d8ca;
+  text-align: center;
+}
+
+.yr-booking-checkout-page .checkout-summary-security__line {
+  margin: 0 0 0.25rem;
+  color: #6d6a62;
+  font-size: 0.75rem;
+}
+
+.yr-booking-checkout-page .checkout-summary-security__line i {
+  color: #74846f;
+}
+
+.yr-booking-checkout-page .upsell-banner {
+  margin-top: 1rem;
+  border-color: #e2d8ca;
+  background: linear-gradient(135deg, #fffdf8, #e7ece2);
+}
+
+.yr-booking-checkout-page .upsell-banner p {
+  color: #3f463d;
+}
+
+.yr-booking-checkout-page .upsell-banner__desc {
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  color: #6d6a62;
+}
+
+.yr-booking-checkout-page .rental-skip-link--checkout {
+  margin-top: 0.5rem;
+}
+
+@media (width <= 900px) {
+  .yr-booking-checkout-page .bk-checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .yr-booking-checkout-page .bk-checkout-summary-col {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (width <= 390px) {
+  .yr-booking-checkout-page .booking-cart-page {
+    max-width: calc(100% - 2rem);
+  }
+}

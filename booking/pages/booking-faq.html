@@ -5,24 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#73816E">
   <meta name="description" content="Yuruicamp 預約系統常見問題：預約付款、取消退款、裝備押金、入住退房、裝備送達等完整說明。">
-  <link rel="icon" href="../../assets/icons/camping_icon.png" type="image/png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/yuruicamp-favicon.svg">
   <title>常見問題 | Yuruicamp 營地預約</title>
 
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/booking.css">
   <link rel="stylesheet" href="../css/yuruicamp-tags-status.css">
-  <link rel="stylesheet" href="../css/booking-faq.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-  <style>
-    
-  </style>
+  <link rel="stylesheet" href="../css/theme/booking-shell.css">
+  <link rel="stylesheet" href="../../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/booking-faq.css">
 </head>
-<body class="faq-page">
+<body class="faq-page yr-booking-theme yr-booking-faq-page">
 
   <!-- 預約系統專屬 Header -->
-  <div id="booking-header"></div>
+  <div id="header" data-header-context="camp"></div>
 
   <main>
 
@@ -41,19 +40,19 @@
          ===================================================== -->
     <nav class="faq-nav" aria-label="常見問題分類">
       <a class="faq-nav__link" href="#payment">
-        <i class="bi bi-credit-card"></i> 預約與付款
+        <i class="bi bi-credit-card" aria-hidden="true"></i> 預約與付款
       </a>
       <a class="faq-nav__link" href="#cancellation">
-        <i class="bi bi-x-circle"></i> 取消與退款
+        <i class="bi bi-x-circle" aria-hidden="true"></i> 取消與退款
       </a>
       <a class="faq-nav__link" href="#damage">
-        <i class="bi bi-exclamation-triangle"></i> 裝備損壞與押金
+        <i class="bi bi-exclamation-triangle" aria-hidden="true"></i> 裝備損壞與押金
       </a>
       <a class="faq-nav__link" href="#checkin">
-        <i class="bi bi-house-door"></i> 入住與退房
+        <i class="bi bi-house-door" aria-hidden="true"></i> 入住與退房
       </a>
       <a class="faq-nav__link" href="#delivery">
-        <i class="bi bi-truck"></i> 裝備送達與取回
+        <i class="bi bi-truck" aria-hidden="true"></i> 裝備送達與取回
       </a>
     </nav>
 
@@ -65,14 +64,14 @@
       <!-- ── ① 預約與付款方式 ── -->
       <section class="faq-section" id="payment">
         <div class="faq-section__header">
-          <span class="faq-section__icon"><i class="bi bi-credit-card"></i></span>
+          <span class="faq-section__icon"><i class="bi bi-credit-card" aria-hidden="true"></i></span>
           <h2 class="faq-section__title">預約與付款方式</h2>
         </div>
 
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             如何完成預約？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>搜尋並選擇喜愛的營地 → 選擇入住日期與營位 → 選填租借裝備 → 填寫聯絡資訊 → 確認並送出。
@@ -83,14 +82,14 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             支援哪些付款方式？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>目前支援以下付款方式：</p>
             <ul>
-              <li>💳 信用卡（Visa / MasterCard / JCB）</li>
-              <li>📱 LINE Pay</li>
-              <li>📦 貨到付款（僅適用部分地區）</li>
+              <li class="faq-payment-method"><i class="bi bi-credit-card" aria-hidden="true"></i> 信用卡（Visa / MasterCard / JCB）</li>
+              <li class="faq-payment-method"><i class="bi bi-phone" aria-hidden="true"></i> LINE Pay</li>
+              <li class="faq-payment-method"><i class="bi bi-cash-coin" aria-hidden="true"></i> 貨到付款（僅適用部分地區）</li>
             </ul>
           </div>
         </div>
@@ -98,7 +97,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             預約後可以修改日期嗎？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>入住日前 7 天（含）以前，可透過會員中心「我的露營行程」申請日期更改，需視該日期是否有空位而定。
@@ -109,7 +108,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             可以選擇先不租借裝備，之後再加購嗎？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>可以。完成住宿預約後，您仍可在入住前 3 天（含）以前，透過會員中心補充或修改租借裝備清單。
@@ -122,14 +121,14 @@
       <!-- ── ② 取消與退款政策 ── -->
       <section class="faq-section" id="cancellation">
         <div class="faq-section__header">
-          <span class="faq-section__icon"><i class="bi bi-x-circle"></i></span>
+          <span class="faq-section__icon"><i class="bi bi-x-circle" aria-hidden="true"></i></span>
           <h2 class="faq-section__title">取消與退款政策</h2>
         </div>
 
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             取消訂單的退款比例是多少？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>依取消時間與入住日的距離，退款比例如下：</p>
@@ -145,7 +144,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             如何申請取消訂單？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>請登入會員中心 → 「我的露營行程」→ 選擇欲取消的訂單 → 點擊「取消訂單」並確認。
@@ -156,7 +155,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             因天候或營地因素臨時取消，可以全額退款嗎？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>若因颱風、地震等不可抗力因素導致營地宣告關閉，將全額退款，並以電子郵件通知。
@@ -169,14 +168,14 @@
       <!-- ── ③ 裝備損壞與押金說明 ── -->
       <section class="faq-section" id="damage">
         <div class="faq-section__header">
-          <span class="faq-section__icon"><i class="bi bi-exclamation-triangle"></i></span>
+          <span class="faq-section__icon"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></span>
           <h2 class="faq-section__title">裝備損壞與押金說明</h2>
         </div>
 
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             押金如何計算與退還？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>押金依租借裝備的種類與數量計算（詳見結帳頁費用明細）。
@@ -187,7 +186,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             什麼情況屬於「人為損壞」需要賠償？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>下列情況屬於人為損壞，需依市場價格賠償：</p>
@@ -198,14 +197,14 @@
               <li>照明設備浸水或跌落損壞</li>
               <li>零件或配件遺失</li>
             </ul>
-            <p style="margin-top:.75rem;">正常使用所致的輕微磨損屬合理耗損，不在賠償範圍內。</p>
+            <p class="faq-answer-note">正常使用所致的輕微磨損屬合理耗損，不在賠償範圍內。</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             裝備遺失怎麼辦？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>裝備遺失需按市場全額賠償。如發生遺失，請第一時間聯絡客服（0800-123-456），
@@ -216,7 +215,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             歸還時裝備應如何整理？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>請依以下方式整理後等候工作人員驗收：</p>
@@ -234,14 +233,14 @@
       <!-- ── ④ 入住與退房規則 ── -->
       <section class="faq-section" id="checkin">
         <div class="faq-section__header">
-          <span class="faq-section__icon"><i class="bi bi-house-door"></i></span>
+          <span class="faq-section__icon"><i class="bi bi-house-door" aria-hidden="true"></i></span>
           <h2 class="faq-section__title">入住與退房規則</h2>
         </div>
 
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             入住與退房時間是幾點？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>入住時間：<strong>下午 14:00</strong> 起<br>
@@ -253,7 +252,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             可以提早入住或延後退房嗎？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>提早入住或延後退房需視當日前後訂單情況而定，請提前聯絡客服或直接向營地管理員洽詢，
@@ -264,7 +263,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             入住當天未依時段辦理，訂單會被取消嗎？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>若入住當日晚上 22:00 前未辦理入住也未通知，系統將自動列為「未到場（No Show）」，
@@ -277,14 +276,14 @@
       <!-- ── ⑤ 裝備送達與取回方式 ── -->
       <section class="faq-section" id="delivery">
         <div class="faq-section__header">
-          <span class="faq-section__icon"><i class="bi bi-truck"></i></span>
+          <span class="faq-section__icon"><i class="bi bi-truck" aria-hidden="true"></i></span>
           <h2 class="faq-section__title">裝備送達與取回方式</h2>
         </div>
 
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             裝備什麼時候會送到營地？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>裝備將於入住當日 <strong>13:00 前</strong>送達指定營位，您抵達時即可使用。
@@ -295,7 +294,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             裝備會送到哪裡？需要自取嗎？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>裝備會直接送到您預訂的<strong>指定營位</strong>，無需自取。
@@ -306,7 +305,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             退房時裝備如何取回？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>工作人員將於退房日 <strong>11:00</strong> 前至您的營位回收裝備，您只需整理好放置原位等候驗收即可，
@@ -317,7 +316,7 @@
         <div class="faq-item">
           <button class="faq-item__question" aria-expanded="false">
             裝備送達時我不在場怎麼辦？
-            <i class="bi bi-chevron-down faq-item__arrow"></i>
+            <i class="bi bi-chevron-down faq-item__arrow" aria-hidden="true"></i>
           </button>
           <div class="faq-item__answer">
             <p>若您不在場，工作人員會將裝備放置在營位指定位置並拍照存證，
@@ -333,7 +332,7 @@
           <h2>還有其他問題？</h2>
           <p>客服團隊週一至週日 10:00 – 20:00 隨時為您服務</p>
           <a href="./camp-search.html" class="faq-cta__btn">
-            <i class="bi bi-compass"></i> 開始預約露營
+            <i class="bi bi-compass" aria-hidden="true"></i> 開始預約露營
           </a>
         </div>
       </div>

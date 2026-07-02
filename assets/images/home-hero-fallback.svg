@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">露營情境背景圖</title>
+  <desc id="desc">山林營地中可見帳篷、露營桌椅、營燈與戶外炊具。</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8e0d3"/>
+      <stop offset="100%" stop-color="#f4efe4"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b4bea7"/>
+      <stop offset="100%" stop-color="#8b947e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <path d="M0 510L210 350L430 520L620 330L820 520L1020 380L1220 525L1390 370L1600 500V1000H0Z" fill="#98a58b"/>
+  <rect y="620" width="1600" height="380" fill="url(#ground)"/>
+  <ellipse cx="820" cy="705" rx="470" ry="90" fill="#7a846c" opacity=".45"/>
+  <polygon points="560,650 760,360 955,650" fill="#e9dfcc"/>
+  <polygon points="760,360 955,650 760,650" fill="#c8b89f"/>
+  <rect x="742" y="545" width="58" height="105" rx="8" fill="#7a6b57"/>
+  <rect x="650" y="660" width="235" height="20" rx="8" fill="#6f7867"/>
+  <rect x="680" y="680" width="10" height="70" fill="#595f52"/>
+  <rect x="845" y="680" width="10" height="70" fill="#595f52"/>
+  <rect x="603" y="678" width="64" height="16" rx="8" fill="#6f7867"/>
+  <rect x="610" y="695" width="10" height="56" fill="#595f52"/>
+  <rect x="650" y="695" width="10" height="56" fill="#595f52"/>
+  <rect x="870" y="678" width="64" height="16" rx="8" fill="#6f7867"/>
+  <rect x="877" y="695" width="10" height="56" fill="#595f52"/>
+  <rect x="917" y="695" width="10" height="56" fill="#595f52"/>
+  <rect x="997" y="620" width="16" height="130" fill="#50584a"/>
+  <circle cx="1005" cy="600" r="24" fill="#f1e6bd"/>
+  <rect x="990" y="588" width="30" height="26" rx="8" fill="#f8f0cf" opacity=".8"/>
+  <rect x="940" y="674" width="56" height="14" rx="7" fill="#4e5448"/>
+  <rect x="952" y="688" width="32" height="24" rx="6" fill="#656b5c"/>
+  <circle cx="965" cy="693" r="4" fill="#2f332c"/>
+  <path d="M230 740c36-75 70-132 106-177 16-20 48-23 70-7 35 26 73 71 112 138 10 18 4 40-15 50-94 53-187 53-278 0-18-10-24-32-15-47z" fill="#5d6757"/>
+  <rect x="146" y="642" width="42" height="120" rx="14" fill="#4f5849"/>
+  <polygon points="167,606 132,642 202,642" fill="#d6cbad"/>
+  <rect x="1405" y="672" width="26" height="110" fill="#5d6657"/>
+  <circle cx="1418" cy="650" r="18" fill="#e6ddba"/>
+</svg>

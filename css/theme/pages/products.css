@@ -1,0 +1,323 @@
+.yr-theme .ad-carousel-container {
+  margin: 1.25rem 0 1.75rem;
+  padding: 0;
+  background: transparent;
+}
+
+.yr-theme .ad-carousel {
+  height: clamp(280px, 28vw, 320px);
+  border: 1px solid #e2d8ca;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(120, 116, 102, 0.1);
+  overflow: hidden;
+}
+
+.yr-theme .ad-carousel-slides {
+  height: 100%;
+}
+
+.yr-theme .ad-carousel-slide {
+  height: 100%;
+  padding: 2rem 5rem;
+  background: linear-gradient(135deg, #f3ebdd 0%, #e7ece2 100%);
+  color: #3f463d;
+}
+
+.yr-theme .ad-carousel-content {
+  flex: 0 0 58%;
+  max-width: 58%;
+  gap: 0.8rem;
+}
+
+.yr-theme .ad-carousel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #eee4d7;
+  color: #706257;
+  border: 1px solid #ded0c1;
+  border-radius: 999px;
+}
+
+.yr-theme .ad-carousel-title {
+  max-width: none;
+  color: #3f463d;
+}
+
+.yr-theme .ad-carousel-desc {
+  color: #6d6a62;
+  opacity: 1;
+}
+
+.yr-theme .ad-carousel-price {
+  color: #74846f;
+}
+
+.yr-theme .ad-carousel-media {
+  flex: 0 0 38%;
+  max-width: 38%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+}
+
+.yr-theme .ad-carousel-image {
+  width: min(100%, 260px);
+  height: min(100%, 240px);
+  min-width: 180px;
+  object-fit: contain;
+  border-radius: 18px;
+  border: 1px solid #e2d8ca;
+  background: #faf7ed;
+  padding: 0.9rem;
+  opacity: 1;
+}
+
+.yr-theme .ad-carousel-btn {
+  background: rgba(250, 247, 237, 0.95);
+  color: #74846f;
+  border: 1px solid #e2d8ca;
+}
+
+.yr-theme .ad-carousel-btn:hover {
+  background: #62715e;
+  color: #faf7ed;
+}
+
+.yr-theme .ad-carousel-dot {
+  background: rgba(116, 132, 111, 0.4);
+}
+
+.yr-theme .ad-carousel-dot.active {
+  background: #74846f;
+}
+
+.yr-theme .product-card-badge.badge-new {
+  background: #eee4d7;
+  color: #706257;
+  border: 1px solid #ded0c1;
+}
+
+.yr-theme #filterNewBtn i,
+.yr-theme #filterBestBtn i,
+.yr-theme #mobileFilterBtn i,
+.yr-theme .filter-sheet-close i,
+.yr-theme .ad-carousel-btn i {
+  margin-right: 0.35rem;
+}
+
+.yr-theme .ad-carousel-btn i,
+.yr-theme .filter-sheet-close i {
+  margin-right: 0;
+}
+
+.yr-theme .breadcrumb-item a {
+  color: var(--yr-theme-brand-strong);
+}
+
+.yr-products-page .yr-page-banner {
+  padding: 2rem 0 1.75rem;
+  margin-bottom: 1.5rem;
+  background:
+    linear-gradient(
+      180deg,
+      #fcfaf4 0%,
+      #fbf8ef 74%,
+      rgba(225, 233, 220, 0.24) 100%
+    );
+  border-bottom: 1px solid rgba(229, 219, 206, 0.45);
+}
+
+.yr-products-page .yr-page-banner .container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #66645d;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb-item a {
+  color: #7c8b76;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb-item.active {
+  color: #454941;
+  font-weight: 600;
+}
+
+.yr-products-page .yr-page-banner .breadcrumb-sep {
+  color: rgba(102, 100, 93, 0.48);
+}
+
+.yr-products-page .yr-page-banner-title {
+  display: inline-block;
+  color: #697763;
+  font-family: var(--yr-font-family-heading);
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.55rem;
+}
+
+.yr-products-page .yr-page-banner-title::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: 0.75rem;
+  background: #c7d4c1;
+  border-radius: 999px;
+}
+
+.yr-products-page .yr-page-banner-sub {
+  max-width: 36rem;
+  margin: 0;
+  color: #66645d;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.yr-products-page .page-banner + .ad-carousel-container {
+  margin-top: 0.85rem;
+}
+
+@media (max-width: 1024px) {
+  .yr-products-page .yr-page-banner {
+    padding: 1.8rem 0 1.55rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-products-page .yr-page-banner {
+    padding: 1.65rem 0 1.4rem;
+  }
+
+  .yr-products-page .yr-page-banner-sub {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .yr-products-page .yr-page-banner {
+    padding: 1.4rem 0 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .yr-products-page .yr-page-banner-title {
+    font-size: 2rem;
+  }
+
+  .yr-products-page .yr-page-banner-sub {
+    font-size: 0.95rem;
+  }
+
+  .yr-products-page .yr-page-banner .breadcrumb {
+    margin-bottom: 0.4rem;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .yr-theme .ad-carousel-slide {
+    padding: 1.75rem 4rem;
+  }
+
+  .yr-theme .ad-carousel-content {
+    flex-basis: 56%;
+    max-width: 56%;
+  }
+
+  .yr-theme .ad-carousel-media {
+    flex-basis: 40%;
+    max-width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-theme .ad-carousel {
+    height: auto;
+  }
+
+  .yr-theme .ad-carousel-slide {
+    padding: 1.4rem 3rem;
+  }
+
+  .yr-theme .ad-carousel-content {
+    flex-basis: 60%;
+    max-width: 60%;
+  }
+
+  .yr-theme .ad-carousel-media {
+    flex-basis: 36%;
+    max-width: 36%;
+    padding: 0.8rem;
+  }
+
+  .yr-theme .ad-carousel-image {
+    min-width: 130px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .yr-theme .ad-carousel-slide {
+    padding: 1rem 2.5rem 1.4rem;
+  }
+
+  .yr-theme .ad-carousel-content,
+  .yr-theme .ad-carousel-media {
+    flex-basis: auto;
+    max-width: 100%;
+  }
+
+  .yr-theme .ad-carousel-media {
+    height: auto;
+  }
+
+  .yr-theme .ad-carousel-image {
+    min-width: 120px;
+    width: 140px;
+    height: 140px;
+  }
+}
+
+/* Product page only: desaturate discount and cart badge reds */
+.yr-products-page .price-discount {
+  color: #9a675d;
+  background-color: #f3e7e1;
+  border: 1px solid #e7d3cb;
+  border-radius: 7px;
+  box-shadow: none;
+}
+
+.yr-products-page .price-original {
+  color: #b8afa5;
+}
+
+.yr-products-page .product-card-rating .star-rating .bi-star-fill,
+.yr-products-page .product-card-rating .star-rating .bi-star-half {
+  color: var(--yr-color-rating);
+}
+
+.yr-products-page .product-card-rating .star-rating .bi-star,
+.yr-products-page .product-card-rating .star-rating .star.empty {
+  color: var(--yr-color-rating-empty);
+}
+
+.yr-products-page .product-card-rating > span:nth-of-type(1) {
+  color: var(--yr-color-text);
+}
+
+.yr-products-page .product-card-rating > span:nth-of-type(2) {
+  color: var(--yr-color-text-muted);
+}

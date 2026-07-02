@@ -514,7 +514,7 @@
   box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1);
   z-index: $z-modal;
   transform: translateX(100%);
-  transition: transform $transition-base $transition-function;
+  transition: transform $transition-base $timing-function;
 
   &.active {
     transform: translateX(0);
@@ -590,33 +590,8 @@
   z-index: 2;
 }
 
-.navbar-hamburger {
-  align-items: center;
-  background: none;
-  border: none;
-  color: $primary;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 1.4rem;
-  height: 40px;
-  justify-content: center;
-  margin-right: auto;
-  width: 40px;
-  z-index: 2;
-}
-
 .navbar-menu {
   display: none;
-}
-
-.navbar-offcanvas {
-  left: 0;
-  right: auto;
-  transform: translateX(-100%);
-
-  &.active {
-    transform: translateX(0);
-  }
 }
 
 .navbar-cart-btn {
@@ -634,14 +609,6 @@
   color: $primary;
   font-weight: 800;
   margin: 0;
-}
-
-.offcanvas-close {
-  background: none;
-  border: none;
-  color: $text-light;
-  cursor: pointer;
-  font-size: 1.2rem;
 }
 
 .navbar-items--stacked {

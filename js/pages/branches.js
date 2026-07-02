@@ -11,42 +11,42 @@
 const PARTNER_DATA = [
   {
     name: '天空之城露營農場',
-    image: 'https://picsum.photos/seed/partner1/400/300',
+    image: '../assets/images/branches/sky-castle-camp.webp',
     tags: ['景觀露營', '親子友善', '設備租借'],
     discount: 'YURUI88 享88折',
     desc: '海拔1200公尺的雲霧之間，景色無敵。白天俯瞰翠綠山谷，夜晚仰望璀璨星空，是離天空最近的夢幻露營地。提供完善的設備租借，讓你無需負重即可享受高山露營。'
   },
   {
     name: '森林秘境生態農場',
-    image: 'https://picsum.photos/seed/partner2/400/300',
+    image: '../assets/images/branches/forest-eco-camp.webp',
     tags: ['生態體驗', '野外教學', 'DIY'],
     discount: 'FOREST10 享9折',
     desc: '在深山原始林中，體驗真實的自然教育。從辨識野生植物到建造野外遮蔽所，每一項活動都讓大人與孩子重新認識大自然。每週末固定舉辦 DIY 工作坊。'
   },
   {
     name: '海岸星空露營基地',
-    image: 'https://picsum.photos/seed/partner3/400/300',
+    image: '../assets/images/branches/coastal-stargazing-camp.webp',
     tags: ['海景', '夜觀星空', '衝浪'],
     discount: 'STAR15 折150元',
     desc: '面對太平洋的絕美海景，夜晚數星星、聆聽浪濤聲入睡。白天可參加衝浪體驗課程，基地提供專業衝浪板租借與教練指導，是海岸冒險愛好者的首選。'
   },
   {
     name: '梅花湖湖景渡假村',
-    image: 'https://picsum.photos/seed/partner4/400/300',
+    image: '../assets/images/branches/plum-lake-resort.webp',
     tags: ['湖景', '划船', '釣魚'],
     discount: 'LAKE100 折100元',
     desc: '鄰近梅花湖的精緻露營場，可划船釣魚，水上活動豐富多樣。湖畔搭帳聽水聲入眠，清晨在湖霧中醒來，享受如詩如畫的寧靜時光。'
   },
   {
     name: '古道芬多精山莊',
-    image: 'https://picsum.photos/seed/partner5/400/300',
+    image: '../assets/images/branches/forest-trail-lodge.webp',
     tags: ['芬多精', '登山步道', '早餐服務'],
     discount: 'FOREST88 享88折',
     desc: '千年古道旁的靜謐山莊，充滿負離子與芬多精。沿途種植百年老樟樹，空氣清新令人神清氣爽。提供豐盛台式早餐，讓你元氣滿滿出發登山健行。'
   },
   {
     name: '荷花池畔戀人角落',
-    image: 'https://picsum.photos/seed/partner6/400/300',
+    image: '../assets/images/branches/lotus-lakeside-camp.webp',
     tags: ['荷花池', '情侶推薦', '燭光晚餐'],
     discount: 'LOVE200 折200元',
     desc: '充滿浪漫氛圍的荷花池畔，適合兩人世界。每晚提供精心設計的燭光晚餐，帳篷內備有紅酒與小點心。夏夜螢火蟲飛舞，是求婚告白的絕佳場所。'
@@ -85,17 +85,17 @@ function buildBranchCard(branch, isFirst) {
       <div class="branch-card-body">
         <!-- 地址 / Address -->
         <div class="branch-card-info">
-          <span>📍</span>
+          <span><i class="bi bi-geo-alt" aria-hidden="true"></i></span>
           <span>${branch.address}</span>
         </div>
         <!-- 電話 / Phone -->
         <div class="branch-card-info">
-          <span>📞</span>
+          <span><i class="bi bi-telephone" aria-hidden="true"></i></span>
           <span>${branch.phone}</span>
         </div>
         <!-- 營業時間 / Hours -->
         <div class="branch-card-info">
-          <span>🕐</span>
+          <span><i class="bi bi-clock" aria-hidden="true"></i></span>
           <span>${branch.hours}</span>
         </div>
         <!-- 特色標籤（橫排）/ Feature tags (horizontal row) -->
@@ -156,7 +156,7 @@ async function loadBranches() {
     console.error('載入分店失敗 / Failed to load branches:', err);
     container.innerHTML = `
       <div style="text-align:center;padding:2rem;color:#e74c3c;">
-        <div style="font-size:2rem;margin-bottom:0.5rem;">⚠️</div>
+        <div style="font-size:2rem;margin-bottom:0.5rem;"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></div>
         載入失敗，請稍後再試
       </div>`;
     return;
@@ -225,7 +225,7 @@ function buildPartnerCard(partner, idx) {
         <img src="${partner.image}"
              alt="${partner.name}"
              loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/fallback/400/300'">
+             onerror="this.onerror=null; this.src='../assets/images/branches/branch-fallback.webp';">
       </div>
       <!-- 卡片內容 -->
       <div class="partner-card-body">
@@ -233,7 +233,7 @@ function buildPartnerCard(partner, idx) {
         <div class="partner-tags">${tagsHTML}</div>
         <!-- 優惠碼預覽 -->
         <div style="margin-top:0.5rem;font-size:0.72rem;color:#244d4d;font-weight:700;">
-          🎁 ${partner.discount}
+          <i class="bi bi-gift" aria-hidden="true"></i> ${partner.discount}
         </div>
       </div>
     </div>
@@ -303,25 +303,14 @@ window.openPartnerDetail = function(idx) {
  * Called early so global components are registered before main.js runs
  */
 window.initBranchesPage = function() {
-  console.log('📍 初始化分店頁面 / Initializing branches page...');
-
-  // 告訴 main.js：全局組件由這個頁面 JS 負責初始化
-  // Signal main.js that global components are initialized here
-  window._appComponentsInitialized = true;
-
-  // 初始化全局組件
-  // Initialize global components (navbar, modal, cart)
-  if (window.initNavbar)               window.initNavbar();
-  if (window.initModalListeners)       window.initModalListeners();
-  if (window.initCartListeners)        window.initCartListeners();
-  if (window.initPersonalizationModal) window.initPersonalizationModal();
+  console.log('初始化分店頁面 / Initializing branches page...');
 
   // 初始化頁面專屬功能
   // Initialize page-specific features
   loadBranches();   // 載入分店資料並渲染地圖
   renderPartners(); // 渲染合作店家網格
 
-  console.log('✅ 分店頁面初始化完成 / Branches page initialized');
+  console.log('分店頁面初始化完成 / Branches page initialized');
 };
 
 // ============================================================

@@ -4,28 +4,31 @@
      評論卡片由 reviews.js 的 $.getJSON() 動態產生
 -->
 
-<!-- ===== 篩選按鈕（全部 / 未回覆 / 已回覆）===== -->
-<div class="d-flex align-items-center gap-2 mb-4">
-  <button class="btn btn-dark active filter-btn" type="button" data-filter="all">
-    全部 <span class="badge bg-secondary ms-1" id="tabCountAll">0</span>
-  </button>
-  <button class="btn btn-outline-secondary filter-btn" type="button" data-filter="unreplied">
-    未回覆 <span class="badge bg-danger ms-1" id="tabCountUnreplied">0</span>
-  </button>
-  <button class="btn btn-outline-secondary filter-btn" type="button" data-filter="replied">
-    已回覆 <span class="badge bg-success ms-1" id="tabCountReplied">0</span>
-  </button>
-</div>
-
-<!-- ===== 評論卡片容器
-     由 reviews.js 的 renderReviewCards() 動態填入
-     未回覆卡片：左側橘色粗邊框
--->
-<div id="reviewsContainer">
-  <!-- 初始載入提示 -->
-  <div class="text-center py-5">
-    <div class="spinner-border spinner-border-sm me-2"
-         style="color: var(--admin-brand-accent);"></div>
-    <span class="text-muted">載入評論中...</span>
+<section class="yr-admin-reviews-module">
+  <!-- ===== 篩選按鈕（全部 / 未回覆 / 已回覆）===== -->
+  <div class="yr-admin-reviews-toolbar d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <div class="yr-admin-reviews-tabs d-flex align-items-center gap-2" role="tablist" aria-label="評論篩選">
+      <button class="btn btn-outline-secondary yr-admin-reviews-tab active filter-btn" type="button" data-filter="all">
+        全部 <span class="yr-admin-review-status yr-admin-review-status--unknown ms-1" id="tabCountAll">0</span>
+      </button>
+      <button class="btn btn-outline-secondary yr-admin-reviews-tab filter-btn" type="button" data-filter="unreplied">
+        待回覆 <span class="yr-admin-review-status yr-admin-review-status--pending ms-1" id="tabCountUnreplied">0</span>
+      </button>
+      <button class="btn btn-outline-secondary yr-admin-reviews-tab filter-btn" type="button" data-filter="replied">
+        已回覆 <span class="yr-admin-review-status yr-admin-review-status--answered ms-1" id="tabCountReplied">0</span>
+      </button>
+    </div>
+    <p class="yr-admin-reviews-result-count mb-0" id="reviewsResultCount" aria-live="polite">顯示 0 筆評論</p>
   </div>
-</div>
+
+  <!-- ===== 評論卡片容器
+       由 reviews.js 的 renderReviewCards() 動態填入
+  -->
+  <div id="reviewsContainer">
+    <!-- 初始載入提示 -->
+    <div class="yr-admin-reviews-loading text-center py-5" role="status" aria-live="polite">
+      <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div>
+      <span>載入評論中...</span>
+    </div>
+  </div>
+</section>

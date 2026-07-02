@@ -1,282 +1,225 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yuruicamp 訂單成立成功 - 感謝您的購買！">
-  <meta name="theme-color" content="#244d4d">
-  <title>訂單成立！- Yuruicamp 露營選物</title>
-  <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
-  <link rel="preconnect" href="https://picsum.photos">
-  <link rel="dns-prefetch" href="https://picsum.photos">
-  <link rel="stylesheet" href="../css/main.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏕️</text></svg>">
-  <style>
-    /* 成功頁面專屬動畫樣式 */
-    /* Success page exclusive animation styles */
-    @keyframes scaleIn {
-      0%   { transform: scale(0); opacity: 0; }
-      60%  { transform: scale(1.15); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes confettiFall {
-      0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Yuruicamp 訂單成立成功 - 感謝您的購買！" />
+    <meta name="theme-color" content="#244d4d" />
+    <title>訂單成立！- Yuruicamp 露營選物</title>
+    <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
+    <link rel="preconnect" href="https://picsum.photos" />
+    <link rel="dns-prefetch" href="https://picsum.photos" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/theme/theme-tokens.css" />
+    <link rel="stylesheet" href="../css/theme/theme-base.css" />
+    <link rel="stylesheet" href="../css/theme/theme-components.css" />
+    <link rel="stylesheet" href="../css/theme/theme-layout.css" />
+    <link rel="stylesheet" href="../css/theme/theme-header.css" />
+    <link rel="stylesheet" href="../css/theme/pages/checkout-success.css" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../assets/icons/yuruicamp-favicon.svg"
+    />
+  </head>
+  <body class="yr-theme yr-success-page">
+    <div id="header" data-header-context="shop"></div>
 
-    /* 成功圖示動畫 Success icon animation */
-    .success-icon-wrap {
-      animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
-    /* 內容淡入 Content fade in */
-    .success-content {
-      animation: fadeUp 0.5s ease 0.4s both;
-    }
-
-    /* 彩帶粒子 Confetti particle */
-    .confetti-particle {
-      position: fixed;
-      pointer-events: none;
-      animation: confettiFall linear forwards;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="header"></div>
-
-  <!-- ===================================================
+    <!-- ===================================================
        成功主體 Success Main Content
        =================================================== -->
-  <main style="min-height:calc(100vh - 200px);display:flex;align-items:center;justify-content:center;padding:3rem 1rem;">
+    <main class="yr-success-shell">
+      <section class="yr-success-card" aria-labelledby="successTitle">
+        <div class="yr-success-celebration" aria-hidden="true"></div>
+        <div class="yr-success-card__orb yr-success-card__orb--sage" aria-hidden="true"></div>
+        <div class="yr-success-card__orb yr-success-card__orb--oat" aria-hidden="true"></div>
 
-    <!-- 成功卡片容器 Success card container -->
-    <div class="checkout-success"
-         style="max-width:520px;width:100%;text-align:center;background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(36,77,77,0.12);padding:3rem 2.5rem;position:relative;overflow:hidden;">
-
-      <!-- 背景裝飾圓圈 Background decoration circles -->
-      <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(36,77,77,0.04);pointer-events:none;"></div>
-      <div style="position:absolute;bottom:-40px;left:-40px;width:140px;height:140px;border-radius:50%;background:rgba(34,197,94,0.05);pointer-events:none;"></div>
-
-      <!-- 大型綠色勾勾圖示 Large green check icon -->
-      <div class="success-icon-wrap"
-           style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(34,197,94,0.35);">
-        <span style="font-size:3rem;color:#fff;line-height:1;font-weight:700;">✓</span>
-      </div>
-
-      <!-- 成功訊息內容 Success message content -->
-      <div class="success-content">
-
-        <!-- 大標題 Main title -->
-        <h1 style="font-size:1.875rem;font-weight:800;color:#1a1a1a;margin:0 0 0.75rem 0;">
-          訂單成立！🎉
-        </h1>
-
-        <!-- 感謝文字 Thank you text -->
-        <p style="color:#4b5563;font-size:1.05rem;line-height:1.7;margin:0 0 1.5rem 0;">
-          感謝您在 Yuruicamp 的購物！<br>
-          我們已收到您的訂單，將盡快安排出貨。<br>
-          訂單確認信已發送至您的信箱。
-        </p>
-
-        <!-- 訂單編號區塊 Order number block -->
-        <div style="background:#f0fdf4;border:2px solid #bbf7d0;border-radius:12px;padding:1.125rem 1.5rem;margin-bottom:2rem;display:inline-block;width:100%;box-sizing:border-box;">
-          <div style="font-size:0.8rem;color:#16a34a;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">
-            訂單編號
+        <div class="yr-success-card__content">
+          <div class="yr-success-icon" aria-hidden="true">
+            <i class="bi bi-check-lg"></i>
           </div>
-          <div id="orderNumberDisplay"
-               style="font-size:1.3rem;font-weight:800;color:#244d4d;letter-spacing:0.05em;font-family:monospace;">
-            <!-- 由 JS 填入訂單編號 Filled by JS -->
-            載入中...
+
+          <h1 id="successTitle" class="yr-success-title">訂單已收下，準備啟程</h1>
+
+          <p class="yr-success-desc">
+            謝謝你把下一段戶外時光交給 Yuruicamp。<br />
+            我們會仔細整理這份裝備，準備妥當後再送往你的身邊。<br />
+            訂單確認信已發送至您的信箱。
+          </p>
+
+          <div class="yr-success-order-paper">
+            <div class="yr-success-order-label">訂單編號</div>
+            <div id="orderNumberDisplay" class="yr-success-order-number">載入中...</div>
           </div>
+
+          <div class="yr-success-journey" aria-label="物流流程">
+            <div class="yr-success-journey__item">
+              <div class="yr-success-journey__icon" aria-hidden="true">
+                <i class="bi bi-box-seam"></i>
+              </div>
+              <div class="yr-success-journey__title">備貨中</div>
+              <div class="yr-success-journey__time">1-2 工作天</div>
+            </div>
+
+            <div class="yr-success-journey__connector" aria-hidden="true"></div>
+
+            <div class="yr-success-journey__item">
+              <div class="yr-success-journey__icon" aria-hidden="true">
+                <i class="bi bi-truck"></i>
+              </div>
+              <div class="yr-success-journey__title">配送中</div>
+              <div class="yr-success-journey__time">2-4 工作天</div>
+            </div>
+
+            <div class="yr-success-journey__connector" aria-hidden="true"></div>
+
+            <div class="yr-success-journey__item">
+              <div class="yr-success-journey__icon" aria-hidden="true">
+                <i class="bi bi-house-door"></i>
+              </div>
+              <div class="yr-success-journey__title">等您收貨</div>
+              <div class="yr-success-journey__time">盡情探索吧！</div>
+            </div>
+          </div>
+
+          <div class="yr-success-actions">
+            <a
+              href="member-center.html"
+              class="btn btn-primary btn-block yr-success-btn yr-success-btn--primary"
+            >
+              <i class="bi bi-card-list" aria-hidden="true"></i>
+              查看訂單明細
+            </a>
+
+            <a
+              href="products.html"
+              class="btn btn-secondary btn-block yr-success-btn yr-success-btn--secondary"
+            >
+              <i class="bi bi-bag" aria-hidden="true"></i>
+              繼續購物
+            </a>
+          </div>
+
+          <p class="yr-success-support">
+            有任何問題？
+            <a
+              href="https://line.me/R/ti/p/@yuruicamp"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="yr-success-link"
+              >LINE 客服</a
+            >
+            或
+            <a href="mailto:support@yuruicamp.com" class="yr-success-link">support@yuruicamp.com</a>
+          </p>
         </div>
+      </section>
+    </main>
 
-        <!-- 預計出貨資訊 Expected shipping info -->
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-bottom:2rem;">
-          <div style="text-align:center;padding:0.875rem;background:#f9fafb;border-radius:10px;">
-            <div style="font-size:1.5rem;margin-bottom:0.4rem;">📦</div>
-            <div style="font-size:0.75rem;font-weight:700;color:#374151;">備貨中</div>
-            <div style="font-size:0.7rem;color:#9ca3af;margin-top:0.2rem;">1-2 工作天</div>
-          </div>
-          <div style="text-align:center;padding:0.875rem;background:#f9fafb;border-radius:10px;">
-            <div style="font-size:1.5rem;margin-bottom:0.4rem;">🚚</div>
-            <div style="font-size:0.75rem;font-weight:700;color:#374151;">配送中</div>
-            <div style="font-size:0.7rem;color:#9ca3af;margin-top:0.2rem;">2-4 工作天</div>
-          </div>
-          <div style="text-align:center;padding:0.875rem;background:#f9fafb;border-radius:10px;">
-            <div style="font-size:1.5rem;margin-bottom:0.4rem;">🏕️</div>
-            <div style="font-size:0.75rem;font-weight:700;color:#374151;">等您收貨</div>
-            <div style="font-size:0.7rem;color:#9ca3af;margin-top:0.2rem;">盡情探索吧！</div>
-          </div>
-        </div>
+    <div id="footer"></div>
 
-        <!-- 操作按鈕組 Action buttons group -->
-        <div style="display:flex;flex-direction:column;gap:0.75rem;">
-
-          <!-- 查看訂單明細 View order details -->
-          <a href="member-center.html"
-             class="btn btn-primary btn-block"
-             style="font-size:1rem;padding:0.875rem;">
-            📋 查看訂單明細
-          </a>
-
-          <!-- 繼續購物 Continue shopping -->
-          <a href="products.html"
-             class="btn btn-secondary btn-block"
-             style="font-size:1rem;padding:0.875rem;">
-            🛍️ 繼續購物
-          </a>
-
-        </div>
-
-        <!-- 客服提示 Customer service hint -->
-        <p style="color:#9ca3af;font-size:0.8rem;margin-top:1.5rem;line-height:1.6;">
-          有任何問題？
-          <a href="https://line.me/R/ti/p/@yuruicamp" target="_blank" style="color:#00b900;font-weight:600;text-decoration:none;">LINE 客服</a>
-          或 <a href="mailto:support@yuruicamp.com" style="color:#244d4d;font-weight:600;text-decoration:none;">support@yuruicamp.com</a>
-        </p>
-
-      </div><!-- /success-content -->
-
-    </div><!-- /checkout-success -->
-
-  </main>
-
-  
- <div id="footer"></div>
-
-  <!-- ===================================================
+    <!-- ===================================================
        Script 載入
        =================================================== -->
-  <script src="../js/config.js" defer></script>
-  <script src="../js/storage.js" defer></script>
-  <script src="../js/state.js" defer></script>
-  <script src="../js/formatters.js" defer></script>
-  <script src="../js/validators.js" defer></script>
-  <script src="../js/cart-service.js" defer></script>
-  <script src="../js/api-mock.js" defer></script>
-  <script src="../js/components/toast.js" defer></script>
-  <script src="../js/components/modal.js" defer></script>
-  <script src="../js/components/header.js" defer></script>
-  <script src="../js/components/cart.js" defer></script>
-  <script src="../js/main.js" defer></script>
+    <script src="../js/config.js" defer></script>
+    <script src="../js/storage.js" defer></script>
+    <script src="../js/state.js" defer></script>
+    <script src="../js/formatters.js" defer></script>
+    <script src="../js/validators.js" defer></script>
+    <script src="../js/cart-service.js" defer></script>
+    <script src="../js/api-mock.js" defer></script>
+    <script src="../js/components/toast.js" defer></script>
+    <script src="../js/components/modal.js" defer></script>
+    <script src="../js/components/header.js" defer></script>
+    <script src="../js/components/cart.js" defer></script>
+    <script src="../js/main.js" defer></script>
 
-  <!-- 成功頁面內嵌腳本 Inline script for success page -->
-  <script>
-    /**
-     * 成功頁面初始化
-     * Success page initialization
-     * 這個頁面不需要獨立的 page.js，邏輯很簡單，直接內嵌
-     */
-    (function initSuccessPage() {
-      // ------------------------------------------
-      // Step 1: 從 URL 讀取訂單編號
-      // Read order number from URL query string
-      // 例：checkout-success.html?orderNum=ORD-1234 → orderNum = 'ORD-1234'
-      // ------------------------------------------
-      const params = new URLSearchParams(window.location.search);
-      let orderNum = params.get('orderNum');
+    <!-- 成功頁面內嵌腳本 Inline script for success page -->
+    <script>
+      (function initSuccessPage() {
+        const params = new URLSearchParams(window.location.search);
+        let orderNum = params.get('orderNum');
 
-      // 重點：訂單編號改由 checkout.html 的 #confirmOrderBtn 產生，成功頁只負責顯示。
-      if (!orderNum) {
-        try {
-          const lastOrder = JSON.parse(localStorage.getItem('lastCheckoutOrder') || 'null');
-          orderNum = lastOrder?.orderNumber || lastOrder?.id || '';
-        } catch (error) {
-          console.warn('讀取 lastCheckoutOrder 失敗，成功頁不自行產生訂單編號。', error);
+        if (!orderNum) {
+          try {
+            const lastOrder = JSON.parse(localStorage.getItem('lastCheckoutOrder') || 'null');
+            orderNum = lastOrder?.orderNumber || lastOrder?.id || '';
+          } catch (error) {
+            console.warn('讀取 lastCheckoutOrder 失敗，成功頁不自行產生訂單編號。', error);
+          }
+        }
+
+        const orderNumEl = document.getElementById('orderNumberDisplay');
+        if (orderNumEl) {
+          const normalizedOrderNum = String(orderNum || '--').replace(/^#/, '');
+          orderNumEl.textContent = normalizedOrderNum === '--' ? '#--' : `#${normalizedOrderNum}`;
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', launchGentleCelebration, { once: true });
+        } else {
+          launchGentleCelebration();
+        }
+      })();
+
+      function launchGentleCelebration() {
+        var reducedMotion =
+          window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var host = document.querySelector('.yr-success-celebration');
+
+        if (reducedMotion || !host) return;
+
+        var total =
+          window.innerWidth < 640 ? 6 + Math.floor(Math.random() * 3) : 12 + Math.floor(Math.random() * 5);
+        var palette = ['#A8B39F', '#D8C8B6', '#C8A99D', '#B9A27D'];
+
+        for (var i = 0; i < total; i++) {
+          (function (index) {
+            var particle = document.createElement('span');
+            particle.className = 'yr-celebration-particle';
+            particle.style.left = 8 + Math.random() * 84 + '%';
+            particle.style.animationDuration = (7 + Math.random() * 4).toFixed(2) + 's';
+            particle.style.animationDelay = (Math.random() * 0.8).toFixed(2) + 's';
+            particle.style.setProperty(
+              '--yr-particle-sway-distance',
+              (18 + Math.random() * 14).toFixed(0) + 'px'
+            );
+            particle.style.setProperty(
+              '--yr-particle-sway-duration',
+              (2.4 + Math.random() * 1.4).toFixed(2) + 's'
+            );
+
+            var shape = document.createElement('span');
+            shape.className = 'yr-celebration-particle__shape';
+
+            var color = palette[index % palette.length];
+            var isLeaf = index % 4 === 0;
+            var width = 5 + Math.round(Math.random() * 4);
+            var height = 12 + Math.round(Math.random() * 10);
+            var rotation = 30 + Math.round(Math.random() * 110);
+
+            shape.style.width = width + 'px';
+            shape.style.height = height + 'px';
+            shape.style.background = color;
+            shape.style.transform = 'rotate(' + rotation + 'deg)';
+            shape.classList.toggle('is-leaf', isLeaf);
+
+            particle.appendChild(shape);
+            host.appendChild(particle);
+
+            window.setTimeout(
+              function () {
+                particle.remove();
+              },
+              (11 + Math.random() * 2) * 1000
+            );
+          })(i);
         }
       }
-
-      // 顯示訂單編號 Display order number
-      const orderNumEl = document.getElementById('orderNumberDisplay');
-      if (orderNumEl) {
-        const normalizedOrderNum = String(orderNum || '--').replace(/^#/, '');
-        orderNumEl.textContent = normalizedOrderNum === '--' ? '#--' : `#${normalizedOrderNum}`;
-      }
-
-      // ------------------------------------------
-      // Step 2: 啟動彩帶動畫（慶祝！）
-      // Launch confetti animation (celebrate!)
-      // ------------------------------------------
-      launchConfetti();
-
-      // ------------------------------------------
-      // Step 3: 初始化全局組件
-      // Initialize global components
-      // ------------------------------------------
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          if (typeof window.initNavbar === 'function') window.initNavbar();
-          if (typeof window.initModalListeners === 'function') window.initModalListeners();
-          if (typeof window.initCartListeners === 'function') window.initCartListeners();
-          if (typeof window.initPersonalizationModal === 'function') window.initPersonalizationModal();
-          window._appComponentsInitialized = true;
-        });
-      } else {
-        if (typeof window.initNavbar === 'function') window.initNavbar();
-        if (typeof window.initModalListeners === 'function') window.initModalListeners();
-        if (typeof window.initCartListeners === 'function') window.initCartListeners();
-        if (typeof window.initPersonalizationModal === 'function') window.initPersonalizationModal();
-        window._appComponentsInitialized = true;
-      }
-    })();
-
-    /**
-     * 彩帶動畫函數
-     * Confetti animation function
-     * 生成多個隨機顏色的小方塊，從頁面頂部飄落
-     */
-    function launchConfetti() {
-      // 顏色池 Color pool
-      const colors = ['#22c55e', '#244d4d', '#f59e0b', '#3b82f6', '#ec4899', '#8b5cf6', '#ef4444'];
-
-      // 生成 50 顆彩帶 Generate 50 confetti particles
-      for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-          const particle = document.createElement('div');
-          particle.className = 'confetti-particle';
-
-          // 隨機尺寸（6~12px）Random size
-          const size = Math.random() * 6 + 6;
-          // 隨機水平位置 Random horizontal position
-          const left = Math.random() * 100;
-          // 隨機顏色 Random color
-          const color = colors[Math.floor(Math.random() * colors.length)];
-          // 隨機動畫時長（2~5秒）Random duration
-          const duration = Math.random() * 3 + 2;
-          // 隨機形狀（方形或圓形）Random shape
-          const isCircle = Math.random() > 0.5;
-
-          particle.style.cssText = `
-            left: ${left}%;
-            top: -20px;
-            width: ${size}px;
-            height: ${size}px;
-            background: ${color};
-            border-radius: ${isCircle ? '50%' : '2px'};
-            animation-duration: ${duration}s;
-            animation-delay: ${Math.random() * 1}s;
-          `;
-
-          document.body.appendChild(particle);
-
-          // 動畫結束後移除 DOM 元素
-          // Remove element after animation ends
-          setTimeout(() => {
-            particle.remove();
-          }, (duration + 1) * 1000);
-        }, i * 30); // 每 30ms 生成一顆，避免同時生成
-      }
-    }
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
-
-

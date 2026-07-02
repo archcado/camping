@@ -1,32 +1,37 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yuruicamp 會員中心 - 管理訂單、折價券、個人資料">
+  <meta name="description" content="Yuruicamp 會員中心 - 管理個人資料、訂單與偏好設定。">
   <meta name="theme-color" content="#244d4d">
   <title>會員中心 - Yuruicamp 露營選物</title>
   <link rel="preconnect" href="https://picsum.photos">
   <link rel="dns-prefetch" href="https://picsum.photos">
   <link rel="stylesheet" href="../css/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../css/theme/theme-base.css">
+  <link rel="stylesheet" href="../css/theme/theme-components.css">
+  <link rel="stylesheet" href="../css/theme/theme-layout.css">
+  <link rel="stylesheet" href="../css/theme/theme-header.css">
   <link rel="stylesheet" href="../booking/css/base.css">
   <link rel="stylesheet" href="../booking/css/layout.css">
   <link rel="stylesheet" href="../booking/css/booking.css">
   <link rel="stylesheet" href="../booking/css/member-center.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="icon" href="../assets/icons/camping_icon.png" type="image/png">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
 </head>
-<body>
+<body class="yr-theme">
 
-  <div id="header"></div>
+  <div id="header" data-header-context="shop"></div>
 
-  <!-- 重點：前台會員中心只保留頁面外殼，實際顯示與互動統一載入 components/member-center.partial。 -->
+  <!-- 會員中心內容掛載點，實際內容由 components/member-center.partial 動態載入 -->
   <div id="memberCenterMount" data-component-mount="member-center"></div>
 
   <div id="footer"></div>
 
   <script>
-    // 重點：前台會員中心使用根目錄 data，登入狀態讀 currentUser，並保留 yuruiUser 作為 booking 相容來源。
+    // 設定會員中心資料來源與登入資訊 storage key
     window.MemberCenterConfig = {
       dataBasePath: '../data',
       authStorageKey: 'currentUser',
@@ -44,8 +49,8 @@
         mount.innerHTML = await response.text();
         window.initMemberCenterComponent && window.initMemberCenterComponent();
       } catch (error) {
-        console.error('會員中心元件載入失敗', error);
-        mount.innerHTML = '<div class="mc-login-guard" style="display:flex;"><div class="mc-login-guard__box"><h2 class="mc-login-guard__title">會員中心載入失敗</h2><p class="mc-login-guard__desc">請確認目前頁面透過本機伺服器開啟。</p></div></div>';
+        console.error('會員中心元件載入失敗:', error);
+        mount.innerHTML = '<div class="mc-login-guard" style="display:flex;"><div class="mc-login-guard__box"><h2 class="mc-login-guard__title">會員中心載入失敗</h2><p class="mc-login-guard__desc">請重新整理頁面，或稍後再試。</p></div></div>';
       }
     };
 

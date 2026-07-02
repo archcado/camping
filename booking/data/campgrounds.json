@@ -3,6 +3,10 @@
     "campground_id": "C001",
     "name": "雲海仙境露營區",
     "region": "北部",
+    "image": "../../assets/images/camps/C001/main.webp",
+    "images": [
+      "../../assets/images/camps/C001/main.webp"
+    ],
     "description": "坐落於海拔 1,800 公尺的山頂，每逢清晨雲海翻騰，是北台灣最壯觀的高山露營地。夜晚氣溫涼爽，星空清晰可見，是追求自然療癒的首選。",
     "environment_tags": ["高海拔", "有雲海", "森林系"],
     "facility_tags": ["獨立衛浴", "裝備租借", "有雨棚"],
@@ -29,6 +33,10 @@
     "campground_id": "C002",
     "name": "溪谷秘境野營地",
     "region": "中部",
+    "image": "../../assets/images/camps/C002/main.webp",
+    "images": [
+      "../../assets/images/camps/C002/main.webp"
+    ],
     "description": "緊鄰清澈溪流，水聲潺潺，夏日親水露營的不二之選。夜晚可觀星，營地旁設有天然戲水區，全家出遊的完美選擇。",
     "environment_tags": ["低海拔", "有溪流", "森林系"],
     "facility_tags": ["兒童遊樂設施", "寵物友善", "裝備租借"],
@@ -55,6 +63,10 @@
     "campground_id": "C003",
     "name": "太平山森林豪華露營",
     "region": "北部",
+    "image": "../../assets/images/camps/C003/main.webp",
+    "images": [
+      "../../assets/images/camps/C003/main.webp"
+    ],
     "description": "台灣頂級 Glamping 體驗，免搭帳篷，入住配備空調與獨立洗手間的豪華帳型，享受森林芬多精與雲海美景，是犒賞自己的奢華選擇。",
     "environment_tags": ["高海拔", "森林系"],
     "facility_tags": ["小木屋", "獨立衛浴", "可包區"],
@@ -73,6 +85,10 @@
     "campground_id": "C004",
     "name": "南台灣星空草原營地",
     "region": "南部",
+    "image": "../../assets/images/camps/C004/main.webp",
+    "images": [
+      "../../assets/images/camps/C004/main.webp"
+    ],
     "description": "位於屏東平原，視野開闊，光害極低，是南台灣最佳觀星露營勝地。廣闊草地讓孩子盡情奔跑，寵物也歡迎入住。",
     "environment_tags": ["低海拔"],
     "facility_tags": ["寵物友善", "裝備租借"],
@@ -91,6 +107,10 @@
     "campground_id": "C005",
     "name": "花蓮海岸風露營區",
     "region": "東部",
+    "image": "../../assets/images/camps/C005/main.webp",
+    "images": [
+      "../../assets/images/camps/C005/main.webp"
+    ],
     "description": "緊鄰太平洋，清晨可見日出從海面升起，聆聽浪濤聲入睡，提供有雨棚遮蔽，無論晴雨都能盡情享受海岸露營。",
     "environment_tags": ["低海拔", "有溪流"],
     "facility_tags": ["獨立衛浴", "有雨棚", "裝備租借"],
@@ -117,6 +137,10 @@
     "campground_id": "C006",
     "name": "阿里山雲霧繚繞營地",
     "region": "南部",
+    "image": "../../assets/images/camps/C006/main.webp",
+    "images": [
+      "../../assets/images/camps/C006/main.webp"
+    ],
     "description": "海拔 2,200 公尺，阿里山林道旁，終年雲霧繚繞，日出與神木相伴。全區設有完善雨棚，是愛雨族的最愛。",
     "environment_tags": ["高海拔", "有雲海", "森林系"],
     "facility_tags": ["有雨棚", "裝備租借", "獨立衛浴"],
@@ -135,6 +159,10 @@
     "campground_id": "C007",
     "name": "宜蘭礁溪湯泉露營",
     "region": "北部",
+    "image": "../../assets/images/camps/C007/main.webp",
+    "images": [
+      "../../assets/images/camps/C007/main.webp"
+    ],
     "description": "全台唯一溫泉露營體驗，帳篷旁設有私人泡湯池，泡完湯直接鑽進睡袋。溪邊環境清幽，可攜帶寵物同行。",
     "environment_tags": ["低海拔", "有溪流"],
     "facility_tags": ["獨立衛浴", "可包區", "寵物友善"],
@@ -161,6 +189,10 @@
     "campground_id": "C008",
     "name": "台中武陵溪流野營",
     "region": "中部",
+    "image": "../../assets/images/camps/C008/main.webp",
+    "images": [
+      "../../assets/images/camps/C008/main.webp"
+    ],
     "description": "武陵農場旁，四季各有風情：春賞櫻、夏戲水、秋楓紅、冬雪景。溪流旁的棧板區是最受歡迎的位置，也提供完整裝備租借。",
     "environment_tags": ["高海拔", "有溪流", "森林系"],
     "facility_tags": ["裝備租借", "兒童遊樂設施", "有雨棚"],

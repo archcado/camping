@@ -1,2 +1,347 @@
-/* 詳情頁微調 / Detail page minor overrides */
-    .detail-page { padding-top: 1.5rem; }
+.yr-camp-detail-page .detail-page {
+  max-width: min(100% - 3rem, 1200px);
+  margin: 0 auto;
+  padding-top: 1.5rem;
+}
+
+.yr-camp-detail-page .breadcrumb {
+  color: #6d6a62;
+}
+
+.yr-camp-detail-page .breadcrumb-separator {
+  margin: 0 0.4rem;
+  color: #6d6a62;
+}
+
+.yr-camp-detail-page .camp-header,
+.yr-camp-detail-page .camp-gallery,
+.yr-camp-detail-page .camp-description,
+.yr-camp-detail-page .booking-form-card,
+.yr-camp-detail-page .zone-table-section {
+  border: 1px solid #e5dbce;
+  border-radius: 1rem;
+  background: #fffdf8;
+  box-shadow: 0 4px 14px rgb(63 70 61 / 4%);
+}
+
+.yr-camp-detail-page .camp-header {
+  padding: 1.5rem 2rem 1.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.yr-camp-detail-page .camp-header h1 {
+  margin-bottom: 0;
+}
+
+.yr-camp-detail-page .camp-header__region {
+  margin-bottom: 0;
+}
+
+.yr-camp-detail-page .camp-header__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.875rem;
+}
+
+.yr-camp-detail-page .camp-header__tags .tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.25rem 0.75rem;
+  line-height: 1.2;
+}
+
+.yr-camp-detail-page .detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(20rem, 0.9fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.yr-camp-detail-page .camp-info {
+  display: grid;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.yr-camp-detail-page .camp-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.yr-camp-detail-page .camp-gallery img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+.yr-camp-detail-page .camp-gallery img:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 7;
+}
+
+.yr-camp-detail-page .camp-gallery img:not(:first-child) {
+  aspect-ratio: 16 / 9;
+}
+
+.yr-camp-detail-page .camp-description {
+  padding: 1.5rem 2rem;
+}
+
+.yr-camp-detail-page .camp-description p {
+  color: #454941;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.yr-camp-detail-page .booking-form-card {
+  grid-column: 2;
+  grid-row: 1;
+  position: static;
+  top: auto;
+  height: fit-content;
+  align-self: start;
+}
+
+.yr-camp-detail-page .booking-form-card__title {
+  color: #3f463d;
+  font-weight: 600;
+}
+
+.yr-camp-detail-page .booking-form-card__title i,
+.yr-camp-detail-page .form-group label i {
+  color: #74846f;
+}
+
+.yr-camp-detail-page .form-group label {
+  color: #3f463d;
+}
+
+.yr-camp-detail-page .date-summary {
+  border: 1px solid #e2d8ca;
+  background: #f5efe5;
+}
+
+.yr-camp-detail-page .date-summary__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.yr-camp-detail-page .date-summary__row--main {
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.yr-camp-detail-page .zone-list__hint {
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6d6a62;
+}
+
+.yr-camp-detail-page .zone-list {
+  display: grid;
+  gap: 0.75rem;
+  max-height: none;
+  overflow: visible;
+  padding: 0.25rem 0 0;
+}
+
+.yr-camp-detail-page .zone-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 11.25rem;
+  padding: 1rem;
+  border: 1px solid #e5dbce;
+  border-radius: 0.875rem;
+  background: #fffdf8;
+  box-shadow: none;
+}
+
+.yr-camp-detail-page .zone-card.is-selected {
+  border-color: #7c8b76;
+  background: #e1e9dc;
+  box-shadow: 0 0 0 1px rgba(124, 139, 118, 0.12);
+}
+
+.yr-camp-detail-page .zone-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  min-height: 4.4rem;
+}
+
+.yr-camp-detail-page .zone-card__info strong {
+  display: block;
+  color: #3f463d;
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.yr-camp-detail-page .zone-card__info span {
+  display: block;
+  color: #6d6a62;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.yr-camp-detail-page .zone-card__price,
+.yr-camp-detail-page .price-summary__amount {
+  color: #62715e;
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-camp-detail-page .zone-card__stock {
+  color: #6d6a62;
+}
+
+.yr-camp-detail-page .zone-select-btn {
+  margin-top: auto;
+  min-height: 3.25rem;
+  width: 100%;
+  border: 1px solid #c7d4c1;
+  border-radius: 0.75rem;
+  background: #fffdf8;
+  color: #7c8b76;
+  box-shadow: none;
+}
+
+.yr-camp-detail-page .zone-select-btn:hover {
+  border-color: #9ead96;
+  background: #e1e9dc;
+  color: #697763;
+}
+
+.yr-camp-detail-page .zone-select-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(116, 132, 111, 0.18);
+}
+
+.yr-camp-detail-page .zone-card.is-selected .zone-select-btn {
+  border-color: #7c8b76;
+  background: #7c8b76;
+  color: #fffdf8;
+}
+
+.yr-camp-detail-page .zone-table-section {
+  padding: 1.5rem 2rem 2rem;
+}
+
+.yr-camp-detail-page .zone-table-wrap {
+  overflow-x: auto;
+}
+
+.yr-camp-detail-page .zone-table {
+  min-width: 620px;
+}
+
+.yr-camp-detail-page .zone-table thead th {
+  background: #f3ebdd;
+  color: #454941;
+  border-bottom: 1px solid #e5dbce;
+  font-weight: 700;
+}
+
+.yr-camp-detail-page .zone-table td,
+.yr-camp-detail-page .zone-table th {
+  border-color: #e2d8ca;
+  vertical-align: middle;
+}
+
+.yr-camp-detail-page .zone-table th:nth-child(1),
+.yr-camp-detail-page .zone-table td:nth-child(1) {
+  text-align: left;
+}
+
+.yr-camp-detail-page .zone-table th:nth-child(2),
+.yr-camp-detail-page .zone-table td:nth-child(2),
+.yr-camp-detail-page .zone-table th:nth-child(5),
+.yr-camp-detail-page .zone-table td:nth-child(5) {
+  text-align: center;
+}
+
+.yr-camp-detail-page .zone-table th:nth-child(3),
+.yr-camp-detail-page .zone-table td:nth-child(3),
+.yr-camp-detail-page .zone-table th:nth-child(4),
+.yr-camp-detail-page .zone-table td:nth-child(4) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-camp-detail-page .btn--primary {
+  border-radius: 0.75rem;
+}
+
+.yr-camp-detail-page #confirmBookingBtn.btn--primary {
+  border-color: #73816e;
+  background: #73816e;
+  color: #fffdf9;
+}
+
+.yr-camp-detail-page #confirmBookingBtn.btn--primary:hover:not(:disabled) {
+  border-color: #62705d;
+  background: #62705d;
+  color: #fffdf9;
+}
+
+.yr-camp-detail-page #confirmBookingBtn.btn--primary:disabled {
+  border-color: transparent;
+  background: #bcc4b8;
+  color: rgba(255, 253, 248, 0.82);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .yr-camp-detail-page .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .yr-camp-detail-page .camp-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .yr-camp-detail-page .camp-gallery img:not(:first-child) {
+    display: block;
+  }
+
+  .yr-camp-detail-page .booking-form-card {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    min-width: 0;
+    position: static;
+  }
+
+  .yr-camp-detail-page .camp-header {
+    padding: 1.25rem 1.25rem 1.125rem;
+  }
+
+  .yr-camp-detail-page .camp-description,
+  .yr-camp-detail-page .booking-form-card {
+    padding: 1.25rem;
+  }
+
+  .yr-camp-detail-page .zone-table-section {
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+}
+
+@media (width <= 390px) {
+  .yr-camp-detail-page .detail-page {
+    max-width: calc(100% - 2rem);
+  }
+}

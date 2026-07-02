@@ -5,7 +5,9 @@
 (function () {
   'use strict';
 
-  var personalizationCompleted = false;
+  var campPreferenceCompletedInSession = false;
+  var CAMP_PREFERENCE_COMPLETED_KEY = 'campPreferencesCompleted';
+  var CAMP_PREFERENCE_ANSWERS_KEY = 'campPreferenceAnswers';
 
   /**
    * Creates the toast container when booking utility scripts are not loaded yet.
@@ -31,45 +33,16 @@
   }
 
   /**
-   * Installs a small toast fallback for pages that have not loaded booking-utils.js.
+   * Ensures window.showToast exists as a last-resort fallback.
+   * js/components/toast.js (loaded by layout.js) provides the canonical implementation
+   * and will already be defined before this runs in the normal loading chain.
    */
   function ensureToastFallback() {
     if (typeof window.showToast === 'function') return;
 
-    window.showToast = function showToast(message, type) {
-      var icons = {
-        info: 'bi bi-info-circle-fill',
-        warning: 'bi bi-exclamation-triangle-fill',
-        error: 'bi bi-x-octagon-fill',
-        success: 'bi bi-check-circle-fill'
-      };
-      var toastType = icons[type] ? type : 'info';
-      var container = getToastContainer();
-      var toast = document.createElement('div');
-      var icon = document.createElement('i');
-      var text = document.createElement('span');
-      var closeBtn = document.createElement('button');
-
-      toast.className = 'bk-toast bk-toast--' + toastType;
-      icon.className = icons[toastType];
-      icon.setAttribute('aria-hidden', 'true');
-      text.className = 'bk-toast__text';
-      text.textContent = message;
-      closeBtn.className = 'bk-toast__close';
-      closeBtn.setAttribute('aria-label', '關閉');
-      closeBtn.innerHTML = '&times;';
-      closeBtn.addEventListener('click', function () { dismissToast(toast); });
-
-      toast.appendChild(icon);
-      toast.appendChild(text);
-      toast.appendChild(closeBtn);
-      container.appendChild(toast);
-
-      var timer = setTimeout(function () { dismissToast(toast); }, 3500);
-      toast.addEventListener('mouseenter', function () { clearTimeout(timer); });
-      toast.addEventListener('mouseleave', function () {
-        timer = setTimeout(function () { dismissToast(toast); }, 2000);
-      });
+    // Minimal fallback: log to console so messages are not silently lost.
+    window.showToast = function fallbackToast(message, type) {
+      console.warn('[Toast fallback] ' + (type || 'info') + ': ' + message);
     };
   }
 
@@ -159,7 +132,7 @@
     var userMenu = document.querySelector('.booking-header .navbar-user-menu');
     var userInfo = userMenu ? userMenu.querySelector('.user-info') : null;
     var dropdown = userMenu ? userMenu.querySelector('.navbar-user-dropdown') : null;
-    var logoutBtn = userMenu ? userMenu.querySelector('.navbar-logout-btn') : null;
+    var logoutBtn = userMenu ? userMenu.querySelector('[data-action="logout"], .navbar-logout-btn') : null;
 
     if (!userMenu || !userInfo || !dropdown) return;
     if (userMenu.dataset.dropdownBound === 'true') return;
@@ -204,6 +177,8 @@
       if (logoutItemMobile) logoutItemMobile.hidden = true;
       closeUserDropdown();
     }
+
+    window.updateBookingHeaderLoginState = checkLoginState;
   }
 
   /**
@@ -229,7 +204,8 @@
     if (!offcanvas || !hamburger) return;
     closePanels();
     closeSharedModal('loginModal', { force: true });
-    closeSharedModal('personalizationModal', { force: true });
+    closeSharedModal('campPreferenceModal', { force: true });
+    closeSharedModal('campPreferenceCloseConfirmModal', { force: true });
     offcanvas.classList.add('is-open');
     if (backdrop) backdrop.classList.add('is-visible');
     hamburger.setAttribute('aria-expanded', 'true');
@@ -268,7 +244,10 @@
     }
     if (logoutBtnMobile && logoutBtnMobile.dataset.logoutBound !== 'true') {
       logoutBtnMobile.dataset.logoutBound = 'true';
-      logoutBtnMobile.addEventListener('click', function () {
+      logoutBtnMobile.addEventListener('click', function (event) {
+        // Prevent auth.js delegated handler (document-level) from triggering a second logout.
+        event.preventDefault();
+        event.stopPropagation();
         closeOffcanvasFromAnywhere();
         logout();
       });
@@ -303,20 +282,68 @@
   function openSharedModal(modalId) {
     var modal = document.getElementById(modalId);
     if (!modal) return;
+    modal.hidden = false;
     modal.classList.add('active');
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
   /**
-   * Closes a shared modal, optionally bypassing personalization confirmation.
+   * Returns whether the current booking page should auto-show camp preference survey.
+   */
+  function shouldAutoShowCampPreference() {
+    var path = window.location.pathname;
+    if (path.indexOf('/booking/pages/booking-checkout') !== -1) return false;
+    if (path.indexOf('/booking/pages/booking-cart') !== -1) return false;
+    return path.indexOf('/booking/pages/') !== -1;
+  }
+
+  /**
+   * Reads booking-only camp preference completion state.
+   */
+  function isCampPreferenceCompleted() {
+    return localStorage.getItem(CAMP_PREFERENCE_COMPLETED_KEY) === 'true';
+  }
+
+  /**
+   * Checks whether there are unsaved in-modal selections.
+   */
+  function hasCampPreferenceSelections(modal) {
+    if (!modal) return false;
+    return modal.querySelectorAll('.survey-tag.active').length > 0;
+  }
+
+  /**
+   * Ask before closing unfinished camp preference setup.
+   */
+  function requestCampPreferenceClose() {
+    var confirmModal = document.getElementById('campPreferenceCloseConfirmModal');
+    if (!confirmModal) return false;
+    openSharedModal('campPreferenceCloseConfirmModal');
+    return true;
+  }
+
+  /**
+   * Closes a shared modal, optionally bypassing unfinished-camp-preference confirmation.
    */
   function closeSharedModal(modalId, options) {
     var modal = document.getElementById(modalId);
-    var shouldConfirm = modalId === 'personalizationModal' && !personalizationCompleted && !(options && options.force);
+    var shouldConfirm = false;
     if (!modal) return;
-    if (shouldConfirm && !window.confirm('尚未完成偏好設定，確定要關閉嗎？')) return;
+
+    shouldConfirm = modalId === 'campPreferenceModal'
+      && !(options && options.force)
+      && !campPreferenceCompletedInSession
+      && !isCampPreferenceCompleted()
+      && hasCampPreferenceSelections(modal);
+    if (shouldConfirm && requestCampPreferenceClose()) return;
+
     modal.classList.remove('active');
-    document.body.style.overflow = '';
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.hidden = true;
+    document.body.style.overflow = document.querySelector('.modal.active') ? 'hidden' : '';
   }
 
   /**
@@ -330,12 +357,13 @@
   }
 
   /**
-   * Logs in with the shared auth service and opens personalization afterwards.
+   * Logs in with the shared auth service and keeps booking camp preference flow isolated.
    */
   function loginWithProvider(provider) {
     if (window.YuruiAuth && typeof window.YuruiAuth.loginWithProvider === 'function') {
       window.YuruiAuth.loginWithProvider(provider, {
-        close: function () { closeSharedModal('loginModal', { force: true }); }
+        close: function () { closeSharedModal('loginModal', { force: true }); },
+        openSurvey: false
       });
       return;
     }
@@ -352,16 +380,16 @@
     window.dispatchEvent(new CustomEvent('yurui:auth-changed', { detail: { type: 'login', user: user } }));
     closeSharedModal('loginModal', { force: true });
     checkLoginState();
-    setTimeout(openPersonalizationModal, 300);
+    maybeOpenCampPreferenceModal();
   }
 
   /**
-   * Resets the two-step personalization survey to its initial state.
+   * Resets the two-step camp preference survey to its initial state.
    */
-  function resetPersonalizationModal() {
-    var modal = document.getElementById('personalizationModal');
+  function resetCampPreferenceModal() {
+    var modal = document.getElementById('campPreferenceModal');
     if (!modal) return;
-    personalizationCompleted = false;
+    campPreferenceCompletedInSession = false;
     modal.querySelectorAll('.survey-tag.active').forEach(function (tag) {
       tag.classList.remove('active');
     });
@@ -369,44 +397,51 @@
   }
 
   /**
-   * Opens the shared personalization modal from login flows or page actions.
+   * Opens the booking camp preference modal.
    */
-  function openPersonalizationModal() {
-    resetPersonalizationModal();
-    openSharedModal('personalizationModal');
+  function openCampPreferenceModal() {
+    resetCampPreferenceModal();
+    closeSharedModal('loginModal', { force: true });
+    closeSharedModal('campPreferenceCloseConfirmModal', { force: true });
+    openSharedModal('campPreferenceModal');
   }
 
   /**
-   * Returns selected survey values grouped by the shared modal step.
+   * Opens booking camp preference when user is logged in and booking preference is incomplete.
+   */
+  function maybeOpenCampPreferenceModal() {
+    var user = getCurrentUser();
+    if (!user) return;
+    if (!shouldAutoShowCampPreference()) return;
+    if (isCampPreferenceCompleted()) return;
+    var modal = document.getElementById('campPreferenceModal');
+    if (modal && modal.classList.contains('active')) return;
+    openCampPreferenceModal();
+  }
+
+  /**
+   * Returns selected survey values grouped by the booking camp-preference step.
    */
   function getSurveySelections() {
-    var modal = document.getElementById('personalizationModal');
-    if (!modal) return { styles: [], equipment: [] };
+    var modal = document.getElementById('campPreferenceModal');
+    if (!modal) return { styles: [], environments: [] };
     return {
       styles: Array.from(modal.querySelectorAll('[data-step="1"] .survey-tag.active')).map(function (tag) {
         return tag.dataset.value;
       }),
-      equipment: Array.from(modal.querySelectorAll('[data-step="2"] .survey-tag.active')).map(function (tag) {
+      environments: Array.from(modal.querySelectorAll('[data-step="2"] .survey-tag.active')).map(function (tag) {
         return tag.dataset.value;
       })
     };
   }
 
   /**
-   * Flattens survey values for legacy member-center profile storage.
+   * Persists booking camp preference answers and completion state.
    */
-  function flattenSurveyPreferences(preferences) {
-    return (preferences.styles || []).concat(preferences.equipment || []);
-  }
-
-  /**
-   * Persists personalization results and notifies pages that use preference data.
-   */
-  function syncProfilePreferenceStorage(preferences) {
-    var profile = readJsonStorage('yurui_profile', {});
-    profile.preferences = flattenSurveyPreferences(preferences);
-    localStorage.setItem('yurui_profile', JSON.stringify(profile));
-    window.dispatchEvent(new CustomEvent('yurui:preferences-updated', { detail: preferences }));
+  function persistCampPreferenceStorage(preferences) {
+    localStorage.setItem(CAMP_PREFERENCE_ANSWERS_KEY, JSON.stringify(preferences));
+    localStorage.setItem(CAMP_PREFERENCE_COMPLETED_KEY, 'true');
+    window.dispatchEvent(new CustomEvent('yurui:camp-preferences-updated', { detail: preferences }));
   }
 
   /**
@@ -419,10 +454,10 @@
   }
 
   /**
-   * Switches the personalization modal to the requested step.
+   * Switches the camp preference modal to the requested step.
    */
   function goToSurveyStep(step) {
-    var modal = document.getElementById('personalizationModal');
+    var modal = document.getElementById('campPreferenceModal');
     if (!modal) return;
     modal.querySelectorAll('.survey-step').forEach(function (panel) {
       panel.classList.toggle('active', parseInt(panel.dataset.step, 10) === step);
@@ -435,33 +470,34 @@
   }
 
   /**
-   * Completes personalization and closes the shared modal.
+   * Completes booking camp preference and closes the modal.
    */
-  function finishPersonalization() {
+  function finishCampPreference() {
     var preferences = getSurveySelections();
     if (!validateSurveySelection(preferences.styles.length)) {
       goToSurveyStep(1);
       return;
     }
-    if (!validateSurveySelection(preferences.equipment.length)) return;
+    if (!validateSurveySelection(preferences.environments.length)) return;
 
-    syncProfilePreferenceStorage(preferences);
-    personalizationCompleted = true;
-    closeSharedModal('personalizationModal', { force: true });
-    window.showToast('偏好設定已儲存', 'success');
+    persistCampPreferenceStorage(preferences);
+    campPreferenceCompletedInSession = true;
+    closeSharedModal('campPreferenceModal', { force: true });
+    window.showToast('露營偏好設定已儲存', 'success');
   }
 
   /**
-   * Binds shared login and personalization modal controls for booking pages.
+   * Binds shared login and booking camp-preference modal controls.
    */
   function initSharedAuthModals() {
     var loginModal = document.getElementById('loginModal');
-    var personalizationModal = document.getElementById('personalizationModal');
+    var campPreferenceModal = document.getElementById('campPreferenceModal');
+    var campPreferenceCloseConfirmModal = document.getElementById('campPreferenceCloseConfirmModal');
     var loginBtn = document.querySelector('.booking-header .navbar-login-btn');
 
     window.openModal = openSharedModal;
     window.closeModal = closeSharedModal;
-    window.openPersonalizationModal = openPersonalizationModal;
+    window.openCampPreferenceModal = openCampPreferenceModal;
 
     if (loginBtn && loginBtn.dataset.loginBound !== 'true') {
       loginBtn.dataset.loginBound = 'true';
@@ -481,23 +517,38 @@
       });
     }
 
-    if (personalizationModal && personalizationModal.dataset.sharedBound !== 'true') {
-      personalizationModal.dataset.sharedBound = 'true';
-      personalizationModal.addEventListener('click', function (event) {
+    if (campPreferenceModal && campPreferenceModal.dataset.sharedBound !== 'true') {
+      campPreferenceModal.dataset.sharedBound = 'true';
+      campPreferenceModal.addEventListener('click', function (event) {
         if (event.target.classList.contains('survey-tag')) {
           event.target.classList.toggle('active');
           return;
         }
-        if (event.target.id === 'surveyNextBtn') {
+        if (event.target.id === 'campSurveyNextBtn') {
           var preferences = getSurveySelections();
           if (validateSurveySelection(preferences.styles.length)) goToSurveyStep(2);
           return;
         }
-        if (event.target.id === 'surveyFinishBtn') finishPersonalization();
+        if (event.target.id === 'campSurveyFinishBtn') finishCampPreference();
       });
     }
 
-    document.querySelectorAll('#loginModal .modal-close, #personalizationModal .modal-close').forEach(function (button) {
+    if (campPreferenceCloseConfirmModal && campPreferenceCloseConfirmModal.dataset.confirmBound !== 'true') {
+      campPreferenceCloseConfirmModal.dataset.confirmBound = 'true';
+      campPreferenceCloseConfirmModal
+        .querySelector('[data-camp-survey-close-cancel]')
+        ?.addEventListener('click', function () {
+          closeSharedModal('campPreferenceCloseConfirmModal', { force: true });
+        });
+      campPreferenceCloseConfirmModal
+        .querySelector('[data-camp-survey-close-confirm]')
+        ?.addEventListener('click', function () {
+          closeSharedModal('campPreferenceCloseConfirmModal', { force: true });
+          closeSharedModal('campPreferenceModal', { force: true });
+        });
+    }
+
+    document.querySelectorAll('#loginModal .modal-close, #campPreferenceModal .modal-close, #campPreferenceCloseConfirmModal .modal-close').forEach(function (button) {
       if (button.dataset.closeBound === 'true') return;
       button.dataset.closeBound = 'true';
       button.addEventListener('click', function () {
@@ -505,13 +556,15 @@
       });
     });
 
-    document.querySelectorAll('#loginModal, #personalizationModal').forEach(function (modal) {
+    document.querySelectorAll('#loginModal, #campPreferenceModal, #campPreferenceCloseConfirmModal').forEach(function (modal) {
       if (modal.dataset.backdropBound === 'true') return;
       modal.dataset.backdropBound = 'true';
       modal.addEventListener('click', function (event) {
         if (event.target === modal) closeSharedModal(modal.id);
       });
     });
+
+    maybeOpenCampPreferenceModal();
   }
 
   /**
@@ -657,9 +710,24 @@
       ['navFaq', 'booking-faq'],
       ['navMember', 'member-center']
     ];
+    var matchedLegacy = false;
     navMap.forEach(function (item) {
       var el = document.getElementById(item[0]);
-      if (el && path.indexOf(item[1]) !== -1) el.classList.add('active');
+      if (el && path.indexOf(item[1]) !== -1) {
+        matchedLegacy = true;
+        el.classList.add('active');
+      }
+    });
+
+    if (matchedLegacy) return;
+
+    document.querySelectorAll('.yr-site-context-link, .yr-site-drawer__link').forEach(function (link) {
+      var href = link.getAttribute('href');
+      if (!href) return;
+      if (path.indexOf('camp-search') !== -1 && href.indexOf('camp-search') !== -1) link.classList.add('active');
+      if (path.indexOf('rental-guide') !== -1 && href.indexOf('rental-guide') !== -1) link.classList.add('active');
+      if (path.indexOf('booking-faq') !== -1 && href.indexOf('booking-faq') !== -1) link.classList.add('active');
+      if (path.indexOf('member-center') !== -1 && href.indexOf('member-center') !== -1) link.classList.add('active');
     });
   }
 
@@ -668,12 +736,14 @@
    */
   function handleEscapeKey(event) {
     if (event.key !== 'Escape') return;
-    var activeModal = document.querySelector('#loginModal.active, #personalizationModal.active');
+    var activeModal = document.querySelector('#loginModal.active, #campPreferenceModal.active, #campPreferenceCloseConfirmModal.active');
     if (activeModal) {
       closeSharedModal(activeModal.id);
       return;
     }
-    closeOffcanvasFromAnywhere();
+    if (!window.__sharedHeaderControllerActive) {
+      closeOffcanvasFromAnywhere();
+    }
     closePanels();
   }
 
@@ -690,6 +760,12 @@
    */
   function handleAuthChanged() {
     checkLoginState();
+    if (getCurrentUser()) {
+      maybeOpenCampPreferenceModal();
+    } else {
+      closeSharedModal('campPreferenceCloseConfirmModal', { force: true });
+      closeSharedModal('campPreferenceModal', { force: true });
+    }
   }
 
   /**
@@ -750,7 +826,9 @@
   function initBookingHeader() {
     ensureToastFallback();
     updateBookingBadge();
-    initOffcanvas();
+    if (!window.__sharedHeaderControllerActive) {
+      initOffcanvas();
+    }
     initSharedAuthModals();
     initCartPanel();
     setActiveNavLink();

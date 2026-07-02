@@ -1,0 +1,23 @@
+{
+  "productId": "prod-004",
+  "brand": "NIGHTREST",
+  "productName": "四季防水睡袋 -5°C",
+  "sourceData": {
+    "mainImage": "https://picsum.photos/seed/sleep1/400/300",
+    "originalGalleryImages": [
+      "https://picsum.photos/seed/sleep1/400/300",
+      "https://picsum.photos/seed/sleep1b/400/300"
+    ]
+  },
+  "localImage": "assets/images/products/prod-004/main.webp",
+  "imagePolicy": {
+    "singleImageOnly": true,
+    "filename": "main.webp",
+    "aspectRatio": "4:3",
+    "recommendedSize": "1200x900",
+    "background": "網站底色系留白背景",
+    "composition": "單一商品完整置中，不使用多視角或複雜情境"
+  },
+  "status": "pending",
+  "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+}

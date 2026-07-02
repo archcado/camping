@@ -14,23 +14,23 @@
   padding: 0 $spacing-lg;
 
   @media (min-width: $sm) {
-    max-width: calc(540px - $spacing-xl);
+    max-width: calc(540px - #{$spacing-xl});
   }
 
   @media (min-width: $md) {
-    max-width: calc(720px - $spacing-xl);
+    max-width: calc(720px - #{$spacing-xl});
   }
 
   @media (min-width: $lg) {
-    max-width: calc(960px - $spacing-xl);
+    max-width: calc(960px - #{$spacing-xl});
   }
 
   @media (min-width: $xl) {
-    max-width: calc(1140px - $spacing-xl);
+    max-width: calc(1140px - #{$spacing-xl});
   }
 
   @media (min-width: $xxl) {
-    max-width: calc(1320px - $spacing-xl);
+    max-width: calc(1320px - #{$spacing-xl});
   }
 }
 
@@ -41,15 +41,15 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: calc(-$spacing-lg / 2);
-  margin-left: calc(-$spacing-lg / 2);
+  margin-right: calc(-#{$spacing-lg} / 2);
+  margin-left: calc(-#{$spacing-lg} / 2);
 }
 
 .col {
   flex-basis: 0;
   flex-grow: 1;
-  padding-right: calc($spacing-lg / 2);
-  padding-left: calc($spacing-lg / 2);
+  padding-right: calc(#{$spacing-lg} / 2);
+  padding-left: calc(#{$spacing-lg} / 2);
 }
 
 // 固定寬度欄位

@@ -12,21 +12,16 @@ window.initReviews = function () {
   $(document).off('.reviews');
 
   $.getJSON('data/reviews.json', function (reviews) {
-    renderReviewCards(reviews);
+    if (!Array.isArray(reviews)) {
+      renderReviewsMessage('error', '評論資料格式錯誤');
+      return;
+    }
 
-    // 更新 Tab 計數 Badge
-    var totalCount    = reviews.length;
-    var repliedCount  = reviews.filter(function (r) { return r.replied === true; }).length;
-    var unrepCount    = totalCount - repliedCount;
-    $('#tabCountAll').text(totalCount);
-    $('#tabCountUnreplied').text(unrepCount);
-    $('#tabCountReplied').text(repliedCount);
+    renderReviewCards(reviews);
+    updateReviewCounters();
+    applyReviewFilter('all');
   }).fail(function () {
-    $('#reviewsContainer').html(
-      '<div class="alert alert-danger">' +
-      '<i class="fas fa-exclamation-triangle me-2"></i>載入評論數據失敗' +
-      '</div>'
-    );
+    renderReviewsMessage('error', '載入評論數據失敗');
   });
 
   // 篩選切換（.filter-btn 帶 data-filter 屬性）
@@ -34,18 +29,9 @@ window.initReviews = function () {
     var filter = $(this).data('filter');
 
     // 更新按鈕 active 樣式
-    $('.filter-btn').removeClass('active btn-dark').addClass('btn-outline-secondary');
-    $(this).removeClass('btn-outline-secondary').addClass('active btn-dark');
-
-    if (filter === 'all') {
-      $('.review-card').show();
-    } else if (filter === 'unreplied') {
-      $('.review-card').hide();
-      $('.review-card[data-replied="false"]').show();
-    } else if (filter === 'replied') {
-      $('.review-card').hide();
-      $('.review-card[data-replied="true"]').show();
-    }
+    $('.filter-btn').removeClass('active');
+    $(this).addClass('active');
+    applyReviewFilter(filter);
   });
 
   // 展開回覆輸入框
@@ -71,42 +57,67 @@ window.initReviews = function () {
 
     $card.find('.reply-form').addClass('d-none');
     $card.attr('data-replied', 'true');
-    $card.find('.replied-badge')
-         .removeClass('bg-warning text-dark')
-         .addClass('bg-success')
-         .text('已回覆');
+    $card.removeClass('yr-admin-review-card--pending').addClass('yr-admin-review-card--answered');
+    $card.find('.replied-badge').replaceWith(renderReviewStatus(true));
     $card.find('.btn-reply-toggle').hide();
     $card.find('.reply-display').remove();
-    $card.find('.card-body').append(
-      '<div class="reply-display mt-3 p-3 bg-light border-start border-3 border-success rounded-end">' +
-      '<div class="small text-muted mb-1"><i class="fas fa-store me-1"></i>賣家回覆</div>' +
-      '<p class="mb-0 small">' + $('<div>').text(replyText).html() + '</p>' +
-      '</div>'
-    );
+    $card.find('.card-body').append(renderReplyDisplay(replyText));
 
-    // 更新 Tab 計數 Badge
-    var totalCards    = $('.review-card').length;
-    var repliedCards  = $('.review-card[data-replied="true"]').length;
-    $('#tabCountAll').text(totalCards);
-    $('#tabCountReplied').text(repliedCards);
-    $('#tabCountUnreplied').text(totalCards - repliedCards);
+    updateReviewCounters();
+    applyReviewFilter($('.filter-btn.active').data('filter') || 'all');
 
     window.showAdminToast('評論 ' + reviewId + ' 已送出回覆');
   });
 };
 
 /**
- * 渲染星星評分（1-5 顆）
- * @param {number} rating
+ * 取得評論狀態 class
+ * @param {boolean|undefined} replied
+ * @returns {string}
  */
-function renderStars(rating) {
-  var html = '';
-  for (var i = 1; i <= 5; i++) {
-    html += i <= rating
-      ? '<i class="fas fa-star text-warning"></i>'
-      : '<i class="far fa-star text-muted"></i>';
+function getReviewStatusClass(replied) {
+  if (replied === true) return 'yr-admin-review-status--answered';
+  if (replied === false) return 'yr-admin-review-status--pending';
+  return 'yr-admin-review-status--unknown';
+}
+
+/**
+ * 渲染評論狀態
+ * @param {boolean|undefined} replied
+ * @returns {string}
+ */
+function renderReviewStatus(replied) {
+  var statusClass = getReviewStatusClass(replied);
+  var label = replied === true ? '已回覆' : (replied === false ? '待回覆' : '狀態未知');
+  var icon = replied === true ? 'fa-circle-check' : (replied === false ? 'fa-clock' : 'fa-circle-question');
+  return '<span class="yr-admin-review-status ' + statusClass + ' replied-badge">' +
+    '<i class="fas ' + icon + ' me-1" aria-hidden="true"></i>' + label +
+    '</span>';
+}
+
+/**
+ * 渲染星等（1-5）
+ * @param {number} rating
+ * @returns {string}
+ */
+function renderReviewRating(rating) {
+  var safeRating = Number(rating);
+  if (!Number.isFinite(safeRating)) {
+    safeRating = 0;
   }
-  return html;
+  safeRating = Math.max(0, Math.min(5, Math.round(safeRating)));
+
+  var stars = '';
+  for (var i = 1; i <= 5; i++) {
+    stars += i <= safeRating
+      ? '<i class="fas fa-star yr-admin-review-star yr-admin-review-star--filled" aria-hidden="true"></i>'
+      : '<i class="far fa-star yr-admin-review-star yr-admin-review-star--empty" aria-hidden="true"></i>';
+  }
+
+  return '<div class="yr-admin-review-rating" role="img" aria-label="評分 ' + safeRating + ' / 5">' +
+    stars +
+    '<span class="yr-admin-review-rating-text">' + safeRating + ' / 5</span>' +
+    '</div>';
 }
 
 /**
@@ -115,23 +126,16 @@ function renderStars(rating) {
  */
 function renderReviewCards(reviews) {
   if (!reviews || reviews.length === 0) {
-    $('#reviewsContainer').html('<div class="text-center text-muted py-4">目前沒有評論</div>');
+    renderReviewsMessage('empty', '目前沒有評論');
     return;
   }
 
   var html = '<div class="row g-3">' +
     reviews.map(function (r) {
-      var isReplied    = r.replied === true;
-      var repliedBadge = isReplied
-        ? '<span class="badge bg-success replied-badge">已回覆</span>'
-        : '<span class="badge bg-warning text-dark replied-badge">待回覆</span>';
-
-      var replyDisplayHtml = (isReplied && r.replyText)
-        ? '<div class="reply-display mt-3 p-3 bg-light border-start border-3 border-success rounded-end">' +
-          '<div class="small text-muted mb-1"><i class="fas fa-store me-1"></i>賣家回覆</div>' +
-          '<p class="mb-0 small">' + r.replyText + '</p>' +
-          '</div>'
-        : '';
+      var isReplied = r.replied === true;
+      var statusHtml = renderReviewStatus(r.replied);
+      var replyDisplayHtml = (isReplied && r.replyText) ? renderReplyDisplay(r.replyText) : '';
+      var cardStateClass = isReplied ? 'yr-admin-review-card--answered' : 'yr-admin-review-card--pending';
 
       var replyToggleBtn = isReplied ? '' :
         '<button class="btn btn-sm btn-outline-secondary btn-reply-toggle mt-2">' +
@@ -139,29 +143,33 @@ function renderReviewCards(reviews) {
 
       var avatarSrc = r.buyerAvatar || 'https://placehold.co/40x40/cccccc/555555?text=U';
 
-      return '<div class="col-12 col-md-6">' +
-        '<div class="card shadow-sm review-card' + (isReplied ? '' : ' border-start border-3 border-danger') + '"' +
+      return '<div class="col-12 col-lg-6">' +
+        '<div class="card review-card yr-admin-review-card ' + cardStateClass + '"' +
         ' data-review-id="' + r.id + '"' +
         ' data-replied="' + isReplied + '">' +
         '<div class="card-body">' +
-        '<div class="d-flex align-items-start gap-3 mb-2">' +
+        '<div class="yr-admin-review-card__header">' +
         '<img src="' + avatarSrc + '" width="40" height="40"' +
-        ' class="rounded-circle border object-fit-cover flex-shrink-0"' +
+        ' class="yr-admin-review-avatar"' +
         ' onerror="this.src=\'https://placehold.co/40x40/cccccc/555555?text=U\'">' +
         '<div class="flex-grow-1">' +
         '<div class="d-flex justify-content-between align-items-center">' +
-        '<span class="fw-semibold">' + r.buyerName + '</span>' +
-        repliedBadge +
+        '<span class="fw-semibold">' + escapeHtml(r.buyerName || '匿名使用者') + '</span>' +
+        statusHtml +
         '</div>' +
-        '<div class="small text-muted">' + r.createdAt + ' · ' + r.productName + '</div>' +
-        '<div class="mt-1">' + renderStars(r.rating) + '</div>' +
+        '<div class="yr-admin-review-card__meta">' +
+        '<span>' + escapeHtml(r.createdAt || '日期未知') + '</span>' +
+        '<span aria-hidden="true">·</span>' +
+        '<span>' + escapeHtml(r.productName || '商品資訊缺漏') + '</span>' +
+        '</div>' +
+        '<div class="mt-1">' + renderReviewRating(r.rating) + '</div>' +
         '</div></div>' +
-        '<p class="mb-1 small">' + r.comment + '</p>' +
+        '<p class="mb-1 small yr-admin-review-card__content">' + escapeHtml(r.comment || '') + '</p>' +
         replyDisplayHtml +
-        replyToggleBtn +
+        '<div class="yr-admin-review-card__actions">' + replyToggleBtn + '</div>' +
         '<div class="reply-form d-none mt-2">' +
-        '<textarea class="form-control form-control-sm mb-1" rows="3" placeholder="輸入回覆內容..."></textarea>' +
-        '<button class="btn btn-sm btn-success btn-submit-reply">' +
+        '<textarea class="form-control form-control-sm mb-1" rows="3" placeholder="輸入回覆內容..." aria-label="回覆評論"></textarea>' +
+        '<button class="btn btn-sm btn-primary btn-submit-reply">' +
         '<i class="fas fa-paper-plane me-1"></i>送出回覆</button>' +
         '</div>' +
         '</div></div></div>';
@@ -173,4 +181,79 @@ function renderReviewCards(reviews) {
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('reviews', $('#contentArea'));
   }
+}
+
+function renderReplyDisplay(replyText) {
+  return '<div class="reply-display yr-admin-review-reply">' +
+    '<div class="yr-admin-review-reply__header"><i class="fas fa-store me-1" aria-hidden="true"></i>賣家回覆</div>' +
+    '<p class="yr-admin-review-reply__content">' + escapeHtml(replyText) + '</p>' +
+    '</div>';
+}
+
+function updateReviewCounters() {
+  var totalCards = $('.review-card').length;
+  var repliedCards = $('.review-card[data-replied="true"]').length;
+  var unrepCards = totalCards - repliedCards;
+
+  $('#tabCountAll').text(totalCards);
+  $('#tabCountUnreplied').text(unrepCards);
+  $('#tabCountReplied').text(repliedCards);
+}
+
+function applyReviewFilter(filter) {
+  var selectedFilter = filter || 'all';
+  var $cards = $('.review-card');
+  var $filterEmpty = $('#reviewsContainer').find('.yr-admin-reviews-empty--filter');
+
+  $cards.show();
+  if (selectedFilter === 'unreplied') {
+    $cards.hide();
+    $('.review-card[data-replied="false"]').show();
+  } else if (selectedFilter === 'replied') {
+    $cards.hide();
+    $('.review-card[data-replied="true"]').show();
+  }
+
+  var visibleCount = $('.review-card:visible').length;
+  var label = selectedFilter === 'unreplied'
+    ? '待回覆'
+    : (selectedFilter === 'replied' ? '已回覆' : '全部');
+  $('#reviewsResultCount').text('顯示 ' + visibleCount + ' 筆評論（' + label + '）');
+
+  if (!$cards.length) {
+    return;
+  }
+
+  if (visibleCount === 0) {
+    if (!$filterEmpty.length) {
+      $('#reviewsContainer').append(
+        '<div class="yr-admin-reviews-empty yr-admin-reviews-empty--filter text-center py-4 mt-3">' +
+        '<i class="fas fa-inbox me-2" aria-hidden="true"></i>此分類目前沒有評論' +
+        '</div>'
+      );
+    }
+  } else {
+    $filterEmpty.remove();
+  }
+}
+
+function renderReviewsMessage(type, message) {
+  var cssClass = type === 'error' ? 'yr-admin-reviews-error' : (type === 'loading' ? 'yr-admin-reviews-loading' : 'yr-admin-reviews-empty');
+  var icon = type === 'error' ? 'fa-exclamation-triangle' : (type === 'loading' ? 'fa-spinner fa-spin' : 'fa-comment-slash');
+  $('#reviewsContainer').html(
+    '<div class="' + cssClass + ' text-center">' +
+    '<i class="fas ' + icon + ' me-2" aria-hidden="true"></i>' + escapeHtml(message) +
+    '</div>'
+  );
+  $('#reviewsResultCount').text('顯示 0 筆評論');
+  $('#tabCountAll, #tabCountUnreplied, #tabCountReplied').text('0');
+}
+
+function escapeHtml(text) {
+  return String(text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }

@@ -1,494 +1,58 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yuruicamp 露營選物品牌 - 探索戶外，從這裡開始">
-  <meta name="keywords" content="露營, 戶外, 登山, 帳篷, 背包">
-  <title>Yuruicamp - 露營選物品牌</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Yuruicamp 露營選物品牌 - 探索戶外，從這裡開始" />
+    <meta name="keywords" content="露營, 戶外, 登山, 帳篷, 背包" />
+    <title>Yuruicamp - 露營選物品牌</title>
 
-  <meta name="theme-color" content="#244d4d">
-  <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
-  <link rel="preconnect" href="https://picsum.photos">
-  <link rel="dns-prefetch" href="https://picsum.photos">
-  <!-- 樣式表 -->
-  <link rel="stylesheet" href="css/main.css">
+    <meta name="theme-color" content="#607657" />
+    <link rel="preconnect" href="https://picsum.photos" />
+    <link rel="dns-prefetch" href="https://picsum.photos" />
 
-  <!-- Favicon（可替換成實際圖示） -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏕️</text></svg>">
-</head>
-<body>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/theme/theme-tokens.css" />
+    <link rel="stylesheet" href="./css/theme/theme-base.css" />
+    <link rel="stylesheet" href="./css/theme/theme-components.css" />
+    <link rel="stylesheet" href="./css/theme/theme-layout.css" />
+    <link rel="stylesheet" href="./css/theme/theme-header.css" />
+    <link rel="stylesheet" href="./css/theme/theme-panel.css" />
+    <link rel="stylesheet" href="./css/theme/theme-toast.css" />
+    <link rel="stylesheet" href="./css/theme/pages/index.css" />
 
-  <!-- =============================================
-       導航欄（Navbar）- 步驟 3.1
-       PC 版：左 Logo | 中 搜尋框 | 右 購物車+登入
-       手機版：左 Logo | 右 漢堡菜單
-       ============================================= -->
-  <nav class="navbar">
-    <div class="container">
-      <div class="navbar-content">
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/yuruicamp-favicon.svg" />
+  </head>
+  <body class="yr-theme yr-index-page">
+    <div id="header" data-header-context="shop"></div>
 
-        <!-- Logo -->
-        <div class="navbar-brand">
-          <a href="index.html" style="text-decoration:none; color:inherit;">🏕️ Yuruicamp</a>
-        </div>
-
-        <!-- PC 版導覽連結 -->
-        <div class="navbar-menu hidden-mobile">
-          <ul class="navbar-items">
-            <li><a href="pages/home.html">首頁</a></li>
-            <li><a href="pages/products.html">商品</a></li>
-            <li><a href="pages/blog.html">部落格</a></li>
-            <li><a href="pages/branches.html">分店</a></li>
-            <li><a href="pages/faq.html">常見問題</a></li>
-          </ul>
-        </div>
-
-        <!-- 右側操作區域 -->
-        <div class="navbar-actions">
-
-          <!-- 搜尋框（PC 版顯示，手機版收折）- 步驟 3.1 -->
-          <div class="navbar-search-wrapper hidden-mobile">
-            <form class="navbar-search-form" role="search">
-              <input
-                type="text"
-                class="navbar-search-input"
-                placeholder="搜尋商品、品牌..."
-                autocomplete="off"
-                aria-label="搜尋"
-              >
-              <button type="submit" class="navbar-search-btn" title="搜尋">🔍</button>
-            </form>
-            <!-- 下拉建議選單 -->
-            <div class="navbar-search-dropdown"></div>
-          </div>
-
-          <!-- 購物車按鈕（含數字 Badge） -->
-          <a href="pages/checkout.html" class="navbar-cart-btn" title="購物車">
-            🛒
-            <span class="cart-badge" style="display:none;">0</span>
-          </a>
-
-          <!-- 登入按鈕（未登入時顯示） -->
-          <button
-            class="navbar-login-btn"
-            onclick="window.openModal('loginModal')"
-            title="登入或註冊"
-          >登入</button>
-
-          <!-- 用戶資訊（登入後顯示，預設隱藏） -->
-          <div class="navbar-user-menu" style="display:none;">
-            <!-- 名字首字母頭像圓圈 -->
-            <div class="user-avatar" title="個人資料">?</div>
-            <span class="user-name">用戶</span>
-            <!-- 會員中心連結 -->
-            <a href="pages/member-center.html" title="會員中心" style="font-size:1.1rem; text-decoration:none;">⚙️</a>
-          </div>
-
-          <!-- 漢堡菜單按鈕（手機版才顯示） -->
-          <button class="navbar-hamburger hidden-desktop" title="展開菜單">☰</button>
-
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- =============================================
-       手機版側邊欄（Offcanvas）
-       ============================================= -->
-  <div class="navbar-offcanvas">
-    <div class="offcanvas-header">
-      <span style="font-size:1.1rem; font-weight:700; color:#244d4d;">🏕️ Yuruicamp</span>
-      <button class="offcanvas-close" title="關閉">✕</button>
-    </div>
-    <div class="offcanvas-body">
-      <!-- 手機版搜尋框 -->
-      <div class="navbar-search-wrapper" style="margin-bottom:1rem;">
-        <form class="navbar-search-form" style="width:100%;" role="search">
-          <input
-            type="text"
-            class="navbar-search-input"
-            placeholder="搜尋..."
-            autocomplete="off"
-          >
-          <button type="submit" class="navbar-search-btn">🔍</button>
-        </form>
-        <div class="navbar-search-dropdown"></div>
-      </div>
-      <!-- 導覽連結 -->
-      <ul class="navbar-items">
-        <li><a href="pages/home.html">🏠 首頁</a></li>
-        <li><a href="pages/products.html">🛍️ 商品</a></li>
-        <li><a href="pages/blog.html">📖 部落格</a></li>
-        <li><a href="pages/branches.html">📍 分店</a></li>
-        <li><a href="pages/faq.html">❓ 常見問題</a></li>
-      </ul>
-    </div>
-  </div>
-  <!-- 背景遮罩 -->
-  <div class="offcanvas-backdrop"></div>
-
-  <!-- =============================================
-       登入 / 註冊 Modal - 步驟 3.2
-       功能：
-       - 頁籤切換（登入 ↔ 註冊）
-       - Email 帳密登入/註冊
-       - Google 社群登入（模擬）
-       - LINE 社群登入（模擬）
-       ============================================= -->
-  <div id="loginModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
-    <div class="modal-content" style="max-width:420px;">
-
-      <!-- Modal 標頭 -->
-      <div class="modal-header">
-        <h5 class="modal-title" id="loginModalTitle">歡迎加入 🏕️</h5>
-        <button class="modal-close" title="關閉">✕</button>
-      </div>
-
-      <!-- Modal 主體 -->
-      <div class="modal-body">
-
-        <!-- 頁籤：登入 / 註冊 -->
-        <div class="modal-tabs">
-          <button class="modal-tab-btn active" data-tab="login">登入</button>
-          <button class="modal-tab-btn" data-tab="register">免費註冊</button>
-        </div>
-
-        <!-- ===== 登入面板 ===== -->
-        <div class="modal-tab-panel active" data-panel="login">
-
-          <!-- Email 登入表單 -->
-          <form id="loginEmailForm" novalidate>
-            <div class="mb-md">
-              <label for="loginEmail" style="display:block; font-weight:600; margin-bottom:0.35rem; font-size:0.875rem;">電子郵件</label>
-              <input
-                id="loginEmail"
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                required
-              >
-            </div>
-            <div class="mb-lg">
-              <label for="loginPassword" style="display:block; font-weight:600; margin-bottom:0.35rem; font-size:0.875rem;">密碼</label>
-              <input
-                id="loginPassword"
-                type="password"
-                name="password"
-                placeholder="輸入密碼"
-                required
-              >
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">登入</button>
-          </form>
-
-          <!-- 分隔線 OR -->
-          <div class="divider-or">或使用社群帳號登入</div>
-
-          <!-- Google 登入 -->
-          <button class="btn-google-login" type="button">
-            <!-- Google 官方顏色 G 圖示（SVG inline） -->
-            <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
-              <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
-              <path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/>
-              <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
-            </svg>
-            使用 Google 登入
-          </button>
-
-          <!-- LINE 登入 -->
-          <button class="btn-line-login" type="button">
-            <!-- LINE 圖示 -->
-            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386a.631.631 0 0 1-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.63.629.622.622 0 0 1-.601-.452l-1.59-2.161v1.984a.629.629 0 1 1-1.258 0V8.108c0-.345.282-.63.63-.63.261 0 .487.162.592.397l1.598 2.162V8.108a.63.63 0 1 1 1.259 0v4.771zm-5.822 0a.631.631 0 0 1-1.261 0V8.108a.63.63 0 1 1 1.261 0v4.771zm-2.475.629H4.827a.631.631 0 0 1-.63-.629V8.108c0-.345.283-.63.63-.63a.63.63 0 0 1 .63.63v4.141h1.756a.63.63 0 0 1 0 1.259zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314z"/>
-            </svg>
-            使用 LINE 登入
-          </button>
-
-        </div>
-
-        <!-- ===== 註冊面板 ===== -->
-        <div class="modal-tab-panel" data-panel="register">
-
-          <!-- 帳號註冊表單 -->
-          <form id="registerForm" novalidate>
-            <div class="mb-md">
-              <label for="registerName" style="display:block; font-weight:600; margin-bottom:0.35rem; font-size:0.875rem;">您的姓名</label>
-              <input
-                id="registerName"
-                type="text"
-                name="name"
-                placeholder="露友小明"
-                required
-              >
-            </div>
-            <div class="mb-md">
-              <label for="registerEmail" style="display:block; font-weight:600; margin-bottom:0.35rem; font-size:0.875rem;">電子郵件</label>
-              <input
-                id="registerEmail"
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                required
-              >
-            </div>
-            <div class="mb-lg">
-              <label for="registerPassword" style="display:block; font-weight:600; margin-bottom:0.35rem; font-size:0.875rem;">設定密碼</label>
-              <input
-                id="registerPassword"
-                type="password"
-                name="password"
-                placeholder="至少 8 個字元"
-                minlength="8"
-                required
-              >
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">立即註冊</button>
-          </form>
-
-          <!-- 分隔線 OR -->
-          <div class="divider-or">或使用社群帳號快速註冊</div>
-
-          <!-- Google 快速註冊 -->
-          <button class="btn-google-login" type="button">
-            <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
-              <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
-              <path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/>
-              <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
-            </svg>
-            使用 Google 快速註冊
-          </button>
-
-          <!-- LINE 快速註冊 -->
-          <button class="btn-line-login" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386a.631.631 0 0 1-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.63.629.622.622 0 0 1-.601-.452l-1.59-2.161v1.984a.629.629 0 1 1-1.258 0V8.108c0-.345.282-.63.63-.63.261 0 .487.162.592.397l1.598 2.162V8.108a.63.63 0 1 1 1.259 0v4.771zm-5.822 0a.631.631 0 0 1-1.261 0V8.108a.63.63 0 1 1 1.261 0v4.771zm-2.475.629H4.827a.631.631 0 0 1-.63-.629V8.108c0-.345.283-.63.63-.63a.63.63 0 0 1 .63.63v4.141h1.756a.63.63 0 0 1 0 1.259zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314z"/>
-            </svg>
-            使用 LINE 快速註冊
-          </button>
-
-        </div>
-
-      </div>
-      <!-- /modal-body -->
-
-    </div>
-  </div>
-  <!-- /loginModal -->
-
-  <!-- =============================================
-       個人化問卷 Modal - 步驟 3.3（Stepper）
-       功能：
-       - 步驟 1：選擇偏好露營風格（多選Tag）
-       - 步驟 2：選擇想添購的裝備（多選Tag）
-       - 完成後儲存到 AppState.preferences
-       ============================================= -->
-  <div id="personalizationModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="personalizationTitle">
-    <div class="modal-content" style="max-width:480px;">
-
-      <!-- Modal 標頭 -->
-      <div class="modal-header">
-        <h5 class="modal-title" id="personalizationTitle">告訴我們你的喜好 🎯</h5>
-        <button class="modal-close" title="跳過">✕</button>
-      </div>
-
-      <!-- Modal 主體 -->
-      <div class="modal-body">
-
-        <!-- Stepper 進度條 -->
-        <div class="stepper-header">
-          <div class="stepper-dot active" data-dot="1">1</div>
-          <div class="stepper-line"></div>
-          <div class="stepper-dot" data-dot="2">2</div>
-          <span class="stepper-text">1 / 2</span>
-        </div>
-
-        <!-- ===== 步驟 1：偏好風格 ===== -->
-        <div class="survey-step active" data-step="1">
-          <p class="survey-question">你喜歡哪種露營風格？</p>
-          <p class="survey-hint">可以選多個 😊</p>
-          <div class="survey-tags">
-            <span class="survey-tag" data-value="glamping">✨ 豪華露營 Glamping</span>
-            <span class="survey-tag" data-value="backpacking">🎒 輕量背包客</span>
-            <span class="survey-tag" data-value="family">👨‍👩‍👧 親子家庭</span>
-            <span class="survey-tag" data-value="solo">🧘 獨行俠</span>
-            <span class="survey-tag" data-value="hiking">⛰️ 登山健行</span>
-            <span class="survey-tag" data-value="car-camping">🚗 車頂帳</span>
-            <span class="survey-tag" data-value="ultralight">🪶 極輕量</span>
-            <span class="survey-tag" data-value="base-camp">⛺ 基地營</span>
-          </div>
-          <!-- 下一步按鈕 -->
-          <button id="surveyNextBtn" class="btn btn-primary btn-block">
-            下一步 →
-          </button>
-        </div>
-
-        <!-- ===== 步驟 2：想添購的裝備 ===== -->
-        <div class="survey-step" data-step="2">
-          <p class="survey-question">你最想添購哪類裝備？</p>
-          <p class="survey-hint">告訴我們，我們為你精準推薦 🛍️</p>
-          <div class="survey-tags">
-            <span class="survey-tag" data-value="tent">⛺ 帳篷</span>
-            <span class="survey-tag" data-value="sleeping-bag">🛏️ 睡袋</span>
-            <span class="survey-tag" data-value="backpack">🎒 登山背包</span>
-            <span class="survey-tag" data-value="cooking">🍳 炊具</span>
-            <span class="survey-tag" data-value="lighting">💡 照明設備</span>
-            <span class="survey-tag" data-value="clothing">🧥 戶外服飾</span>
-            <span class="survey-tag" data-value="chair">🪑 桌椅</span>
-            <span class="survey-tag" data-value="navigation">🧭 導航裝備</span>
-            <span class="survey-tag" data-value="safety">🩹 安全急救</span>
-            <span class="survey-tag" data-value="photography">📷 攝影器材</span>
-          </div>
-          <!-- 完成按鈕 -->
-          <button id="surveyFinishBtn" class="btn btn-primary btn-block">
-            完成設定 ✓
-          </button>
-        </div>
-
-      </div>
-      <!-- /modal-body -->
-
-    </div>
-  </div>
-  <!-- /personalizationModal -->
-
-  <!-- =============================================
-       主內容區域
-       ============================================= -->
-  <main id="main-content">
-    <!-- 首頁歡迎訊息（示範用，實際頁面由各 pages/*.html 提供） -->
-    <div class="container" style="padding:4rem 1.25rem; text-align:center;">
-      <h1 style="color:#244d4d; margin-bottom:1rem;">🏕️ Yuruicamp</h1>
-      <p style="font-size:1.25rem; color:#666; margin-bottom:2rem;">探索戶外，從這裡開始</p>
-      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-        <a href="pages/home.html" class="btn btn-primary btn-lg">進入首頁</a>
-        <a href="pages/products.html" class="btn btn-outline btn-lg">瀏覽商品</a>
-      </div>
-    </div>
-  </main>
-
-  <!-- =============================================
-       頁腳（Footer）
-       ============================================= -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <!-- 品牌 -->
-        <div class="col-lg-3 col-md-6 mb-lg">
-          <h5>🏕️ Yuruicamp</h5>
-          <p class="text-sm text-muted">探索戶外，從這裡開始</p>
-          <p class="text-sm text-muted">讓每個露營愛好者找到完美的裝備</p>
-        </div>
-        <!-- 快速連結 -->
-        <div class="col-lg-3 col-md-6 mb-lg">
-          <h6>快速連結</h6>
-          <ul class="list-unstyled">
-            <li><a href="pages/home.html">首頁</a></li>
-            <li><a href="pages/products.html">商品</a></li>
-            <li><a href="pages/blog.html">部落格</a></li>
-            <li><a href="pages/branches.html">分店資訊</a></li>
-            <li><a href="pages/faq.html">常見問題</a></li>
-          </ul>
-        </div>
-        <!-- 聯絡資訊 -->
-        <div class="col-lg-3 col-md-6 mb-lg">
-          <h6>聯絡方式</h6>
-          <p class="text-sm"><strong>電話：</strong>0800-123-456</p>
-          <p class="text-sm"><strong>信箱：</strong>support@yuruicamp.com</p>
-          <p class="text-sm"><strong>地址：</strong>台北市信義區信義路五段 100 號</p>
-          <p class="text-sm"><strong>營業時間：</strong>週一至週日 10:00–20:00</p>
-        </div>
-        <!-- 社群 -->
-        <div class="col-lg-3 col-md-6 mb-lg">
-          <h6>關注我們</h6>
-          <p class="text-sm mb-md">追蹤最新資訊與優惠活動</p>
-          <div class="social-links">
-            <a href="https://facebook.com" target="_blank" rel="noopener" style="color:#1877f2;">Facebook</a>
-            <a href="https://instagram.com" target="_blank" rel="noopener" style="color:#e1306c;">Instagram</a>
-            <a href="https://line.me" target="_blank" rel="noopener" style="color:#00b900;">LINE</a>
+    <main id="main-content" class="yr-index-main">
+      <section class="yr-index-hero" aria-labelledby="indexHeroTitle">
+        <div class="container yr-index-hero__wrap">
+          <h1 class="yr-index-hero__title" id="indexHeroTitle">Yuruicamp</h1>
+          <p class="yr-index-hero__desc">探索戶外，從這裡開始</p>
+          <div class="yr-index-hero__cta">
+            <a href="pages/home.html" class="btn btn-primary btn-lg">進入首頁</a>
+            <a href="pages/products.html" class="btn btn-outline btn-lg">瀏覽商品</a>
           </div>
         </div>
-      </div>
+      </section>
+    </main>
 
-      <hr>
+    <div id="footer"></div>
 
-      <div class="text-center text-sm text-muted">
-        <p style="margin-bottom:0.5rem;">&copy; 2026 Yuruicamp 露營選物品牌. 版權所有。</p>
-        <div>
-          <a href="#" style="color:#999; margin:0 0.5rem;">隱私政策</a>
-          <a href="#" style="color:#999; margin:0 0.5rem;">使用條款</a>
-          <a href="#" style="color:#999; margin:0 0.5rem;">退換貨政策</a>
-        </div>
-      </div>
-
-      <!-- 付款方式 -->
-      <div class="text-center" style="margin-top:1.5rem;">
-        <p class="text-sm text-muted" style="margin-bottom:0.5rem;">支援付款方式</p>
-        <span style="font-size:1.5rem; margin:0 0.25rem;" title="信用卡">💳</span>
-        <span style="font-size:1.5rem; margin:0 0.25rem;" title="LINE Pay">📱</span>
-        <span style="font-size:1.5rem; margin:0 0.25rem;" title="貨到付款">📦</span>
-      </div>
-    </div>
-  </footer>
-
-
-  <!-- =============================================
-       JavaScript 載入順序說明：
-       1. config.js      → 先初始化 AppState / AppConfig（全局狀態）
-       2. api-mock.js    → Mock API 層
-       3. toast.js       → Toast 提示（最早要能用）
-       4. modal.js       → Modal 控制（依賴 toast）
-       5. navbar.js      → 導航欄（依賴 AppState）
-       6. cart.js        → 購物車（依賴 AppState + toast）
-       7. filter.js      → 篩選器
-       8. carousel.js    → 輪播
-       9. pages/*.js     → 各頁面邏輯
-       10. main.js       → 最後初始化（等所有組件都載入）
-       ============================================= -->
-
-  <!-- 全局配置（最先載入） -->
-  <script src="js/config.js" defer></script>
-  <script src="js/storage.js" defer></script>
-  <script src="js/state.js" defer></script>
-  <script src="js/formatters.js" defer></script>
-  <script src="js/validators.js" defer></script>
-  <script src="js/cart-service.js" defer></script>
-
-  <!-- Mock API 層 -->
-  <script src="js/api-mock.js" defer></script>
-
-  <!-- 全局組件（順序重要！） -->
-  <script src="js/components/toast.js" defer></script>
-  <script src="js/components/modal.js" defer></script>
-  <script src="js/components/navbar.js" defer></script>
-  <script src="js/components/cart.js" defer></script>
-  <script src="js/components/filter.js" defer></script>
-  <script src="js/components/carousel.js" defer></script>
-
-  <!-- 各頁面邏輯 -->
-  <script src="js/pages/home.js" defer></script>
-  <script src="js/pages/product-list.js" defer></script>
-  <script src="js/pages/product-detail.js" defer></script>
-  <script src="js/pages/checkout.js" defer></script>
-  <script src="js/pages/member-center.js" defer></script>
-  <script src="js/pages/blog.js" defer></script>
-  <script src="js/pages/branches.js" defer></script>
-
-  <!-- 應用入口（最後載入，確保所有組件都已定義） -->
-  <script src="js/main.js" defer></script>
-
-  <!-- 初始化個人化問卷（在 DOM 完成後執行） -->
-  <script>
-    // 等待 DOM 和所有腳本都就緒後，初始化問卷的互動邏輯
-    document.addEventListener('DOMContentLoaded', () => {
-      if (typeof window.initPersonalizationModal === 'function') {
-        window.initPersonalizationModal();
-      }
-    });
-  </script>
-
-</body>
+    <script src="./js/config.js" defer></script>
+    <script src="./js/storage.js" defer></script>
+    <script src="./js/state.js" defer></script>
+    <script src="./js/formatters.js" defer></script>
+    <script src="./js/validators.js" defer></script>
+    <script src="./js/cart-service.js" defer></script>
+    <script src="./js/api-mock.js" defer></script>
+    <script src="./js/components/toast.js" defer></script>
+    <script src="./js/components/modal.js" defer></script>
+    <script src="./js/components/header.js" defer></script>
+    <script src="./js/components/cart.js" defer></script>
+    <script src="./js/main.js" defer></script>
+  </body>
 </html>
-

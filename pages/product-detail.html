@@ -1,328 +1,577 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yuruicamp 露營選物品牌 - 商品詳情頁">
-  <meta name="theme-color" content="#244d4d">
-  <title>商品詳情 - Yuruicamp 露營選物</title>
-  <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
-  <link rel="preconnect" href="https://picsum.photos">
-  <link rel="dns-prefetch" href="https://picsum.photos">
-  <link rel="stylesheet" href="../css/main.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏕️</text></svg>">
-</head>
-<body>
-
-  <div id="header"></div>
-  <!-- ===================================================
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Yuruicamp 露營選物品牌 - 商品詳情頁" />
+    <meta name="theme-color" content="#FAF7ED" />
+    <title>商品詳情 - Yuruicamp 露營選物</title>
+    <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
+    <link rel="preconnect" href="https://picsum.photos" />
+    <link rel="dns-prefetch" href="https://picsum.photos" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/theme/theme-tokens.css" />
+    <link rel="stylesheet" href="../css/theme/theme-base.css" />
+    <link rel="stylesheet" href="../css/theme/theme-components.css" />
+    <link rel="stylesheet" href="../css/theme/theme-layout.css" />
+    <link rel="stylesheet" href="../css/theme/theme-header.css" />
+    <link rel="stylesheet" href="../css/theme/pages/product-detail.css" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../assets/icons/yuruicamp-favicon.svg"
+    />
+  </head>
+  <body class="yr-theme yr-product-detail-page">
+    <div id="header" data-header-context="shop"></div>
+    <!-- ===================================================
        麵包屑導覽 Breadcrumb
        =================================================== -->
-  <div class="container" style="padding-top:1.5rem;padding-bottom:0.5rem;">
-    <nav aria-label="麵包屑導覽" style="font-size:0.875rem;color:#6b7280;">
-      <a href="home.html" style="color:#244d4d;text-decoration:none;">首頁</a>
-      <span style="margin:0 0.4rem;">›</span>
-      <a href="products.html" style="color:#244d4d;text-decoration:none;">商品</a>
-      <span style="margin:0 0.4rem;">›</span>
-      <span id="breadcrumbProductName" style="color:#6b7280;">商品詳情</span>
-    </nav>
-  </div>
+    <div class="container yr-pd-breadcrumb-wrap" style="padding-top: 1.5rem; padding-bottom: 0.5rem">
+      <nav aria-label="麵包屑導覽" class="yr-pd-breadcrumb" style="font-size: 0.875rem; color: #6b7280">
+        <a href="home.html" style="color: #244d4d; text-decoration: none">首頁</a>
+        <span style="margin: 0 0.4rem"><i class="bi bi-chevron-right" aria-hidden="true"></i></span>
+        <a href="products.html" style="color: #244d4d; text-decoration: none">商品</a>
+        <span style="margin: 0 0.4rem"><i class="bi bi-chevron-right" aria-hidden="true"></i></span>
+        <span id="breadcrumbProductName" style="color: #6b7280">商品詳情</span>
+      </nav>
+    </div>
 
-  <!-- ===================================================
+    <!-- ===================================================
        商品詳情主體 Product Detail Main
        =================================================== -->
-  <main class="container" style="padding-top:1rem;padding-bottom:3rem;">
-
-    <!-- 載入中狀態 Loading State -->
-    <div id="productLoading" style="text-align:center;padding:4rem 0;">
-      <div style="font-size:3rem;margin-bottom:1rem;">⏳</div>
-      <p style="color:#6b7280;">商品資料載入中...</p>
-    </div>
-
-    <!-- 載入失敗狀態 Error State -->
-    <div id="productError" style="display:none;text-align:center;padding:4rem 0;">
-      <div style="font-size:3rem;margin-bottom:1rem;">😢</div>
-      <h3 style="color:#374151;">找不到此商品</h3>
-      <p style="color:#6b7280;margin-bottom:1.5rem;">請確認商品連結是否正確</p>
-      <a href="products.html" class="btn btn-primary">回到商品列表</a>
-    </div>
-
-    <!-- 商品詳情內容 Product Detail Content（由 JS 動態顯示）-->
-    <div id="productDetailContent" style="display:none;">
-
-      <!-- 商品主佈局：左圖 + 右資訊 -->
-      <div class="product-detail-layout">
-
-        <!-- ===== 左側：圖片 Gallery ===== -->
-        <div class="product-gallery">
-          <!-- 主圖 Main Image -->
-          <div class="gallery-main">
-            <img id="galleryMainImg"
-                 src=""
-                 alt="商品主圖"
-                 loading="lazy"
-                 style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-          </div>
-          <!-- 縮圖列表 Thumbnail List -->
-          <div class="gallery-thumbs" id="galleryThumbs">
-            <!-- 由 JS 動態渲染縮圖 -->
-          </div>
+    <main class="container yr-pd-main" style="padding-top: 1rem; padding-bottom: 3rem">
+      <!-- 載入中狀態 Loading State -->
+      <div id="productLoading" class="yr-pd-loading" style="text-align: center; padding: 4rem 0">
+        <div style="font-size: 3rem; margin-bottom: 1rem">
+          <i class="bi bi-hourglass-split" aria-hidden="true"></i>
         </div>
+        <p style="color: #6b7280">商品資料載入中...</p>
+      </div>
 
-        <!-- ===== 右側：商品資訊 ===== -->
-        <div class="product-info">
+      <!-- 載入失敗狀態 Error State -->
+      <div id="productError" class="yr-pd-error" style="display: none; text-align: center; padding: 4rem 0">
+        <div style="font-size: 3rem; margin-bottom: 1rem">
+          <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+        </div>
+        <h3 style="color: #374151">找不到此商品</h3>
+        <p style="color: #6b7280; margin-bottom: 1.5rem">請確認商品連結是否正確</p>
+        <a href="products.html" class="btn btn-primary">回到商品列表</a>
+      </div>
 
-          <!-- 品牌名稱 Brand -->
-          <div id="productBrand" class="product-brand" style="font-size:0.875rem;color:#244d4d;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">
-            <!-- 由 JS 填入 -->
-          </div>
-
-          <!-- 商品名稱 Product Name -->
-          <h1 id="productName" style="font-size:1.75rem;font-weight:700;color:#1a1a1a;margin:0 0 0.75rem 0;line-height:1.3;">
-            <!-- 由 JS 填入 -->
-          </h1>
-
-          <!-- 評分區域 Rating Section -->
-          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1.25rem;">
-            <div id="productStars" style="color:#f59e0b;font-size:1.1rem;">
-              <!-- 由 JS 填入星星 -->
+      <!-- 商品詳情內容 Product Detail Content（由 JS 動態顯示）-->
+      <div id="productDetailContent" style="display: none">
+        <!-- 商品主佈局：左圖 + 右資訊 -->
+        <div class="product-detail-layout">
+          <!-- ===== 左側：圖片 Gallery ===== -->
+          <div class="product-gallery">
+            <!-- 主圖 Main Image -->
+            <div class="gallery-main">
+              <img
+                id="galleryMainImg"
+                src=""
+                alt="商品主圖"
+                loading="lazy"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px"
+              />
             </div>
-            <span id="productRatingNum" style="font-weight:600;color:#374151;font-size:0.95rem;">4.5</span>
-            <span id="productReviewCount" style="color:#9ca3af;font-size:0.875rem;">（0 則評價）</span>
-          </div>
-
-          <!-- 價格區域 Price Section -->
-          <div style="background:#f8f9fa;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.5rem;">
-            <div style="display:flex;align-items:baseline;gap:0.75rem;flex-wrap:wrap;">
-              <span id="productPrice" style="font-size:2rem;font-weight:800;color:#244d4d;">
-                <!-- 現價 -->
-              </span>
-              <span id="productOriginalPrice" style="font-size:1.1rem;color:#9ca3af;text-decoration:line-through;">
-                <!-- 原價 -->
-              </span>
-              <span id="productDiscount" style="background:#e74c3c;color:#fff;font-size:0.8rem;font-weight:700;padding:0.2rem 0.5rem;border-radius:4px;">
-                <!-- 折扣 % -->
-              </span>
+            <!-- 縮圖列表 Thumbnail List -->
+            <div class="gallery-thumbs" id="galleryThumbs">
+              <!-- 由 JS 動態渲染縮圖 -->
             </div>
           </div>
 
-          <!-- 規格選擇：顏色 Color Spec -->
-          <div class="spec-group" id="colorSpecGroup" style="margin-bottom:1.25rem;">
-            <div class="spec-label" style="font-weight:600;color:#374151;margin-bottom:0.6rem;font-size:0.95rem;">
-              顏色：<span id="selectedColorLabel" style="color:#244d4d;font-weight:700;"></span>
+          <!-- ===== 右側：商品資訊 ===== -->
+          <div class="product-info">
+            <!-- 品牌名稱 Brand -->
+            <div
+              id="productBrand"
+              class="product-brand"
+              style="
+                font-size: 0.875rem;
+                color: #244d4d;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <!-- 由 JS 填入 -->
             </div>
-            <div class="spec-options" id="colorOptions">
-              <!-- 由 JS 動態渲染顏色按鈕 -->
-            </div>
-          </div>
 
-          <!-- 規格選擇：尺寸 Size Spec -->
-          <div class="spec-group" id="sizeSpecGroup" style="margin-bottom:1.5rem;display:none;">
-            <div class="spec-label" style="font-weight:600;color:#374151;margin-bottom:0.6rem;font-size:0.95rem;">
-              尺寸：<span id="selectedSizeLabel" style="color:#244d4d;font-weight:700;"></span>
-            </div>
-            <div class="spec-options" id="sizeOptions">
-              <!-- 由 JS 動態渲染尺寸按鈕 -->
-            </div>
-          </div>
+            <!-- 商品名稱 Product Name -->
+            <h1
+              id="productName"
+              style="
+                font-size: 1.75rem;
+                font-weight: 700;
+                color: #1a1a1a;
+                margin: 0 0 0.75rem 0;
+                line-height: 1.3;
+              "
+            >
+              <!-- 由 JS 填入 -->
+            </h1>
 
-          <!-- 數量選擇 Quantity Stepper -->
-          <div style="margin-bottom:1.5rem;">
-            <div style="font-weight:600;color:#374151;margin-bottom:0.6rem;font-size:0.95rem;">數量：</div>
-            <div class="qty-stepper">
-              <button class="qty-btn" id="qtyDecrease" type="button" title="減少數量">−</button>
-              <input class="qty-input" id="qtyInput" type="number" value="1" min="1" max="99" readonly>
-              <button class="qty-btn" id="qtyIncrease" type="button" title="增加數量">+</button>
+            <!-- 評分區域 Rating Section -->
+            <div
+              class="yr-pd-rating"
+              style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem"
+            >
+              <div id="productStars" style="color: #f59e0b; font-size: 1.1rem">
+                <!-- 由 JS 填入星星 -->
+              </div>
+              <span id="productRatingNum" style="font-weight: 600; color: #374151; font-size: 0.95rem"
+                >4.5</span
+              >
+              <span id="productReviewCount" style="color: #9ca3af; font-size: 0.875rem">（0 則評價）</span>
             </div>
-          </div>
 
-          <!-- 免運進度條 Free Shipping Progress Bar -->
-          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:0.875rem 1rem;margin-bottom:1.75rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-              <span style="font-size:0.875rem;color:#166534;font-weight:600;">🚚 免運進度</span>
-              <span id="shippingProgressText" style="font-size:0.8rem;color:#16a34a;font-weight:600;"></span>
-            </div>
-            <div style="background:#dcfce7;border-radius:99px;height:8px;overflow:hidden;">
-              <div class="shipping-progress-bar"
-                   id="shippingProgressBar"
-                   style="height:100%;border-radius:99px;background:linear-gradient(90deg,#22c55e,#16a34a);transition:width 0.4s ease;width:80%;">
+            <!-- 價格區域 Price Section -->
+            <div
+              class="yr-pd-price-card"
+              style="background: #f8f9fa; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem"
+            >
+              <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap">
+                <span id="productPrice" style="font-size: 2rem; font-weight: 800; color: #244d4d">
+                  <!-- 現價 -->
+                </span>
+                <span
+                  id="productOriginalPrice"
+                  style="font-size: 1.1rem; color: #9ca3af; text-decoration: line-through"
+                >
+                  <!-- 原價 -->
+                </span>
+                <span
+                  id="productDiscount"
+                  style="
+                    background: #e74c3c;
+                    color: #fff;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    padding: 0.2rem 0.5rem;
+                    border-radius: 4px;
+                  "
+                >
+                  <!-- 折扣 % -->
+                </span>
               </div>
             </div>
-            <p id="shippingProgressHint" style="font-size:0.8rem;color:#6b7280;margin-top:0.4rem;margin-bottom:0;"></p>
+
+            <!-- 規格選擇：顏色 Color Spec -->
+            <div class="spec-group" id="colorSpecGroup" style="margin-bottom: 1.25rem">
+              <div
+                class="spec-label"
+                style="font-weight: 600; color: #374151; margin-bottom: 0.6rem; font-size: 0.95rem"
+              >
+                顏色：<span id="selectedColorLabel" style="color: #244d4d; font-weight: 700"></span>
+              </div>
+              <div class="spec-options" id="colorOptions">
+                <!-- 由 JS 動態渲染顏色按鈕 -->
+              </div>
+            </div>
+
+            <!-- 規格選擇：尺寸 Size Spec -->
+            <div class="spec-group" id="sizeSpecGroup" style="margin-bottom: 1.5rem; display: none">
+              <div
+                class="spec-label"
+                style="font-weight: 600; color: #374151; margin-bottom: 0.6rem; font-size: 0.95rem"
+              >
+                尺寸：<span id="selectedSizeLabel" style="color: #244d4d; font-weight: 700"></span>
+              </div>
+              <div class="spec-options" id="sizeOptions">
+                <!-- 由 JS 動態渲染尺寸按鈕 -->
+              </div>
+            </div>
+
+            <!-- 數量選擇 Quantity Stepper -->
+            <div style="margin-bottom: 1.5rem">
+              <div style="font-weight: 600; color: #374151; margin-bottom: 0.6rem; font-size: 0.95rem">
+                數量：
+              </div>
+              <div class="qty-stepper">
+                <button class="qty-btn" id="qtyDecrease" type="button" title="減少數量">−</button>
+                <input class="qty-input" id="qtyInput" type="number" value="1" min="1" max="99" readonly />
+                <button class="qty-btn" id="qtyIncrease" type="button" title="增加數量">+</button>
+              </div>
+            </div>
+
+            <!-- 免運進度條 Free Shipping Progress Bar -->
+            <div
+              class="yr-pd-shipping"
+              style="
+                background: #f0fdf4;
+                border: 1px solid #bbf7d0;
+                border-radius: 8px;
+                padding: 0.875rem 1rem;
+                margin-bottom: 1.75rem;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 0.5rem;
+                "
+              >
+                <span style="font-size: 0.875rem; color: #166534; font-weight: 600"
+                  ><i class="bi bi-truck" aria-hidden="true"></i> 免運進度</span
+                >
+                <span
+                  id="shippingProgressText"
+                  style="font-size: 0.8rem; color: #16a34a; font-weight: 600"
+                ></span>
+              </div>
+              <div style="background: #dcfce7; border-radius: 99px; height: 8px; overflow: hidden">
+                <div
+                  class="shipping-progress-bar"
+                  id="shippingProgressBar"
+                  style="
+                    height: 100%;
+                    border-radius: 99px;
+                    background: linear-gradient(90deg, #22c55e, #16a34a);
+                    transition: width 0.4s ease;
+                    width: 80%;
+                  "
+                ></div>
+              </div>
+              <p
+                id="shippingProgressHint"
+                style="font-size: 0.8rem; color: #6b7280; margin-top: 0.4rem; margin-bottom: 0"
+              ></p>
+            </div>
+
+            <!-- 操作按鈕 Action Buttons -->
+            <div class="yr-pd-actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap">
+              <button
+                id="addToCartBtn"
+                class="btn btn-primary"
+                style="flex: 1; min-width: 140px; font-size: 1rem; padding: 0.875rem 1rem"
+                type="button"
+              >
+                <i class="bi bi-bag" aria-hidden="true"></i> 加入購物車
+              </button>
+              <button
+                id="buyNowBtn"
+                class="btn btn-secondary"
+                style="flex: 1; min-width: 140px; font-size: 1rem; padding: 0.875rem 1rem"
+                type="button"
+              >
+                <i class="bi bi-lightning-charge" aria-hidden="true"></i> 直接購買
+              </button>
+            </div>
+
+            <!-- 商品標籤 Tags -->
+            <div id="productTags" style="margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.4rem">
+              <!-- 由 JS 動態渲染標籤 -->
+            </div>
           </div>
+          <!-- /product-info -->
+        </div>
+        <!-- /product-detail-layout -->
 
-          <!-- 操作按鈕 Action Buttons -->
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-            <button id="addToCartBtn"
-                    class="btn btn-primary"
-                    style="flex:1;min-width:140px;font-size:1rem;padding:0.875rem 1rem;"
-                    type="button">
-              🛒 加入購物車
-            </button>
-            <button id="buyNowBtn"
-                    class="btn btn-secondary"
-                    style="flex:1;min-width:140px;font-size:1rem;padding:0.875rem 1rem;"
-                    type="button">
-              ⚡ 直接購買
-            </button>
-          </div>
-
-          <!-- 商品標籤 Tags -->
-          <div id="productTags" style="margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:0.4rem;">
-            <!-- 由 JS 動態渲染標籤 -->
-          </div>
-
-        </div><!-- /product-info -->
-      </div><!-- /product-detail-layout -->
-
-      <!-- ===================================================
+        <!-- ===================================================
            下方 Tab 頁籤區域 Product Tabs
            =================================================== -->
-      <div style="margin-top:3rem;">
+        <div class="yr-pd-tabs" style="margin-top: 3rem">
+          <!-- Tab 導航列 Tab Nav -->
+          <div
+            class="product-tabs-nav"
+            style="display: flex; border-bottom: 2px solid #e5e7eb; margin-bottom: 2rem; gap: 0"
+          >
+            <button
+              class="product-tab-btn active"
+              data-tab="description"
+              type="button"
+              style="
+                padding: 0.875rem 1.75rem;
+                font-size: 1rem;
+                font-weight: 600;
+                background: none;
+                border: none;
+                border-bottom: 3px solid #244d4d;
+                color: #244d4d;
+                cursor: pointer;
+                margin-bottom: -2px;
+              "
+            >
+              <i class="bi bi-card-text" aria-hidden="true"></i> 商品介紹
+            </button>
+            <button
+              class="product-tab-btn"
+              data-tab="reviews"
+              type="button"
+              style="
+                padding: 0.875rem 1.75rem;
+                font-size: 1rem;
+                font-weight: 600;
+                background: none;
+                border: none;
+                border-bottom: 3px solid transparent;
+                color: #6b7280;
+                cursor: pointer;
+                margin-bottom: -2px;
+              "
+            >
+              <i class="bi bi-star" aria-hidden="true"></i> 商品評價 (3)
+            </button>
+          </div>
 
-        <!-- Tab 導航列 Tab Nav -->
-        <div class="product-tabs-nav" style="display:flex;border-bottom:2px solid #e5e7eb;margin-bottom:2rem;gap:0;">
-          <button class="product-tab-btn active"
-                  data-tab="description"
-                  type="button"
-                  style="padding:0.875rem 1.75rem;font-size:1rem;font-weight:600;background:none;border:none;border-bottom:3px solid #244d4d;color:#244d4d;cursor:pointer;margin-bottom:-2px;">
-            📋 商品介紹
-          </button>
-          <button class="product-tab-btn"
-                  data-tab="reviews"
-                  type="button"
-                  style="padding:0.875rem 1.75rem;font-size:1rem;font-weight:600;background:none;border:none;border-bottom:3px solid transparent;color:#6b7280;cursor:pointer;margin-bottom:-2px;">
-            ⭐ 商品評價 (3)
-          </button>
-        </div>
-
-        <!-- Tab 面板：商品介紹 Description Panel -->
-        <div class="product-tab-panel active" data-panel="description">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
-            <!-- 左：商品描述 -->
-            <div>
-              <h3 style="font-size:1.1rem;font-weight:700;color:#244d4d;margin-bottom:1rem;">商品說明</h3>
-              <p id="productDescription" style="color:#4b5563;line-height:1.8;font-size:0.95rem;"></p>
-              <!-- 商品特色列表 -->
-              <div id="productFeatures" style="margin-top:1.25rem;"></div>
-            </div>
-            <!-- 右：商品規格表 -->
-            <div>
-              <h3 style="font-size:1.1rem;font-weight:700;color:#244d4d;margin-bottom:1rem;">詳細規格</h3>
-              <div id="productSpecTable" style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;font-size:0.9rem;">
-                <!-- 由 JS 動態渲染規格表 -->
+          <!-- Tab 面板：商品介紹 Description Panel -->
+          <div class="product-tab-panel active" data-panel="description">
+            <div class="yr-pd-tab-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem">
+              <!-- 左：商品描述 -->
+              <div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: #244d4d; margin-bottom: 1rem">
+                  商品說明
+                </h3>
+                <p id="productDescription" style="color: #4b5563; line-height: 1.8; font-size: 0.95rem"></p>
+                <!-- 商品特色列表 -->
+                <div id="productFeatures" style="margin-top: 1.25rem"></div>
+              </div>
+              <!-- 右：商品規格表 -->
+              <div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: #244d4d; margin-bottom: 1rem">
+                  詳細規格
+                </h3>
+                <div
+                  id="productSpecTable"
+                  style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; font-size: 0.9rem"
+                >
+                  <!-- 由 JS 動態渲染規格表 -->
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- Tab 面板：商品評價 Reviews Panel -->
+          <div class="product-tab-panel" data-panel="reviews" style="display: none">
+            <div
+              class="yr-pd-reviews-grid"
+              style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem"
+            >
+              <!-- 評價卡片 1 Review Card 1 -->
+              <div
+                class="review-card"
+                style="
+                  background: #fff;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 12px;
+                  padding: 1.25rem;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                "
+              >
+                <div
+                  class="review-header"
+                  style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem"
+                >
+                  <div
+                    class="review-avatar"
+                    style="
+                      width: 44px;
+                      height: 44px;
+                      border-radius: 50%;
+                      background: linear-gradient(135deg, #244d4d, #3d8b8b);
+                      color: #fff;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-weight: 700;
+                      font-size: 1.1rem;
+                      flex-shrink: 0;
+                    "
+                  >
+                    林
+                  </div>
+                  <div>
+                    <div style="font-weight: 700; color: #1a1a1a; font-size: 0.95rem">林小明</div>
+                    <div class="yr-rating-stars" data-rating="5" aria-label="評分 5.0 分">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div style="margin-left: auto; font-size: 0.8rem; color: #9ca3af">2026/05/20</div>
+                </div>
+                <p
+                  class="review-text"
+                  style="color: #4b5563; font-size: 0.9rem; line-height: 1.7; margin: 0 0 0.875rem 0"
+                >
+                  商品品質非常好！帳篷搭建超簡單，大概 10
+                  分鐘就完成了。防水效果很棒，之前去大雪山露營遇到大雨完全沒有滲水。強烈推薦給第一次買帳篷的朋友！
+                </p>
+                <div class="review-images" style="display: flex; gap: 0.5rem">
+                  <img
+                    src="https://picsum.photos/seed/review1a/100/100"
+                    alt="評價圖片"
+                    loading="lazy"
+                    style="
+                      width: 72px;
+                      height: 72px;
+                      object-fit: cover;
+                      border-radius: 8px;
+                      border: 1px solid #e5e7eb;
+                    "
+                  />
+                </div>
+              </div>
+
+              <!-- 評價卡片 2 Review Card 2 -->
+              <div
+                class="review-card"
+                style="
+                  background: #fff;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 12px;
+                  padding: 1.25rem;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                "
+              >
+                <div
+                  class="review-header"
+                  style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem"
+                >
+                  <div
+                    class="review-avatar"
+                    style="
+                      width: 44px;
+                      height: 44px;
+                      border-radius: 50%;
+                      background: linear-gradient(135deg, #7c3aed, #a855f7);
+                      color: #fff;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-weight: 700;
+                      font-size: 1.1rem;
+                      flex-shrink: 0;
+                    "
+                  >
+                    陳
+                  </div>
+                  <div>
+                    <div style="font-weight: 700; color: #1a1a1a; font-size: 0.95rem">陳美美</div>
+                    <div class="yr-rating-stars" data-rating="4" aria-label="評分 4.0 分">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div style="margin-left: auto; font-size: 0.8rem; color: #9ca3af">2026/04/15</div>
+                </div>
+                <p
+                  class="review-text"
+                  style="color: #4b5563; font-size: 0.9rem; line-height: 1.7; margin: 0 0 0.875rem 0"
+                >
+                  整體而言很滿意，重量真的很輕，背包客的好選擇。顏色跟網站圖片一致，包裝也很用心。唯一小缺點是附贈的地釘比較細，建議另外購買品質好一點的地釘搭配使用。
+                </p>
+                <div class="review-images" style="display: flex; gap: 0.5rem">
+                  <img
+                    src="https://picsum.photos/seed/review2a/100/100"
+                    alt="評價圖片"
+                    loading="lazy"
+                    style="
+                      width: 72px;
+                      height: 72px;
+                      object-fit: cover;
+                      border-radius: 8px;
+                      border: 1px solid #e5e7eb;
+                    "
+                  />
+                </div>
+              </div>
+
+              <!-- 評價卡片 3 Review Card 3 -->
+              <div
+                class="review-card"
+                style="
+                  background: #fff;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 12px;
+                  padding: 1.25rem;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                "
+              >
+                <div
+                  class="review-header"
+                  style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem"
+                >
+                  <div
+                    class="review-avatar"
+                    style="
+                      width: 44px;
+                      height: 44px;
+                      border-radius: 50%;
+                      background: linear-gradient(135deg, #dc2626, #ef4444);
+                      color: #fff;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-weight: 700;
+                      font-size: 1.1rem;
+                      flex-shrink: 0;
+                    "
+                  >
+                    王
+                  </div>
+                  <div>
+                    <div style="font-weight: 700; color: #1a1a1a; font-size: 0.95rem">王大衛</div>
+                    <div class="yr-rating-stars" data-rating="5" aria-label="評分 5.0 分">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div style="margin-left: auto; font-size: 0.8rem; color: #9ca3af">2026/03/08</div>
+                </div>
+                <p
+                  class="review-text"
+                  style="color: #4b5563; font-size: 0.9rem; line-height: 1.7; margin: 0 0 0.875rem 0"
+                >
+                  已經是第三次購買 Yuruicamp
+                  的商品了，品質穩定且一致，客服也非常親切耐心。這款是家庭露營的絕佳選擇，空間寬敞通風，跟老婆小孩一起住很舒適。下次還會再來！
+                </p>
+                <div class="review-images" style="display: flex; gap: 0.5rem">
+                  <img
+                    src="https://picsum.photos/seed/review3a/100/100"
+                    alt="評價圖片"
+                    loading="lazy"
+                    style="
+                      width: 72px;
+                      height: 72px;
+                      object-fit: cover;
+                      border-radius: 8px;
+                      border: 1px solid #e5e7eb;
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- /reviews grid -->
+          </div>
+          <!-- /reviews panel -->
         </div>
+        <!-- /tabs area -->
+      </div>
+      <!-- /productDetailContent -->
+    </main>
 
-        <!-- Tab 面板：商品評價 Reviews Panel -->
-        <div class="product-tab-panel" data-panel="reviews" style="display:none;">
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;">
+    <div id="footer"></div>
 
-            <!-- 評價卡片 1 Review Card 1 -->
-            <div class="review-card" style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-              <div class="review-header" style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-                <div class="review-avatar"
-                     style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#244d4d,#3d8b8b);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;flex-shrink:0;">
-                  林
-                </div>
-                <div>
-                  <div style="font-weight:700;color:#1a1a1a;font-size:0.95rem;">林小明</div>
-                  <div style="color:#f59e0b;font-size:0.9rem;">★★★★★</div>
-                </div>
-                <div style="margin-left:auto;font-size:0.8rem;color:#9ca3af;">2026/05/20</div>
-              </div>
-              <p class="review-text" style="color:#4b5563;font-size:0.9rem;line-height:1.7;margin:0 0 0.875rem 0;">
-                商品品質非常好！帳篷搭建超簡單，大概 10 分鐘就完成了。防水效果很棒，之前去大雪山露營遇到大雨完全沒有滲水。強烈推薦給第一次買帳篷的朋友！
-              </p>
-              <div class="review-images" style="display:flex;gap:0.5rem;">
-                <img src="https://picsum.photos/seed/review1a/100/100"
-                     alt="評價圖片"
-                     loading="lazy"
-                     style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid #e5e7eb;">
-              </div>
-            </div>
-
-            <!-- 評價卡片 2 Review Card 2 -->
-            <div class="review-card" style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-              <div class="review-header" style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-                <div class="review-avatar"
-                     style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;flex-shrink:0;">
-                  陳
-                </div>
-                <div>
-                  <div style="font-weight:700;color:#1a1a1a;font-size:0.95rem;">陳美美</div>
-                  <div style="color:#f59e0b;font-size:0.9rem;">★★★★☆</div>
-                </div>
-                <div style="margin-left:auto;font-size:0.8rem;color:#9ca3af;">2026/04/15</div>
-              </div>
-              <p class="review-text" style="color:#4b5563;font-size:0.9rem;line-height:1.7;margin:0 0 0.875rem 0;">
-                整體而言很滿意，重量真的很輕，背包客的好選擇。顏色跟網站圖片一致，包裝也很用心。唯一小缺點是附贈的地釘比較細，建議另外購買品質好一點的地釘搭配使用。
-              </p>
-              <div class="review-images" style="display:flex;gap:0.5rem;">
-                <img src="https://picsum.photos/seed/review2a/100/100"
-                     alt="評價圖片"
-                     loading="lazy"
-                     style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid #e5e7eb;">
-              </div>
-            </div>
-
-            <!-- 評價卡片 3 Review Card 3 -->
-            <div class="review-card" style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-              <div class="review-header" style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-                <div class="review-avatar"
-                     style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;flex-shrink:0;">
-                  王
-                </div>
-                <div>
-                  <div style="font-weight:700;color:#1a1a1a;font-size:0.95rem;">王大衛</div>
-                  <div style="color:#f59e0b;font-size:0.9rem;">★★★★★</div>
-                </div>
-                <div style="margin-left:auto;font-size:0.8rem;color:#9ca3af;">2026/03/08</div>
-              </div>
-              <p class="review-text" style="color:#4b5563;font-size:0.9rem;line-height:1.7;margin:0 0 0.875rem 0;">
-                已經是第三次購買 Yuruicamp 的商品了，品質穩定且一致，客服也非常親切耐心。這款是家庭露營的絕佳選擇，空間寬敞通風，跟老婆小孩一起住很舒適。下次還會再來！
-              </p>
-              <div class="review-images" style="display:flex;gap:0.5rem;">
-                <img src="https://picsum.photos/seed/review3a/100/100"
-                     alt="評價圖片"
-                     loading="lazy"
-                     style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid #e5e7eb;">
-              </div>
-            </div>
-
-          </div><!-- /reviews grid -->
-        </div><!-- /reviews panel -->
-
-      </div><!-- /tabs area -->
-
-    </div><!-- /productDetailContent -->
-  </main>
-
-  
-
- <div id="footer"></div>
-
-  <!-- ===================================================
+    <!-- ===================================================
        Script 載入（依序載入，確保依賴正確）
        =================================================== -->
-  <script src="../js/config.js" defer></script>
-  <script src="../js/storage.js" defer></script>
-  <script src="../js/state.js" defer></script>
-  <script src="../js/formatters.js" defer></script>
-  <script src="../js/validators.js" defer></script>
-  <script src="../js/cart-service.js" defer></script>
-  <script src="../js/api-mock.js" defer></script>
-  <script src="../js/components/toast.js" defer></script>
-  <script src="../js/components/modal.js" defer></script>
-  <script src="../js/components/header.js" defer></script>
-  <script src="../js/components/cart.js" defer></script>
-  <script src="../js/pages/product-detail.js" defer></script>
-  <script src="../js/main.js" defer></script>
-
-</body>
+    <script src="../js/config.js" defer></script>
+    <script src="../js/storage.js" defer></script>
+    <script src="../js/state.js" defer></script>
+    <script src="../js/formatters.js" defer></script>
+    <script src="../js/validators.js" defer></script>
+    <script src="../js/cart-service.js" defer></script>
+    <script src="../js/api-mock.js" defer></script>
+    <script src="../js/components/toast.js" defer></script>
+    <script src="../js/components/modal.js" defer></script>
+    <script src="../js/components/header.js" defer></script>
+    <script src="../js/components/cart.js" defer></script>
+    <script src="../js/pages/product-detail.js" defer></script>
+    <script src="../js/main.js" defer></script>
+  </body>
 </html>
-
-

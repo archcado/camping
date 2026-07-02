@@ -1,0 +1,237 @@
+:root {
+  /* ============================================================
+     layer 1: brand foundation bridge (with safe fallback)
+     ============================================================ */
+  --yr-admin-foundation-brand: var(--yr-color-brand, #9ead96);
+  --yr-admin-foundation-brand-strong: var(--yr-color-brand-strong, #7c8b76);
+  --yr-admin-foundation-brand-hover: var(--yr-color-brand-hover, #697763);
+  --yr-admin-foundation-brand-pale: var(--yr-color-brand-pale, #e1e9dc);
+  --yr-admin-foundation-brand-soft: var(--yr-color-brand-soft, #c7d4c1);
+  --yr-admin-foundation-bg: var(--yr-color-bg, #faf7ed);
+  --yr-admin-foundation-surface: var(--yr-color-surface, #fffdf8);
+  --yr-admin-foundation-surface-muted: var(--yr-color-surface-muted, #f3ebdd);
+  --yr-admin-foundation-surface-oat: var(--yr-color-surface-oat, #eae0d2);
+  --yr-admin-foundation-text: var(--yr-color-text, #454941);
+  --yr-admin-foundation-text-muted: var(--yr-color-text-muted, #66645d);
+  --yr-admin-foundation-text-subtle: var(--yr-color-text-subtle, #827a71);
+  --yr-admin-foundation-text-on-brand: var(--yr-color-text-on-brand, #fffdf8);
+  --yr-admin-foundation-border: var(--yr-color-border, #e5dbce);
+  --yr-admin-foundation-focus-ring: var(--yr-color-focus-ring, rgba(116, 132, 111, 0.28));
+  --yr-admin-foundation-overlay: var(--yr-color-overlay, rgba(63, 70, 61, 0.08));
+  --yr-admin-foundation-success: var(--yr-color-success, #9ead96);
+  --yr-admin-foundation-success-soft: var(--yr-color-success-soft, #e1e9dc);
+  --yr-admin-foundation-warning: var(--yr-color-warning, #dccfbe);
+  --yr-admin-foundation-warning-soft: var(--yr-color-warning-soft, #f3ebdd);
+  --yr-admin-foundation-danger: var(--yr-color-danger, #827a71);
+  --yr-admin-foundation-danger-soft: var(--yr-color-danger-soft, #eae0d2);
+  --yr-admin-foundation-info: var(--yr-color-info, #74846f);
+  --yr-admin-foundation-info-soft: var(--yr-color-info-soft, #e1e9dc);
+
+  /* ============================================================
+     layer 2: admin semantic tokens
+     ============================================================ */
+  /* canvas and surface */
+  --yr-admin-canvas: var(--yr-admin-foundation-bg);
+  --yr-admin-surface: var(--yr-admin-foundation-surface);
+  --yr-admin-surface-raised: var(--yr-admin-foundation-surface);
+  --yr-admin-surface-muted: var(--yr-admin-foundation-surface-muted);
+  --yr-admin-surface-subtle: var(--yr-admin-foundation-surface-oat);
+  --yr-admin-surface-selected: var(--yr-admin-foundation-brand-pale);
+  --yr-admin-surface-hover: rgba(158, 173, 150, 0.12);
+
+  /* text */
+  --yr-admin-text: var(--yr-admin-foundation-text);
+  --yr-admin-text-muted: var(--yr-admin-foundation-text-muted);
+  --yr-admin-text-subtle: var(--yr-admin-foundation-text-subtle);
+  --yr-admin-text-disabled: #9a958c;
+  --yr-admin-text-inverse: var(--yr-admin-foundation-text-on-brand);
+  --yr-admin-link: var(--yr-admin-foundation-brand-strong);
+  --yr-admin-link-hover: var(--yr-admin-foundation-brand-hover);
+
+  /* border and focus */
+  --yr-admin-border: var(--yr-admin-foundation-border);
+  --yr-admin-border-strong: #cfc4b6;
+  --yr-admin-divider: rgba(124, 139, 118, 0.18);
+  --yr-admin-focus-ring: var(--yr-admin-foundation-focus-ring);
+
+  /* brand action */
+  --yr-admin-primary: var(--yr-admin-foundation-brand-strong);
+  --yr-admin-primary-hover: var(--yr-admin-foundation-brand-hover);
+  --yr-admin-primary-active: #596653;
+  --yr-admin-primary-text: var(--yr-admin-foundation-text-on-brand);
+  --yr-admin-primary-soft: var(--yr-admin-foundation-brand-pale);
+  /* note: primary text contrast may still be below 4.5:1 in some combinations (p2 a11y tune). */
+
+  /* status base */
+  --yr-admin-success: #5f705b;
+  --yr-admin-success-bg: #e5ebe1;
+  --yr-admin-success-border: #bfcbba;
+  --yr-admin-success-text: #465442;
+  --yr-admin-warning: #8a6d48;
+  --yr-admin-warning-bg: #f3eadc;
+  --yr-admin-warning-border: #dfcdb3;
+  --yr-admin-warning-text: #665037;
+  --yr-admin-danger: #95665e;
+  --yr-admin-danger-bg: #f2e5e1;
+  --yr-admin-danger-border: #dabdb6;
+  --yr-admin-danger-text: #704b45;
+  --yr-admin-info: #647a70;
+  --yr-admin-info-bg: #e5ece8;
+  --yr-admin-info-border: #c6d2cc;
+  --yr-admin-info-text: #485b52;
+  --yr-admin-neutral-bg: #ece9e3;
+  --yr-admin-neutral-border: #d3cec5;
+  --yr-admin-neutral-text: #5f5c56;
+
+  /* shell */
+  --yr-admin-sidebar-bg: #3f4640;
+  --yr-admin-sidebar-bg-hover: #4b554a;
+  --yr-admin-sidebar-bg-active: #596653;
+  --yr-admin-sidebar-text: #f4f1e9;
+  --yr-admin-sidebar-text-muted: #c9cec4;
+  --yr-admin-sidebar-text-active: #fffdf8;
+  --yr-admin-sidebar-border: rgba(255, 253, 248, 0.12);
+  --yr-admin-topbar-bg: #fffdf8;
+  --yr-admin-topbar-text: #454941;
+  --yr-admin-topbar-border: #e5dbce;
+  --yr-admin-topbar-icon: #667061;
+  --yr-admin-content-bg: #faf7ed;
+
+  /* ============================================================
+     layer 3: component token reservation
+     ============================================================ */
+  --yr-admin-card-bg: var(--yr-admin-surface);
+  --yr-admin-card-border: var(--yr-admin-border);
+  --yr-admin-card-shadow: 0 4px 16px rgb(69 73 65 / 5.5%);
+  --yr-admin-table-bg: var(--yr-admin-surface);
+  --yr-admin-table-header-bg: var(--yr-admin-surface-muted);
+  --yr-admin-table-row-hover: var(--yr-admin-surface-hover);
+  --yr-admin-table-row-selected: var(--yr-admin-surface-selected);
+  --yr-admin-table-border: var(--yr-admin-border);
+  --yr-admin-input-bg: var(--yr-admin-surface);
+  --yr-admin-input-border: var(--yr-admin-border-strong);
+  --yr-admin-input-border-focus: var(--yr-admin-primary);
+  --yr-admin-input-placeholder: var(--yr-admin-text-muted);
+  --yr-admin-modal-bg: var(--yr-admin-surface);
+  --yr-admin-modal-border: var(--yr-admin-border);
+  --yr-admin-modal-backdrop: var(--yr-admin-foundation-overlay);
+  --yr-admin-dropdown-bg: var(--yr-admin-surface);
+  --yr-admin-dropdown-border: var(--yr-admin-border);
+  --yr-admin-chart-grid: rgb(69 73 65 / 8%);
+  --yr-admin-chart-label: var(--yr-admin-text-muted);
+
+  /* ============================================================
+     compatibility aliases: existing yr-admin token names
+     ============================================================ */
+  --yr-admin-bg: var(--yr-admin-content-bg);
+  --yr-admin-surface-soft: var(--yr-admin-surface-muted);
+  --yr-admin-surface-sage: var(--yr-admin-surface-selected);
+  --yr-admin-brand: var(--yr-admin-primary);
+  --yr-admin-brand-strong: var(--yr-admin-primary-hover);
+  --yr-admin-brand-dark: var(--yr-admin-sidebar-bg);
+  --yr-admin-danger-soft: var(--yr-admin-danger-bg);
+  --yr-admin-warning-soft: var(--yr-admin-warning-bg);
+  --yr-admin-success-soft: var(--yr-admin-success-bg);
+
+  --yr-admin-state-sage-text: var(--yr-admin-success-text);
+  --yr-admin-state-sage-bg: var(--yr-admin-success-bg);
+  --yr-admin-state-sage-border: var(--yr-admin-success-border);
+  --yr-admin-state-warm-text: var(--yr-admin-warning-text);
+  --yr-admin-state-warm-bg: var(--yr-admin-warning-bg);
+  --yr-admin-state-warm-border: var(--yr-admin-warning-border);
+  --yr-admin-state-danger-text: var(--yr-admin-danger-text);
+  --yr-admin-state-danger-bg: var(--yr-admin-danger-bg);
+  --yr-admin-state-danger-border: #ddbdb6;
+  --yr-admin-state-neutral-text: var(--yr-admin-neutral-text);
+  --yr-admin-state-neutral-bg: var(--yr-admin-neutral-bg);
+  --yr-admin-state-neutral-border: #d7d1c8;
+
+  --yr-admin-rating-gold: #a38355;
+  --yr-admin-data-link: var(--yr-admin-link);
+  --yr-admin-data-link-hover: var(--yr-admin-link-hover);
+  --yr-admin-data-link-underline: #aeb9aa;
+  --yr-admin-table-head-icon: #5f6960;
+  --yr-admin-header-icon: #756c5f;
+  --yr-admin-avatar-soft-bg: #e1e2de;
+  --yr-admin-avatar-soft-text: #676b65;
+  --yr-admin-table-row-hover-soft: #f5f3ed;
+  --yr-admin-tab-text: var(--yr-admin-text-muted);
+  --yr-admin-tab-icon: #7a8178;
+  --yr-admin-tab-hover-bg: #f1f3ee;
+  --yr-admin-tab-active-text: var(--yr-admin-primary-hover);
+  --yr-admin-tab-active-bg: var(--yr-admin-surface);
+  --yr-admin-tab-active-border: #d9d3c8;
+  --yr-admin-kpi-info-icon: #748494;
+  --yr-admin-kpi-info-bg: #e8edf1;
+  --yr-admin-kpi-warm-icon: #9a7b50;
+  --yr-admin-kpi-warm-bg: #f2eadb;
+  --yr-admin-kpi-danger-icon: #9a6c62;
+  --yr-admin-kpi-danger-bg: #f2e5e1;
+  --yr-admin-kpi-sage-icon: #6f7d6b;
+  --yr-admin-kpi-sage-bg: #e7ece2;
+  --yr-admin-kpi-clay-icon: #a06e55;
+  --yr-admin-kpi-clay-bg: #f2e6df;
+  --yr-admin-sidebar-hover: var(--yr-admin-sidebar-bg-hover);
+  --yr-admin-sidebar-active-soft: #e9ede5;
+  --yr-admin-table-hover: #f4f6f1;
+
+  /* typography and motion */
+  --yr-admin-font-family:
+    "Noto Sans TC",
+    "Segoe UI",
+    "PingFang TC",
+    "Microsoft JhengHei",
+    sans-serif;
+  --yr-admin-font-size-sm: 0.875rem;
+  --yr-admin-font-size-base: 1rem;
+  --yr-admin-font-size-lg: 1.125rem;
+  --yr-admin-line-height: 1.6;
+  --yr-admin-space-1: 0.25rem;
+  --yr-admin-space-2: 0.5rem;
+  --yr-admin-space-3: 0.75rem;
+  --yr-admin-space-4: 1rem;
+  --yr-admin-space-5: 1.25rem;
+  --yr-admin-space-6: 1.5rem;
+  --yr-admin-space-8: 2rem;
+  --yr-admin-space-10: 2.5rem;
+  --yr-admin-radius-sm: 8px;
+  --yr-admin-radius-md: 10px;
+  --yr-admin-radius-lg: 16px;
+  --yr-admin-shadow-sm: 0 4px 16px rgb(69 73 65 / 5.5%);
+  --yr-admin-shadow-md: 0 8px 20px rgb(69 73 65 / 7%);
+  --yr-admin-transition-fast: 180ms ease;
+  --yr-admin-transition-base: 220ms ease;
+  --yr-admin-sidebar-width: 250px;
+  --yr-admin-topbar-height: 64px;
+  --yr-admin-content-max-width: 1360px;
+
+  /* ============================================================
+     legacy aliases for existing admin.css and templates
+     ============================================================ */
+  --admin-primary: var(--yr-admin-primary); /* @deprecated */
+  --admin-bg: var(--yr-admin-content-bg); /* @deprecated */
+  --admin-card-bg: var(--yr-admin-card-bg); /* @deprecated */
+  --admin-input-bg: var(--yr-admin-input-bg); /* @deprecated */
+  --admin-border: var(--yr-admin-border); /* @deprecated */
+  --admin-border-light: var(--yr-admin-border-strong); /* @deprecated */
+  --admin-brand-accent: var(--yr-admin-primary); /* @deprecated */
+  --admin-brand-accent-hover: var(--yr-admin-primary-hover); /* @deprecated */
+  --admin-success-bg: var(--yr-admin-success-bg); /* @deprecated */
+  --admin-success-text: var(--yr-admin-success-text); /* @deprecated */
+  --admin-warning-bg: var(--yr-admin-warning-bg); /* @deprecated */
+  --admin-warning-text: var(--yr-admin-warning-text); /* @deprecated */
+  --admin-danger-bg: var(--yr-admin-danger-bg); /* @deprecated */
+  --admin-danger-text: var(--yr-admin-danger-text); /* @deprecated */
+  --admin-text-primary: var(--yr-admin-text); /* @deprecated */
+  --admin-text-secondary: var(--yr-admin-text-muted); /* @deprecated */
+  --admin-sidebar-bg: var(--yr-admin-sidebar-bg); /* @deprecated */
+  --admin-sidebar-text: rgb(255 253 248 / 82%); /* @deprecated */
+  --admin-sidebar-hover: var(--yr-admin-sidebar-bg-hover); /* @deprecated */
+  --admin-sidebar-active-bg: var(--yr-admin-sidebar-active-soft); /* @deprecated */
+  --admin-sidebar-active-border: var(--yr-admin-primary); /* @deprecated */
+  --admin-sidebar-width: var(--yr-admin-sidebar-width); /* @deprecated */
+  --admin-topbar-height: var(--yr-admin-topbar-height); /* @deprecated */
+  --admin-topbar-bg: var(--yr-admin-topbar-bg); /* @deprecated */
+  --admin-topbar-shadow: var(--yr-admin-shadow-sm); /* @deprecated */
+  --admin-content-bg: var(--yr-admin-content-bg); /* @deprecated */
+}

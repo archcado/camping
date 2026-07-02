@@ -157,6 +157,49 @@ function formatCheckoutOrderNumber(dateString, serial) {
   return `#ORD-${String(dateString).replace(/-/g, '')}-${String(serial).padStart(4, '0')}`;
 }
 
+let checkoutProductsByIdPromise = null;
+
+function getCheckoutProductPrimaryImage(product) {
+  if (!product || typeof product !== 'object') return '';
+  const image = String(product.image || product.imageUrl || product.thumbnail || '').trim();
+  if (image) return image;
+  if (Array.isArray(product.images) && product.images.length > 0) {
+    return String(product.images[0] || '').trim();
+  }
+  return '';
+}
+
+async function getCheckoutProductsById() {
+  if (checkoutProductsByIdPromise) return checkoutProductsByIdPromise;
+
+  checkoutProductsByIdPromise = (async () => {
+    if (!window.API?.products?.getAll) return new Map();
+
+    try {
+      const products = await window.API.products.getAll();
+      return (Array.isArray(products) ? products : []).reduce((map, product) => {
+        const productId = String(product?.id || product?.productId || product?.product_id || '').trim();
+        if (productId) map.set(productId, product);
+        return map;
+      }, new Map());
+    } catch (error) {
+      console.warn('checkout 商品主檔讀取失敗，訂單圖片將退回購物車快照。', error);
+      return new Map();
+    }
+  })();
+
+  return checkoutProductsByIdPromise;
+}
+
+async function resolveCheckoutOrderItemImage(item) {
+  const productId = String(item?.id || item?.productId || item?.product_id || '').trim();
+  if (!productId) return item.image;
+
+  const productsById = await getCheckoutProductsById();
+  const latestImage = getCheckoutProductPrimaryImage(productsById.get(productId));
+  return latestImage || item.image;
+}
+
 /** 重點：訂單序號在 checkout 點擊確認時產生，並避開 orders.json 與 mockOrders 的所有 orderNumber。 */
 async function createCheckoutOrderIdentity() {
   let existingOrders = readCheckoutStoredOrders();
@@ -212,7 +255,7 @@ function syncCheckoutOrderSnapshot(order) {
  * Initialize checkout page
  */
 window.initCheckoutPage = () => {
-  console.log('📋 結帳頁面初始化...');
+  console.log('結帳頁面初始化...');
 
   // 若購物車為空，導回商品列表，因為主站 cart.html 已移除。
   // If cart is empty, redirect to products because the legacy cart page was removed.
@@ -248,14 +291,6 @@ window.initCheckoutPage = () => {
   // 初始化折扣碼 Initialize coupon code
   initCheckoutCoupon();
 
-  // 初始化全局組件 Initialize global components
-  window.initNavbar();
-  window.initModalListeners();
-  window.initCartListeners();
-  window.initPersonalizationModal();
-
-  // 標記已初始化 Flag as initialized
-  window._appComponentsInitialized = true;
 };
 
 async function loadCheckoutCouponCatalog() {
@@ -354,7 +389,7 @@ function updateCheckoutSummary() {
   const shippingEl = document.getElementById('checkoutShipping');
   if (shippingEl) {
     if (shipping === 0) {
-      shippingEl.textContent = '免費 🎉';
+      shippingEl.textContent = '免費';
       shippingEl.style.color = '#16a34a';
     } else {
       shippingEl.textContent = window.formatCurrency(shipping);
@@ -608,7 +643,7 @@ async function applyCheckoutCouponCode({ showToast = true } = {}) {
 
   if (!result.valid) {
     // 重點：無效輸入只顯示錯誤，不影響已成功套用並顯示在 input 下方的 coupon。
-    showMsg(couponMsg, `❌ ${result.message}`, 'error');
+    showMsg(couponMsg, `${result.message}`, 'error');
     updateCheckoutSummary();
     return;
   }
@@ -621,7 +656,7 @@ async function applyCheckoutCouponCode({ showToast = true } = {}) {
 
   appliedCheckoutCouponCodes.push(result.code);
   syncCheckoutAppliedCoupons();
-  showMsg(couponMsg, `✅ 折抵 NT$${result.discount.toLocaleString('zh-TW')}（${result.label}）`, 'success');
+  showMsg(couponMsg, `折抵 NT$${result.discount.toLocaleString('zh-TW')}（${result.label}）`, 'success');
   // 重點：成功後清空 input，不停用欄位，讓 checkoutCouponInput 可繼續套用其他 coupon。
   couponInput.value = '';
   updateCheckoutSummary();
@@ -712,6 +747,16 @@ function initConfirmOrderBtn() {
     const orderIdentity = await createCheckoutOrderIdentity();
 
     // 重點：訂單資料欄位對齊 data/orders.json，畫面摘要金額與本次 points 會一起交給 mock API 保存。
+    const orderItems = await Promise.all(cart.map(async item => ({
+      productId: item.id || item.productId,
+      name: item.name,
+      brand: item.brand,
+      price: item.price,
+      quantity: item.quantity,
+      image: await resolveCheckoutOrderItemImage(item),
+      subtotal: item.price * item.quantity,
+    })));
+
     const orderData = {
       id: orderIdentity.id,
       orderNumber: orderIdentity.orderNumber,
@@ -725,15 +770,7 @@ function initConfirmOrderBtn() {
       shippingAddress,
       payment,
       paymentStatus: getCheckoutPaymentStatus(),
-      items: cart.map(item => ({
-        productId: item.id || item.productId,
-        name: item.name,
-        brand: item.brand,
-        price: item.price,
-        quantity: item.quantity,
-        image: item.image,
-        subtotal: item.price * item.quantity,
-      })),
+      items: orderItems,
       subtotal,
       points,
       shippingFee: shipping,
@@ -752,12 +789,12 @@ function initConfirmOrderBtn() {
     // ---- Step 3: 送出訂單 Submit order ----
     // 顯示載入中狀態 Show loading state
     confirmBtn.disabled = true;
-    confirmBtn.textContent = '⏳ 處理中...';
+    confirmBtn.textContent = '處理中...';
 
     try {
       const newOrder = await window.API.orders.create(orderData);
       const syncedOrder = syncCheckoutOrderSnapshot(newOrder);
-      console.log('✅ 訂單建立成功:', syncedOrder);
+      console.log('訂單建立成功:', syncedOrder);
 
       // Step 4: 清空購物車 Clear cart
       window.clearCart();
@@ -771,10 +808,10 @@ function initConfirmOrderBtn() {
       window.location.href = `checkout-success.html?orderNum=${orderNum}`;
 
     } catch (error) {
-      console.error('❌ 訂單建立失敗:', error);
+      console.error('訂單建立失敗:', error);
       window.showToast('訂單提交失敗，請稍後再試', 'error');
       confirmBtn.disabled = false;
-      confirmBtn.textContent = '🔒 確認結帳';
+      confirmBtn.textContent = '確認結帳';
     }
   });
 }

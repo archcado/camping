@@ -1,0 +1,33 @@
+﻿Yuruicamp 合作營區圖片清單
+
+建議圖片規格：
+- 格式：WebP
+- 尺寸：1600 × 1000 px
+- 比例：16:10
+- 構圖：橫向
+- 色調：低飽和、自然灰綠、柔和暖米色
+- 主體：避免貼近四周邊緣
+- 用途：branches.html 合作營區卡片與詳細 Modal
+
+圖片對應：
+
+天空之城露營農場
+sky-castle-camp.webp
+
+森林秘境生態農場
+forest-eco-camp.webp
+
+海岸星空露營基地
+coastal-stargazing-camp.webp
+
+梅花湖湖景渡假村
+plum-lake-resort.webp
+
+古道芬多精山莊
+forest-trail-lodge.webp
+
+荷花池畔戀人角落
+lotus-lakeside-camp.webp
+
+圖片載入失敗備援
+branch-fallback.webp

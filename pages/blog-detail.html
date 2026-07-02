@@ -4,177 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Yuruicamp 露營生活誌 - 文章閱讀頁">
-  <meta name="theme-color" content="#244d4d">
+  <meta name="theme-color" content="#FAF7ED">
   <title>文章閱讀 - Yuruicamp 露營選物</title>
   <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
   <link rel="preconnect" href="https://picsum.photos">
   <link rel="dns-prefetch" href="https://picsum.photos">
   <link rel="stylesheet" href="../css/main.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏕️</text></svg>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    /* ============================================
-       文章閱讀頁專用樣式 Article Detail Styles
-       ============================================ */
-
-    /* 麵包屑導航 Breadcrumb navigation */
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: #888;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .breadcrumb a {
-      color: #244d4d;
-      text-decoration: none;
-    }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .breadcrumb-sep { color: #ccc; }
-
-    /* 文章 Hero 圖片 Article hero image */
-    .article-hero-img {
-      width: 100%;
-      aspect-ratio: 21 / 9;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 2rem;
-      display: block;
-    }
-
-    /* 文章 Metadata 區塊 Article metadata block */
-    .article-detail-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .article-detail-badge {
-      background: #4caf76;
-      color: #fff;
-      padding: 0.2rem 0.7rem;
-      border-radius: 99px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .article-detail-author {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .article-detail-author img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-    }
-
-    /* 文章主體內容 Article body content */
-    .article-content {
-      line-height: 1.9;
-      color: #333;
-      font-size: 1.05rem;
-    }
-    .article-content h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #244d4d;
-      margin: 2rem 0 0.75rem;
-    }
-    .article-content p {
-      margin-bottom: 1.25rem;
-    }
-
-    /* 相關商品內嵌卡片 Inline product card */
-    .inline-product-card {
-      display: flex;
-      gap: 1rem;
-      background: #f8fffe;
-      border: 1.5px solid #d1ede3;
-      border-radius: 12px;
-      padding: 1rem;
-      margin: 1.5rem 0;
-      align-items: center;
-      cursor: pointer;
-      transition: box-shadow 0.2s;
-    }
-    .inline-product-card:hover {
-      box-shadow: 0 4px 16px rgba(36,77,77,0.12);
-    }
-    .inline-product-card img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 8px;
-      flex-shrink: 0;
-    }
-    .inline-product-info h4 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #244d4d;
-      margin: 0 0 0.35rem;
-    }
-    .inline-product-info .price {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #e05c2a;
-    }
-    .inline-product-label {
-      font-size: 0.75rem;
-      color: #4caf76;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    /* 相關文章區塊 Related articles section */
-    .related-articles-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-    @media (max-width: 600px) {
-      .related-articles-grid { grid-template-columns: 1fr; }
-    }
-    .related-article-card {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #f0f0f0;
-      cursor: pointer;
-      transition: box-shadow 0.2s;
-    }
-    .related-article-card:hover {
-      box-shadow: 0 4px 16px rgba(36,77,77,0.10);
-    }
-    .related-article-card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      display: block;
-    }
-    .related-article-card-body {
-      padding: 0.75rem;
-    }
-    .related-article-card-body .article-tag {
-      font-size: 0.75rem;
-      margin-bottom: 0.35rem;
-      display: inline-block;
-    }
-    .related-article-card-body h4 {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #244d4d;
-      margin: 0;
-      line-height: 1.4;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../css/theme/theme-base.css">
+  <link rel="stylesheet" href="../css/theme/theme-components.css">
+  <link rel="stylesheet" href="../css/theme/theme-layout.css">
+  <link rel="stylesheet" href="../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/theme/pages/blog-detail.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
 </head>
-<body>
+<body class="yr-theme yr-blog-detail-page">
 
-  <div id="header"></div>
+  <div id="header" data-header-context="shop"></div>
 
   
   <!-- ===================================================
@@ -183,63 +30,63 @@
   <main>
     <!-- 中央單欄佈局（限制最大寬度 720px）-->
     <!-- Single column layout with max-width 720px -->
-    <div class="container" style="padding-top:2rem; padding-bottom:3rem;">
-      <div style="max-width:720px; margin:0 auto;">
+    <div class="container yr-article-shell">
+      <div class="yr-article">
 
         <!-- 麵包屑導航 Breadcrumb -->
-        <nav class="breadcrumb" id="breadcrumb" aria-label="麵包屑">
+        <nav class="breadcrumb yr-article-breadcrumb" id="breadcrumb" aria-label="麵包屑">
           <a href="home.html">首頁</a>
-          <span class="breadcrumb-sep">›</span>
+          <span class="breadcrumb-sep"><i class="bi bi-chevron-right" aria-hidden="true"></i></span>
           <a href="blog.html">部落格</a>
-          <span class="breadcrumb-sep">›</span>
-          <span id="breadcrumbTitle" style="color:#555;">載入中...</span>
+          <span class="breadcrumb-sep"><i class="bi bi-chevron-right" aria-hidden="true"></i></span>
+          <span id="breadcrumbTitle" class="yr-article-breadcrumb__current">載入中...</span>
         </nav>
 
         <!-- 文章 Hero 圖片 Article hero image -->
         <img
           id="articleHeroImg"
-          class="article-hero-img"
+          class="article-hero-img yr-article-hero"
           src="https://picsum.photos/seed/default/1200/514"
           alt="文章封面圖"
           loading="eager"
         >
 
         <!-- 文章 Metadata 區塊 Article metadata block -->
-        <div class="article-detail-meta">
-          <span class="article-detail-badge" id="articleCategory">載入中</span>
+        <div class="article-detail-meta yr-article-meta">
+          <span class="article-detail-badge yr-article-badge" id="articleCategory">載入中</span>
           <div class="article-detail-author">
-            <img id="articleAuthorAvatar" src="https://picsum.photos/seed/default/40/40" alt="作者頭像" loading="lazy">
-            <span id="articleAuthorName" style="font-weight:600; color:#333;">作者</span>
+            <img id="articleAuthorAvatar" class="yr-article-author-avatar" src="https://picsum.photos/seed/default/40/40" alt="作者頭像" loading="lazy">
+            <span id="articleAuthorName" class="yr-article-author-name">作者</span>
           </div>
-          <span style="color:#888; font-size:0.875rem;" id="articleDate">日期</span>
-          <span style="color:#888; font-size:0.875rem;" id="articleReadTime">閱讀時間</span>
+          <span id="articleDate" class="yr-article-meta__item">日期</span>
+          <span id="articleReadTime" class="yr-article-meta__item">閱讀時間</span>
         </div>
 
         <!-- 文章標題 Article title -->
-        <h1 id="articleTitle" style="font-size:1.75rem; font-weight:800; color:#244d4d; margin-bottom:1.5rem; line-height:1.35;">
+        <h1 id="articleTitle" class="yr-article-title">
           載入中...
         </h1>
 
         <!-- 文章內容 Article content (rendered by JS) -->
-        <div class="article-content" id="articleContent">
-          <div style="text-align:center; padding:2rem; color:#999;">
-            <div style="font-size:2rem; margin-bottom:0.5rem;">📄</div>
+        <div class="article-content yr-article-content" id="articleContent">
+          <div class="yr-article-loading">
+            <div><i class="bi bi-file-earmark-text" aria-hidden="true"></i></div>
             <p>正在載入文章內容...</p>
           </div>
         </div>
 
         <!-- 文章標籤 Article tags -->
-        <div id="articleTags" style="margin-top:2rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <div id="articleTags" class="yr-article-tags">
           <!-- JS 渲染標籤 -->
         </div>
 
         <!-- 分隔線 Divider -->
-        <hr style="margin:2.5rem 0; border:none; border-top:1px solid #f0f0f0;">
+        <hr class="yr-article-divider">
 
         <!-- 相關文章推薦 Related articles -->
-        <section id="relatedArticlesSection" style="margin-top:2rem;">
-          <h3 style="font-size:1.1rem; font-weight:700; color:#244d4d; margin-bottom:1rem;">📖 相關文章</h3>
-          <div class="related-articles-grid" id="relatedArticlesGrid">
+        <section id="relatedArticlesSection" class="yr-article-related">
+          <h3 class="yr-article-related__title"><i class="bi bi-journal-text" aria-hidden="true"></i> 相關文章</h3>
+          <div class="related-articles-grid yr-article-related__grid" id="relatedArticlesGrid">
             <!-- JS 渲染相關文章 -->
           </div>
         </section>
@@ -268,5 +115,3 @@
 
 </body>
 </html>
-
-

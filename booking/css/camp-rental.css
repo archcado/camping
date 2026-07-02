@@ -1,0 +1,134 @@
+.yr-camp-rental-page .rental-page {
+  max-width: min(100% - 3rem, 1200px);
+  margin: 0 auto;
+  padding-top: 1.25rem;
+}
+
+.yr-camp-rental-page .booking-summary-bar,
+.yr-camp-rental-page .recommendation-banner,
+.yr-camp-rental-page .rental-items-list,
+.yr-camp-rental-page .rental-cart-sidebar,
+.yr-camp-rental-page .rental-item-card {
+  border: 1px solid #e2d8ca;
+  border-radius: 16px;
+  background: #fffdf8;
+  box-shadow: 0 6px 18px rgb(63 70 61 / 5%);
+}
+
+.yr-camp-rental-page .booking-summary-bar {
+  background: linear-gradient(135deg, #f7f1e7, #e7ece2);
+  color: #3f463d;
+}
+
+.yr-camp-rental-page .booking-summary-bar i {
+  color: #74846f;
+}
+
+.yr-camp-rental-page .summary-edit-link {
+  margin-left: auto;
+  color: #62715e;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+.yr-camp-rental-page .summary-edit-link:hover {
+  color: #556451;
+}
+
+.yr-camp-rental-page .rental-items-list {
+  padding: 1.2rem;
+}
+
+.yr-camp-rental-page .rental-items-list h2 {
+  color: #3f463d;
+  font-weight: 600;
+}
+
+.yr-camp-rental-page .rental-count {
+  color: #6d6a62;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.yr-camp-rental-page .rental-item-card {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.yr-camp-rental-page .rental-item-card__img {
+  background: #f5efe5;
+}
+
+.yr-camp-rental-page .rental-item-card__name {
+  color: #3f463d;
+}
+
+.yr-camp-rental-page .rental-item-card__price strong {
+  color: #62715e;
+}
+
+.yr-camp-rental-page .rental-item-card__stock {
+  color: #6d6a62;
+}
+
+.yr-camp-rental-page .rental-item-card__stock--low {
+  color: #9a675d;
+}
+
+.yr-camp-rental-page .rental-item-card__actions {
+  gap: 0.5rem;
+}
+
+.yr-camp-rental-page .rental-add-btn {
+  min-height: 44px;
+  border-radius: 10px;
+}
+
+.yr-camp-rental-page .rental-cart-sidebar {
+  padding: 1.2rem;
+  position: sticky;
+  top: 96px;
+}
+
+.yr-camp-rental-page .rental-cart-sidebar h3 {
+  color: #3f463d;
+}
+
+.yr-camp-rental-page .rental-cart-item {
+  border-bottom-color: #e2d8ca;
+}
+
+.yr-camp-rental-page .rental-remove-btn {
+  border-radius: 8px;
+  color: #9a675d;
+}
+
+.yr-camp-rental-page .rental-remove-btn:hover {
+  background: #f3e7e1;
+}
+
+.yr-camp-rental-page .rental-cost-summary {
+  border: 1px solid #e2d8ca;
+  border-radius: 10px;
+  background: #f5efe5;
+  color: #62715e;
+}
+
+.yr-camp-rental-page .rental-skip-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+@media (width <= 900px) {
+  .yr-camp-rental-page .rental-cart-sidebar {
+    position: static;
+  }
+}
+
+@media (width <= 390px) {
+  .yr-camp-rental-page .rental-page {
+    max-width: calc(100% - 2rem);
+  }
+}

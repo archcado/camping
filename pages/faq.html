@@ -4,203 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Yuruicamp 常見問題 - 訂單、配送、退換貨、會員服務等問題一次解答。">
-  <meta name="theme-color" content="#244d4d">
+  <meta name="theme-color" content="#FAF7ED">
   <title>常見問題 - Yuruicamp 露營選物</title>
   <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
   <link rel="preconnect" href="https://picsum.photos">
   <link rel="dns-prefetch" href="https://picsum.photos">
   <link rel="stylesheet" href="../css/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏕️</text></svg>">
-  <style>
-    /* ============================================
-       FAQ 頁面專用樣式 FAQ Page Styles
-       ============================================ */
-
-    /* Hero Banner 搜尋區塊 */
-    .faq-hero {
-      background: linear-gradient(135deg, #1a3a2a 0%, #244d4d 60%, #2d6060 100%);
-      padding: 3.5rem 0 3rem;
-      text-align: center;
-      color: #fff;
-    }
-    .faq-hero h1 {
-      font-size: 2.25rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
-    .faq-hero p {
-      font-size: 1rem;
-      opacity: 0.85;
-      margin-bottom: 1.75rem;
-    }
-
-    /* 搜尋框 Search box */
-    .faq-search-wrap {
-      max-width: 500px;
-      margin: 0 auto;
-      position: relative;
-    }
-    .faq-search-input {
-      width: 100%;
-      padding: 0.875rem 3rem 0.875rem 1.25rem;
-      border-radius: 999px;
-      border: none;
-      font-size: 1rem;
-      outline: none;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-      box-sizing: border-box;
-    }
-    .faq-search-icon {
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-      pointer-events: none; /* 不攔截點擊 Not clickable */
-    }
-
-    /* FAQ 分類標題 FAQ category title */
-    .faq-category-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #244d4d;
-      margin: 2.5rem 0 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .faq-category-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #e8f5ee;
-      margin-left: 0.5rem;
-    }
-
-    /* 手風琴項目 Accordion item */
-    .faq-accordion-item {
-      border: 1px solid #e8f0ec;
-      border-radius: 10px;
-      margin-bottom: 0.625rem;
-      overflow: hidden;
-      background: #fff;
-      transition: box-shadow 0.2s;
-    }
-    .faq-accordion-item:hover {
-      box-shadow: 0 2px 10px rgba(36,77,77,0.08);
-    }
-
-    /* 手風琴按鈕 Accordion button */
-    .faq-accordion-btn {
-      width: 100%;
-      text-align: left;
-      background: none;
-      border: none;
-      padding: 1rem 1.25rem;
-      font-size: 0.975rem;
-      font-weight: 600;
-      color: #244d4d;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.15s;
-    }
-    .faq-accordion-btn:hover {
-      background: #f0faf4;
-    }
-    .faq-accordion-btn.open {
-      color: #4caf76;
-      background: #f0faf4;
-    }
-
-    /* 手風琴展開/收合箭頭 Arrow indicator */
-    .faq-accordion-arrow {
-      font-size: 0.75rem;
-      transition: transform 0.25s;
-      flex-shrink: 0;
-      color: #888;
-    }
-    .faq-accordion-btn.open .faq-accordion-arrow {
-      transform: rotate(180deg);
-      color: #4caf76;
-    }
-
-    /* 手風琴內容體（預設隱藏）Accordion body (hidden by default) */
-    .faq-accordion-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-      padding: 0 1.25rem;
-      color: #555;
-      font-size: 0.9rem;
-      line-height: 1.8;
-    }
-    .faq-accordion-body.open {
-      max-height: 500px; /* 足夠大的值 Enough to show content */
-      padding: 0.75rem 1.25rem 1rem;
-    }
-
-    /* 滿意度問卷區 Survey section */
-    .survey-section {
-      background: #f8fffe;
-      border: 1.5px solid #d1ede3;
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      margin-top: 3rem;
-    }
-    .survey-section h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #244d4d;
-      margin-bottom: 1.5rem;
-    }
-
-    /* NPS 評分按鈕組 NPS rating button group */
-    .nps-group {
-      display: flex;
-      gap: 0.375rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 0.75rem;
-    }
-    .nps-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      border: 1.5px solid #ddd;
-      background: #fff;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-      color: #555;
-    }
-    .nps-btn:hover {
-      border-color: #4caf76;
-      color: #244d4d;
-    }
-    /* 分數顏色系 Score color classes */
-    .nps-btn.active.score-low  { background: #ffe5e5; border-color: #e05c5c; color: #c0392b; }
-    .nps-btn.active.score-mid  { background: #fff5d6; border-color: #f0b429; color: #946800; }
-    .nps-btn.active.score-high { background: #e8f8ef; border-color: #4caf76; color: #244d4d; }
-
-    /* NPS 左右標籤 NPS labels */
-    .nps-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: #888;
-      margin-bottom: 1.25rem;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../css/theme/theme-base.css">
+  <link rel="stylesheet" href="../css/theme/theme-components.css">
+  <link rel="stylesheet" href="../css/theme/theme-layout.css">
+  <link rel="stylesheet" href="../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/theme/pages/faq.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
 </head>
-<body>
+<body class="yr-theme yr-faq-page">
 
- <div id="header"></div>
+ <div id="header" data-header-context="shop"></div>
 
   
 
@@ -210,11 +31,11 @@
   <main>
 
     <!-- Hero Banner：深綠漸層 + 搜尋框 -->
-    <section class="faq-hero">
+    <section class="faq-hero yr-faq-hero">
       <div class="container">
-        <h1>❓ 常見問題</h1>
+        <h1><i class="bi bi-question-circle" aria-hidden="true"></i> 常見問題</h1>
         <p>有任何疑問，我們隨時為您解答</p>
-        <div class="faq-search-wrap">
+        <div class="faq-search-wrap yr-faq-search">
           <input
             type="text"
             class="faq-search-input"
@@ -223,47 +44,47 @@
             aria-label="搜尋常見問題"
             autocomplete="off"
           >
-          <span class="faq-search-icon">🔍</span>
+          <span class="faq-search-icon"><i class="bi bi-search" aria-hidden="true"></i></span>
         </div>
       </div>
     </section>
 
     <!-- FAQ 內容區 -->
-    <div class="container" style="padding-top:2rem; padding-bottom:1rem; max-width:800px; margin:0 auto;">
+    <div class="container yr-faq-content">
 
       <!-- -----------------------------------------------
            分類 1：訂單與付款
            Category 1: Orders & Payment
            ----------------------------------------------- -->
-      <div class="faq-category-block" id="cat-order">
-        <h2 class="faq-category-title">💳 訂單與付款</h2>
+      <div class="faq-category-block yr-faq-category" id="cat-order">
+        <h2 class="faq-category-title yr-faq-category__title"><i class="bi bi-credit-card" aria-hidden="true"></i> 訂單與付款</h2>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>我可以修改或取消訂單嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             訂單成立後 2 小時內可免費取消或修改，超過後需聯繫客服處理。處理中狀態的訂單可在「會員中心 &gt; 我的訂單」中申請取消，已出貨訂單無法取消，請以退貨方式處理。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>支援哪些付款方式？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             目前支援信用卡（Visa / Mastercard / JCB）、LINE Pay、Apple Pay、ATM 轉帳，以及貨到付款（限台灣本島，需加收 30 元手續費）。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>購買後多久會收到發票？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             電子發票會在訂單成立後 24 小時內寄送至您的 email，紙本發票會隨商品寄出。
           </div>
         </div>
@@ -273,35 +94,35 @@
            分類 2：配送服務
            Category 2: Shipping Service
            ----------------------------------------------- -->
-      <div class="faq-category-block" id="cat-shipping">
-        <h2 class="faq-category-title">🚚 配送服務</h2>
+      <div class="faq-category-block yr-faq-category" id="cat-shipping">
+        <h2 class="faq-category-title yr-faq-category__title"><i class="bi bi-truck" aria-hidden="true"></i> 配送服務</h2>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>運費如何計算？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             訂單滿 NT$3,000 免運費，未達門檻收取 NT$60 宅配費。選擇門市取貨（台北/台中/高雄）則全額免運。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>大概幾天可以收到？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             宅配：訂單成立後 3-5 個工作天（假日不含）。門市取貨：2-3 個工作天，取件前會以 LINE 通知。離島地區另計。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>可以指定配送時間嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             目前宅配無法指定配送時間，但可選擇「門市取貨」於方便時間到門市領取。
           </div>
         </div>
@@ -311,35 +132,35 @@
            分類 3：退換貨政策
            Category 3: Return & Exchange Policy
            ----------------------------------------------- -->
-      <div class="faq-category-block" id="cat-return">
-        <h2 class="faq-category-title">↩️ 退換貨政策</h2>
+      <div class="faq-category-block yr-faq-category" id="cat-return">
+        <h2 class="faq-category-title yr-faq-category__title"><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> 退換貨政策</h2>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>商品到貨不滿意可以退貨嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             購買後 7 天內（以收貨日計算）可辦理無條件退換貨，商品需保持全新未使用狀態，附原包裝及附件。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>退款需要多久？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             確認收到退貨後 3-5 個工作天內退款至原付款帳戶。信用卡退款視各家銀行作業時間，約 1-2 個帳單周期。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>商品損壞可以換貨嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             商品若有製造瑕疵或運送損壞，請於收貨後 3 天內拍照並聯繫客服，我們將免費安排換貨或退款。
           </div>
         </div>
@@ -349,35 +170,35 @@
            分類 4：會員服務
            Category 4: Member Services
            ----------------------------------------------- -->
-      <div class="faq-category-block" id="cat-member">
-        <h2 class="faq-category-title">👤 會員服務</h2>
+      <div class="faq-category-block yr-faq-category" id="cat-member">
+        <h2 class="faq-category-title yr-faq-category__title"><i class="bi bi-person" aria-hidden="true"></i> 會員服務</h2>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>如何成為 Yuruicamp 會員？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             點擊網站右上角「登入」按鈕，選擇「免費註冊」即可立即成為會員，同時獲得 NT$100 新會員優惠券！
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>會員等級有什麼差別？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             共分三個等級：探險家（新會員）、嚮導（累積消費 NT$30,000）、大師（累積消費 NT$80,000），等級越高享有越多專屬折扣和優先購買資格。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>我的折價券在哪裡使用？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             登入後前往「會員中心 &gt; 折價券」查看可用的折扣碼，結帳時在折扣碼欄位輸入即可折抵。
           </div>
         </div>
@@ -387,35 +208,35 @@
            分類 5：商品資訊
            Category 5: Product Information
            ----------------------------------------------- -->
-      <div class="faq-category-block" id="cat-product">
-        <h2 class="faq-category-title">🛍️ 商品資訊</h2>
+      <div class="faq-category-block yr-faq-category" id="cat-product">
+        <h2 class="faq-category-title yr-faq-category__title"><i class="bi bi-bag" aria-hidden="true"></i> 商品資訊</h2>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>商品都有保固嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             大品牌商品（Snow Peak、Black Diamond 等）享有原廠保固，一般商品提供 6 個月的基本保固，使用說明書內有詳細說明。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>如何確認商品是否適合自己的尺寸/需求？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             每個商品頁面都有詳細的規格說明，您也可以透過右下角的 LINE 客服詢問專業建議，或到門市現場試用。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>可以預購缺貨商品嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             部分熱門商品提供預購功能，請注意商品頁面上的「預購」標籤，預購商品通常需要 2-4 週出貨。
           </div>
         </div>
@@ -425,35 +246,35 @@
            分類 6：其他
            Category 6: Other
            ----------------------------------------------- -->
-      <div class="faq-category-block" id="cat-other">
-        <h2 class="faq-category-title">💡 其他</h2>
+      <div class="faq-category-block yr-faq-category" id="cat-other">
+        <h2 class="faq-category-title yr-faq-category__title"><i class="bi bi-lightbulb" aria-hidden="true"></i> 其他</h2>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>可以開立統一編號的發票嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             可以！在結帳時於發票資訊欄位填入公司名稱和統一編號即可。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>如何追蹤我的包裹？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             訂單出貨後我們會以 LINE 或 Email 通知您物流追蹤連結，也可在「會員中心 &gt; 我的訂單」查看最新狀態。
           </div>
         </div>
 
-        <div class="faq-accordion-item">
-          <button class="faq-accordion-btn" aria-expanded="false">
+        <div class="faq-accordion-item yr-faq-item">
+          <button class="faq-accordion-btn yr-faq-item__button" aria-expanded="false">
             <span>商品可以寄送到海外嗎？</span>
-            <span class="faq-accordion-arrow">▼</span>
+            <span class="faq-accordion-arrow" aria-hidden="true"><i class="bi bi-chevron-down"></i></span>
           </button>
-          <div class="faq-accordion-body">
+          <div class="faq-accordion-body yr-faq-item__body">
             目前僅提供台灣本島、外島（離島需加收運費）配送服務，海外配送正在規劃中。
           </div>
         </div>
@@ -465,13 +286,13 @@
          LINE 聯繫橫幅
          LINE Contact Banner
          ----------------------------------------------- -->
-    <div class="container" style="max-width:800px; margin:0 auto; padding-bottom:2rem;">
-      <div style="background:linear-gradient(135deg,#00b900,#009900); color:#fff; border-radius:16px; padding:2rem; text-align:center; margin:2rem 0;">
-        <div style="font-size:2rem; margin-bottom:0.5rem;">💬</div>
-        <h3 style="margin:0 0 0.5rem; font-size:1.25rem;">還有其他問題嗎？</h3>
-        <p style="margin:0 0 1rem; opacity:0.9; font-size:0.875rem;">加入我們的 LINE 官方帳號，專業客服為您解答</p>
+    <div class="container yr-faq-contact">
+      <div class="yr-faq-contact__card">
+        <div class="yr-faq-contact__icon"><i class="bi bi-chat-dots" aria-hidden="true"></i></div>
+        <h3 class="yr-faq-contact__title">還有其他問題嗎？</h3>
+        <p class="yr-faq-contact__text">加入我們的 LINE 官方帳號，專業客服為您解答</p>
         <a href="https://line.me/R/ti/p/@yuruicamp" target="_blank" rel="noopener"
-           class="btn" style="background:#fff; color:#00b900; font-weight:700; border:none;">
+           class="btn yr-btn yr-btn--primary yr-faq-contact__btn">
           加入 LINE 官方帳號
         </a>
       </div>
@@ -481,35 +302,34 @@
          滿意度問卷區
          Customer Satisfaction Survey
          ----------------------------------------------- -->
-    <div class="container" style="max-width:800px; margin:0 auto; padding-bottom:3rem;">
+    <div class="container yr-faq-survey">
       <div class="survey-section">
         <h3>您對本次解答滿意嗎？</h3>
 
         <!-- NPS 評分 0-10 -->
         <!-- NPS score buttons 0-10 -->
-        <div class="nps-group" id="npsGroup">
+        <div class="nps-group yr-faq-survey__scores" id="npsGroup">
           <!-- JS 動態建立 0~10 的按鈕 JS will generate 0-10 buttons -->
         </div>
 
         <!-- NPS 左右標籤 NPS labels -->
         <div class="nps-labels">
-          <span>😟 非常不滿意</span>
-          <span>😊 非常滿意</span>
+          <span><i class="bi bi-dash-circle" aria-hidden="true"></i> 非常不滿意</span>
+          <span><i class="bi bi-check-circle" aria-hidden="true"></i> 非常滿意</span>
         </div>
 
         <!-- 意見輸入 Feedback textarea -->
         <textarea
           id="feedbackTextarea"
+          class="yr-faq-survey__textarea"
           placeholder="有什麼建議或問題，直接告訴我們！"
           rows="3"
-          style="width:100%; border:1.5px solid #e0e0e0; border-radius:8px; padding:0.75rem; font-size:0.875rem; resize:vertical; font-family:inherit; box-sizing:border-box;"
         ></textarea>
 
         <!-- 送出按鈕 Submit button -->
         <button
           id="submitFeedbackBtn"
-          class="btn btn-primary"
-          style="margin-top:1rem; min-width:140px;"
+          class="btn btn-primary yr-btn yr-btn--primary yr-faq-survey__submit"
         >
           送出意見
         </button>
@@ -538,5 +358,3 @@
 
 </body>
 </html>
-
-

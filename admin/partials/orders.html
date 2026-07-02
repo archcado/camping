@@ -4,23 +4,27 @@
      表格數據由 orders.js 的 $.getJSON() 動態產生
 -->
 
-<div class="card shadow-sm border-0">
+<section class="yr-admin-orders-module">
+<div class="card shadow-sm border-0 yr-admin-orders-card">
 
   <!-- 卡片頂部：標題 + 日期篩選 + 清除排序按鈕 -->
   <!-- 舊的 #orderStatusFilter select 已移除，篩選功能改由欄位標頭的漏斗 icon 負責 -->
-  <div class="card-header bg-white border-0
+  <div class="card-header border-0
               d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">
-    <h6 class="fw-semibold mb-0">
+    <div class="yr-admin-orders-toolbar__search">
+    <h6 class="fw-semibold mb-0 yr-admin-orders-title">
       <i class="fas fa-shopping-bag me-2 text-muted"></i>訂單列表
     </h6>
+    <p class="mb-0 small text-muted yr-admin-orders-description">依期間、付款狀態、訂單狀態快速檢視訂單作業清單</p>
+    </div>
 
     <!-- 右側工具列：日期篩選 + 清除排序按鈕 -->
-    <div class="d-flex align-items-center flex-wrap gap-2">
+    <div class="d-flex align-items-center flex-wrap gap-2 yr-admin-orders-toolbar__filters">
 
       <!-- 日期篩選器：快速選鈕 + flatpickr 自定義 + 期間文字 -->
       <!-- 與分析報表頁風格一致；由 orders.js setupOrderPeriodFilter / initOrderFlatpickr 驅動 -->
-      <div class="d-flex align-items-center flex-wrap gap-2">
-        <div class="btn-group btn-group-sm" id="orderPeriodBtns" role="group">
+      <div class="d-flex align-items-center flex-wrap gap-2 yr-admin-orders-toolbar">
+        <div class="btn-group btn-group-sm yr-admin-orders-period-buttons" id="orderPeriodBtns" role="group">
           <button type="button" class="btn btn-outline-secondary" data-days="7">近 7 天</button>
           <button type="button" class="btn btn-outline-secondary active" data-days="30">近 30 天</button>
           <button type="button" class="btn btn-outline-secondary" data-days="month">本月</button>
@@ -31,15 +35,15 @@
         </div>
         <!-- flatpickr input：預設 hidden，點「自定義」才顯示 -->
         <input type="text" id="orderDateRangePicker"
-               class="form-control form-control-sm"
+               class="form-control form-control-sm yr-admin-orders-date-input"
                style="max-width: 230px; display: none;"
                placeholder="開始日期 ~ 結束日期" readonly>
         <!-- 期間文字：由 updateOrderPeriodLabel() 動態更新 -->
-        <span class="text-muted small" id="orderPeriodLabel"></span>
+        <span class="text-muted small yr-admin-orders-period-label" id="orderPeriodLabel"></span>
       </div>
 
       <!-- 清除排序按鈕：只有在排序堆疊不為空時才顯示，由 updateSortUI() 控制 d-none -->
-      <button id="btnClearSort" class="btn btn-sm btn-outline-secondary d-none">
+      <button id="btnClearSort" class="btn btn-sm btn-outline-secondary d-none yr-admin-orders-clear-sort-btn">
         <i class="fas fa-rotate-left me-1"></i>清除排序
       </button>
 
@@ -47,28 +51,29 @@
   </div>
 
   <!-- 表格容器 -->
-  <div class="card-body p-0">
+  <div class="card-body p-0 yr-admin-orders-table-container">
+    <div class="px-3 py-2 small text-muted yr-admin-orders-result-count" id="ordersResultCount">目前結果：載入中</div>
     <div class="table-responsive">
-      <table class="table table-hover mb-0" id="ordersTable">
+      <table class="table table-hover mb-0 yr-admin-orders-table" id="ordersTable">
         <thead class="table-light">
-          <tr>
+          <tr class="yr-admin-orders-table-head-row">
             <!-- 排序欄位：加 .sortable-th class 和 data-sort-key，orders.js 監聽點擊 -->
 
             <!-- 訂單編號：字串排序（字典序） -->
-            <th class="sortable-th" data-sort-key="id">
+            <th class="sortable-th yr-admin-orders-th" data-sort-key="id">
               訂單編號 <i class="fas fa-sort sort-icon ms-1"></i>
             </th>
 
             <!-- 訂單日期：字串排序（ISO 格式 YYYY-MM-DD 可直接比大小） -->
-            <th class="sortable-th" data-sort-key="createdAt">
+            <th class="sortable-th yr-admin-orders-th" data-sort-key="createdAt">
               訂單日期 <i class="fas fa-sort sort-icon ms-1"></i>
             </th>
 
             <!-- 客戶姓名：不排序，不加 icon -->
-            <th>客戶姓名</th>
+            <th class="yr-admin-orders-th">客戶姓名</th>
 
             <!-- 總金額：數值排序 -->
-            <th class="sortable-th" data-sort-key="total">
+            <th class="sortable-th yr-admin-orders-th text-end" data-sort-key="total">
               總金額 <i class="fas fa-sort sort-icon ms-1"></i>
             </th>
 
@@ -78,7 +83,7 @@
                  .filter-icon = 漏斗 icon，啟用時加 .active 變色
                  .filter-dot = 紅點，有篩選條件時移除 d-none
                  .filter-dropdown = checkbox 選單，預設 d-none -->
-            <th class="filter-th" data-filter-key="paymentStatus">
+            <th class="filter-th yr-admin-orders-th yr-admin-orders-status-col" data-filter-key="paymentStatus">
               付款狀態
               <i class="fas fa-filter filter-icon ms-1"></i>
               <span class="filter-dot d-none"></span>
@@ -90,7 +95,7 @@
             </th>
 
             <!-- 訂單狀態：多選篩選欄位（同上） -->
-            <th class="filter-th" data-filter-key="orderStatus">
+            <th class="filter-th yr-admin-orders-th yr-admin-orders-status-col" data-filter-key="orderStatus">
               訂單狀態
               <i class="fas fa-filter filter-icon ms-1"></i>
               <span class="filter-dot d-none"></span>
@@ -102,14 +107,14 @@
               </div>
             </th>
 
-            <th>操作</th>
+            <th class="yr-admin-orders-th yr-admin-orders-actions-col">操作</th>
           </tr>
         </thead>
         <!-- tbody 由 orders.js 的 renderOrdersTable() 動態填入 -->
         <tbody id="ordersTableBody">
           <!-- 初始顯示 Loading 提示 -->
           <tr>
-            <td colspan="7" class="text-center py-4">
+            <td colspan="7" class="text-center py-4 yr-admin-orders-loading">
               <div class="spinner-border spinner-border-sm me-2"
                    style="color: var(--admin-brand-accent);"></div>
               <span class="text-muted">載入訂單中...</span>
@@ -121,3 +126,4 @@
   </div><!-- end card-body -->
 
 </div><!-- end card -->
+</section>

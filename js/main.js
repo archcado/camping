@@ -102,12 +102,12 @@ window.initGlobalListeners = () => {
 window.initBodyScrollLock = () => {
   let scrollY = 0; // 記錄捲動位置，關閉時還原
 
-  // 觀察 body 是否有 offcanvas-open class
-  // Watch for offcanvas-open class on body
+  // 觀察 shared header drawer 是否開啟（body.yr-site-drawer-open）
+  // Watch shared drawer open state via body class
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-        const isOpen = document.body.classList.contains('offcanvas-open');
+        const isOpen = document.body.classList.contains('yr-site-drawer-open');
         if (isOpen) {
           // 記住目前捲動位置，套用固定
           // Remember scroll position and fix body
@@ -206,24 +206,59 @@ function loadComponentScript(src) {
   });
 }
 
+function syncMainHeaderAssetPaths(rootPrefix) {
+  document.querySelectorAll('.yr-site-header__logo-image[data-logo-path]').forEach((img) => {
+    const relativePath = img.getAttribute('data-logo-path');
+    if (!relativePath) return;
+    img.src = `${rootPrefix}/${relativePath}`.replace('/./', '/');
+  });
+}
+
 /**
  * Loads the shared header/footer fragments and the scripts that operate on them.
  */
 async function initGlobalLayout() {
   const rootPrefix = getRootPathPrefix();
+  const headerRoot = document.getElementById('header');
+  if (!headerRoot) {
+    console.error('Missing #header root: shared-site-header requires #header[data-header-context].');
+    return;
+  }
+
+  const contextAttr = headerRoot && headerRoot.dataset
+    ? (headerRoot.dataset.headerContext || '').toLowerCase()
+    : '';
+  if (!['shop', 'camp'].includes(contextAttr)) {
+    console.error('Missing or invalid data-header-context on #header. Expected "shop" or "camp".');
+    return;
+  }
 
   // 1. 根據目錄樹，從 pages/* 往上找頂層的 components/
   await Promise.all([
-    loadPartial("header", `${rootPrefix}/components/header.partial`, '[data-layout-part="main-header"]'),
+    loadPartial("header", `${rootPrefix}/components/header.partial`, '[data-layout-part="shared-site-header"]'),
     loadPartial("footer", `${rootPrefix}/components/footer.partial`, '[data-layout-part="main-footer"]')
   ]);
-  await appendPartial("header", `${rootPrefix}/components/header.partial`, '[data-layout-part="shared-auth"]');
+  if (!document.getElementById('loginModal')) {
+    await appendPartial("header", `${rootPrefix}/components/header.partial`, '[data-layout-part="shared-auth"]');
+  }
+  if (contextAttr === 'shop' && !document.getElementById('siteCartDrawer')) {
+    await appendPartial("header", `${rootPrefix}/components/header.partial`, '[data-layout-part="shared-site-cart-panel"]');
+  }
+  if (contextAttr === 'camp' && !document.getElementById('cartPanel')) {
+    await appendPartial("header", `${rootPrefix}/components/header.partial`, '[data-layout-part="shared-booking-cart-panel"]');
+  }
+  syncMainHeaderAssetPaths(rootPrefix);
 
   // 2. 確定 HTML 結構長到網頁上後，才動態載入原本的互動 JS
   try {
     await loadComponentScript(`${rootPrefix}/js/components/auth.js`);
-    // 這樣可以確保手機版漢堡選單、登入彈出視窗的功能不會失效
-    await loadComponentScript(`${rootPrefix}/js/components/header.js`);
+    if (typeof window.initAuth === 'function') {
+      window.initAuth();
+    }
+    // 若頁面尚未以 <script defer> 載入 header.js，才補動態載入，避免同頁重複綁定。
+    if (typeof window.initNavbar !== 'function') {
+      await loadComponentScript(`${rootPrefix}/js/components/header.js`);
+    }
     
   } catch (error) {
     console.error("組件腳本載入失敗:", error);

@@ -4,68 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Yuruicamp 實體門市與合作露營地 - 找到最近的 Yuruicamp 門市，探索優質合作露營夥伴。">
-  <meta name="theme-color" content="#244d4d">
+  <meta name="theme-color" content="#FAF7ED">
   <title>分店與合作夥伴 - Yuruicamp 露營選物</title>
   <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
   <link rel="preconnect" href="https://picsum.photos">
   <link rel="dns-prefetch" href="https://picsum.photos">
   <link rel="stylesheet" href="../css/main.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏕️</text></svg>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../css/theme/theme-base.css">
+  <link rel="stylesheet" href="../css/theme/theme-components.css">
+  <link rel="stylesheet" href="../css/theme/theme-layout.css">
+  <link rel="stylesheet" href="../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/theme/pages/branches.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
 </head>
-<body>
+<body class="yr-theme yr-branches-page">
 
-  <div id="header"></div>
+  <div id="header" data-header-context="shop"></div>
 
   <!-- ===================================================
        頁面頂部 Banner
        =================================================== -->
-  <div class="page-banner">
-    <div class="container">
-      <h1 class="page-banner-title">📍 實體門市 &amp; 合作夥伴</h1>
-      <p class="page-banner-sub">全台三大門市，以及精選合作露營地，讓你的戶外夢想觸手可及</p>
+  <div class="page-banner yr-branches-hero">
+    <div class="container yr-branches-content">
+      <h1 class="page-banner-title yr-branches-hero__title"><i class="bi bi-geo-alt" aria-hidden="true"></i> 實體門市 &amp; 合作夥伴</h1>
+      <p class="page-banner-sub yr-branches-hero__description">全台三大門市，以及精選合作露營地，讓你的戶外夢想觸手可及</p>
     </div>
   </div>
 
   <!-- ===================================================
        主要佈局：左側分店清單 + 右側地圖
        =================================================== -->
-  <div class="container">
-    <div class="branches-layout">
+  <div class="container yr-branches-content">
+    <div class="branches-layout yr-branches-layout">
 
       <!-- 左側：分店清單（由 JS 渲染）-->
-      <div>
-        <h4 style="color:#244d4d;margin-bottom:1rem;">🏪 門市列表</h4>
-        <div class="branch-list" id="branchList">
+      <div class="yr-branches-list-section">
+        <h4 class="yr-branches-section-title"><i class="bi bi-shop" aria-hidden="true"></i> 門市列表</h4>
+        <div class="branch-list yr-branches-list" id="branchList">
           <!-- JS 渲染後會填入 .branch-card -->
-          <div style="text-align:center;padding:2rem;color:#999;">
-            <div style="font-size:2rem;margin-bottom:0.5rem;">📍</div>
+          <div class="yr-branches-loading">
+            <div class="yr-branches-loading__icon"><i class="bi bi-geo-alt" aria-hidden="true"></i></div>
             載入分店資料中...
           </div>
         </div>
       </div>
 
       <!-- 右側：Google Maps iframe -->
-      <div class="branch-map-wrap" id="mapWrap">
+      <div class="branch-map-wrap yr-branches-map" id="mapWrap">
         <iframe
           id="branchMapIframe"
           src="https://maps.google.com/maps?q=台北市信義區信義路五段100號&output=embed&hl=zh-TW"
           width="100%"
           height="450"
-          frameborder="0"
-          style="border:0;"
           allowfullscreen
           title="門市地圖">
         </iframe>
         <!-- 規劃路線按鈕（JS 會動態更新 href）-->
-        <div style="padding:0.85rem 1rem;background:#fff;">
+        <div class="yr-branches-map__footer">
           <a id="directionsBtn"
-             href="https://www.google.com/maps/search/?api=1&query=台北市信義區信義路五段100號"
-             target="_blank"
-             rel="noopener"
-             class="btn btn-primary btn-block"
-             style="font-size:0.875rem;">
-            🗺️ 用 Google Maps 規劃路線
+            href="https://www.google.com/maps/search/?api=1&query=台北市信義區信義路五段100號"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary btn-block yr-btn yr-btn--primary yr-branches-map__button">
+            <i class="bi bi-map" aria-hidden="true"></i> 用 Google Maps 規劃路線
           </a>
         </div>
       </div>
@@ -76,14 +79,14 @@
   <!-- ===================================================
        合作露營地 & 店家區塊（全寬）
        =================================================== -->
-  <section class="partners-section">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <h2 style="color:#244d4d;font-size:1.75rem;">🤝 合作露營地 &amp; 店家</h2>
-        <p class="text-muted">持 Yuruicamp 會員卡，前往合作露營地享有專屬優惠</p>
+  <section class="partners-section yr-branches-partners">
+    <div class="container yr-branches-content">
+      <div class="text-center yr-branches-partners__header">
+        <h2 class="yr-branches-partners__title"><i class="bi bi-people" aria-hidden="true"></i> 合作露營地 &amp; 店家</h2>
+        <p class="yr-branches-partners__description">持 Yuruicamp 會員卡，前往合作露營地享有專屬優惠</p>
       </div>
       <!-- 合作店家網格（由 JS 渲染）-->
-      <div class="products-grid" id="partnersGrid">
+      <div class="products-grid yr-branches-partners__grid" id="partnersGrid">
         <!-- JS 渲染後會填入 .partner-card -->
       </div>
     </div>
@@ -95,31 +98,34 @@
        合作店家詳情 Modal (partnerModal)
        =================================================== -->
   <div id="partnerModal" class="modal" role="dialog" aria-modal="true">
-    <div class="modal-content" style="max-width:500px;">
+    <div class="modal-content yr-branches-modal__content">
       <div class="modal-header">
         <h5 class="modal-title" id="partnerModalTitle">合作店家詳情</h5>
-        <button class="modal-close">✕</button>
+        <button class="modal-close" type="button" aria-label="關閉優惠詳情">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body yr-branches-modal__body">
         <!-- 店家圖片 -->
-        <div style="border-radius:10px;overflow:hidden;margin-bottom:1rem;aspect-ratio:16/9;">
-          <img id="partnerModalImg" src="" alt="合作店家"
-               style="width:100%;height:100%;object-fit:cover;"
-               onerror="this.src='https://picsum.photos/seed/fallback/500/281'">
+        <div class="yr-branches-modal__media">
+          <img id="partnerModalImg" src="../assets/images/branches/branch-fallback.webp" alt="合作店家"
+               onerror="this.onerror=null; this.src='../assets/images/branches/branch-fallback.webp';">
         </div>
         <!-- 標籤 -->
-        <div class="partner-tags" id="partnerModalTags" style="margin-bottom:1rem;"></div>
+        <div class="partner-tags" id="partnerModalTags"></div>
         <!-- 描述 -->
-        <p id="partnerModalDesc" style="font-size:0.875rem;color:#555;line-height:1.8;"></p>
+        <p id="partnerModalDesc"></p>
         <!-- 優惠碼 -->
-        <div style="background:#f6fbf6;border:1px dashed #c3dede;border-radius:10px;padding:1rem;margin-bottom:1rem;">
-          <div style="font-size:0.75rem;color:#244d4d;font-weight:700;margin-bottom:0.35rem;">🎁 Yuruicamp 會員專屬優惠</div>
-          <div id="partnerModalDiscount" style="font-size:1.1rem;font-weight:800;color:#244d4d;"></div>
+        <div class="yr-branches-modal__offer">
+          <div class="yr-branches-modal__offer-title"><i class="bi bi-gift" aria-hidden="true"></i> Yuruicamp 會員專屬優惠</div>
+          <div id="partnerModalDiscount" class="yr-branches-modal__offer-content"></div>
         </div>
+      </div>
+      <div class="modal-footer yr-branches-modal__footer">
         <!-- 按鈕 -->
-        <button class="btn btn-primary btn-block"
+        <button class="btn btn-primary btn-block yr-btn yr-btn--primary yr-branches-modal__button"
                 onclick="window.showToast && window.showToast('優惠已記錄！前往露營地時出示即可', 'success')">
-          ✅ 我要使用此優惠
+          <i class="bi bi-check-circle" aria-hidden="true"></i> 我要使用此優惠
         </button>
       </div>
     </div>
@@ -145,5 +151,3 @@
 
 </body>
 </html>
-
-

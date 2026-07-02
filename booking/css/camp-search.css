@@ -1,125 +1,765 @@
-/* ── Hero 搜尋列：強制單行，擴大容器寬度 ── */
-    .hero-content {
-      max-width: 900px;
-      /* 原 layout.css 700px 不夠放 5 個欄位，加寬 */
-    }
+.yr-camp-search-page .hero-banner {
+  min-height: clamp(34rem, 64vh, 44rem);
+}
 
-    .hero-banner .search-bar {
-      flex-wrap: nowrap;
-    }
+.yr-camp-search-page .yr-hero-shell--booking {
+  background: linear-gradient(135deg, #536151 0%, #687565 100%);
+}
 
-    .hero-banner .search-bar .search-bar__input,
-    .hero-banner .search-bar .search-bar__select {
-      min-width: 0;
-      /* 允許縮到比 160px 更窄，維持單行 */
-    }
+.yr-camp-search-page .hero-content {
+  width: min(calc(100vw - 3rem), 1200px);
+  max-width: none;
+  margin: 0 auto;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
 
-    /* ── 搜尋列各欄位比例微調 (新增) ── */
-    #dateRange {
-      flex: 2.5 1 0; /* 日期範圍加寬 */
-    }
-    
-    #guestCount,
-    #regionFilter {
-      flex: 1 1 0; /* 人數與地區縮窄 */
-    }
+.yr-camp-search-page .hero-banner .search-bar-section {
+  width: min(100%, 68rem);
+  margin-top: clamp(2.25rem, 5vw, 3rem);
+  margin-bottom: 0;
+  padding: 0.625rem;
+  border: 1px solid rgba(229, 219, 206, 0.9);
+  border-radius: 1.25rem;
+  background: var(--yr-color-surface, #fffdf8);
+  box-shadow: 0 12px 30px rgba(48, 55, 47, 0.12);
+}
 
-    /* ── Dual-Thumb Price Slider ── */
-    .price-range-display {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--bk-primary);
-      text-align: center;
-      margin-bottom: 1.25rem;
-    }
+.yr-camp-search-page .hero-banner .search-bar {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns:
+    minmax(15rem, 2fr)
+    minmax(8rem, 1fr)
+    minmax(9rem, 1fr)
+    minmax(8rem, auto);
+  gap: 0.5rem;
+  align-items: stretch;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
 
-    .price-range-track-wrap {
-      position: relative;
-      height: 6px;
-      margin: 0.6rem 0 0.5rem;
-    }
+.yr-camp-search-page .hero-title {
+  max-width: 16em;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+}
 
-    /* 底色軌道 */
-    .price-range-track-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--bk-border, #d8e4e4);
-      border-radius: 3px;
-    }
+.yr-camp-search-page .hero-subtitle {
+  max-width: 34rem;
+  margin-inline: auto;
+  margin-bottom: 0;
+  color: rgba(255, 253, 248, 0.82);
+}
 
-    /* 選取範圍的亮色填充，由 JS 控制 left / width */
-    .price-range-fill {
-      position: absolute;
-      top: 0;
-      height: 6px;
-      background: var(--bk-primary);
-      border-radius: 3px;
-      pointer-events: none;
-    }
+.yr-camp-search-page .hero-banner .search-field,
+.yr-camp-search-page .hero-banner .search-submit {
+  min-height: 3.5rem;
+  margin: 0;
+  border-radius: 0.875rem;
+}
 
-    /* 兩個 range 疊在同一位置，背景透明 */
-    .price-range-track-wrap input[type="range"] {
-      position: absolute;
-      width: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 6px;
-      background: transparent;
-      pointer-events: none;
-      -webkit-appearance: none;
-      appearance: none;
-      margin: 0;
-      padding: 0;
-      outline: none;
-    }
+.yr-camp-search-page .hero-banner .search-field {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 0;
+  background: var(--yr-color-surface-muted, #f3ebdd);
+  color: var(--yr-color-text, #454941);
+  font: inherit;
+  box-shadow: none;
+  appearance: auto;
+  -webkit-appearance: auto;
+}
 
-    #priceMin {
-      z-index: 3;
-    }
+.yr-camp-search-page .hero-banner .search-field:hover {
+  background: #f0e8d9;
+}
 
-    #priceMax {
-      z-index: 4;
-    }
+.yr-camp-search-page .hero-banner .search-field:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 3px var(--yr-color-focus-ring, rgba(116, 132, 111, 0.18));
+}
 
-    /* WebKit thumb */
-    .price-range-track-wrap input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #fff;
-      border: 2px solid var(--bk-primary);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
-      cursor: pointer;
-      pointer-events: all;
-    }
+.yr-camp-search-page .hero-banner .search-field::placeholder {
+  color: var(--yr-color-text-subtle, #827a71);
+  opacity: 1;
+}
 
-    .price-range-track-wrap input[type="range"]::-webkit-slider-runnable-track {
-      background: transparent;
-      height: 6px;
-    }
+.yr-camp-search-page .hero-banner .search-field.search-bar__select {
+  padding-right: 2.35rem;
+}
 
-    /* Firefox thumb */
-    .price-range-track-wrap input[type="range"]::-moz-range-thumb {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #fff;
-      border: 2px solid var(--bk-primary);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
-      cursor: pointer;
-      pointer-events: all;
-    }
+.yr-camp-search-page .hero-banner .search-bar__select option {
+  color: var(--yr-color-text, #454941);
+  background: var(--yr-color-surface, #fffdf8);
+}
 
-    .price-range-track-wrap input[type="range"]::-moz-range-track {
-      background: transparent;
-    }
+.yr-camp-search-page .hero-banner #dateRange {
+  grid-column: 1 / span 1;
+}
 
-    .price-range-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.72rem;
-      color: var(--bk-text-muted);
-      margin-top: 0.75rem;
-    }
+.yr-camp-search-page .hero-banner #guestCount,
+.yr-camp-search-page .hero-banner #regionFilter {
+  grid-column: auto;
+}
+
+.yr-camp-search-page .hero-banner #searchBtn {
+  min-width: 7.5rem;
+  width: 100%;
+  padding-inline: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border: 1px solid var(--yr-color-brand-strong, #7c8b76);
+  border-radius: 0.875rem;
+  background: var(--yr-color-brand-strong, #7c8b76);
+  color: var(--yr-color-text-on-brand, #fffdf8);
+  font-family: var(--yr-font-family-body);
+  font-size: inherit;
+  line-height: 1;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.yr-camp-search-page .hero-banner #searchBtn:hover {
+  border-color: var(--yr-color-brand-hover, #697763);
+  background: var(--yr-color-brand-hover, #697763);
+}
+
+.yr-camp-search-page .hero-banner #searchBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-color-focus-ring, rgba(116, 132, 111, 0.18));
+}
+
+.yr-camp-search-page .search-page {
+  max-width: min(100% - 3rem, 1200px);
+  margin: 0 auto;
+}
+
+.yr-camp-search-page .search-layout {
+  gap: 1.5rem;
+}
+
+.yr-camp-search-page .filter-sidebar,
+.yr-camp-search-page .search-results,
+.yr-camp-search-page .camp-card {
+  border: 1px solid #e2d8ca;
+  border-radius: 16px;
+  background: #fffdf8;
+  box-shadow: 0 6px 18px rgb(63 70 61 / 5%);
+}
+
+.yr-camp-search-page .filter-sidebar__toggle {
+  min-height: 44px;
+  border-radius: 10px;
+}
+
+.yr-camp-search-page .filter-group__title {
+  color: #3f463d;
+}
+
+.yr-camp-search-page .filter-group label {
+  color: #6d6a62;
+}
+
+.yr-camp-search-page .filter-group input[type="checkbox"] {
+  accent-color: #74846f;
+}
+
+.yr-camp-search-page .camp-card {
+  box-shadow: 0 6px 16px rgb(63 70 61 / 5%);
+}
+
+.yr-camp-search-page .camp-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgb(63 70 61 / 8%);
+}
+
+.yr-camp-search-page .camp-card:hover .camp-card__image img {
+  transform: none;
+}
+
+.yr-camp-search-page .camp-card__image img {
+  object-fit: cover;
+}
+
+.yr-camp-search-page .camp-card__price strong {
+  color: #62715e;
+}
+
+.yr-camp-search-page .camp-card__badge {
+  border-radius: 8px;
+}
+
+.yr-camp-search-page .price-range-display {
+  text-align: center;
+  color: #62715e;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.yr-camp-search-page .price-range-track-wrap {
+  position: relative;
+  height: 6px;
+  margin: 0.6rem 0 0.5rem;
+}
+
+.yr-camp-search-page .price-range-track-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: #e2d8ca;
+}
+
+.yr-camp-search-page .price-range-fill {
+  position: absolute;
+  top: 0;
+  height: 6px;
+  border-radius: 3px;
+  background: #74846f;
+  pointer-events: none;
+}
+
+.yr-camp-search-page .price-range-track-wrap input[type="range"] {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 6px;
+  margin: 0;
+  padding: 0;
+  transform: translateY(-50%);
+  background: transparent;
+  appearance: none;
+  pointer-events: none;
+}
+
+.yr-camp-search-page [id='priceMin'] {
+  z-index: 3;
+}
+
+.yr-camp-search-page [id='priceMax'] {
+  z-index: 4;
+}
+
+.yr-camp-search-page .price-range-track-wrap input[type="range"]::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #74846f;
+  border-radius: 50%;
+  background: #fffdf8;
+  box-shadow: 0 1px 4px rgb(63 70 61 / 18%);
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.yr-camp-search-page .price-range-track-wrap input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  background: transparent;
+}
+
+.yr-camp-search-page .price-range-track-wrap input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #74846f;
+  border-radius: 50%;
+  background: #fffdf8;
+  box-shadow: 0 1px 4px rgb(63 70 61 / 18%);
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.yr-camp-search-page .price-range-track-wrap input[type="range"]::-moz-range-track {
+  background: transparent;
+}
+
+.yr-camp-search-page .price-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  color: #6d6a62;
+  font-size: 0.72rem;
+}
+
+@media (width <= 1024px) {
+  .yr-camp-search-page .hero-content,
+  .yr-camp-search-page .search-page {
+    max-width: min(100% - 2.5rem, 1200px);
+  }
+
+  .yr-camp-search-page .hero-content {
+    padding-block: clamp(4rem, 8vw, 5.5rem);
+  }
+
+  .yr-camp-search-page .hero-banner .search-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .yr-camp-search-page .hero-banner #dateRange,
+  .yr-camp-search-page .hero-banner #searchBtn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (width <= 768px) {
+  .yr-camp-search-page .hero-banner {
+    min-height: clamp(30rem, 62vh, 38rem);
+  }
+
+  .yr-camp-search-page .hero-content {
+    padding-block: clamp(2.5rem, 9vw, 3.25rem);
+  }
+
+  .yr-camp-search-page .hero-banner .search-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .yr-camp-search-page .hero-banner #dateRange,
+  .yr-camp-search-page .hero-banner #guestCount,
+  .yr-camp-search-page .hero-banner #regionFilter,
+  .yr-camp-search-page .hero-banner #searchBtn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (width <= 576px) {
+  .yr-camp-search-page .hero-content,
+  .yr-camp-search-page .search-page {
+    max-width: calc(100% - 2rem);
+  }
+
+  .yr-camp-search-page .hero-banner .search-bar-section {
+    margin-top: 1.75rem;
+    padding: 0.5rem;
+  }
+
+  .yr-camp-search-page .hero-banner .search-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .yr-camp-search-page .hero-banner #dateRange,
+  .yr-camp-search-page .hero-banner #guestCount,
+  .yr-camp-search-page .hero-banner #regionFilter,
+  .yr-camp-search-page .hero-banner #searchBtn {
+    grid-column: 1 / -1;
+  }
+}
+
+/* camp-search layout overrides: toolbar filters + responsive card grid */
+.yr-camp-search-page .search-page {
+  max-width: min(100% - 3rem, 1440px);
+}
+
+.yr-camp-search-page .search-layout {
+  max-width: none;
+  padding: 0;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.yr-camp-search-page .filter-sidebar {
+  position: static;
+  top: auto;
+}
+
+.yr-camp-search-page .filter-sidebar__toggle {
+  display: none;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: #74846f;
+  color: #fffdf8;
+  border: 0;
+}
+
+.yr-camp-search-page .filter-sidebar__body {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0.95rem;
+}
+
+.yr-camp-search-page .filter-toolbar__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.yr-camp-search-page .filter-toolbar__summary {
+  margin: 0;
+  color: #5f695c;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.yr-camp-search-page .filter-toolbar__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-height: 1.75rem;
+}
+
+.yr-camp-search-page .filter-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d8cfbf;
+  border-radius: 999px;
+  background: #f7f1e6;
+  color: #62715e;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.yr-camp-search-page .filter-panels {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.yr-camp-search-page .filter-panel {
+  margin: 0;
+  border: 1px solid #e2d8ca;
+  border-radius: 12px;
+  background: #fffdf8;
+}
+
+.yr-camp-search-page .filter-panel__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.65rem 0.8rem;
+}
+
+.yr-camp-search-page .filter-panel__summary::-webkit-details-marker {
+  display: none;
+}
+
+.yr-camp-search-page .filter-panel__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 999px;
+  padding: 0 0.35rem;
+  background: #74846f;
+  color: #fffdf8;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.yr-camp-search-page .filter-panel__content {
+  border-top: 1px solid #eee6da;
+  padding: 0.7rem 0.8rem 0.85rem;
+}
+
+.yr-camp-search-page .filter-panel .filter-group__title {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.9rem;
+}
+
+.yr-camp-search-page .filter-panel .filter-panel__content label {
+  display: inline-flex;
+  margin: 0 0.65rem 0.45rem 0;
+  white-space: nowrap;
+}
+
+.yr-camp-search-page #resetFilterBtn {
+  width: auto;
+  justify-self: end;
+  margin-top: 0.2rem;
+  padding: 0.5rem 0.95rem;
+}
+
+.yr-camp-search-page .search-results {
+  min-width: 0;
+  padding: 0.875rem 0.875rem 1.25rem;
+}
+
+.yr-camp-search-page .search-results__header {
+  margin-bottom: 0.875rem;
+}
+
+.yr-camp-search-page .camp-card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  row-gap: 1.875rem;
+}
+
+.yr-camp-search-page .camp-card {
+  position: relative;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.yr-camp-search-page .camp-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.yr-camp-search-page .camp-card__media {
+  display: block;
+  text-decoration: none;
+}
+
+.yr-camp-search-page .camp-card__image {
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ebe4d8;
+}
+
+.yr-camp-search-page .camp-card__media:hover .camp-card__image img,
+.yr-camp-search-page .camp-card__media:focus-visible .camp-card__image img {
+  transform: scale(1.02);
+}
+
+.yr-camp-search-page .camp-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.85rem 0.2rem 0.65rem;
+}
+
+.yr-camp-search-page .camp-card__name {
+  margin-bottom: 0;
+  line-height: 1.4;
+  font-size: 1.03rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.yr-camp-search-page .camp-card__name-link {
+  color: #3f463d;
+  text-decoration: none;
+}
+
+.yr-camp-search-page .camp-card__name-link:hover {
+  color: #5e6b5a;
+}
+
+.yr-camp-search-page .camp-card__name-link:focus-visible,
+.yr-camp-search-page .camp-card__detail-link:focus-visible,
+.yr-camp-search-page .camp-card__more-button:focus-visible {
+  outline: 2px solid #74846f;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.yr-camp-search-page .camp-card__price {
+  margin-bottom: 0;
+  line-height: 1.4;
+  color: #6f6b63;
+  font-size: 0.9rem;
+}
+
+.yr-camp-search-page .camp-card__price strong {
+  color: #4f5d4d;
+  font-weight: 700;
+}
+
+.yr-camp-search-page .camp-card__tags {
+  position: relative;
+  margin-top: auto;
+  gap: 0.375rem;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.yr-camp-search-page .camp-card__tags > .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  padding: 0.26rem 0.58rem;
+  border-radius: 999px;
+}
+
+.yr-camp-search-page .camp-card__more-button {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: auto;
+  min-height: auto;
+  height: auto;
+  margin: 0;
+  box-shadow: none;
+  border: 1px solid #d6cdc0;
+  border-radius: 999px;
+  background: rgb(237 244 234 / 75%);
+  color: #556353;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.yr-camp-search-page .camp-card__more-button:hover {
+  background: rgb(223 235 218 / 85%);
+  border-color: #b8c8b4;
+  color: #4d5a4a;
+}
+
+.yr-camp-search-page .camp-card__more-button[aria-expanded="true"] {
+  background: rgb(210 226 206 / 95%);
+  border-color: #aebeaa;
+  color: #43533f;
+}
+
+.yr-camp-search-page .camp-card.is-tags-open {
+  z-index: 8;
+}
+
+.yr-camp-search-page .camp-card__tag-popover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  width: max-content;
+  max-width: min(20rem, calc(100vw - 2rem));
+  padding: 0.58rem;
+  border: 1px solid #dfd5c8;
+  border-radius: 12px;
+  background: #fffdf8;
+  box-shadow: 0 10px 24px rgb(52 59 49 / 14%);
+}
+
+.yr-camp-search-page .camp-card__tag-popover[hidden] {
+  display: none;
+}
+
+.yr-camp-search-page .camp-card__detail-link {
+  align-self: flex-start;
+  margin-top: 0.75rem;
+  color: #667561;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.yr-camp-search-page .camp-card__detail-link:hover {
+  color: #4f5f4b;
+  text-decoration: underline;
+}
+
+.yr-camp-search-page .camp-card__badge {
+  top: 0.55rem;
+  left: 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.18rem 0.52rem;
+  background: rgb(251 243 209 / 92%);
+  color: #5f5a49;
+  border: 1px solid #dacb97;
+}
+
+@media (min-width: 1280px) {
+  .yr-camp-search-page .camp-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.65rem;
+  }
+
+  .yr-camp-search-page .filter-panels {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .yr-camp-search-page .search-page {
+    max-width: calc(100% - 1.25rem);
+  }
+
+  .yr-camp-search-page .filter-sidebar__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .yr-camp-search-page .filter-sidebar__body {
+    display: none;
+  }
+
+  .yr-camp-search-page .filter-sidebar__body.is-open {
+    display: grid;
+  }
+
+  .yr-camp-search-page .filter-toolbar__meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .yr-camp-search-page .filter-panel .filter-panel__content label {
+    display: flex;
+    margin-right: 0;
+  }
+
+  .yr-camp-search-page #resetFilterBtn {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .yr-camp-search-page .camp-card__body {
+    padding-inline: 0;
+  }
+
+  .yr-camp-search-page .camp-card__tag-popover {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0.1rem;
+    padding: 0.45rem 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .yr-camp-search-page .camp-card.is-tags-open {
+    z-index: auto;
+  }
+
+  .yr-camp-search-page .camp-card-grid {
+    grid-template-columns: 1fr;
+  }
+}

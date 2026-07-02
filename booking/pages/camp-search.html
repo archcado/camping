@@ -6,57 +6,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#73816E">
   <meta name="description" content="搜尋並篩選台灣最美露營區，選擇最適合你的營地。">
-  <link rel="icon" href="../../assets/icons/camping_icon.png" type="image/png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/yuruicamp-favicon.svg">
   <title> 搜尋營區 | Yuruicamp 露營選物</title>
 
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/booking.css">
   <link rel="stylesheet" href="../css/yuruicamp-tags-status.css">
-  <link rel="stylesheet" href="../css/camp-search.css">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/theme/booking-shell.css">
+  <link rel="stylesheet" href="../../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../../css/theme/theme-layout.css">
+  <link rel="stylesheet" href="../../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/camp-search.css">
   
 </head>
 
-<body>
+<body class="yr-theme yr-booking-theme yr-camp-search-page">
 
-  <div id="booking-header"></div>
+  <div id="header" data-header-context="camp"></div>
 
-  <section class="hero-banner" id="heroBanner">
+  <section class="hero-banner yr-hero-shell yr-hero-shell--booking" id="heroBanner">
 
     <video autoplay loop muted playsinline>
       <source src="../../assets/videos/hero_video.mp4" type="video/mp4">
     </video>
 
-    <div class="hero-content">
+    <div class="hero-content yr-hero-shell__inner">
 
-      <h1 class="hero-title">尋找你的山林棲所</h1>
+      <h1 class="hero-title yr-display-heading">尋找你的山林棲所</h1>
       <p class="hero-subtitle">在這裡，選擇屬於你的季節與寧靜</p>
 
       <section class="search-bar-section">
-        <div class="search-bar">
-          <input type="text" id="dateRange" class="search-bar__input" placeholder="入住日期 → 退房日期" readonly aria-label="預約日期範圍">
+        <div class="search-bar search-form">
+          <input type="text" id="dateRange" class="search-bar__input search-field" placeholder="入住日期 → 退房日期" readonly aria-label="預約日期範圍">
           
-          <select id="guestCount" class="search-bar__select" title="人數">
+          <select id="guestCount" class="search-bar__select search-field" title="人數">
             <option value="">人數</option>
             <option value="1">1 人</option>
             <option value="2">2 人</option>
             <option value="4">4 人</option>
             <option value="6">6 人以上</option>
           </select>
-          <select id="regionFilter" class="search-bar__select" title="地區">
+          <select id="regionFilter" class="search-bar__select search-field" title="地區">
             <option value="">所有地區</option>
             <option value="北部">北部</option>
             <option value="中部">中部</option>
             <option value="南部">南部</option>
             <option value="東部">東部</option>
           </select>
-          <button id="searchBtn" class="btn btn--primary">
-            <i class="bi bi-search"></i> 搜尋
+          <button id="searchBtn" class="btn btn--primary search-submit">
+            <i class="bi bi-search" aria-hidden="true"></i> 搜尋
           </button>
         </div>
       </section>
@@ -71,49 +72,69 @@
       <aside class="filter-sidebar">
 
         <button class="filter-sidebar__toggle" id="filterToggle" aria-expanded="false">
-          <i class="bi bi-funnel"></i>&nbsp; 篩選條件
+          <i class="bi bi-funnel" aria-hidden="true"></i>&nbsp; 篩選條件
         </button>
 
         <div class="filter-sidebar__body" id="filterBody">
-
-          <div class="filter-group">
-            <h4 class="filter-group__title">環境特徵</h4>
-            <label><input type="checkbox" name="env" value="高海拔"> 高海拔</label>
-            <label><input type="checkbox" name="env" value="低海拔"> 低海拔</label>
-            <label><input type="checkbox" name="env" value="有雲海"> 有雲海</label>
-            <label><input type="checkbox" name="env" value="有溪流"> 有溪流</label>
-            <label><input type="checkbox" name="env" value="森林系"> 森林系</label>
+          <div class="filter-toolbar__meta">
+            <p class="filter-toolbar__summary" id="selectedFilterSummary">已選 0 項條件</p>
+            <div class="filter-toolbar__chips" id="selectedFilterChips" aria-live="polite"></div>
           </div>
 
-          <div class="filter-group">
-            <h4 class="filter-group__title">營區設施</h4>
-            <label><input type="checkbox" name="facility" value="有雨棚">有雨棚</label>
-            <label><input type="checkbox" name="facility" value="裝備租借">裝備租借</label>
-            <label><input type="checkbox" name="facility" value="小木屋">小木屋</label>
-            <label><input type="checkbox" name="facility" value="寵物友善"> 寵物友善</label>
-            <label><input type="checkbox" name="facility" value="兒童遊樂設施">兒童遊樂設施</label>
-            <label><input type="checkbox" name="facility" value="獨立衛浴">獨立衛浴</label>
-            <label><input type="checkbox" name="facility" value="可包區"> 可包區</label>
-          </div>
+          <div class="filter-panels">
+            <details class="filter-panel filter-group" open>
+              <summary class="filter-panel__summary">
+                <span class="filter-group__title">環境特徵</span>
+                <span class="filter-panel__count" id="envFilterCount">0</span>
+              </summary>
+              <div class="filter-panel__content">
+                <label><input type="checkbox" name="env" value="高海拔"> 高海拔</label>
+                <label><input type="checkbox" name="env" value="低海拔"> 低海拔</label>
+                <label><input type="checkbox" name="env" value="有雲海"> 有雲海</label>
+                <label><input type="checkbox" name="env" value="有溪流"> 有溪流</label>
+                <label><input type="checkbox" name="env" value="森林系"> 森林系</label>
+              </div>
+            </details>
 
-          <div class="filter-group">
-            <h4 class="filter-group__title">每晚預算（平日）</h4>
-            <div class="price-range-slider">
-              <div class="price-range-display" id="priceRangeDisplay">NT$500 - NT$5,000+</div>
-              <div class="price-range-track-wrap">
-                <div class="price-range-fill" id="priceRangeFill"></div>
-                <input type="range" id="priceMin" min="500" max="5000" step="500" value="500">
-                <input type="range" id="priceMax" min="500" max="5000" step="500" value="5000">
+            <details class="filter-panel filter-group" open>
+              <summary class="filter-panel__summary">
+                <span class="filter-group__title">營區設施</span>
+                <span class="filter-panel__count" id="facilityFilterCount">0</span>
+              </summary>
+              <div class="filter-panel__content">
+                <label><input type="checkbox" name="facility" value="有雨棚">有雨棚</label>
+                <label><input type="checkbox" name="facility" value="裝備租借">裝備租借</label>
+                <label><input type="checkbox" name="facility" value="小木屋">小木屋</label>
+                <label><input type="checkbox" name="facility" value="寵物友善"> 寵物友善</label>
+                <label><input type="checkbox" name="facility" value="兒童遊樂設施">兒童遊樂設施</label>
+                <label><input type="checkbox" name="facility" value="獨立衛浴">獨立衛浴</label>
+                <label><input type="checkbox" name="facility" value="可包區"> 可包區</label>
               </div>
-              <div class="price-range-labels">
-                <span>NT$500</span>
-                <span>NT$5,000+</span>
+            </details>
+
+            <details class="filter-panel filter-group" open>
+              <summary class="filter-panel__summary">
+                <span class="filter-group__title">每晚預算（平日）</span>
+              </summary>
+              <div class="filter-panel__content">
+                <div class="price-range-slider">
+                  <div class="price-range-display" id="priceRangeDisplay">NT$500 - NT$5,000+</div>
+                  <div class="price-range-track-wrap">
+                    <div class="price-range-fill" id="priceRangeFill"></div>
+                    <input type="range" id="priceMin" min="500" max="5000" step="500" value="500">
+                    <input type="range" id="priceMax" min="500" max="5000" step="500" value="5000">
+                  </div>
+                  <div class="price-range-labels">
+                    <span>NT$500</span>
+                    <span>NT$5,000+</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            </details>
           </div>
 
           <button id="resetFilterBtn" class="btn btn--outline">
-            <i class="bi bi-arrow-counterclockwise"></i> 重設篩選
+            <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> 重設篩選
           </button>
 
         </div>
@@ -127,7 +148,7 @@
 
         <div class="camp-card-grid" id="campCardGrid">
           <div class="loading-skeleton" id="loadingSkeleton">
-            <i class="bi bi-hourglass-split"></i> 載入營區資料中...
+            <i class="bi bi-hourglass-split" aria-hidden="true"></i> 載入營區資料中...
           </div>
         </div>
 

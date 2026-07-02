@@ -4,30 +4,31 @@
      表格數據由 products.js 的 $.getJSON() 動態產生
 -->
 
-<div class="card shadow-sm border-0" id="productsModuleCard">
+<section class="yr-admin-products-module">
+<div class="card shadow-sm border-0 yr-admin-products" id="productsModuleCard">
 
   <!-- 卡片頂部：標題 + 新增商品按鈕 -->
-  <div class="card-header bg-white border-0
+  <div class="card-header bg-white border-0 yr-admin-products__header yr-admin-products-toolbar
               d-flex justify-content-between align-items-center py-3">
     <div>
-      <h6 class="fw-semibold mb-0">
+      <h6 class="fw-semibold mb-0 yr-admin-products__title">
         <i class="fas fa-box-open me-2 text-muted"></i>商品列表
       </h6>
       <!-- 低庫存警告說明 -->
-      <small class="text-danger">
+      <small class="yr-admin-products__description yr-admin-products__stock-note">
         <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>
         紅色列表示庫存不足（低於最低庫存設定）
       </small>
       <!-- 最低庫存設定模式提示（預設隱藏，進入設定模式後由 products.js 顯示） -->
       <!-- Min-stock mode hint, hidden by default, shown by products.js when mode is active -->
-      <small class="text-warning d-none" id="minStockModeHint">
+      <small class="d-none yr-admin-products__stock-note" id="minStockModeHint">
         <i class="fas fa-edit me-1"></i>
         最低庫存設定模式：修改後按確定儲存
       </small>
     </div>
 
     <!-- 右側按鈕群組：新增商品 + 設定最低庫存 + 產生異動紀錄 -->
-    <div class="d-flex flex-column align-items-end gap-2">
+    <div class="d-flex flex-column align-items-end gap-2 yr-admin-products__actions yr-admin-products-toolbar__filters">
       <button class="btn btn-sm text-white"
               style="background-color: var(--admin-brand-accent);"
               data-bs-toggle="modal"
@@ -52,43 +53,62 @@
   </div>
 
   <!-- 商店 / 租借頁籤：由 products.js 控制下方 .card-body 顯示狀態 -->
-  <div class="px-3 pb-3 bg-white border-bottom">
-    <div class="nav nav-pills admin-product-tabs" role="tablist" aria-label="商品與租借切換">
+  <div class="px-3 py-3 bg-white border-bottom yr-admin-products-toolbar">
+    <div class="nav nav-pills admin-product-tabs yr-admin-products__tabs yr-admin-products-toolbar__tabs" role="tablist" aria-label="商品與租借切換">
       <button type="button"
-              class="nav-link admin-product-tab active"
+              class="nav-link admin-product-tab yr-admin-products__tab active"
               data-products-view="store"
               role="tab"
               aria-selected="true">
         <i class="fas fa-store me-1"></i>商店
       </button>
       <button type="button"
-              class="nav-link admin-product-tab"
+              class="nav-link admin-product-tab yr-admin-products__tab"
               data-products-view="rental"
               role="tab"
               aria-selected="false">
         <i class="fas fa-campground me-1"></i>租借
       </button>
     </div>
+    <div class="mt-2 d-flex flex-wrap align-items-center gap-2 yr-admin-products-toolbar__filters">
+      <input type="search" id="productsSearchInput"
+             class="form-control form-control-sm yr-admin-products-search"
+             placeholder="搜尋商品名稱"
+             aria-label="搜尋商品名稱">
+      <select id="productsCategoryFilter" class="form-select form-select-sm yr-admin-products-filter" aria-label="分類篩選">
+        <option value="">全部分類</option>
+      </select>
+      <select id="productsStockFilter" class="form-select form-select-sm yr-admin-products-filter" aria-label="庫存篩選">
+        <option value="">全部庫存</option>
+        <option value="low">低庫存</option>
+        <option value="out">缺貨</option>
+        <option value="normal">正常庫存</option>
+      </select>
+      <button type="button" id="productsClearFilters" class="btn btn-sm btn-outline-secondary d-none">
+        <i class="fas fa-filter-circle-xmark me-1"></i>清除篩選
+      </button>
+      <span id="productsResultCount" class="ms-auto small text-muted yr-admin-products-result-count" aria-live="polite"></span>
+    </div>
   </div>
 
   <!-- 商店表格容器 -->
-  <div class="card-body p-0 admin-products-panel" data-products-panel="store">
+  <div class="card-body p-0 admin-products-panel yr-admin-products__panel" data-products-panel="store">
     <div class="table-responsive">
       <!-- product-table-fixed：啟用 table-layout: fixed，讓欄寬精確對齊 sticky left 值 -->
-      <table class="table table-hover mb-0 product-table-fixed" id="productsTable">
+      <table class="table table-hover mb-0 product-table-fixed yr-admin-products__table yr-admin-products-table" id="productsTable">
         <thead class="table-light">
           <tr>
             <!-- 固定欄位（sticky）：圖片、名稱、分類、操作、總庫存（唯讀，自動計算）-->
-            <th class="sticky-col sticky-col-img">圖片</th>
-            <th class="sticky-col sticky-col-name">商品名稱</th>
-            <th class="sticky-col sticky-col-category">分類</th>
-            <th class="sticky-col sticky-col-action">操作</th>
-            <th class="sticky-col sticky-col-total-stock">總庫存量</th>
+            <th class="sticky-col sticky-col-img yr-admin-products-th" scope="col">圖片</th>
+            <th class="sticky-col sticky-col-name yr-admin-products-th" scope="col">商品名稱</th>
+            <th class="sticky-col sticky-col-category yr-admin-products-th" scope="col">分類</th>
+            <th class="sticky-col sticky-col-action yr-admin-products-th" scope="col">操作</th>
+            <th class="sticky-col sticky-col-total-stock yr-admin-products-th" scope="col">總庫存量</th>
             <!-- 可水平捲動欄位：商店主倉 + 各分店庫存（明確指定欄寬）-->
-            <th class="scrollable-stock-col">商店主倉</th>
-            <th class="scrollable-stock-col">分店 A</th>
-            <th class="scrollable-stock-col">分店 B</th>
-            <th class="scrollable-stock-col">分店 C</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">商店主倉</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">分店 A</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">分店 B</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">分店 C</th>
           </tr>
         </thead>
         <!-- tbody 由 products.js 的 renderProductsTable() 動態填入 -->
@@ -96,7 +116,7 @@
         <!-- colspan=9：圖片、名稱、分類、操作、總庫存(唯讀)、主倉、分店A、分店B、分店C -->
         <tbody id="productsTableBody">
           <tr>
-            <td colspan="9" class="text-center py-4">
+            <td colspan="9" class="text-center py-4 yr-admin-products__loading yr-admin-products-loading">
               <div class="spinner-border spinner-border-sm me-2"
                    style="color: var(--admin-brand-accent);"></div>
               <span class="text-muted">載入商品中...</span>
@@ -108,31 +128,31 @@
   </div><!-- end card-body -->
 
   <!-- 租借表格容器：點擊租借頁籤後由 products.js 載入 admin/data/reantal.json -->
-  <div class="card-body p-0 admin-products-panel d-none" data-products-panel="rental">
+  <div class="card-body p-0 admin-products-panel yr-admin-products__panel d-none" data-products-panel="rental">
     <div class="table-responsive">
       <!-- product-table-fixed：啟用 table-layout: fixed，讓欄寬精確對齊 sticky left 值 -->
-      <table class="table table-hover mb-0 product-table-fixed" id="rentalProductsTable">
+      <table class="table table-hover mb-0 product-table-fixed yr-admin-products__table yr-admin-products-table" id="rentalProductsTable">
         <thead class="table-light">
           <tr>
             <!-- 固定欄位（sticky）：圖片、名稱、分類、操作、總租借庫存（唯讀，自動計算）-->
-            <th class="sticky-col sticky-col-img">圖片</th>
-            <th class="sticky-col sticky-col-name">商品名稱</th>
-            <th class="sticky-col sticky-col-category">分類</th>
-            <th class="sticky-col sticky-col-action">操作</th>
-            <th class="sticky-col sticky-col-total-stock">總租借庫存</th>
+            <th class="sticky-col sticky-col-img yr-admin-products-th" scope="col">圖片</th>
+            <th class="sticky-col sticky-col-name yr-admin-products-th" scope="col">商品名稱</th>
+            <th class="sticky-col sticky-col-category yr-admin-products-th" scope="col">分類</th>
+            <th class="sticky-col sticky-col-action yr-admin-products-th" scope="col">操作</th>
+            <th class="sticky-col sticky-col-total-stock yr-admin-products-th" scope="col">總租借庫存</th>
             <!-- 可水平捲動欄位：租借主倉 + 各營區庫存（明確指定欄寬）/ scrollable camp columns -->
-            <th class="scrollable-stock-col">租借主倉</th>
-            <th class="scrollable-stock-col">湖畔星空</th>
-            <th class="scrollable-stock-col">松林野營</th>
-            <th class="scrollable-stock-col">溪谷森林</th>
-            <th class="scrollable-stock-col">雲海高原</th>
-            <th class="scrollable-stock-col">海岸微風</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">租借主倉</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">湖畔星空</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">松林野營</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">溪谷森林</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">雲海高原</th>
+            <th class="scrollable-stock-col yr-admin-products-th" scope="col">海岸微風</th>
           </tr>
         </thead>
         <!-- colspan=11：圖片、名稱、分類、操作、總租借庫存(唯讀)、主倉、湖畔星空、松林野營、溪谷森林、雲海高原、海岸微風 -->
         <tbody id="rentalProductsTableBody">
           <tr>
-            <td colspan="11" class="text-center py-4">
+            <td colspan="11" class="text-center py-4 yr-admin-products__loading yr-admin-products-loading">
               <div class="spinner-border spinner-border-sm me-2"
                    style="color: var(--admin-brand-accent);"></div>
               <span class="text-muted">請切換至租借頁籤載入資料</span>
@@ -144,12 +164,13 @@
   </div><!-- end rental card-body -->
 
 </div><!-- end card -->
+</section>
 
 <!-- ════════════════════════════════════════════════════════
      調至租借 Modal
      由 products.js 的 openTransferToRentalModal() 開啟與填入資料
      ════════════════════════════════════════════════════════ -->
-<div class="modal fade" id="transferToRentalModal" tabindex="-1"
+<div class="modal fade yr-admin-modal" id="transferToRentalModal" tabindex="-1"
      aria-labelledby="transferToRentalModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

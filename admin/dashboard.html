@@ -16,22 +16,32 @@
         href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <!-- 後台專屬樣式 -->
   <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/theme/admin-theme-tokens.css">
+  <link rel="stylesheet" href="css/theme/admin-theme-components.css">
+  <link rel="stylesheet" href="css/theme/admin-shell.css">
+  <link rel="stylesheet" href="css/theme/modules/orders.css">
+  <link rel="stylesheet" href="css/theme/modules/bookings.css">
+  <link rel="stylesheet" href="css/theme/modules/products.css">
+  <link rel="stylesheet" href="css/theme/modules/analytics.css">
+  <link rel="stylesheet" href="css/theme/modules/reviews.css">
+  <link rel="stylesheet" href="css/theme/modules/permissions.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
 </head>
 
-<body class="d-flex">
+<body class="d-flex yr-admin-dashboard-page">
 
   <!-- ============================================================
        ① 左側 Sidebar（桌面版固定顯示，手機版隱藏）
        ============================================================ -->
-  <aside id="adminSidebar" class="d-flex flex-column">
+  <aside id="adminSidebar" class="d-flex flex-column yr-admin-sidebar">
 
     <!-- 品牌 Logo 區塊 -->
     <div class="sidebar-brand">
       <h5 class="text-white fw-bold mb-0">
-        <i class="fas fa-campground me-2" style="color: var(--admin-sidebar-active-border);"></i>
+        <i class="fas fa-campground me-2 yr-admin-sidebar-brand-icon"></i>
         Yuruicamp
       </h5>
-      <small style="color: var(--admin-sidebar-text);">賣家後台管理系統</small>
+      <small class="yr-admin-sidebar-subtitle">賣家後台管理系統</small>
     </div>
 
     <!-- 導覽選單 -->
@@ -75,7 +85,7 @@
       </a>
 
       <!-- 分隔線：將預約管理獨立成新區塊 -->
-      <hr style="border-color: rgba(255,255,255,0.15); margin: 8px 16px;">
+      <hr class="yr-admin-sidebar-separator">
 
       <a href="#" class="sidebar-link"
          data-section="bookings" data-title="預約/租借管理">
@@ -84,7 +94,7 @@
       </a>
 
       <!-- 分隔線：權限管理獨立區塊 -->
-      <hr style="border-color: rgba(255,255,255,0.15); margin: 8px 16px;">
+      <hr class="yr-admin-sidebar-separator">
 
       <a href="#" class="sidebar-link"
          data-section="permissions" data-title="權限管理">
@@ -96,12 +106,11 @@
     <!-- 底部：管理員資訊 + 登出 -->
     <div class="sidebar-footer">
       <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="fas fa-user-shield" style="color: var(--admin-sidebar-text);"></i>
-        <small style="color: var(--admin-sidebar-text);" id="sidebarAdminName">管理員</small>
+        <i class="fas fa-user-shield yr-admin-sidebar-user-icon"></i>
+        <small class="yr-admin-sidebar-user-name" id="sidebarAdminName">管理員</small>
       </div>
       <a href="#" id="logoutBtn"
-         class="d-flex align-items-center gap-2 text-decoration-none"
-         style="color: var(--admin-sidebar-text);">
+         class="d-flex align-items-center gap-2 text-decoration-none yr-admin-sidebar-logout">
         <i class="fas fa-sign-out-alt"></i>
         <span class="small">登出系統</span>
       </a>
@@ -115,7 +124,7 @@
   <div class="offcanvas offcanvas-start" id="mobileSidebar" tabindex="-1">
     <div class="offcanvas-header">
       <h5 class="text-white fw-bold mb-0">
-        <i class="fas fa-campground me-2" style="color: var(--admin-sidebar-active-border);"></i>
+        <i class="fas fa-campground me-2 yr-admin-sidebar-brand-icon"></i>
         Yuruicamp
       </h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
@@ -152,7 +161,7 @@
         </a>
 
         <!-- 分隔線：將預約管理獨立成新區塊 -->
-        <hr style="border-color: rgba(255,255,255,0.15); margin: 8px 16px;">
+        <hr class="yr-admin-sidebar-separator">
 
         <a href="#" class="sidebar-link"
            data-section="bookings" data-title="預約/租借管理">
@@ -160,16 +169,15 @@
         </a>
 
         <!-- 分隔線：權限管理獨立區塊 -->
-        <hr style="border-color: rgba(255,255,255,0.15); margin: 8px 16px;">
+        <hr class="yr-admin-sidebar-separator">
 
         <a href="#" class="sidebar-link"
            data-section="permissions" data-title="權限管理">
           <i class="fas fa-user-shield"></i><span>權限管理</span>
         </a>
         <div class="sidebar-footer mt-auto">
-          <a href="#" class="sidebar-logout-mobile d-flex align-items-center gap-2
-                             text-decoration-none"
-             style="color: var(--admin-sidebar-text);">
+          <a href="#"
+             class="sidebar-logout-mobile d-flex align-items-center gap-2 text-decoration-none yr-admin-sidebar-logout">
             <i class="fas fa-sign-out-alt"></i>
             <span class="small">登出系統</span>
           </a>
@@ -181,10 +189,10 @@
   <!-- ============================================================
        ③ 右側主區域（Topbar + 動態內容區）
        ============================================================ -->
-  <div id="mainWrapper">
+  <div id="mainWrapper" class="yr-admin-main-wrapper">
 
     <!-- Topbar -->
-    <header id="adminTopbar">
+    <header id="adminTopbar" class="yr-admin-topbar">
 
       <!-- 左側：漢堡按鈕（手機版）+ 頁面標題 -->
       <div class="d-flex align-items-center gap-3">
@@ -203,9 +211,9 @@
 
         <!-- 通知鈴鐺（數字 Badge 代表未讀通知） -->
         <button class="btn position-relative" type="button" title="通知">
-          <i class="fas fa-bell fs-5 text-secondary"></i>
+          <i class="fas fa-bell fs-5 yr-admin-muted-icon"></i>
           <span class="position-absolute top-0 start-100 translate-middle
-                       badge rounded-pill bg-danger" id="notifBadge">
+                       badge rounded-pill yr-admin-notif-badge" id="notifBadge">
             3
           </span>
         </button>
@@ -214,10 +222,7 @@
         <div class="dropdown">
           <!-- 頭像按鈕（使用字首縮寫代替圖片） -->
           <div class="rounded-circle d-flex align-items-center justify-content-center
-                      text-white fw-bold"
-               style="width:36px; height:36px;
-                      background-color: var(--admin-brand-accent);
-                      cursor: pointer;"
+                      text-white fw-bold yr-admin-avatar-button"
                role="button"
                data-bs-toggle="dropdown"
                id="adminAvatarBtn"
@@ -232,7 +237,7 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-              <a class="dropdown-item text-danger" href="#" id="logoutBtnTopbar">
+              <a class="dropdown-item yr-admin-danger-text" href="#" id="logoutBtnTopbar">
                 <i class="fas fa-sign-out-alt me-2"></i>登出
               </a>
             </li>
@@ -243,10 +248,10 @@
     </header>
 
     <!-- 動態內容區（各 partial HTML 由 AJAX 注入此處） -->
-    <main id="contentArea" class="p-4 flex-grow-1">
+    <main id="contentArea" class="p-4 flex-grow-1 yr-admin-content-area">
       <!-- 初始載入 Spinner，待 core.js ready 後替換 -->
       <div class="text-center py-5">
-        <div class="spinner-border" style="color: var(--admin-brand-accent);"></div>
+        <div class="spinner-border yr-admin-content-spinner"></div>
         <p class="mt-2 text-muted small">載入中...</p>
       </div>
     </main>
@@ -256,7 +261,7 @@
   <!-- ============================================================
        全域 Modal：訂單明細（靜態放在 dashboard，由 orders.js 填入內容）
        ============================================================ -->
-  <div class="modal fade" id="orderDetailModal" tabindex="-1"
+  <div class="modal fade yr-admin-order-detail-modal" id="orderDetailModal" tabindex="-1"
        aria-labelledby="orderDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
@@ -269,7 +274,7 @@
         <div class="modal-body">
 
           <!-- 訂單基本資訊 -->
-          <div class="row g-3 mb-3">
+          <div class="row g-3 mb-3 yr-admin-order-detail-section yr-admin-order-detail-meta">
             <div class="col-md-6">
               <small class="text-muted d-block">買家姓名</small>
               <span id="modalBuyerName" class="fw-semibold"></span>
@@ -284,6 +289,7 @@
           <h6 class="fw-semibold mb-2 mt-3">
             <i class="fas fa-list me-2 text-muted"></i>商品清單
           </h6>
+          <div class="table-responsive yr-admin-order-detail-section">
           <table class="table table-sm table-bordered mb-0">
             <thead class="table-light">
               <tr>
@@ -297,10 +303,11 @@
             <tfoot class="table-light">
               <tr>
                 <td colspan="3" class="text-end fw-semibold">合計</td>
-                <td class="text-end fw-bold" id="modalTotal"></td>
+                <td class="text-end fw-bold yr-admin-order-detail-total" id="modalTotal"></td>
               </tr>
             </tfoot>
           </table>
+          </div>
 
           <hr class="my-3">
 
@@ -308,13 +315,13 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-map-marker-alt me-2 text-muted"></i>收件資訊
           </h6>
-          <p id="modalAddress" class="text-muted mb-0"></p>
+          <p id="modalAddress" class="text-muted mb-0 yr-admin-order-detail-section"></p>
 
           <hr class="my-3">
 
           <!-- 顧客備註（customerNote 有值才顯示，否則 d-none）-->
           <!-- orders.js 的 showOrderModal() 會動態控制此區塊的顯隱 -->
-          <div id="modalCustomerNoteSection" class="d-none">
+          <div id="modalCustomerNoteSection" class="d-none yr-admin-order-note">
             <h6 class="fw-semibold mb-2">
               <i class="fas fa-comment-dots me-2 text-muted"></i>顧客備註
             </h6>
@@ -331,7 +338,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-history me-2 text-muted"></i>訂單紀錄
           </h6>
-          <ul id="modalHistory" class="list-unstyled small mb-0">
+          <ul id="modalHistory" class="list-unstyled small mb-0 yr-admin-order-history">
             <!-- 每筆格式：時間 + 動作，由 orders.js 動態產生 -->
           </ul>
 
@@ -346,7 +353,7 @@
   <!-- ============================================================
        全域 Modal：預約明細（靜態放在 dashboard，由 bookings.js 填入內容）
        ============================================================ -->
-  <div class="modal fade" id="bookingDetailModal" tabindex="-1"
+  <div class="modal fade yr-admin-booking-detail-modal" id="bookingDetailModal" tabindex="-1"
        aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
@@ -364,7 +371,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-user me-2 text-muted"></i>訂購人資訊
           </h6>
-          <div class="row g-2 mb-3">
+          <div class="row g-2 mb-3 yr-admin-booking-detail-meta">
             <div class="col-6 col-md-3">
               <small class="text-muted d-block">姓名</small>
               <span id="bkModalName" class="fw-semibold"></span>
@@ -389,7 +396,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-campground me-2 text-muted"></i>住宿明細
           </h6>
-          <div id="bkModalStayDetail" class="mb-3"></div>
+          <div id="bkModalStayDetail" class="mb-3 yr-admin-booking-detail-section yr-admin-booking-detail-stay"></div>
 
           <hr class="my-3">
 
@@ -397,7 +404,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-toolbox me-2 text-muted"></i>裝備租借明細
           </h6>
-          <div id="bkModalRentalDetail" class="mb-3"></div>
+          <div id="bkModalRentalDetail" class="mb-3 yr-admin-booking-detail-section yr-admin-booking-detail-rental"></div>
 
           <hr class="my-3">
 
@@ -405,7 +412,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-receipt me-2 text-muted"></i>費用明細
           </h6>
-          <div id="bkModalCostBreakdown" class="mb-3"></div>
+          <div id="bkModalCostBreakdown" class="mb-3 yr-admin-booking-detail-section yr-admin-booking-detail-cost"></div>
 
           <hr class="my-3">
 
@@ -426,7 +433,7 @@
           <h6 class="fw-semibold mb-2">
             <i class="fas fa-history me-2 text-muted"></i>狀態紀錄
           </h6>
-          <ul id="bkModalHistory" class="list-unstyled small mb-0">
+          <ul id="bkModalHistory" class="list-unstyled small mb-0 yr-admin-booking-history">
             <!-- 由 bookings.js 的 showBookingModal() 動態填入 -->
           </ul>
 
@@ -436,8 +443,7 @@
                   data-bs-dismiss="modal">關閉</button>
           <!-- 僅 confirmed 狀態顯示，由 bookings.js 控制 d-none -->
           <button type="button" id="btnCompleteBooking"
-                  class="btn text-white d-none"
-                  style="background-color: var(--admin-brand-accent);">
+                  class="btn text-white d-none yr-admin-primary-action">
             <i class="fas fa-check-circle me-1"></i>標記已完成
           </button>
         </div>
@@ -448,13 +454,13 @@
   <!-- ============================================================
        全域 Modal：取消預約確認（靜態放在 dashboard，由 bookings.js 控制）
        ============================================================ -->
-  <div class="modal fade" id="bookingCancelModal" tabindex="-1"
+  <div class="modal fade yr-admin-booking-cancel-modal" id="bookingCancelModal" tabindex="-1"
        aria-labelledby="bookingCancelModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="bookingCancelModalLabel">
-            <i class="fas fa-exclamation-triangle me-2 text-danger"></i>取消預約確認
+            <i class="fas fa-exclamation-triangle me-2 yr-admin-danger-text"></i>取消預約確認
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
@@ -477,7 +483,7 @@
   <!-- ============================================================
        全域 Modal：新增商品（靜態放在 dashboard，由 products.js 處理）
        ============================================================ -->
-  <div class="modal fade" id="addProductModal" tabindex="-1"
+  <div class="modal fade yr-admin-product-modal" id="addProductModal" tabindex="-1"
        aria-labelledby="addProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -491,9 +497,9 @@
           <form id="addProductForm" novalidate>
 
             <!-- 商品名稱 -->
-            <div class="mb-3">
+            <div class="mb-3 yr-admin-product-modal-section">
               <label class="form-label fw-semibold" for="newProductName">
-                商品名稱 <span class="text-danger">*</span>
+                商品名稱 <span class="yr-admin-danger-text">*</span>
               </label>
               <input type="text" class="form-control" id="newProductName"
                      placeholder="例：Coleman 六人帳篷" required>
@@ -501,7 +507,7 @@
             </div>
 
             <!-- 商品描述：只作為表單輸入欄位，不寫回 JSON、不渲染到商品列表 -->
-            <div class="mb-3">
+            <div class="mb-3 yr-admin-product-modal-section">
               <label class="form-label fw-semibold" for="newProductDescription">
                 商品描述
               </label>
@@ -510,21 +516,23 @@
             </div>
 
             <!-- 商品圖片 -->
-            <div class="row g-2 mb-3">
-              <div class="col-6">
+            <div class="row g-2 mb-3 yr-admin-product-modal-section yr-admin-product-image-upload">
+              <div class="col-6 yr-admin-product-image-upload__item">
                 <label class="form-label fw-semibold" for="newProductMainImage">主要圖片</label>
                 <input type="file" class="form-control" id="newProductMainImage"
                        accept="image/*">
+                <small class="form-text yr-admin-product-image-upload__hint">支援 JPG / PNG，低飽和預覽框</small>
               </div>
-              <div class="col-6">
+              <div class="col-6 yr-admin-product-image-upload__item">
                 <label class="form-label fw-semibold" for="newProductImages">次要圖片（可多選）</label>
                 <input type="file" class="form-control" id="newProductImages"
                        accept="image/*" multiple>
+                <small class="form-text yr-admin-product-image-upload__hint">可多選上傳</small>
               </div>
             </div>
 
             <!-- 分類 + 規格/顏色 -->
-            <div class="row g-2 mb-3">
+            <div class="row g-2 mb-3 yr-admin-product-modal-section">
               <div class="col-6">
                 <label class="form-label fw-semibold" for="newProductCategory">分類</label>
                 <select class="form-select" id="newProductCategory">
@@ -538,21 +546,21 @@
               </div>
               <div class="col-6">
                 <label class="form-label fw-semibold" for="newProductSpec">規格 / 顏色</label>
-                <div class="input-group">
+                <div class="input-group yr-admin-product-spec-input-group">
                   <input type="text" class="form-control" id="newProductSpec"
                          list="productSpecOptions" placeholder="例：weight">
                   <button type="button" class="btn btn-outline-secondary" id="addSpec">新增</button>
                 </div>
                 <datalist id="productSpecOptions"></datalist>
-                <div id="productSpecFields" class="mt-2"></div>
+                <div id="productSpecFields" class="mt-2 yr-admin-product-spec-fields"></div>
               </div>
             </div>
 
             <!-- 售價 + 主倉進貨量（主倉進貨量欄位在編輯模式下由 JS 隱藏） -->
-            <div class="row g-2 mb-3">
+            <div class="row g-2 mb-3 yr-admin-product-modal-section">
               <div class="col-6">
                 <label class="form-label fw-semibold" for="newProductPrice">
-                  售價 (NT$) <span class="text-danger">*</span>
+                  售價 (NT$) <span class="yr-admin-danger-text">*</span>
                 </label>
                 <input type="number" class="form-control" id="newProductPrice"
                        min="1" placeholder="例：3200" required>
@@ -571,12 +579,12 @@
 
             <!-- [新增] 編輯商店商品時顯示的分店庫存區塊，新增模式預設隱藏 -->
             <!-- Branch stock section: visible only in store-product edit mode -->
-            <div class="mb-3 d-none" id="editBranchStockField">
+            <div class="mb-3 d-none yr-admin-product-modal-section yr-admin-stock-distribution" id="editBranchStockField">
               <label class="form-label fw-semibold">各分店庫存</label>
 
               <!-- 總庫存唯讀顯示：由各分店數量自動加總 -->
               <!-- Read-only total: auto-computed from branch inputs -->
-              <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="d-flex align-items-center gap-2 mb-2 yr-admin-stock-total">
                 <span class="text-muted small">總庫存：</span>
                 <span id="editBranchTotalStock" class="fw-semibold">0</span>
                 <span class="text-muted small">件</span>
@@ -586,27 +594,27 @@
               <!-- Fixed 4 rows: main warehouse + branch A/B/C with editable qty inputs -->
               <div class="vstack gap-2" id="editBranchPresetList">
 
-                <div class="input-group input-group-sm edit-branch-row" data-branch-id="main">
-                  <span class="input-group-text" style="min-width:80px;">商店主倉</span>
-                  <input type="number" class="form-control edit-branch-quantity-input"
+                <div class="input-group input-group-sm edit-branch-row yr-admin-stock-location" data-branch-id="main">
+                  <span class="input-group-text yr-admin-stock-location__name" style="min-width:80px;">商店主倉</span>
+                  <input type="number" class="form-control edit-branch-quantity-input yr-admin-stock-location__quantity"
                          min="0" value="0" aria-label="商店主倉存放數量">
                 </div>
 
-                <div class="input-group input-group-sm edit-branch-row" data-branch-id="branch-001">
-                  <span class="input-group-text" style="min-width:80px;">分店 A</span>
-                  <input type="number" class="form-control edit-branch-quantity-input"
+                <div class="input-group input-group-sm edit-branch-row yr-admin-stock-location" data-branch-id="branch-001">
+                  <span class="input-group-text yr-admin-stock-location__name" style="min-width:80px;">分店 A</span>
+                  <input type="number" class="form-control edit-branch-quantity-input yr-admin-stock-location__quantity"
                          min="0" value="0" aria-label="分店 A 存放數量">
                 </div>
 
-                <div class="input-group input-group-sm edit-branch-row" data-branch-id="branch-002">
-                  <span class="input-group-text" style="min-width:80px;">分店 B</span>
-                  <input type="number" class="form-control edit-branch-quantity-input"
+                <div class="input-group input-group-sm edit-branch-row yr-admin-stock-location" data-branch-id="branch-002">
+                  <span class="input-group-text yr-admin-stock-location__name" style="min-width:80px;">分店 B</span>
+                  <input type="number" class="form-control edit-branch-quantity-input yr-admin-stock-location__quantity"
                          min="0" value="0" aria-label="分店 B 存放數量">
                 </div>
 
-                <div class="input-group input-group-sm edit-branch-row" data-branch-id="branch-003">
-                  <span class="input-group-text" style="min-width:80px;">分店 C</span>
-                  <input type="number" class="form-control edit-branch-quantity-input"
+                <div class="input-group input-group-sm edit-branch-row yr-admin-stock-location" data-branch-id="branch-003">
+                  <span class="input-group-text yr-admin-stock-location__name" style="min-width:80px;">分店 C</span>
+                  <input type="number" class="form-control edit-branch-quantity-input yr-admin-stock-location__quantity"
                          min="0" value="0" aria-label="分店 C 存放數量">
                 </div>
 
@@ -616,7 +624,7 @@
             </div><!-- end #editBranchStockField -->
 
             <!-- 租借商品設定 -->
-            <div class="mb-3">
+            <div class="mb-3 yr-admin-product-modal-section">
               <!-- [wrapper] 讓 JS 在編輯模式可整塊隱藏 toggle -->
               <!-- Wrapper lets JS hide/show the rental toggle per mode -->
               <div id="newProductIsRentalWrapper">
@@ -711,8 +719,7 @@
             <div class="d-flex justify-content-end gap-2 pt-2 border-top mt-3">
               <button type="button" class="btn btn-secondary"
                       data-bs-dismiss="modal">取消</button>
-              <button type="button" id="submitAddProduct" class="btn text-white"
-                      style="background-color: var(--admin-brand-accent);">
+              <button type="button" id="submitAddProduct" class="btn text-white yr-admin-primary-action">
                 <i class="fas fa-plus me-1"></i>建立商品
               </button>
             </div>

@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+:root {
+  --yr-font-family-heading:
+    "Noto Serif TC",
+    "Source Han Serif TC",
+    serif;
+  --yr-font-family-body:
+    "Noto Sans TC",
+    "Source Han Sans TC",
+    sans-serif;
+}
+
+.yr-theme {
+  --yr-color-brand: #8fa784;
+  --yr-color-brand-strong: #607657;
+  --yr-color-brand-hover: #506648;
+  --yr-color-brand-pale: #edf3e9;
+  --yr-color-brand-soft: #d5e2cf;
+  --yr-color-bg: #fcf8ef;
+  --yr-color-surface: #fffefa;
+  --yr-color-surface-muted: #f7f0e5;
+  --yr-color-surface-oat: #eee1cf;
+  --yr-color-accent: #d5b88f;
+  --yr-color-accent-soft: #f4e6d4;
+  --yr-color-text: #30372f;
+  --yr-color-text-muted: #5d6259;
+  --yr-color-text-subtle: #79756d;
+  --yr-color-border: #e5d8c7;
+  --yr-color-price: #5d7555;
+  --yr-color-rating: #d2b36f;
+  --yr-color-rating-soft: #dcc9a4;
+  --yr-color-rating-empty: #ddd7ca;
+  --yr-theme-bg: var(--yr-color-bg);
+  --yr-theme-surface: var(--yr-color-surface);
+  --yr-theme-surface-warm: var(--yr-color-surface);
+  --yr-theme-surface-muted: var(--yr-color-surface-muted);
+  --yr-theme-surface-oat: var(--yr-color-surface-oat);
+  --yr-theme-brand: var(--yr-color-brand);
+  --yr-theme-brand-strong: var(--yr-color-brand-strong);
+  --yr-theme-brand-hover: var(--yr-color-brand-hover);
+  --yr-theme-brand-pale: var(--yr-color-brand-pale);
+  --yr-theme-brand-soft: var(--yr-color-brand-soft);
+  --yr-theme-accent: var(--yr-color-accent);
+  --yr-theme-accent-soft: var(--yr-color-accent-soft);
+  --yr-theme-accent-linen: var(--yr-color-accent-soft);
+  --yr-theme-border: var(--yr-color-border);
+  --yr-theme-text: var(--yr-color-text);
+  --yr-theme-text-muted: var(--yr-color-text-muted);
+  --yr-theme-text-subtle: var(--yr-color-text-subtle);
+  --yr-theme-on-brand: #fffefa;
+  --yr-theme-success-bg: var(--yr-color-brand-pale);
+  --yr-theme-success-border: var(--yr-color-brand-soft);
+  --yr-theme-success-text: var(--yr-color-brand-strong);
+  --yr-theme-warning-bg: var(--yr-color-accent-soft);
+  --yr-theme-warning-border: var(--yr-color-accent);
+  --yr-theme-warning-text: var(--yr-color-text-muted);
+  --yr-theme-shadow-sm: 0 6px 16px rgba(63, 70, 61, 0.06);
+  --yr-theme-shadow-md: 0 12px 28px rgba(63, 70, 61, 0.1);
+  --yr-theme-radius-md: 12px;
+  --yr-theme-radius-lg: 18px;
+  --yr-header-bg: var(--yr-color-surface);
+  --yr-header-text: var(--yr-color-text);
+  --yr-header-text-muted: var(--yr-color-text-muted);
+  --yr-header-brand: var(--yr-color-text);
+  --yr-header-icon: var(--yr-color-brand-strong);
+  --yr-header-icon-hover: var(--yr-color-brand-hover);
+  --yr-header-border: var(--yr-color-border);
+  --yr-header-sage: var(--yr-color-brand);
+  --yr-header-cart-badge: var(--yr-color-accent);
+  --yr-color-focus-ring: rgba(143, 167, 132, 0.38);
+  --yr-header-surface: rgba(255, 254, 250, 0.94);
+  --yr-header-border: rgba(96, 118, 87, 0.14);
+  --yr-drawer-surface: rgba(255, 254, 250, 0.94);
+  --yr-drawer-border: rgba(96, 118, 87, 0.18);
+  --yr-drawer-hover: rgba(143, 167, 132, 0.15);
+  --yr-drawer-active: rgba(143, 167, 132, 0.19);
+  --yr-drawer-divider: rgba(96, 118, 87, 0.12);
+  --yr-drawer-overlay: rgba(38, 45, 37, 0.34);
+}

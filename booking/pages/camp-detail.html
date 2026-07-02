@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#73816E">
-  <link rel="icon" href="../../assets/icons/camping_icon.png" type="image/png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/yuruicamp-favicon.svg">
   <title>營區詳情 | Yuruicamp 露營選物</title>
 
   <!-- 預約模組樣式 / Booking stylesheet -->
@@ -12,26 +12,29 @@
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/booking.css">
   <link rel="stylesheet" href="../css/yuruicamp-tags-status.css">
-  <link rel="stylesheet" href="../css/camp-detail.css">
 
   <!-- Flatpickr 日期選擇器 CSS / Flatpickr datepicker CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/theme/booking-shell.css">
+  <link rel="stylesheet" href="../../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/camp-detail.css">
 
   
 </head>
-<body>
+<body class="yr-booking-theme yr-camp-detail-page">
 
   <!-- 預約系統專屬 Header / Booking header -->
-  <div id="booking-header"></div>
+  <div id="header" data-header-context="camp"></div>
 
   <main class="detail-page">
 
     <!-- 麵包屑 / Breadcrumb -->
     <nav class="breadcrumb" aria-label="麵包屑導航">
-      <a href="./camp-search.html"><i class="bi bi-house"></i> 搜尋營區</a>
-      <span style="margin:0 .4rem;color:var(--yc-text-muted,#7B756D);">/</span>
+      <a href="./camp-search.html"><i class="bi bi-house" aria-hidden="true"></i> 搜尋營區</a>
+      <span class="breadcrumb-separator">/</span>
       <span id="breadcrumbName">載入中...</span>
     </nav>
 
@@ -40,7 +43,7 @@
          由 camp-detail.js 動態填入
          ===================================================== -->
     <section class="camp-header" id="campHeader">
-      <div class="loading-skeleton"><i class="bi bi-hourglass-split"></i> 載入中...</div>
+      <div class="loading-skeleton"><i class="bi bi-hourglass-split" aria-hidden="true"></i> 載入中...</div>
     </section>
 
     <!-- =====================================================
@@ -63,13 +66,13 @@
       <!-- 右側：預約表單卡片 / Right: Booking Form Card -->
       <aside class="booking-form-card">
         <h2 class="booking-form-card__title">
-          <i class="bi bi-calendar-check"></i> 選擇日期與營位
+          <i class="bi bi-calendar-check" aria-hidden="true"></i> 選擇日期與營位
         </h2>
 
         <!-- 日期範圍（Flatpickr）/ Date range picker -->
         <div class="form-group">
           <label for="dateRange">
-            <i class="bi bi-calendar3"></i> 入住 → 退房日期
+            <i class="bi bi-calendar3" aria-hidden="true"></i> 入住 → 退房日期
           </label>
           <input type="text" id="dateRange" class="form-control"
                  placeholder="點擊選擇日期範圍" readonly>
@@ -77,11 +80,11 @@
 
         <!-- 日期計算結果 / Date calculation result -->
         <div class="date-summary" id="dateSummary" style="display:none;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;">
+          <div class="date-summary__row date-summary__row--main">
             <span>總天數</span>
             <strong><span id="totalDays">0</span> 晚</strong>
           </div>
-          <div style="display:flex;justify-content:space-between;">
+          <div class="date-summary__row">
             <span id="weekdayLabel">平日 0 晚</span>
             <span id="holidayLabel">假日 0 晚</span>
           </div>
@@ -90,7 +93,7 @@
         <!-- 人數選擇 / Guest count -->
         <div class="form-group">
           <label for="guestNum">
-            <i class="bi bi-people"></i> 人數
+            <i class="bi bi-people" aria-hidden="true"></i> 人數
           </label>
           <input type="number" id="guestNum" class="form-control"
                  min="1" max="30" value="2" placeholder="請輸入人數">
@@ -98,9 +101,9 @@
 
         <!-- 營位類型選擇 / Zone type selection -->
         <div class="form-group">
-          <label><i class="bi bi-grid-3x3-gap"></i> 選擇營位類型</label>
+          <label><i class="bi bi-grid-3x3-gap" aria-hidden="true"></i> 選擇營位類型</label>
           <div class="zone-list" id="zoneList">
-            <p style="font-size:.875rem;color:var(--yc-text-muted,#7B756D);text-align:center;padding:1rem 0;">
+            <p class="zone-list__hint">
               請先選擇日期後，再選擇營位類型
             </p>
           </div>
@@ -114,7 +117,7 @@
 
         <!-- 確認按鈕 / Confirm button -->
         <button class="btn btn--primary btn--full" id="confirmBookingBtn" disabled>
-          下一步：選擇租借裝備 <i class="bi bi-arrow-right"></i>
+          下一步：選擇租借裝備 <i class="bi bi-arrow-right" aria-hidden="true"></i>
         </button>
         <p class="booking-form-card__hint">
           確認後可加選租借裝備，也可直接前往結帳。
@@ -128,8 +131,8 @@
          營位詳細資訊表格 / Zone Info Table
          ===================================================== -->
     <section class="zone-table-section">
-      <h3><i class="bi bi-table"></i> 營位類型完整資訊</h3>
-      <div style="overflow-x:auto;">
+      <h3><i class="bi bi-table" aria-hidden="true"></i> 營位類型完整資訊</h3>
+      <div class="zone-table-wrap">
         <table class="zone-table">
           <thead>
             <tr>

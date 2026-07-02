@@ -1,0 +1,98 @@
+.yr-index-main {
+  min-height: calc(100vh - 140px);
+  background: var(--yr-theme-bg);
+  color: var(--yr-theme-text);
+}
+
+.yr-index-hero {
+  padding: clamp(3.5rem, 8vw, 5.25rem) 0;
+}
+
+.yr-index-hero__wrap {
+  border: 1px solid var(--yr-theme-border);
+  border-radius: 24px;
+  background: linear-gradient(145deg, var(--yr-theme-surface) 0%, var(--yr-theme-surface-muted) 100%);
+  box-shadow: var(--yr-theme-shadow-md);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+}
+
+.yr-index-hero__title {
+  margin: 0 0 0.875rem;
+  color: var(--yr-theme-text);
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+.yr-index-hero__desc {
+  margin: 0 auto 2rem;
+  max-width: 42ch;
+  color: var(--yr-theme-text-muted);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.75;
+}
+
+.yr-index-hero__cta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+}
+
+.yr-index-page .yr-index-hero__cta .btn-primary {
+  background: var(--yr-color-brand-strong, #7c8b76);
+  border-color: var(--yr-color-brand-strong, #7c8b76);
+  color: var(--yr-color-text-on-brand, #fffdf8);
+  box-shadow: none;
+}
+
+.yr-index-page .yr-index-hero__cta .btn-primary:hover {
+  background: var(--yr-color-brand-hover, #697763);
+  border-color: var(--yr-color-brand-hover, #697763);
+  color: var(--yr-color-text-on-brand, #fffdf8);
+}
+
+.yr-index-page .yr-index-hero__cta .btn-outline {
+  background: var(--yr-color-surface, #fffdf8);
+  border-color: var(--yr-color-brand-soft, #c7d4c1);
+  color: var(--yr-color-brand-hover, #697763);
+  box-shadow: none;
+}
+
+.yr-index-page .yr-index-hero__cta .btn-outline:hover {
+  background: var(--yr-color-brand-pale, #e1e9dc);
+  border-color: var(--yr-color-brand, #9ead96);
+  color: var(--yr-color-brand-hover, #697763);
+}
+
+.yr-index-page .yr-index-hero__cta .btn-primary:focus-visible,
+.yr-index-page .yr-index-hero__cta .btn-outline:focus-visible {
+  outline: 3px solid var(--yr-color-focus-ring, rgba(116, 132, 111, 0.18));
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .yr-index-main {
+    min-height: calc(100vh - 120px);
+  }
+
+  .yr-index-hero__wrap {
+    border-radius: 18px;
+    padding: 1.5rem 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .yr-index-hero {
+    padding: 2.75rem 0;
+  }
+
+  .yr-index-hero__cta {
+    flex-direction: column;
+  }
+
+  .yr-index-hero__cta > .btn {
+    width: 100%;
+  }
+}

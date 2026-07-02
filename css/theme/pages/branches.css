@@ -1,0 +1,716 @@
+.yr-branches-page {
+  --branches-green: #74846f;
+  --branches-green-strong: #62715e;
+  --branches-green-soft: #e7ede3;
+  --branches-green-border: #c9d5c3;
+  --branches-clay: #a36f61;
+  --branches-clay-strong: #8f5e52;
+  --branches-clay-soft: #f2e3dd;
+  --branches-clay-border: #dec5bc;
+  --branches-bg: #faf7ed;
+  --branches-surface: #fffdf8;
+  --branches-border: #e5dbce;
+  --branches-text: #3f463d;
+  --branches-text-muted: #746f67;
+  background: var(--branches-bg);
+  color: var(--branches-text);
+  overflow-x: hidden;
+}
+
+.yr-branches-page main {
+  overflow-x: hidden;
+}
+
+.yr-branches-page .page-banner {
+  padding: 28px 24px 48px;
+  background: var(--branches-bg);
+}
+
+.yr-branches-page .yr-branches-hero > .yr-branches-content {
+  position: relative;
+  width: min(calc(100% - 32px), 1200px);
+  margin: 0 auto;
+  padding: 56px 48px;
+  border: 1px solid var(--branches-border);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 84% 18%, rgba(199, 212, 193, 0.42), transparent 32%),
+    linear-gradient(135deg, #fffdf8 0%, #f7f0e5 58%, #edf1e8 100%);
+  box-shadow: 0 14px 36px rgba(63, 70, 61, 0.06);
+  overflow: hidden;
+}
+
+.yr-branches-page .yr-branches-hero__title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--branches-text);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.yr-branches-page .yr-branches-hero__title i,
+.yr-branches-page .yr-branches-section-title i,
+.yr-branches-page .yr-branches-partners__title i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--branches-green-border);
+  border-radius: 10px;
+  background: var(--branches-green-soft);
+  color: var(--branches-green);
+  font-size: 1.05rem;
+  flex: 0 0 auto;
+}
+
+.yr-branches-page .yr-branches-hero__description {
+  max-width: 620px;
+  margin: 0.85rem 0 0;
+  color: var(--branches-text-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.yr-branches-page .yr-branches-content {
+  width: min(calc(100% - 32px), 1200px);
+  margin: 0 auto;
+}
+
+.yr-branches-page .yr-branches-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(520px, 1.18fr);
+  gap: 28px;
+  align-items: start;
+  padding: 0 0 2rem;
+}
+
+.yr-branches-page .yr-branches-list-section {
+  min-width: 0;
+}
+
+.yr-branches-page .yr-branches-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--branches-border);
+  color: var(--branches-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.yr-branches-page .yr-branches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.yr-branches-page .yr-branches-loading {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.75rem;
+  border: 1px dashed var(--branches-border);
+  border-radius: 14px;
+  background: var(--branches-surface);
+  color: var(--branches-text-muted);
+  text-align: center;
+}
+
+.yr-branches-page .yr-branches-loading__icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid var(--branches-green-border);
+  background: var(--branches-green-soft);
+  color: var(--branches-green);
+}
+
+.yr-branches-page .yr-branches-loading__icon i {
+  font-size: 1.15rem;
+}
+
+.yr-branches-page .branch-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--branches-border);
+  border-radius: 16px;
+  background: var(--branches-surface);
+  box-shadow: 0 6px 16px rgba(63, 70, 61, 0.06);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.yr-branches-page .branch-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--branches-green-border);
+  background: #f6f8f2;
+  box-shadow: 0 10px 22px rgba(63, 70, 61, 0.08);
+}
+
+.yr-branches-page .branch-card.active {
+  border-color: var(--branches-green-border);
+  background: #f1f5ee;
+  box-shadow: 0 12px 24px rgba(63, 70, 61, 0.08);
+}
+
+.yr-branches-page .branch-card.active::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--branches-green);
+}
+
+.yr-branches-page .branch-card-header {
+  padding: 1rem 1.1rem 0.9rem 1.15rem;
+  border-bottom: 1px solid rgba(229, 219, 206, 0.78);
+  background: linear-gradient(180deg, #fffdf8 0%, #fcf7ef 100%);
+  color: var(--branches-text);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.yr-branches-page .branch-card.active .branch-card-header {
+  color: var(--branches-green-strong);
+}
+
+.yr-branches-page .branch-card-body {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.95rem 1.1rem 1.05rem 1.1rem;
+}
+
+.yr-branches-page .branch-card-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: var(--branches-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.yr-branches-page .branch-card-info i {
+  color: var(--branches-green);
+  font-size: 1rem;
+  margin-top: 0.1rem;
+}
+
+.yr-branches-page .branch-card-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.yr-branches-page .branch-feature-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.55rem;
+  border: 1px solid var(--branches-green-border);
+  border-radius: 7px;
+  background: var(--branches-green-soft);
+  color: var(--branches-green-strong);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.yr-branches-page .yr-branches-map {
+  overflow: hidden;
+  border: 1px solid var(--branches-border);
+  border-radius: 18px;
+  background: var(--branches-surface);
+  box-shadow: 0 10px 28px rgba(63, 70, 61, 0.08);
+}
+
+.yr-branches-page #branchMapIframe {
+  display: block;
+  width: 100%;
+  height: 450px;
+  border: 0;
+  background: #eef2ea;
+}
+
+.yr-branches-page .yr-branches-map__footer {
+  padding: 14px 16px 16px;
+  border-top: 1px solid var(--branches-border);
+  background: var(--branches-surface);
+}
+
+.yr-branches-page .yr-branches-map__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 46px;
+  border-radius: 10px;
+  border: 1px solid var(--branches-green-strong);
+  background: var(--branches-green-strong);
+  color: #fffdf8;
+  font-size: 0.93rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.yr-branches-page .yr-branches-map__button:hover,
+.yr-branches-page .yr-branches-map__button:focus-visible {
+  border-color: var(--branches-green);
+  background: var(--branches-green);
+  color: #fffdf8;
+  text-decoration: none;
+}
+
+.yr-branches-page .yr-branches-map__button:focus-visible,
+.yr-branches-page .branch-card:focus-visible,
+.yr-branches-page .partner-card:focus-visible,
+.yr-branches-page .modal-close:focus-visible {
+  outline: 3px solid rgba(114, 132, 111, 0.22);
+  outline-offset: 2px;
+}
+
+.yr-branches-page .yr-branches-partners {
+  margin-top: 4.5rem;
+  padding: 4.75rem 0 5rem;
+  background: #f1f3ec;
+  border-top: 1px solid rgba(229, 219, 206, 0.75);
+}
+
+.yr-branches-page .yr-branches-partners__header {
+  margin-bottom: 2rem;
+}
+
+.yr-branches-page .yr-branches-partners__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
+  color: var(--branches-text);
+  font-size: clamp(1.65rem, 2.4vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.yr-branches-page .yr-branches-partners__description {
+  max-width: 720px;
+  margin: 0.75rem auto 0;
+  color: var(--branches-text-muted);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.yr-branches-page .yr-branches-partners__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.yr-branches-page .partner-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--branches-border);
+  border-radius: 18px;
+  background: var(--branches-surface);
+  box-shadow: 0 8px 20px rgba(63, 70, 61, 0.06);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.yr-branches-page .partner-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--branches-green-border);
+  box-shadow: 0 12px 26px rgba(63, 70, 61, 0.08);
+}
+
+.yr-branches-page .partner-card-img {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #e7ede3;
+}
+
+.yr-branches-page .partner-card-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92);
+  transition: transform 260ms ease;
+}
+
+.yr-branches-page .partner-card:hover .partner-card-img img {
+  transform: scale(1.02);
+}
+
+.yr-branches-page .partner-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1rem 1.1rem;
+  flex: 1;
+}
+
+.yr-branches-page .partner-card-name {
+  color: var(--branches-text);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.yr-branches-page .partner-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.yr-branches-page .partner-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.55rem;
+  border: 1px solid var(--branches-green-border);
+  border-radius: 7px;
+  background: var(--branches-green-soft);
+  color: var(--branches-green-strong);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.25;
+  box-shadow: none;
+}
+
+.yr-branches-page .partner-card .partner-card-body > div:last-child {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  margin-top: 0.1rem !important;
+  padding: 0.35rem 0.55rem;
+  border: 1px dashed var(--branches-clay-border);
+  border-radius: 8px;
+  background: var(--branches-clay-soft);
+  color: var(--branches-clay-strong) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25;
+}
+
+.yr-branches-page .partner-card .partner-card-body > div:last-child i {
+  color: var(--branches-clay-strong);
+}
+
+.yr-branches-page .modal {
+  background: rgba(63, 70, 61, 0.38);
+  padding: 16px;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.yr-branches-page .yr-branches-modal__content {
+  width: min(calc(100% - 32px), 650px);
+  max-width: 650px;
+  max-height: calc(100dvh - 32px);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--branches-border);
+  border-radius: 20px;
+  background: var(--branches-surface);
+  box-shadow: 0 20px 44px rgba(63, 70, 61, 0.12);
+  overflow: hidden;
+}
+
+.yr-branches-page .yr-branches-modal__content .modal-header {
+  flex: 0 0 auto;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--branches-border);
+}
+
+.yr-branches-page .yr-branches-modal__content .modal-title {
+  color: var(--branches-text);
+}
+
+.yr-branches-page .modal-close {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--branches-border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--branches-green);
+}
+
+.yr-branches-page .modal-close:hover,
+.yr-branches-page .modal-close:focus-visible {
+  background: var(--branches-green-soft);
+  color: var(--branches-green-strong);
+}
+
+.yr-branches-page .yr-branches-modal__content .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1.1rem 1.15rem 1.2rem;
+}
+
+.yr-branches-page .yr-branches-modal__footer {
+  flex: 0 0 auto;
+  display: block;
+  padding: 10px 24px 16px;
+  border-top: 1px solid var(--branches-border);
+  background: var(--branches-surface);
+}
+
+.yr-branches-page .yr-branches-modal__media {
+  width: 100%;
+  max-width: 620px;
+  display: flex;
+  justify-content: center;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  aspect-ratio: 16 / 8.5;
+  max-height: clamp(220px, 38vh, 340px);
+  border: 1px solid var(--branches-border);
+  border-radius: 14px;
+  background: #e7ede3;
+}
+
+.yr-branches-page .yr-branches-modal__media img {
+  display: block;
+  width: 100%;
+  max-width: 620px;
+  margin-inline: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: saturate(0.92);
+}
+
+.yr-branches-page #partnerModalTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.yr-branches-page #partnerModalTags .partner-tag {
+  font-size: 0.78rem !important;
+}
+
+.yr-branches-page #partnerModalDesc {
+  margin: 0;
+  color: var(--branches-text-muted);
+  font-size: 0.93rem;
+  line-height: 1.8;
+}
+
+.yr-branches-page .yr-branches-modal__offer {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px dashed var(--branches-clay-border);
+  border-radius: 12px;
+  background: var(--branches-clay-soft);
+}
+
+.yr-branches-page .yr-branches-modal__offer-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+  color: var(--branches-clay-strong);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.yr-branches-page .yr-branches-modal__offer-content {
+  color: var(--branches-text);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.yr-branches-page .yr-branches-modal__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--branches-green-strong);
+  border-radius: 10px;
+  background: var(--branches-green-strong);
+  color: #fffdf8;
+  font-weight: 600;
+}
+
+.yr-branches-page .yr-branches-modal__button:hover,
+.yr-branches-page .yr-branches-modal__button:focus-visible {
+  border-color: var(--branches-green);
+  background: var(--branches-green);
+  color: #fffdf8;
+}
+
+@media (max-width: 1024px) {
+  .yr-branches-page .yr-branches-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .yr-branches-page .yr-branches-partners__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .yr-branches-page #branchMapIframe {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-branches-page .page-banner {
+    padding: 18px 16px 36px;
+  }
+
+  .yr-branches-page .yr-branches-hero > .yr-branches-content {
+    width: min(calc(100% - 24px), 1200px);
+    padding: 40px 28px;
+    border-radius: 22px;
+  }
+
+  .yr-branches-page .yr-branches-content {
+    width: min(calc(100% - 24px), 1200px);
+  }
+
+  .yr-branches-page .yr-branches-partners {
+    padding: 3.75rem 0 4rem;
+  }
+
+  .yr-branches-page .yr-branches-partners__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .yr-branches-page #branchMapIframe {
+    height: 360px;
+  }
+
+  .yr-branches-page .yr-branches-modal__content {
+    max-width: calc(100% - 32px);
+  }
+}
+
+@media (max-width: 560px) {
+  .yr-branches-page .modal {
+    align-items: flex-start;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .yr-branches-page .yr-branches-modal__content {
+    width: calc(100% - 24px);
+    max-height: calc(100dvh - 24px);
+  }
+
+  .yr-branches-page .yr-branches-modal__content .modal-body {
+    padding: 16px;
+  }
+
+  .yr-branches-page .yr-branches-modal__media {
+    max-width: none;
+    max-height: 240px;
+  }
+
+  .yr-branches-page .yr-branches-modal__media img {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+  }
+
+  .yr-branches-page .yr-branches-modal__footer {
+    padding: 10px 16px 14px;
+  }
+
+  .yr-branches-page .yr-branches-partners__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 390px) {
+  .yr-branches-page .page-banner {
+    padding: 14px 14px 30px;
+  }
+
+  .yr-branches-page .yr-branches-hero > .yr-branches-content {
+    width: calc(100% - 28px);
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+
+  .yr-branches-page .yr-branches-content {
+    width: calc(100% - 20px);
+  }
+
+  .yr-branches-page .yr-branches-layout {
+    gap: 1.25rem;
+  }
+
+  .yr-branches-page #branchMapIframe {
+    height: 320px;
+  }
+
+  .yr-branches-page .yr-branches-map__footer {
+    padding: 12px 12px 14px;
+  }
+
+  .yr-branches-page .yr-branches-map__button {
+    min-height: 44px;
+  }
+
+  .yr-branches-page .branch-card-header,
+  .yr-branches-page .branch-card-body,
+  .yr-branches-page .partner-card-body,
+  .yr-branches-page .yr-branches-modal__content .modal-header,
+  .yr-branches-page .yr-branches-modal__content .modal-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .yr-branches-page .yr-branches-partners {
+    padding: 3.25rem 0 3.5rem;
+  }
+
+  .yr-branches-page .yr-branches-modal__content {
+    width: calc(100% - 28px);
+    border-radius: 18px;
+  }
+
+  .yr-branches-page .yr-branches-modal__content .modal-body {
+    padding-bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-branches-page .branch-card,
+  .yr-branches-page .partner-card,
+  .yr-branches-page .partner-card-img img {
+    transition: none !important;
+  }
+}

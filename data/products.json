@@ -7,11 +7,9 @@
     "brand": "Snow Peak",
     "price": 2999,
     "originalPrice": 3999,
-    "image": "https://picsum.photos/seed/tent1/400/300",
+    "image": "../assets/images/products/prod-001/main.webp",
     "images": [
-      "https://picsum.photos/seed/tent1/400/300",
-      "https://picsum.photos/seed/tent1b/400/300",
-      "https://picsum.photos/seed/tent1c/400/300"
+      "../assets/images/products/prod-001/main.webp"
     ],
     "description": "專為露營初學者設計的輕量化帳篷，防水係數 3000mm，快速搭建只需 10 分鐘。",
     "specifications": {
@@ -36,11 +34,9 @@
     "brand": "Osprey",
     "price": 4999,
     "originalPrice": 5999,
-    "image": "https://picsum.photos/seed/pack1/400/300",
+    "image": "../assets/images/products/prod-002/main.webp",
     "images": [
-      "https://picsum.photos/seed/pack1/400/300",
-      "https://picsum.photos/seed/pack1b/400/300",
-      "https://picsum.photos/seed/pack1c/400/300"
+      "../assets/images/products/prod-002/main.webp"
     ],
     "description": "適合長途登山的專業級背包，人體工學背負系統，讓重量均勻分散。",
     "specifications": {
@@ -65,10 +61,9 @@
     "brand": "MSR",
     "price": 599,
     "originalPrice": 899,
-    "image": "https://picsum.photos/seed/stove1/400/300",
+    "image": "../assets/images/products/prod-003/main.webp",
     "images": [
-      "https://picsum.photos/seed/stove1/400/300",
-      "https://picsum.photos/seed/stove1b/400/300"
+      "../assets/images/products/prod-003/main.webp"
     ],
     "description": "輕便易攜帶的瓦斯爐具，高海拔仍可穩定點火，附防風罩設計。",
     "specifications": {
@@ -93,10 +88,9 @@
     "brand": "NightRest",
     "price": 1999,
     "originalPrice": 2499,
-    "image": "https://picsum.photos/seed/sleep1/400/300",
+    "image": "../assets/images/products/prod-004/main.webp",
     "images": [
-      "https://picsum.photos/seed/sleep1/400/300",
-      "https://picsum.photos/seed/sleep1b/400/300"
+      "../assets/images/products/prod-004/main.webp"
     ],
     "description": "四季通用防水睡袋，適用溫度 -5°C 至 15°C，採用高蓬鬆填充棉。",
     "specifications": {
@@ -121,10 +115,9 @@
     "brand": "BrightCamp",
     "price": 399,
     "originalPrice": 599,
-    "image": "https://picsum.photos/seed/lamp1/400/300",
+    "image": "../assets/images/products/prod-005/main.webp",
     "images": [
-      "https://picsum.photos/seed/lamp1/400/300",
-      "https://picsum.photos/seed/lamp1b/400/300"
+      "../assets/images/products/prod-005/main.webp"
     ],
     "description": "USB 充電式 LED 露營燈，800 流明超亮，可調色溫，支援 Type-C 充電。",
     "specifications": {
@@ -149,10 +142,9 @@
     "brand": "Helinox",
     "price": 799,
     "originalPrice": 1199,
-    "image": "https://picsum.photos/seed/chair1/400/300",
+    "image": "../assets/images/products/prod-006/main.webp",
     "images": [
-      "https://picsum.photos/seed/chair1/400/300",
-      "https://picsum.photos/seed/chair1b/400/300"
+      "../assets/images/products/prod-006/main.webp"
     ],
     "description": "輕便舒適的戶外折疊椅，鋁合金骨架，承重 150kg，折疊後小巧易攜。",
     "specifications": {
@@ -177,11 +169,9 @@
     "brand": "Patagonia",
     "price": 3599,
     "originalPrice": 4499,
-    "image": "https://picsum.photos/seed/jacket1/400/300",
+    "image": "../assets/images/products/prod-007/main.webp",
     "images": [
-      "https://picsum.photos/seed/jacket1/400/300",
-      "https://picsum.photos/seed/jacket1b/400/300",
-      "https://picsum.photos/seed/jacket1c/400/300"
+      "../assets/images/products/prod-007/main.webp"
     ],
     "description": "採用 Gore-Tex 三層面料，防風防水透氣，適合各種惡劣天氣戶外活動。",
     "specifications": {
@@ -207,10 +197,9 @@
     "brand": "Sawyer",
     "price": 899,
     "originalPrice": 1199,
-    "image": "https://picsum.photos/seed/filter1/400/300",
+    "image": "../assets/images/products/prod-008/main.webp",
     "images": [
-      "https://picsum.photos/seed/filter1/400/300",
-      "https://picsum.photos/seed/filter1b/400/300"
+      "../assets/images/products/prod-008/main.webp"
     ],
     "description": "中空纖維淨水技術，過濾精度 0.1 微米，可去除 99.99% 細菌和原蟲。",
     "specifications": {
@@ -235,10 +224,9 @@
     "brand": "Black Diamond",
     "price": 649,
     "originalPrice": 849,
-    "image": "https://picsum.photos/seed/headlamp1/400/300",
+    "image": "../assets/images/products/prod-009/main.webp",
     "images": [
-      "https://picsum.photos/seed/headlamp1/400/300",
-      "https://picsum.photos/seed/headlamp1b/400/300"
+      "../assets/images/products/prod-009/main.webp"
     ],
     "description": "輕量頭燈，防水等級 IPX4，多段亮度調節，紅燈夜視模式，AAA 電池供電。",
     "specifications": {
@@ -263,11 +251,9 @@
     "brand": "Coleman",
     "price": 5999,
     "originalPrice": 7999,
-    "image": "https://picsum.photos/seed/tent2/400/300",
+    "image": "../assets/images/products/prod-010/main.webp",
     "images": [
-      "https://picsum.photos/seed/tent2/400/300",
-      "https://picsum.photos/seed/tent2b/400/300",
-      "https://picsum.photos/seed/tent2c/400/300"
+      "../assets/images/products/prod-010/main.webp"
     ],
     "description": "寬敞舒適的家庭帳篷，前庭空間大，防水係數 2000mm，含照明收納袋。",
     "specifications": {
@@ -292,10 +278,9 @@
     "brand": "Leki",
     "price": 1299,
     "originalPrice": 1699,
-    "image": "https://picsum.photos/seed/poles1/400/300",
+    "image": "../assets/images/products/prod-011/main.webp",
     "images": [
-      "https://picsum.photos/seed/poles1/400/300",
-      "https://picsum.photos/seed/poles1b/400/300"
+      "../assets/images/products/prod-011/main.webp"
     ],
     "description": "碳纖維登山杖，輕量僅 225g/支，防震設計，三節可調長度 100-135cm。",
     "specifications": {
@@ -320,10 +305,9 @@
     "brand": "Snow Peak",
     "price": 2199,
     "originalPrice": 2799,
-    "image": "https://picsum.photos/seed/cook1/400/300",
+    "image": "../assets/images/products/prod-012/main.webp",
     "images": [
-      "https://picsum.photos/seed/cook1/400/300",
-      "https://picsum.photos/seed/cook1b/400/300"
+      "../assets/images/products/prod-012/main.webp"
     ],
     "description": "日本 Snow Peak 鈦合金炊具，超輕量，含 1.4L 鍋、鍋蓋、碗、折疊握把。",
     "specifications": {
@@ -348,10 +332,9 @@
     "brand": "Therm-a-Rest",
     "price": 2799,
     "originalPrice": 3499,
-    "image": "https://picsum.photos/seed/mat1/400/300",
+    "image": "../assets/images/products/prod-013/main.webp",
     "images": [
-      "https://picsum.photos/seed/mat1/400/300",
-      "https://picsum.photos/seed/mat1b/400/300"
+      "../assets/images/products/prod-013/main.webp"
     ],
     "description": "自動充氣設計，開閥即膨脹，厚度 5cm，R 值 3.2，適合三季露營。",
     "specifications": {
@@ -376,10 +359,9 @@
     "brand": "Deuter",
     "price": 1899,
     "originalPrice": 2399,
-    "image": "https://picsum.photos/seed/daypack1/400/300",
+    "image": "../assets/images/products/prod-014/main.webp",
     "images": [
-      "https://picsum.photos/seed/daypack1/400/300",
-      "https://picsum.photos/seed/daypack1b/400/300"
+      "../assets/images/products/prod-014/main.webp"
     ],
     "description": "適合日間健行的輕量背包，透氣背板設計，含雨蓋，側袋可放水瓶。",
     "specifications": {
@@ -404,10 +386,9 @@
     "brand": "BrightCamp",
     "price": 1199,
     "originalPrice": 1599,
-    "image": "https://picsum.photos/seed/solar1/400/300",
+    "image": "../assets/images/products/prod-015/main.webp",
     "images": [
-      "https://picsum.photos/seed/solar1/400/300",
-      "https://picsum.photos/seed/solar1b/400/300"
+      "../assets/images/products/prod-015/main.webp"
     ],
     "description": "雙太陽能板快速充電，防水防塵 IP65，支援 QC3.0 快充，含 LED 手電筒。",
     "specifications": {
@@ -432,10 +413,9 @@
     "brand": "Ogawa",
     "price": 499,
     "originalPrice": 699,
-    "image": "https://picsum.photos/seed/blanket1/400/300",
+    "image": "../assets/images/products/prod-016/main.webp",
     "images": [
-      "https://picsum.photos/seed/blanket1/400/300",
-      "https://picsum.photos/seed/blanket1b/400/300"
+      "../assets/images/products/prod-016/main.webp"
     ],
     "description": "雙面設計，上層柔軟絨布、下層防水牛津布，配有繫帶輕鬆捲收。",
     "specifications": {
@@ -460,10 +440,9 @@
     "brand": "Columbia",
     "price": 699,
     "originalPrice": 999,
-    "image": "https://picsum.photos/seed/tshirt1/400/300",
+    "image": "../assets/images/products/prod-017/main.webp",
     "images": [
-      "https://picsum.photos/seed/tshirt1/400/300",
-      "https://picsum.photos/seed/tshirt1b/400/300"
+      "../assets/images/products/prod-017/main.webp"
     ],
     "description": "Omni-Wick 快排汗技術，輕薄透氣，抗 UV SPF 50，適合夏季健行。",
     "specifications": {
@@ -489,11 +468,9 @@
     "brand": "Ogawa",
     "price": 8900,
     "originalPrice": 11900,
-    "image": "https://picsum.photos/seed/tarp1/400/300",
+    "image": "../assets/images/products/prod-018/main.webp",
     "images": [
-      "https://picsum.photos/seed/tarp1/400/300",
-      "https://picsum.photos/seed/tarp1b/400/300",
-      "https://picsum.photos/seed/tarp1c/400/300"
+      "../assets/images/products/prod-018/main.webp"
     ],
     "description": "日本 Ogawa 高端天幕帳，防水係數 3000mm，優雅色系，可多種造型搭設。",
     "specifications": {

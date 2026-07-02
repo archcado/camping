@@ -424,7 +424,7 @@ window.initPersonalizationModal = () => {
       window.closeModal('personalizationModal', { force: true });
 
       // 顯示成功 Toast
-      window.showToast('✓ 個人偏好已儲存！我們會為您推薦最適合的商品 🏕️', 'success', 4000);
+      window.showToast('個人偏好已儲存！我們會為您推薦最適合的商品', 'success', 4000);
     }
   });
 };

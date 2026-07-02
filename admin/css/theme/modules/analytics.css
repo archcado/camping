@@ -1,0 +1,194 @@
+.yr-admin-dashboard-page .yr-admin-analytics-module {
+  --yr-admin-chart-1: #697763;
+  --yr-admin-chart-2: #6f8a87;
+  --yr-admin-chart-3: #9a8067;
+  --yr-admin-chart-4: #a46f62;
+  --yr-admin-chart-5: #81758d;
+  --yr-admin-chart-grid: rgb(69 73 65 / 10%);
+  --yr-admin-chart-label: var(--yr-admin-text-muted);
+  --yr-admin-chart-tooltip-bg: #fffdf8;
+  --yr-admin-chart-tooltip-text: #454941;
+  --yr-admin-chart-tooltip-border: #d9d3c8;
+  --yr-admin-analytics-positive: #4f604b;
+  --yr-admin-analytics-negative: #95665e;
+  --yr-admin-analytics-neutral: #66645d;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-content {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-border) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-toolbar {
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-period-label {
+  color: var(--yr-admin-text-muted);
+  font-weight: 500;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-chart-card {
+  min-height: 100%;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-chart-card .card-header h6 {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable {
+  border: 1px solid var(--yr-admin-border);
+  border-left: 3px solid var(--yr-admin-primary-soft);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable .card-body {
+  min-height: 128px;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable h3 {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-kpi-trend {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-kpi-period {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.75rem;
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-trend--positive {
+  color: var(--yr-admin-analytics-positive);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-trend--negative {
+  color: var(--yr-admin-analytics-negative);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-trend--neutral {
+  color: var(--yr-admin-analytics-neutral);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-empty,
+.yr-admin-dashboard-page .yr-admin-analytics-loading,
+.yr-admin-dashboard-page .yr-admin-analytics-error {
+  border: 1px dashed var(--yr-admin-border);
+  border-radius: 10px;
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-loading .spinner-border {
+  color: var(--yr-admin-primary);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-error {
+  color: var(--yr-admin-danger-text);
+  border-color: var(--yr-admin-danger-border);
+  background: var(--yr-admin-danger-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-chart-meta {
+  margin-top: 0.25rem;
+  font-size: 0.76rem;
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-chart-area {
+  position: relative;
+  min-height: 220px;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-chart-card canvas {
+  max-width: 100%;
+}
+
+.yr-admin-dashboard-page .flatpickr-calendar {
+  border: 1px solid var(--yr-admin-border);
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .flatpickr-day.selected,
+.yr-admin-dashboard-page .flatpickr-day.startRange,
+.yr-admin-dashboard-page .flatpickr-day.endRange {
+  background: var(--yr-admin-primary-hover);
+  border-color: var(--yr-admin-primary-hover);
+  color: var(--yr-admin-primary-text);
+}
+
+.yr-admin-dashboard-page .flatpickr-day.inRange {
+  background: var(--yr-admin-primary-soft);
+  border-color: var(--yr-admin-primary-soft);
+}
+
+.yr-admin-dashboard-page .flatpickr-day:hover,
+.yr-admin-dashboard-page .flatpickr-day:focus {
+  background: var(--yr-admin-surface-muted);
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .flatpickr-months .flatpickr-month,
+.yr-admin-dashboard-page .flatpickr-current-month .flatpickr-monthDropdown-months,
+.yr-admin-dashboard-page .flatpickr-current-month input.cur-year {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .flatpickr-weekday {
+  color: var(--yr-admin-chart-label);
+}
+
+@media (max-width: 1024px) {
+  .yr-admin-dashboard-page .yr-admin-analytics-toolbar {
+    gap: 0.5rem !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-analytics-chart-area {
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-admin-dashboard-page .yr-admin-analytics-toolbar {
+    align-items: flex-start !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-analytics-period-buttons {
+    flex-wrap: wrap;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable .card-body {
+    min-height: 118px;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-analytics-chart-area {
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 390px) {
+  .yr-admin-dashboard-page .yr-admin-analytics-content {
+    padding: 0.875rem !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-analytics-toolbar {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-analytics-toolbar .yr-admin-analytics-date-input {
+    max-width: none !important;
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-analytics-period-label {
+    width: 100%;
+  }
+}

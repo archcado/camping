@@ -1,0 +1,26 @@
+.yr-theme {
+  background: var(--yr-theme-bg);
+  color: var(--yr-theme-text);
+}
+
+.yr-theme .yr-products-main {
+  background: transparent;
+  color: var(--yr-theme-text);
+}
+
+.yr-theme .container {
+  width: min(100% - 2rem, 1200px);
+}
+
+.yr-theme .yr-page-banner {
+  background: linear-gradient(180deg, var(--yr-theme-surface) 0%, var(--yr-theme-surface-oat) 100%);
+  border-bottom: 1px solid var(--yr-theme-border);
+}
+
+.yr-theme .yr-page-banner-title {
+  color: var(--yr-theme-brand-strong);
+}
+
+.yr-theme .yr-page-banner-sub {
+  color: var(--yr-theme-text-muted);
+}

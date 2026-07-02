@@ -1,0 +1,273 @@
+.yr-admin-dashboard-page .yr-admin-reviews-module {
+  --yr-admin-review-star-filled: var(--yr-admin-rating-gold);
+  --yr-admin-review-star-empty: #a9a39a;
+  --yr-admin-review-pending-indicator: var(--yr-admin-warning);
+  --yr-admin-review-pending-soft: var(--yr-admin-warning-bg);
+  --yr-admin-review-reply-indicator: var(--yr-admin-primary-hover);
+  background: var(--yr-admin-content-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-toolbar {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-tabs {
+  flex-wrap: wrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--yr-admin-tab-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-tab.active {
+  border-color: var(--yr-admin-state-sage-border);
+  background: var(--yr-admin-state-sage-bg);
+  color: var(--yr-admin-state-sage-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-result-count {
+  color: var(--yr-admin-text-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card {
+  height: 100%;
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 12px;
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card--pending {
+  border-color: var(--yr-admin-warning-border);
+  border-left: 4px solid var(--yr-admin-review-pending-indicator);
+  background: linear-gradient(
+    to right,
+    var(--yr-admin-review-pending-soft) 0,
+    var(--yr-admin-review-pending-soft) 8px,
+    var(--yr-admin-surface) 8px,
+    var(--yr-admin-surface) 100%
+  );
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--yr-admin-text-muted);
+  font-size: 0.8rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card__content {
+  color: var(--yr-admin-text);
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--yr-admin-border);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-status--pending {
+  background: var(--yr-admin-warning-bg);
+  border-color: var(--yr-admin-warning-border);
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-status--answered {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-status--unknown {
+  background: var(--yr-admin-neutral-bg);
+  border-color: var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-star {
+  font-size: 0.92rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-star--filled {
+  color: var(--yr-admin-review-star-filled);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-star--empty {
+  color: var(--yr-admin-review-star-empty);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-rating-text {
+  margin-left: 0.2rem;
+  color: var(--yr-admin-text-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-reply {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--yr-admin-border);
+  border-left: 3px solid var(--yr-admin-review-reply-indicator);
+  border-radius: 10px;
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-reply__header {
+  margin-bottom: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-reply__content {
+  margin: 0;
+  color: var(--yr-admin-text);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .btn-reply-toggle {
+  border-color: var(--yr-admin-primary);
+  color: var(--yr-admin-primary-hover);
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .btn-reply-toggle:hover {
+  border-color: var(--yr-admin-primary-hover);
+  background: var(--yr-admin-primary-soft);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .reply-form {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .reply-form .btn-submit-reply {
+  border-color: var(--yr-admin-primary);
+  background: var(--yr-admin-primary-hover);
+  color: var(--yr-admin-primary-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .reply-form .btn-submit-reply:hover {
+  border-color: var(--yr-admin-primary-active);
+  background: var(--yr-admin-primary-active);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-empty,
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-loading,
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-error {
+  border: 1px dashed var(--yr-admin-border);
+  border-radius: 10px;
+  padding: 2.25rem 1rem;
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-error {
+  border-color: var(--yr-admin-danger-border);
+  background: var(--yr-admin-danger-bg);
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-loading .spinner-border {
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-review-modal .modal-content {
+  background: var(--yr-admin-modal-bg);
+  border-color: var(--yr-admin-modal-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-review-modal .modal-header,
+.yr-admin-dashboard-page .yr-admin-review-modal .modal-footer {
+  border-color: var(--yr-admin-divider);
+}
+
+@media (max-width: 768px) {
+  .yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 390px) {
+  .yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-toolbar {
+    align-items: stretch !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-tabs {
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.1rem;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-reviews-tab {
+    flex: 0 0 auto;
+    min-height: 36px;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card__header {
+    gap: 0.6rem;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-card__meta {
+    font-size: 0.76rem;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-reviews-module .yr-admin-review-rating {
+    white-space: nowrap;
+  }
+}

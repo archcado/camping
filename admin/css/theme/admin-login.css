@@ -1,0 +1,140 @@
+.yr-admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 18% 20%, rgb(231 236 226 / 18%), transparent 38%),
+    radial-gradient(circle at 82% 76%, rgb(238 234 226 / 24%), transparent 42%), var(--yr-admin-bg);
+}
+
+.yr-admin-login-page .yr-admin-login-card {
+  width: min(440px, calc(100% - 32px));
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: var(--yr-admin-radius-lg);
+  box-shadow: var(--yr-admin-shadow-md);
+}
+
+.yr-admin-login-page .yr-admin-login-card .card-body {
+  padding: 44px 40px;
+}
+
+.yr-admin-login-page .yr-admin-login-brand {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-login-page .yr-admin-login-logo {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+  border-radius: 12px;
+  border: 1px solid var(--yr-admin-border);
+  background: var(--yr-admin-surface-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yr-admin-login-page .yr-admin-login-logo i {
+  font-size: 1.6rem !important;
+  color: var(--yr-admin-brand);
+}
+
+.yr-admin-login-page .yr-admin-login-title {
+  color: var(--yr-admin-text);
+  font-weight: 600;
+}
+
+.yr-admin-login-page .yr-admin-login-subtitle {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-login-page .yr-admin-login-label-icon {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-login-page .yr-admin-toggle-password {
+  min-width: 46px;
+  min-height: 44px;
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-brand);
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-login-page .yr-admin-toggle-password:hover {
+  background: var(--yr-admin-surface-sage);
+  border-color: var(--yr-admin-brand);
+  color: var(--yr-admin-brand-strong);
+}
+
+.yr-admin-login-page .yr-admin-login-submit {
+  background: var(--yr-admin-brand);
+  border-color: var(--yr-admin-brand);
+  color: var(--yr-admin-text-inverse);
+  border-radius: var(--yr-admin-radius-md);
+  min-height: 46px;
+}
+
+.yr-admin-login-page .yr-admin-login-submit:hover,
+.yr-admin-login-page .yr-admin-login-submit:focus-visible {
+  background: var(--yr-admin-brand-strong);
+  border-color: var(--yr-admin-brand-strong);
+}
+
+.yr-admin-login-page .yr-admin-login-submit:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.yr-admin-login-page .yr-admin-login-error {
+  border-color: var(--yr-admin-danger-border);
+  background: var(--yr-admin-danger-soft);
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-login-page .yr-admin-login-demo {
+  margin-top: 1.25rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: var(--yr-admin-radius-md);
+  background: var(--yr-admin-surface-soft);
+  padding: 0.75rem 0.85rem;
+}
+
+.yr-admin-login-page .yr-admin-login-demo small {
+  color: var(--yr-admin-text-muted) !important;
+}
+
+.yr-admin-login-page .yr-admin-login-demo .yr-admin-login-demo-icon {
+  color: var(--yr-admin-brand);
+}
+
+.yr-admin-login-page .yr-admin-login-demo code {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  color: var(--yr-admin-brand-strong);
+  border-radius: 6px;
+  padding: 0.1rem 0.35rem;
+}
+
+.yr-admin-login-page .text-muted {
+  color: var(--yr-admin-text-muted) !important;
+}
+
+@media (width <= 576px) {
+  .yr-admin-login-page .yr-admin-login-card {
+    width: calc(100% - 16px);
+  }
+
+  .yr-admin-login-page .yr-admin-login-card .card-body {
+    padding: 28px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-admin-login-page .yr-admin-login-submit,
+  .yr-admin-login-page .yr-admin-toggle-password {
+    transition: none;
+  }
+}

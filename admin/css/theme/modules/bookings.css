@@ -1,0 +1,408 @@
+.yr-admin-dashboard-page .yr-admin-bookings-module {
+  --yr-admin-booking-status-pending-bg: var(--yr-admin-warning-bg);
+  --yr-admin-booking-status-pending-text: var(--yr-admin-warning-text);
+  --yr-admin-booking-status-pending-border: var(--yr-admin-warning-border);
+  --yr-admin-booking-status-confirmed-bg: var(--yr-admin-info-bg);
+  --yr-admin-booking-status-confirmed-text: var(--yr-admin-info-text);
+  --yr-admin-booking-status-confirmed-border: var(--yr-admin-info-border);
+  --yr-admin-booking-status-completed-bg: var(--yr-admin-success-bg);
+  --yr-admin-booking-status-completed-text: var(--yr-admin-success-text);
+  --yr-admin-booking-status-completed-border: var(--yr-admin-success-border);
+  --yr-admin-booking-status-cancelled-bg: var(--yr-admin-danger-bg);
+  --yr-admin-booking-status-cancelled-text: var(--yr-admin-danger-text);
+  --yr-admin-booking-status-cancelled-border: var(--yr-admin-danger-border);
+  --yr-admin-booking-status-unknown-bg: var(--yr-admin-neutral-bg);
+  --yr-admin-booking-status-unknown-text: var(--yr-admin-neutral-text);
+  --yr-admin-booking-status-unknown-border: var(--yr-admin-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-card {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-title {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-description {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar {
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-period-label {
+  color: var(--yr-admin-text-muted);
+  font-weight: 500;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-result-count {
+  color: var(--yr-admin-text-muted);
+  border-top: 1px solid var(--yr-admin-divider);
+  border-bottom: 1px solid var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-result-count--error {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-table {
+  --bs-table-bg: var(--yr-admin-table-bg);
+  --bs-table-color: var(--yr-admin-text);
+  --bs-table-border-color: var(--yr-admin-table-border);
+  --bs-table-hover-bg: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-th {
+  background: var(--yr-admin-table-header-bg);
+  color: var(--yr-admin-text);
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-row > td {
+  vertical-align: middle;
+  border-color: var(--yr-admin-table-border);
+  background: var(--yr-admin-table-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-row:hover > td {
+  background: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-id {
+  min-width: 120px;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-date {
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-status-col {
+  min-width: 124px;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-actions-col,
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-actions {
+  min-width: 134px;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-action-btn {
+  min-height: 32px;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-action-btn--primary {
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+  background: var(--yr-admin-success-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-action-btn--primary:hover {
+  border-color: var(--yr-admin-success);
+  color: var(--yr-admin-success-text);
+  background: var(--yr-admin-success-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-action-btn--danger {
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text);
+  background: var(--yr-admin-danger-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-action-btn--danger:hover {
+  border-color: var(--yr-admin-danger);
+  color: var(--yr-admin-danger-text);
+  background: var(--yr-admin-danger-bg);
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  .yr-admin-bookings-table
+  :is(th:first-child, td:first-child) {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--yr-admin-table-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-table thead th:first-child {
+  z-index: 3;
+  background: var(--yr-admin-table-header-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-empty,
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-loading,
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-error {
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-error {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-rental-stack {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-rental-flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-rental-flag--yes {
+  background: var(--yr-admin-info-bg);
+  color: var(--yr-admin-info-text);
+  border-color: var(--yr-admin-info-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-rental-flag--none {
+  background: var(--yr-admin-neutral-bg);
+  color: var(--yr-admin-neutral-text);
+  border-color: var(--yr-admin-neutral-border);
+}
+
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  :is(.yr-admin-booking-status, .yr-admin-booking-payment, .yr-admin-equipment-return) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  .yr-admin-booking-status--pending,
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  .yr-admin-booking-payment--unpaid,
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  .yr-admin-equipment-return--pending {
+  background: var(--yr-admin-booking-status-pending-bg);
+  color: var(--yr-admin-booking-status-pending-text);
+  border-color: var(--yr-admin-booking-status-pending-border);
+}
+
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  .yr-admin-booking-status--confirmed {
+  background: var(--yr-admin-booking-status-confirmed-bg);
+  color: var(--yr-admin-booking-status-confirmed-text);
+  border-color: var(--yr-admin-booking-status-confirmed-border);
+}
+
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  :is(
+    .yr-admin-booking-status--completed,
+    .yr-admin-booking-payment--paid,
+    .yr-admin-equipment-return--returned
+  ) {
+  background: var(--yr-admin-booking-status-completed-bg);
+  color: var(--yr-admin-booking-status-completed-text);
+  border-color: var(--yr-admin-booking-status-completed-border);
+}
+
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  :is(.yr-admin-booking-status--cancelled, .yr-admin-booking-payment--failed) {
+  background: var(--yr-admin-booking-status-cancelled-bg);
+  color: var(--yr-admin-booking-status-cancelled-text);
+  border-color: var(--yr-admin-booking-status-cancelled-border);
+}
+
+.yr-admin-dashboard-page
+  :is(.yr-admin-bookings-module, .yr-admin-booking-detail-modal)
+  :is(
+    .yr-admin-booking-status--unknown,
+    .yr-admin-booking-payment--refunded,
+    .yr-admin-booking-payment--unknown,
+    .yr-admin-equipment-return--not-required,
+    .yr-admin-equipment-return--unknown
+  ) {
+  background: var(--yr-admin-booking-status-unknown-bg);
+  color: var(--yr-admin-booking-status-unknown-text);
+  border-color: var(--yr-admin-booking-status-unknown-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .filter-dropdown {
+  background: var(--yr-admin-dropdown-bg);
+  border: 1px solid var(--yr-admin-dropdown-border);
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .filter-dropdown label {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .filter-dropdown label:hover {
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .sort-icon,
+.yr-admin-dashboard-page .yr-admin-bookings-module .filter-icon {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .sort-icon.sort-active,
+.yr-admin-dashboard-page .yr-admin-bookings-module .filter-icon.active {
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .filter-dot {
+  background: var(--yr-admin-danger);
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .modal-content,
+.yr-admin-dashboard-page .yr-admin-booking-cancel-modal .modal-content {
+  background: var(--yr-admin-modal-bg);
+  border: 1px solid var(--yr-admin-modal-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .modal-header,
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .modal-footer,
+.yr-admin-dashboard-page .yr-admin-booking-cancel-modal .modal-header,
+.yr-admin-dashboard-page .yr-admin-booking-cancel-modal .modal-footer {
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-detail-section {
+  overflow-x: auto;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-detail-cost :is(span:last-child) {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-cost-discount {
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-detail-total {
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-history {
+  border-left: 2px solid var(--yr-admin-divider);
+  padding-left: 0.75rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-history__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-history__dot {
+  width: 7px;
+  height: 7px;
+  margin-top: 0.45em;
+  border-radius: 50%;
+  background: var(--yr-admin-primary-hover);
+  flex-shrink: 0;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-history__time {
+  color: var(--yr-admin-text-muted);
+  margin-right: 0.5rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-detail-modal .yr-admin-booking-history__action {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-cancel-modal .modal-title {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-cancel-modal .btn-danger {
+  background: var(--yr-admin-danger-text);
+  border-color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-cancel-modal .btn-danger:hover {
+  background: #68433d;
+  border-color: #68433d;
+}
+
+.yr-admin-dashboard-page .yr-admin-booking-cancel-modal #cancelReasonInput {
+  background: var(--yr-admin-input-bg);
+  border-color: var(--yr-admin-input-border);
+}
+
+@media (max-width: 1024px) {
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar {
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar__filters {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-period-buttons {
+    flex-wrap: wrap;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-actions {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 390px) {
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar__period,
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar__filters,
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar__period .btn-group,
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-toolbar__filters .btn {
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-date-input {
+    max-width: none !important;
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-booking-detail-modal .modal-body {
+    overflow-x: hidden;
+  }
+}

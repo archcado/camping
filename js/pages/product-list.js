@@ -40,11 +40,13 @@ function _calcDiscount(original, current) {
 // ----------------------------------------
 function _renderStars(rating) {
   const full  = Math.floor(rating);
-  const empty = 5 - full;
+  const half = rating - full >= 0.5;
+  const empty = 5 - full - (half ? 1 : 0);
   let html    = '';
-  for (let i = 0; i < full; i++)  html += '<span class="star">★</span>';
-  for (let i = 0; i < empty; i++) html += '<span class="star empty">★</span>';
-  return `<span class="star-rating">${html}</span>`;
+  for (let i = 0; i < full; i++) html += '<i class="bi bi-star-fill star" aria-hidden="true"></i>';
+  if (half) html += '<i class="bi bi-star-half star" aria-hidden="true"></i>';
+  for (let i = 0; i < empty; i++) html += '<i class="bi bi-star star empty" aria-hidden="true"></i>';
+  return `<span class="star-rating yr-rating-stars" aria-label="評分 ${rating.toFixed(1)} 分">${html}</span>`;
 }
 
 /**
@@ -134,7 +136,7 @@ function _buildCard(product) {
   const discount = _calcDiscount(product.originalPrice, product.price);
 
   let badgeHTML = '';
-  if (product.isNew)          badgeHTML = '<span class="product-card-badge badge-new">NEW</span>';
+  if (product.isNew)          badgeHTML = '<span class="product-card-badge badge-new">新品選物</span>';
   else if (product.isBestSeller) badgeHTML = '<span class="product-card-badge badge-hot">熱銷</span>';
 
   const priceFormatted    = product.price.toLocaleString('zh-TW');
@@ -197,7 +199,7 @@ function _renderGrid() {
   if (_state.filteredProducts.length === 0) {
     grid.innerHTML = `
       <div class="empty-state" style="grid-column:1/-1;">
-        <span class="empty-state-icon">🔍</span>
+        <span class="empty-state-icon"><i class="bi bi-search" aria-hidden="true"></i></span>
         <p class="empty-state-title">沒有符合條件的商品</p>
         <p class="empty-state-desc">試著調整篩選條件看看</p>
         <button class="btn btn-outline" style="margin-top:1rem;" onclick="_resetAllFilters()">
@@ -240,7 +242,7 @@ function _renderPagination() {
     ${_state.currentPage === 1 ? 'disabled' : ''}
     data-page="${_state.currentPage - 1}"
     aria-label="上一頁"
-  >‹</button>`;
+  ><i class="bi bi-chevron-left" aria-hidden="true"></i></button>`;
 
   // 頁碼按鈕（最多顯示 5 頁）
   const range = 2;
@@ -270,7 +272,7 @@ function _renderPagination() {
     ${_state.currentPage === totalPages ? 'disabled' : ''}
     data-page="${_state.currentPage + 1}"
     aria-label="下一頁"
-  >›</button>`;
+  ><i class="bi bi-chevron-right" aria-hidden="true"></i></button>`;
 
   paginationEl.innerHTML = html;
 
@@ -666,15 +668,17 @@ function _initAdCarousel() {
   slidesContainer.style.transform = 'translateX(0%)';
 
   // 生成 slides 和 dots
-  slidesContainer.innerHTML = adProducts.map((product, idx) => `
+  slidesContainer.innerHTML = adProducts.map((product) => `
     <div class="ad-carousel-slide" data-product-id="${product.id}">
       <div class="ad-carousel-content">
-        <span class="ad-carousel-badge">${product.isNew ? '🆕 NEW' : '推薦'}</span>
+        <span class="ad-carousel-badge">${product.isNew ? '<i class="bi bi-stars" aria-hidden="true"></i> 新品選物' : '推薦選物'}</span>
         <h3 class="ad-carousel-title">${product.name}</h3>
         <p class="ad-carousel-desc">${product.brand}</p>
         <p class="ad-carousel-price">NT$ ${product.price.toLocaleString('zh-TW')}</p>
       </div>
-      <img src="${product.image}" alt="${product.name}" class="ad-carousel-image" loading="lazy" onerror="this.src='https://placehold.co/200x200/f2f2f2/999?text=Image'">
+      <div class="ad-carousel-media">
+        <img src="${product.image}" alt="${product.name}" class="ad-carousel-image" loading="lazy" onerror="this.src='https://placehold.co/200x200/f2f2f2/999?text=Image'">
+      </div>
     </div>
   `).join('');
 
@@ -741,14 +745,6 @@ function _initAdCarouselPreferenceListener() {
 window.initProductListPage = async () => {
   console.log('📌 商品列表頁初始化中...');
 
-  // 初始化全局組件，並設旗標告知 main.js 已完成
-  // Initialize global components, set flag so main.js won't run them again
-  window.initNavbar();
-  window.initModalListeners();
-  window.initPersonalizationModal();
-  window.initCartListeners();
-  window._appComponentsInitialized = true;
-
   try {
     // ① 從 Mock API 取得所有商品
     _state.allProducts = await window.API.products.getAll();
@@ -776,7 +772,7 @@ window.initProductListPage = async () => {
     if (grid) {
       grid.innerHTML = `
         <div class="empty-state" style="grid-column:1/-1;">
-          <span class="empty-state-icon">⚠️</span>
+          <span class="empty-state-icon"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></span>
           <p class="empty-state-title">商品載入失敗</p>
           <p class="empty-state-desc">請重新整理頁面，或稍後再試</p>
         </div>

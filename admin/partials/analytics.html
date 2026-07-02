@@ -4,8 +4,9 @@
      注意：此檔案不含 <html>/<head>/<body> 標籤，只有內容區塊
 -->
 
+<section class="yr-admin-analytics-module">
 <!-- ===== Tab 導覽列 ===== -->
-<ul class="nav nav-tabs border-bottom-0 mb-0" id="analyticsTab" role="tablist">
+<ul class="nav nav-tabs border-bottom-0 mb-0 yr-admin-analytics-tabs" id="analyticsTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active fw-semibold px-4 py-2"
             id="shopTab"
@@ -29,7 +30,7 @@
 </ul>
 
 <!-- ===== Tab 內容容器 ===== -->
-<div class="tab-content border border-top-0 rounded-bottom bg-white p-4 shadow-sm"
+<div class="tab-content border border-top-0 rounded-bottom p-4 shadow-sm yr-admin-analytics-content"
      id="analyticsTabContent">
 
   <!-- ╔══════════════════════════════════╗
@@ -39,10 +40,10 @@
        id="shopTabPane" role="tabpanel" aria-labelledby="shopTab">
 
     <!-- ── 期間篩選器 ── -->
-    <div class="d-flex align-items-center flex-wrap gap-2 mb-4">
+    <div class="d-flex align-items-center flex-wrap gap-2 mb-4 yr-admin-analytics-toolbar">
       <span class="text-muted small me-1">期間：</span>
       <!-- 快速選鈕（data-days 由 analytics.js 讀取）-->
-      <div class="btn-group btn-group-sm" id="shopPeriodBtns" role="group">
+      <div class="btn-group btn-group-sm yr-admin-analytics-period-buttons" id="shopPeriodBtns" role="group">
         <button type="button" class="btn btn-outline-secondary" data-days="7">近 7 天</button>
         <button type="button" class="btn btn-outline-secondary active" data-days="30">近 30 天</button>
         <button type="button" class="btn btn-outline-secondary" data-days="month">本月</button>
@@ -53,11 +54,11 @@
       </div>
       <!-- flatpickr 隱藏 input，點「自定義」後顯示 -->
       <input type="text" id="shopDateRangePicker"
-             class="form-control form-control-sm"
+             class="form-control form-control-sm yr-admin-analytics-date-input"
              style="max-width: 230px; display: none;"
              placeholder="開始日期 ~ 結束日期" readonly>
       <!-- 目前篩選期間文字說明 -->
-      <span class="text-muted small" id="shopPeriodLabel"></span>
+      <span class="text-muted small yr-admin-analytics-period-label" id="shopPeriodLabel"></span>
     </div>
 
     <!-- ── 圖表區：折線圖（左 8/12）+ 甜甜圈（右 4/12） ── -->
@@ -65,7 +66,7 @@
 
       <!-- 折線圖：銷售額趨勢 -->
       <div class="col-lg-8">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0
                        d-flex align-items-center">
             <!-- 左欄：圖表標題 -->
@@ -84,7 +85,7 @@
           </div>
           <div class="card-body">
             <!-- 空資料提示（無銷售時顯示，由 analytics.js 控制）-->
-            <div id="shopLineChartEmpty" class="text-center text-muted py-4 d-none">
+            <div id="shopLineChartEmpty" class="yr-admin-analytics-empty text-center py-4 d-none">
               <i class="fas fa-chart-line fa-2x mb-2 text-secondary"></i>
               <p class="mb-0 small">此期間無銷售資料</p>
             </div>
@@ -96,7 +97,7 @@
 
       <!-- 甜甜圈圖：商品類別營收佔比 -->
       <div class="col-lg-4">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
               <i class="fas fa-chart-pie me-2" style="color: var(--admin-brand-accent);"></i>
@@ -104,7 +105,7 @@
             </h6>
           </div>
           <div class="card-body">
-            <div id="shopDonutEmpty" class="text-center text-muted py-4 d-none">
+            <div id="shopDonutEmpty" class="yr-admin-analytics-empty text-center py-4 d-none">
               <i class="fas fa-chart-pie fa-2x mb-2 text-secondary"></i>
               <p class="mb-0 small">此期間無銷售資料</p>
             </div>
@@ -241,9 +242,9 @@
        id="bookingTabPane" role="tabpanel" aria-labelledby="bookingTab">
 
     <!-- ── 期間篩選器 ── -->
-    <div class="d-flex align-items-center flex-wrap gap-2 mb-4">
+    <div class="d-flex align-items-center flex-wrap gap-2 mb-4 yr-admin-analytics-toolbar">
       <span class="text-muted small me-1">期間：</span>
-      <div class="btn-group btn-group-sm" id="bookingPeriodBtns" role="group">
+      <div class="btn-group btn-group-sm yr-admin-analytics-period-buttons" id="bookingPeriodBtns" role="group">
         <button type="button" class="btn btn-outline-secondary" data-days="7">近 7 天</button>
         <button type="button" class="btn btn-outline-secondary active" data-days="30">近 30 天</button>
         <button type="button" class="btn btn-outline-secondary" data-days="month">本月</button>
@@ -253,10 +254,10 @@
         </button>
       </div>
       <input type="text" id="bookingDateRangePicker"
-             class="form-control form-control-sm"
+             class="form-control form-control-sm yr-admin-analytics-date-input"
              style="max-width: 230px; display: none;"
              placeholder="開始日期 ~ 結束日期" readonly>
-      <span class="text-muted small" id="bookingPeriodLabel"></span>
+      <span class="text-muted small yr-admin-analytics-period-label" id="bookingPeriodLabel"></span>
     </div>
 
     <!-- ── 圖表區上半：折線圖（左 8/12）+ 甜甜圈（右 4/12） ── -->
@@ -264,7 +265,7 @@
 
       <!-- 折線圖：預約收入趨勢 -->
       <div class="col-lg-8">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0
                        d-flex align-items-center">
             <!-- 左欄：圖表標題 -->
@@ -282,7 +283,7 @@
             <div class="flex-fill"></div>
           </div>
           <div class="card-body">
-            <div id="bookLineChartEmpty" class="text-center text-muted py-4 d-none">
+            <div id="bookLineChartEmpty" class="yr-admin-analytics-empty text-center py-4 d-none">
               <i class="fas fa-chart-line fa-2x mb-2 text-secondary"></i>
               <p class="mb-0 small">此期間無預約資料</p>
             </div>
@@ -293,7 +294,7 @@
 
       <!-- 甜甜圈圖：租借裝備類別佔比 -->
       <div class="col-lg-4">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
               <i class="fas fa-chart-pie me-2" style="color: var(--admin-brand-accent);"></i>
@@ -301,7 +302,7 @@
             </h6>
           </div>
           <div class="card-body">
-            <div id="rentalDonutEmpty" class="text-center text-muted py-4 d-none">
+            <div id="rentalDonutEmpty" class="yr-admin-analytics-empty text-center py-4 d-none">
               <i class="fas fa-chart-pie fa-2x mb-2 text-secondary"></i>
               <p class="mb-0 small">此期間無租借資料</p>
             </div>
@@ -423,7 +424,7 @@
 
       <!-- 水平長條圖：各營地預約筆數 -->
       <div class="col-lg-6">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
               <i class="fas fa-map-marker-alt me-2" style="color: var(--admin-brand-accent);"></i>
@@ -431,7 +432,7 @@
             </h6>
           </div>
           <div class="card-body">
-            <div id="campgroundBarEmpty" class="text-center text-muted py-4 d-none">
+            <div id="campgroundBarEmpty" class="yr-admin-analytics-empty text-center py-4 d-none">
               <i class="fas fa-campground fa-2x mb-2 text-secondary"></i>
               <p class="mb-0 small">此期間無預約資料</p>
             </div>
@@ -445,7 +446,7 @@
 
       <!-- 垂直長條圖：各地區預約收入 -->
       <div class="col-lg-6">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
               <i class="fas fa-map me-2" style="color: var(--admin-brand-accent);"></i>
@@ -453,7 +454,7 @@
             </h6>
           </div>
           <div class="card-body">
-            <div id="regionBarEmpty" class="text-center text-muted py-4 d-none">
+            <div id="regionBarEmpty" class="yr-admin-analytics-empty text-center py-4 d-none">
               <i class="fas fa-map fa-2x mb-2 text-secondary"></i>
               <p class="mb-0 small">此期間無預約資料</p>
             </div>
@@ -470,3 +471,4 @@
   </div><!-- end Tab B：預約/租借 -->
 
 </div><!-- end .tab-content -->
+</section>

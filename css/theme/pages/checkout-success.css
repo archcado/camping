@@ -1,0 +1,360 @@
+.yr-success-page {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(225, 233, 220, 0.55), transparent 32%),
+    radial-gradient(circle at 82% 75%, rgba(234, 224, 210, 0.55), transparent 30%), #faf7ed;
+  color: #4b433b;
+}
+
+.yr-success-page .yr-success-shell {
+  position: relative;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem 4rem;
+  overflow: visible;
+}
+
+.yr-success-page .yr-success-card {
+  position: relative;
+  width: min(100%, 620px);
+  max-width: 620px;
+  background: linear-gradient(150deg, #fffdf8 0%, #f8f3e9 100%);
+  border: 1px solid #e4dacd;
+  border-radius: 24px;
+  box-shadow: 0 18px 50px rgba(75, 67, 59, 0.07);
+  overflow: hidden;
+}
+
+.yr-success-page .yr-success-card__content {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2.5rem 2.5rem;
+  text-align: center;
+}
+
+.yr-success-page .yr-success-card__orb {
+  position: absolute;
+  border-radius: 999px;
+  opacity: 0.28;
+  pointer-events: none;
+  animation: yrOrbDrift 12s ease-in-out infinite alternate;
+}
+
+.yr-success-page .yr-success-card__orb--sage {
+  width: 150px;
+  height: 56px;
+  top: 18px;
+  right: -22px;
+  background: rgba(225, 233, 220, 0.8);
+}
+
+.yr-success-page .yr-success-card__orb--oat {
+  width: 120px;
+  height: 44px;
+  left: -18px;
+  bottom: 96px;
+  background: rgba(232, 224, 208, 0.8);
+  animation-duration: 13.5s;
+}
+
+.yr-success-page .yr-success-celebration {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.yr-success-page .yr-success-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: #e7ece2;
+  border: 1px solid #cdd8c8;
+  color: #6f7e69;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  animation: yrSoftBloom 800ms ease-out both;
+}
+
+.yr-success-page .yr-success-icon i {
+  line-height: 1;
+}
+
+.yr-success-page .yr-success-title {
+  margin: 0 0 0.9rem;
+  color: #4b433b;
+  font-size: clamp(1.65rem, 4vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+.yr-success-page .yr-success-desc {
+  margin: 0 0 1.5rem;
+  color: #726b63;
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+
+.yr-success-page .yr-success-order-paper {
+  margin: 0 auto 1.75rem;
+  width: 100%;
+  padding: 1.1rem 1.25rem;
+  background: #f3ece1;
+  border: 1px solid #ded1c1;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.yr-success-page .yr-success-order-label {
+  margin-bottom: 0.35rem;
+  color: #7b746a;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.yr-success-page .yr-success-order-number {
+  color: #4b433b;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.yr-success-page .yr-success-journey {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1fr minmax(0, 1fr) 1fr minmax(0, 1fr);
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.8rem;
+}
+
+.yr-success-page .yr-success-journey__item {
+  min-width: 0;
+  text-align: center;
+}
+
+.yr-success-page .yr-success-journey__icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 0.65rem;
+  border-radius: 50%;
+  background: #edf2eb;
+  border: 1px solid #d6dfd0;
+  color: #6f7e69;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.yr-success-page .yr-success-journey__title {
+  color: #4b433b;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.yr-success-page .yr-success-journey__time {
+  color: #8a8278;
+  font-size: 0.75rem;
+}
+
+.yr-success-page .yr-success-journey__connector {
+  height: 1px;
+  background: #ddd2c4;
+  align-self: center;
+}
+
+.yr-success-page .yr-success-actions {
+  display: flex;
+  gap: 0.85rem;
+  margin-bottom: 1.35rem;
+}
+
+.yr-success-page .yr-success-btn {
+  min-height: 46px;
+  border-radius: 10px;
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.yr-success-page .yr-success-btn--primary {
+  background: #74846f;
+  color: #fffdf8;
+  border: 1px solid #74846f;
+}
+
+.yr-success-page .yr-success-btn--primary:hover,
+.yr-success-page .yr-success-btn--primary:focus-visible {
+  background: #62715e;
+  border-color: #62715e;
+  color: #fffdf8;
+}
+
+.yr-success-page .yr-success-btn--secondary {
+  background: #fffdf8;
+  color: #74846f;
+  border: 1px solid #bcc8b7;
+}
+
+.yr-success-page .yr-success-btn--secondary:hover,
+.yr-success-page .yr-success-btn--secondary:focus-visible {
+  background: #eef2ea;
+  color: #62715e;
+  border-color: #bcc8b7;
+}
+
+.yr-success-page .yr-success-support {
+  margin: 0;
+  color: #8a8278;
+  font-size: 0.82rem;
+  line-height: 1.8;
+}
+
+.yr-success-page .yr-success-link {
+  color: #6f7e69;
+  font-weight: 600;
+}
+
+.yr-success-page .yr-success-link:hover,
+.yr-success-page .yr-success-link:focus-visible {
+  color: #566451;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.yr-success-page .yr-celebration-particle {
+  position: absolute;
+  top: -24px;
+  display: block;
+  opacity: 0;
+  animation-name: yrGentleFall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+.yr-success-page .yr-celebration-particle__shape {
+  display: block;
+  opacity: 0.56;
+  border-radius: 999px;
+  animation-name: yrGentleSway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  transform-origin: center;
+}
+
+.yr-success-page .yr-celebration-particle__shape.is-leaf {
+  border-radius: 100% 16% 100% 16%;
+}
+
+@keyframes yrSoftBloom {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes yrOrbDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(5px, 4px, 0);
+  }
+}
+
+@keyframes yrGentleFall {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+
+  15% {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 210px, 0);
+  }
+}
+
+@keyframes yrGentleSway {
+  from {
+    transform: translateX(calc(var(--yr-particle-sway-distance, 24px) * -0.5)) rotate(-4deg);
+  }
+
+  to {
+    transform: translateX(calc(var(--yr-particle-sway-distance, 24px) * 0.5)) rotate(4deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .yr-success-page .yr-success-shell {
+    padding: 1rem;
+  }
+
+  .yr-success-page .yr-success-card__content {
+    padding: 2.1rem 1.15rem 1.4rem;
+  }
+
+  .yr-success-page .yr-success-journey {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .yr-success-page .yr-success-journey__connector {
+    width: 1px;
+    height: 20px;
+    margin: 0 auto;
+  }
+
+  .yr-success-page .yr-success-actions {
+    flex-direction: column;
+  }
+
+  .yr-success-page .yr-success-btn {
+    width: 100%;
+  }
+
+  .yr-success-page .yr-success-card__orb--sage {
+    width: 120px;
+  }
+
+  .yr-success-page .yr-success-card__orb--oat {
+    width: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-success-page *,
+  .yr-success-page *::before,
+  .yr-success-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .yr-success-page .yr-celebration-particle {
+    display: none;
+  }
+}

@@ -247,19 +247,19 @@ window.initPermissions = function () {
 function renderEmployeeTable() {
   var employees = fetchEmployees();
   var currentId = sessionStorage.getItem('adminId') || '';
+  updateEmployeeResultCount(employees.length);
 
   if (!employees.length) {
     $('#employeeTableBody').html(
-      '<tr><td colspan="5" class="text-center text-muted py-4">尚無員工資料</td></tr>'
+      '<tr><td colspan="5" class="yr-admin-permissions-empty text-center py-4">' +
+      '<i class="fas fa-user-slash me-2" aria-hidden="true"></i>尚無員工資料</td></tr>'
     );
     return;
   }
 
   var html = employees.map(function (emp) {
-    var roleLabel = emp.isSuperAdmin ? '超級管理員' : '一般員工';
-    var statusBadge = emp.isActive
-      ? '<span class="badge bg-success">啟用</span>'
-      : '<span class="badge bg-secondary">停用</span>';
+    var roleLabel = renderEmployeeRole(emp);
+    var statusBadge = renderEmployeeStatus(emp);
 
     var toggleBtn = '';
     // 自己那一列不顯示停用按鈕 / Hide toggle on current user's row
@@ -268,17 +268,20 @@ function renderEmployeeTable() {
       var toggleClass = emp.isActive ? 'btn-outline-warning' : 'btn-outline-success';
       toggleBtn =
         '<button type="button" class="btn btn-sm ' + toggleClass + ' btn-toggle-employee ms-1" ' +
-        'data-employee-id="' + emp.id + '">' + toggleLabel + '</button>';
+        'data-employee-id="' + emp.id + '">' +
+        '<i class="fas ' + (emp.isActive ? 'fa-user-slash' : 'fa-user-check') + ' me-1" aria-hidden="true"></i>' +
+        toggleLabel + '</button>';
     }
 
     return '<tr data-employee-id="' + emp.id + '">' +
-      '<td class="fw-semibold">' + emp.id + '</td>' +
+      '<td class="yr-admin-permission-id">' + emp.id + '</td>' +
       '<td>' + escapeHtml(emp.displayName) + '</td>' +
-      '<td>' + roleLabel + '</td>' +
+      '<td class="yr-admin-permission-role">' + roleLabel + '</td>' +
       '<td>' + statusBadge + '</td>' +
-      '<td>' +
+      '<td class="yr-admin-permission-actions">' +
         '<button type="button" class="btn btn-sm btn-outline-primary btn-edit-employee" ' +
-        'data-employee-id="' + emp.id + '">編輯</button>' +
+        'data-employee-id="' + emp.id + '">' +
+        '<i class="fas fa-pen me-1" aria-hidden="true"></i>編輯</button>' +
         toggleBtn +
       '</td>' +
       '</tr>';
@@ -289,6 +292,33 @@ function renderEmployeeTable() {
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('permissions', $('#contentArea'));
   }
+}
+
+function updateEmployeeResultCount(count) {
+  $('#permissionResultCount').text('目前 ' + count + ' 位員工');
+}
+
+function renderEmployeeStatus(emp) {
+  if (emp && emp.isActive === true) {
+    return '<span class="yr-admin-employee-status yr-admin-employee-status--active">' +
+      '<i class="fas fa-circle-check me-1" aria-hidden="true"></i>啟用</span>';
+  }
+  if (emp && emp.isActive === false) {
+    return '<span class="yr-admin-employee-status yr-admin-employee-status--disabled">' +
+      '<i class="fas fa-circle-pause me-1" aria-hidden="true"></i>停用</span>';
+  }
+  return '<span class="yr-admin-employee-status yr-admin-employee-status--unknown">' +
+    '<i class="fas fa-circle-question me-1" aria-hidden="true"></i>未知</span>';
+}
+
+function renderEmployeeRole(emp) {
+  if (emp && emp.isSuperAdmin === true) {
+    return '<span class="yr-admin-role yr-admin-role--super-admin">超級管理員</span>';
+  }
+  if (emp && emp.isSuperAdmin === false) {
+    return '<span class="yr-admin-role yr-admin-role--staff">一般員工</span>';
+  }
+  return '<span class="yr-admin-role yr-admin-role--unknown">角色未知</span>';
 }
 
 /** 開啟新增/編輯 Modal / Open add or edit employee modal */

@@ -1,0 +1,191 @@
+.yr-admin-dashboard-page .yr-admin-permissions-module {
+  background: var(--yr-admin-content-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .card {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 12px;
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .card-header {
+  background: var(--yr-admin-surface);
+  border-bottom: 1px solid var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-toolbar {
+  min-height: 48px;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-result-count {
+  color: var(--yr-admin-text-muted);
+  font-size: 0.875rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-table {
+  --bs-table-bg: var(--yr-admin-table-bg);
+  --bs-table-color: var(--yr-admin-text);
+  --bs-table-border-color: var(--yr-admin-table-border);
+  --bs-table-hover-bg: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-table > thead th {
+  background: var(--yr-admin-table-header-bg);
+  color: var(--yr-admin-text);
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-table > tbody > tr > td {
+  vertical-align: middle;
+  border-color: var(--yr-admin-table-border);
+  background: var(--yr-admin-table-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-table > tbody > tr:hover > td {
+  background: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permission-id {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permission-role {
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permission-actions {
+  min-width: 150px;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permission-actions .btn {
+  min-height: 32px;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-employee-status,
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-role {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-employee-status--active {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-employee-status--disabled {
+  background: var(--yr-admin-neutral-bg);
+  border-color: var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-employee-status--unknown {
+  background: var(--yr-admin-neutral-bg);
+  border-color: var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-role--super-admin {
+  background: var(--yr-admin-info-bg);
+  border-color: var(--yr-admin-info-border);
+  color: var(--yr-admin-info-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-role--staff {
+  background: var(--yr-admin-surface-muted);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-role--unknown {
+  background: var(--yr-admin-neutral-bg);
+  border-color: var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .btn-toggle-employee.btn-outline-warning {
+  background: var(--yr-admin-warning-bg);
+  border-color: var(--yr-admin-warning-border);
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .btn-toggle-employee.btn-outline-warning:hover {
+  border-color: var(--yr-admin-warning);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .btn-toggle-employee.btn-outline-success {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .btn-toggle-employee.btn-outline-success:hover {
+  border-color: var(--yr-admin-success);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-empty,
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-loading,
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-error {
+  color: var(--yr-admin-text-muted);
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-error {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-permission-modal .modal-content {
+  background: var(--yr-admin-modal-bg);
+  border-color: var(--yr-admin-modal-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-permission-modal .modal-header,
+.yr-admin-dashboard-page .yr-admin-permission-modal .modal-footer {
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-permission-modal .table-responsive {
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-permission-modal .table th,
+.yr-admin-dashboard-page .yr-admin-permission-modal .table td {
+  white-space: nowrap;
+}
+
+@media (max-width: 390px) {
+  .yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permissions-toolbar {
+    align-items: stretch !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-permissions-module #addEmployeeBtn {
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permission-actions {
+    white-space: normal;
+    min-width: 138px;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-permissions-module .yr-admin-permission-actions .btn {
+    margin-bottom: 0.25rem;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-permission-modal .modal-body {
+    overflow-x: hidden;
+  }
+}

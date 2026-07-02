@@ -1,0 +1,240 @@
+.yr-admin-dashboard-page {
+  background: var(--yr-admin-canvas);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar {
+  background: var(--yr-admin-sidebar-bg);
+  color: var(--yr-admin-sidebar-text);
+  border-right: 1px solid var(--yr-admin-sidebar-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar .sidebar-brand {
+  border-bottom: 1px solid var(--yr-admin-sidebar-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar-brand-icon {
+  color: var(--yr-admin-primary-soft);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar-subtitle,
+.yr-admin-dashboard-page .yr-admin-sidebar-user-name,
+.yr-admin-dashboard-page .yr-admin-sidebar-user-icon,
+.yr-admin-dashboard-page .yr-admin-sidebar-logout {
+  color: var(--yr-admin-sidebar-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar-separator {
+  border-color: var(--yr-admin-sidebar-border);
+  margin: 8px 16px;
+}
+
+.yr-admin-dashboard-page .sidebar-link {
+  color: var(--yr-admin-sidebar-text-muted);
+  border-radius: var(--yr-admin-radius-sm);
+  border-left: 3px solid transparent;
+  transition:
+    background-color var(--yr-admin-transition-fast),
+    color var(--yr-admin-transition-fast),
+    border-color var(--yr-admin-transition-fast);
+}
+
+.yr-admin-dashboard-page .sidebar-link:hover {
+  background: var(--yr-admin-sidebar-bg-hover);
+  color: var(--yr-admin-sidebar-text);
+}
+
+.yr-admin-dashboard-page .sidebar-link.active {
+  background: var(--yr-admin-sidebar-bg-active);
+  border-left-color: var(--yr-admin-primary);
+  color: var(--yr-admin-sidebar-text-active);
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .sidebar-link.active i {
+  color: var(--yr-admin-primary-soft);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar .sidebar-link i,
+.yr-admin-dashboard-page #mobileSidebar .sidebar-link i {
+  color: inherit;
+}
+
+.yr-admin-dashboard-page .sidebar-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar .sidebar-footer {
+  border-top-color: var(--yr-admin-sidebar-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar .yr-admin-sidebar-logout:hover,
+.yr-admin-dashboard-page #mobileSidebar .yr-admin-sidebar-logout:hover {
+  color: var(--yr-admin-sidebar-text-active);
+  background: var(--yr-admin-sidebar-bg-hover);
+  border-radius: var(--yr-admin-radius-sm);
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar .yr-admin-sidebar-logout i,
+.yr-admin-dashboard-page #mobileSidebar .yr-admin-sidebar-logout i {
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .offcanvas {
+  background: var(--yr-admin-sidebar-bg);
+}
+
+.yr-admin-dashboard-page #mobileSidebar {
+  background: var(--yr-admin-sidebar-bg);
+  color: var(--yr-admin-sidebar-text);
+}
+
+.yr-admin-dashboard-page #mobileSidebar .offcanvas-header {
+  background: var(--yr-admin-sidebar-bg);
+  border-bottom: 1px solid var(--yr-admin-sidebar-border);
+}
+
+.yr-admin-dashboard-page #mobileSidebar .offcanvas-body {
+  background: var(--yr-admin-sidebar-bg);
+}
+
+.yr-admin-dashboard-page #mobileSidebar .btn-close {
+  filter: invert(100%);
+  opacity: 0.85;
+}
+
+.yr-admin-dashboard-page #mobileSidebar .btn-close:hover {
+  opacity: 1;
+}
+
+.yr-admin-dashboard-page .yr-admin-sidebar .text-white,
+.yr-admin-dashboard-page #mobileSidebar .text-white {
+  color: var(--yr-admin-sidebar-text-active) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-main-wrapper {
+  min-height: 100vh;
+  background: var(--yr-admin-content-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar {
+  background: var(--yr-admin-topbar-bg);
+  border-bottom: 1px solid var(--yr-admin-topbar-border);
+  box-shadow: 0 1px 0 var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar [id="pageTitle"] {
+  color: var(--yr-admin-topbar-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .btn {
+  min-height: 38px;
+  min-width: 38px;
+  border-radius: var(--yr-admin-radius-sm);
+  border: 1px solid var(--yr-admin-topbar-border);
+  background: var(--yr-admin-surface);
+  color: var(--yr-admin-topbar-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .btn:hover {
+  background: var(--yr-admin-primary-soft);
+  border-color: var(--yr-admin-topbar-border);
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .yr-admin-muted-icon {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .text-muted {
+  color: var(--yr-admin-text-muted) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .dropdown .dropdown-menu {
+  background: var(--yr-admin-dropdown-bg);
+  border-color: var(--yr-admin-dropdown-border);
+  border-radius: var(--yr-admin-radius-md);
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .dropdown .dropdown-item,
+.yr-admin-dashboard-page .yr-admin-topbar .dropdown .dropdown-item-text {
+  color: var(--yr-admin-topbar-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .dropdown .dropdown-item:hover {
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .dropdown .dropdown-item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--yr-admin-focus-ring);
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .dropdown .dropdown-divider {
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .yr-admin-danger-text {
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-dashboard-page .yr-admin-topbar .yr-admin-danger-text:hover {
+  background: var(--yr-admin-danger-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-avatar-button {
+  width: 39px;
+  height: 39px;
+  background-color: var(--yr-admin-primary-hover);
+  color: var(--yr-admin-primary-text) !important;
+  border: 1px solid var(--yr-admin-primary-active);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.yr-admin-dashboard-page .yr-admin-avatar-button:hover {
+  background: var(--yr-admin-primary-active);
+  border-color: var(--yr-admin-primary-active);
+}
+
+.yr-admin-dashboard-page .yr-admin-avatar-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-content-area {
+  background: var(--yr-admin-content-bg);
+  color: var(--yr-admin-text);
+  width: 100%;
+  max-width: var(--yr-admin-content-max-width);
+  margin-inline: auto;
+}
+
+.yr-admin-dashboard-page .yr-admin-content-spinner {
+  color: var(--yr-admin-primary);
+}
+
+@media (width <= 767.98px) {
+  .yr-admin-dashboard-page .yr-admin-content-area {
+    padding: 1rem !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-topbar {
+    padding-inline: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-admin-dashboard-page .sidebar-link,
+  .yr-admin-dashboard-page .yr-admin-topbar .btn {
+    transition: none;
+  }
+}

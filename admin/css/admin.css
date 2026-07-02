@@ -7,10 +7,10 @@
 /* ===== CSS 變數定義 ===== */
 :root {
   /* Sidebar */
-  --admin-sidebar-bg: #1e2329;                    /* 深灰炭黑 */
-  --admin-sidebar-text: #c9d1d9;                  /* 淺灰文字 */
-  --admin-sidebar-width: 250px;                   /* 側欄寬度 */
-  --admin-sidebar-active-border: #244d4d;         /* 選中左側邊框：品牌綠 */
+  --admin-sidebar-bg: #1e2329; /* 深灰炭黑 */
+  --admin-sidebar-text: #c9d1d9; /* 淺灰文字 */
+  --admin-sidebar-width: 250px; /* 側欄寬度 */
+  --admin-sidebar-active-border: #244d4d; /* 選中左側邊框：品牌綠 */
   --admin-sidebar-active-bg: rgba(36, 77, 77, 0.25); /* 選中背景：半透明 */
 
   /* Topbar */
@@ -19,9 +19,9 @@
   --admin-topbar-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
   /* 主內容區 */
-  --admin-content-bg: #f0f2f5;                   /* 淺灰背景 */
+  --admin-content-bg: #f0f2f5; /* 淺灰背景 */
   --admin-card-bg: #ffffff;
-  --admin-brand-accent: #244d4d;                  /* 品牌深青綠 */
+  --admin-brand-accent: #244d4d; /* 品牌深青綠 */
 }
 
 /* ===== 全局基礎 ===== */
@@ -46,14 +46,14 @@ body {
 #adminSidebar {
   width: var(--admin-sidebar-width);
   height: 100vh;
-  position: fixed;           /* 固定在左側，不隨捲動移動 */
+  position: fixed; /* 固定在左側，不隨捲動移動 */
   top: 0;
   left: 0;
   background-color: var(--admin-sidebar-bg);
   display: flex;
   flex-direction: column;
   z-index: 1000;
-  overflow-y: auto;          /* 選單太多時可垂直捲動 */
+  overflow-y: auto; /* 選單太多時可垂直捲動 */
 }
 
 /* Sidebar 品牌 Logo 區塊底線 */
@@ -98,7 +98,7 @@ body {
 
 /* 無編輯權限時容器標記（各模組共用） */
 .permission-readonly .btn:not(.btn-close):not([data-bs-dismiss]),
-button[data-permission-disabled="true"] {
+button[data-permission-disabled='true'] {
   cursor: not-allowed;
 }
 
@@ -113,7 +113,7 @@ button[data-permission-disabled="true"] {
 #adminSidebar .sidebar-footer {
   padding: 16px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto;          /* 推到最底部 */
+  margin-top: auto; /* 推到最底部 */
 }
 
 /* ===== 右側主區域 ===== */
@@ -132,7 +132,7 @@ button[data-permission-disabled="true"] {
   height: var(--admin-topbar-height);
   background: var(--admin-topbar-bg);
   box-shadow: var(--admin-topbar-shadow);
-  position: sticky;          /* 捲動時固定在頂部 */
+  position: sticky; /* 捲動時固定在頂部 */
   top: 0;
   z-index: 999;
   display: flex;
@@ -199,15 +199,15 @@ button[data-permission-disabled="true"] {
 }
 
 .admin-stock-control .stock-input.stock-input-increase {
-  background-color: #d1e7dd;
-  border-color: #198754;
-  color: #0f5132;
+  background-color: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
 }
 
 .admin-stock-control .stock-input.stock-input-decrease {
-  background-color: #f8d7da;
-  border-color: #dc3545;
-  color: #842029;
+  background-color: var(--yr-admin-danger-bg);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text);
 }
 
 /* ===== 租借商品營地欄位 ===== */
@@ -288,16 +288,16 @@ button[data-permission-disabled="true"] {
 
 /* ===== 頭像 Dropdown ===== */
 #adminTopbar .dropdown-toggle::after {
-  display: none;  /* 隱藏頭像旁的預設箭頭 */
+  display: none; /* 隱藏頭像旁的預設箭頭 */
 }
 
-#adminTopbar img[role="button"] {
+#adminTopbar img[role='button'] {
   cursor: pointer;
   border: 2px solid transparent;
   transition: border-color 0.2s;
 }
 
-#adminTopbar img[role="button"]:hover {
+#adminTopbar img[role='button']:hover {
   border-color: var(--admin-brand-accent);
 }
 
@@ -327,15 +327,6 @@ button[data-permission-disabled="true"] {
   margin-bottom: 24px;
 }
 
-/* ===== 星星評分顏色 ===== */
-.fa-star.fas {
-  color: #f5a623;     /* 實心星：橙黃 */
-}
-
-.fa-star.far {
-  color: #d0d0d0;     /* 空心星：淺灰 */
-}
-
 /* ===== Loading Spinner 品牌色 ===== */
 .spinner-border-brand {
   color: var(--admin-brand-accent);
@@ -344,11 +335,11 @@ button[data-permission-disabled="true"] {
 /* ===== RWD 響應式：手機版 ===== */
 @media (max-width: 767.98px) {
   #adminSidebar {
-    display: none;      /* 手機版隱藏固定 Sidebar，改用 Offcanvas */
+    display: none !important; /* 手機版隱藏固定 Sidebar，改用 Offcanvas */
   }
 
   #mainWrapper {
-    margin-left: 0;     /* 手機版：取消推開距離 */
+    margin-left: 0; /* 手機版：取消推開距離 */
     width: 100%;
   }
 
@@ -372,7 +363,7 @@ button[data-permission-disabled="true"] {
 }
 
 #mobileSidebar .btn-close {
-  filter: invert(1);  /* 深色背景上白色關閉按鈕 */
+  filter: invert(1); /* 深色背景上白色關閉按鈕 */
 }
 
 /* ===== 商品表格：固定欄位（水平捲動時左側保持可見） =====
@@ -393,15 +384,15 @@ button[data-permission-disabled="true"] {
    確保即使使用者聚焦可捲動欄的輸入框，sticky 欄仍會蓋在上方 */
 .table .sticky-col {
   position: sticky;
-  z-index: 4;                    /* 蓋過可捲動欄內的 Bootstrap 按鈕（z-index:2）與聚焦輸入框（z-index:3） */
-  background-color: #ffffff;     /* 預設白色背景（覆蓋 Bootstrap 的 transparent） */
+  z-index: 4; /* 蓋過可捲動欄內的 Bootstrap 按鈕（z-index:2）與聚焦輸入框（z-index:3） */
+  background-color: #ffffff; /* 預設白色背景（覆蓋 Bootstrap 的 transparent） */
 }
 
 /* thead 的 sticky th：z-index 更高，確保蓋過 tbody sticky td
    .table thead .sticky-col → specificity [0,2,1]，高於 .table .sticky-col 的 [0,2,0] */
 .table thead .sticky-col {
-  z-index: 5;                    /* 高於 tbody sticky 的 4，確保標題列永遠在最上層 */
-  background-color: #f8f9fa;     /* Bootstrap table-light 的背景色 */
+  z-index: 5; /* 高於 tbody sticky 的 4，確保標題列永遠在最上層 */
+  background-color: #f8f9fa; /* Bootstrap table-light 的背景色 */
 }
 
 /* 商品表格啟用固定欄寬模式（table-layout: fixed）
@@ -422,16 +413,36 @@ button[data-permission-disabled="true"] {
 }
 
 /* 各欄位的左側偏移（依欄寬累加：60 → 220 → 310 → 400 → 550） */
-.sticky-col-img          { left: 0;     width: 60px;  min-width: 60px; }
-.sticky-col-name         { left: 60px;  width: 160px; min-width: 160px; }
-.sticky-col-category     { left: 220px; width: 90px;  min-width: 90px; }
-.sticky-col-action       { left: 310px; width: 90px;  min-width: 90px; }
-.sticky-col-total-stock  { left: 400px; width: 150px; min-width: 150px; }
+.sticky-col-img {
+  left: 0;
+  width: 60px;
+  min-width: 60px;
+}
+.sticky-col-name {
+  left: 60px;
+  width: 160px;
+  min-width: 160px;
+}
+.sticky-col-category {
+  left: 220px;
+  width: 90px;
+  min-width: 90px;
+}
+.sticky-col-action {
+  left: 310px;
+  width: 90px;
+  min-width: 90px;
+}
+.sticky-col-total-stock {
+  left: 400px;
+  width: 150px;
+  min-width: 150px;
+}
 
 /* 低庫存列（table-danger）下的 sticky 欄需覆寫背景，維持淡紅色
    .table tr.table-danger .sticky-col → specificity [0,3,1]，最高，確保蓋過上方所有規則 */
 .table tr.table-danger .sticky-col {
-  background-color: #f8d7da;     /* Bootstrap danger 淺紅背景色 */
+  background-color: #f8d7da; /* Bootstrap danger 淺紅背景色 */
 }
 
 /* ── 單格庫存不足標示（.stock-cell-below-min）────────────────────────────────
@@ -444,34 +455,36 @@ button[data-permission-disabled="true"] {
 /* 正常列內的不足格：淡橘色背景 + 橘色邊框 */
 /* Orange cell in a normal (non-danger) row */
 .stock-cell-below-min .admin-stock-control .stock-input {
-  border-color: #fd7e14;
-  background-color: #fff3e0;
+  border-color: var(--yr-admin-warning-border);
+  background-color: var(--yr-admin-warning-bg);
+  color: var(--yr-admin-warning-text);
 }
 
 /* table-danger（淡紅列）內的不足格：橘色加深版本，確保與紅色底色區別 */
 /* Orange cell inside a table-danger row: use deeper orange to contrast with red row bg */
 .table tr.table-danger .stock-cell-below-min .admin-stock-control .stock-input {
-  border-color: #e65c00;
-  background-color: #ffe0b2;
+  border-color: var(--yr-admin-danger-border);
+  background-color: var(--yr-admin-danger-bg);
+  color: var(--yr-admin-danger-text);
 }
 
 /* 最低庫存設定模式（isMinStockMode）：表格 header 加上黃色背景，提醒管理員 */
 /* Min-stock mode header: yellow background to remind admin they are in edit mode */
 #productsTable thead.min-stock-mode-header,
 #rentalProductsTable thead.min-stock-mode-header {
-  background-color: #fff3cd !important;  /* Bootstrap warning 淺黃色 */
+  background-color: var(--yr-admin-warning-bg) !important;
 }
 
 /* 最低庫存模式下步進器按鈕改為黃色外框，與正常模式視覺區分 */
 /* Min-stock mode steppers use yellow outline to distinguish from normal mode */
 .min-stock-mode .admin-stock-control .stock-step-btn {
-  border-color: #ffc107;
-  color: #856404;
+  border-color: var(--yr-admin-warning-border);
+  color: var(--yr-admin-warning-text);
 }
 
 /* ===== 商品名稱截斷（超過欄寬顯示 ...，hover 透過 title 屬性顯示完整名稱） ===== */
 .product-name-cell {
-  display: block;                /* block 才能讓 max-width 生效 */
+  display: block; /* block 才能讓 max-width 生效 */
   max-width: 140px;
   white-space: nowrap;
   overflow: hidden;
@@ -483,7 +496,7 @@ button[data-permission-disabled="true"] {
 /* 可排序的 th：滑鼠變手形，提示使用者可點擊 */
 .sortable-th {
   cursor: pointer;
-  user-select: none;             /* 防止快速點擊時選取文字 */
+  user-select: none; /* 防止快速點擊時選取文字 */
   white-space: nowrap;
 }
 
@@ -531,7 +544,7 @@ button[data-permission-disabled="true"] {
   display: inline-block;
   width: 7px;
   height: 7px;
-  background-color: #dc3545;     /* Bootstrap danger 紅色 */
+  background-color: var(--yr-admin-danger-text);
   border-radius: 50%;
   position: relative;
   top: -6px;
@@ -542,7 +555,7 @@ button[data-permission-disabled="true"] {
 /* 篩選 Dropdown 容器：絕對定位，浮在表格上方 */
 .filter-dropdown {
   position: absolute;
-  top: calc(100% + 4px);         /* th 下方 4px 處 */
+  top: calc(100% + 4px); /* th 下方 4px 處 */
   left: 0;
   z-index: 200;
   min-width: 130px;
@@ -573,7 +586,7 @@ button[data-permission-disabled="true"] {
 }
 
 /* checkbox 本身游標也是手形 */
-.filter-dropdown input[type="checkbox"] {
+.filter-dropdown input[type='checkbox'] {
   cursor: pointer;
   accent-color: var(--admin-brand-accent);
 }
@@ -582,7 +595,9 @@ button[data-permission-disabled="true"] {
 /* kpi-clickable：加在 analytics.html 各 KPI .card 上，賦予點擊導航的視覺回饋 */
 .kpi-clickable {
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 /* Hover：卡片輕微上浮 + 陰影加深 */

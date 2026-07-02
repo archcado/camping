@@ -27,10 +27,10 @@ function _renderStars(rating) {
   const empty = 5 - full - (half ? 1 : 0); // 空星數量
 
   let html = '';
-  for (let i = 0; i < full; i++)  html += '<span class="star">★</span>';
-  if (half)                        html += '<span class="star">⯨</span>';
-  for (let i = 0; i < empty; i++) html += '<span class="star empty">★</span>';
-  return `<span class="star-rating">${html}</span>`;
+  for (let i = 0; i < full; i++) html += '<i class="bi bi-star-fill star" aria-hidden="true"></i>';
+  if (half) html += '<i class="bi bi-star-half star" aria-hidden="true"></i>';
+  for (let i = 0; i < empty; i++) html += '<i class="bi bi-star star empty" aria-hidden="true"></i>';
+  return `<span class="star-rating yr-rating-stars" aria-label="評分 ${rating.toFixed(1)} 分">${html}</span>`;
 }
 
 // ----------------------------------------
@@ -122,7 +122,7 @@ function _renderProducts(products, container, badgeType = '') {
   if (products.length === 0) {
     container.innerHTML = `
       <div class="empty-state">
-        <span class="empty-state-icon">🏕️</span>
+        <span class="empty-state-icon"><i class="bi bi-compass" aria-hidden="true"></i></span>
         <p class="empty-state-title">目前沒有商品</p>
       </div>
     `;

@@ -2,6 +2,121 @@
      Unified Header Partials
      重點：主站與 booking header 共用同一個 components/header.partial，載入端依 data-layout-part 選取版型。
      ======================================== -->
+<div data-layout-part="shared-site-header">
+<section class="yr-site-header-shell">
+  <header class="yr-site-header booking-header">
+    <div class="yr-site-header__inner">
+      <div class="yr-site-header__start">
+        <button
+          class="yr-site-menu-toggle"
+          type="button"
+          aria-label="開啟選單"
+          aria-expanded="false"
+          aria-controls="yrSiteDrawer"
+        >
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+
+        <a class="yr-site-brand" data-header-home-link aria-label="回到首頁">
+          <span class="yr-site-brand__mark" aria-hidden="true">Y</span>
+          <span class="yr-site-brand__name">Yuruicamp</span>
+        </a>
+      </div>
+
+      <div class="yr-site-header__actions" data-header-actions></div>
+    </div>
+  </header>
+
+  <div class="yr-site-overlay" data-header-overlay aria-hidden="true"></div>
+
+  <aside
+    class="yr-site-drawer"
+    id="yrSiteDrawer"
+    data-header-drawer
+    aria-hidden="true"
+  >
+    <div class="yr-site-drawer__header">
+      <div class="yr-site-drawer__identity">
+        <strong class="yr-site-drawer__brand">Yuruicamp</strong>
+        <span class="yr-site-drawer__divider" aria-hidden="true">｜</span>
+        <span class="yr-site-drawer__context" data-header-context-label></span>
+      </div>
+
+      <button
+        class="yr-site-drawer__close"
+        type="button"
+        aria-label="關閉選單"
+        data-header-close
+      >
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <nav
+      class="yr-site-drawer__navigation"
+      aria-label="主要導覽"
+      data-header-navigation
+    ></nav>
+
+    <div class="yr-site-drawer__footer">
+      <a class="yr-site-drawer__switch" data-header-switch-action></a>
+
+      <button
+        class="yr-site-drawer__utility"
+        type="button"
+        data-header-utility
+      ></button>
+    </div>
+  </aside>
+</section>
+</div>
+
+<div data-layout-part="shared-site-cart-panel">
+  <aside id="siteCartDrawer" class="cart-drawer yr-panel yr-panel--shop-cart" role="dialog" aria-modal="true" aria-labelledby="siteCartDrawerTitle">
+    <div class="cart-drawer__header yr-panel__header">
+      <h5 class="cart-drawer__title yr-panel__title" id="siteCartDrawerTitle"><i class="bi bi-bag" aria-hidden="true"></i> 我的購物車</h5>
+      <button class="cart-drawer__close yr-panel__close" type="button" aria-label="關閉購物車"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+    </div>
+    <div class="cart-drawer__body yr-panel__body" id="siteCartDrawerBody"></div>
+    <div class="cart-drawer__footer yr-panel__footer" id="siteCartDrawerFooter">
+      <div class="cart-drawer__summary">
+        <span>商品小計</span>
+        <strong id="summarySubtotal">NT$0</strong>
+      </div>
+      <div class="cart-drawer__summary">
+        <span>運費</span>
+        <strong id="summaryShipping">NT$0</strong>
+      </div>
+      <div class="cart-drawer__summary cart-drawer__summary--total">
+        <span>合計</span>
+        <strong id="summaryTotal">NT$0</strong>
+      </div>
+      <a id="checkoutBtn" class="btn btn-primary btn-block" href="/pages/checkout.html">前往結帳</a>
+    </div>
+  </aside>
+  <div class="cart-drawer-backdrop yr-panel-overlay" id="siteCartBackdrop"></div>
+</div>
+
+<div data-layout-part="shared-booking-cart-panel">
+  <div id="cartPanel" class="bk-slide-panel yr-panel yr-panel--booking-cart" role="dialog" aria-modal="true" aria-label="預約背包">
+    <div class="bk-slide-panel__header yr-panel__header">
+      <h5 class="bk-slide-panel__title yr-panel__title">
+        <i class="bi bi-backpack yr-booking-icon" aria-hidden="true"></i> 預約背包
+      </h5>
+      <button class="bk-slide-panel__close yr-panel__close" id="cartPanelClose" title="關閉" aria-label="關閉預約背包">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="bk-slide-panel__body yr-panel__body" id="cartPanelBody"></div>
+    <div class="bk-slide-panel__footer yr-panel__footer" id="cartPanelFooter" hidden>
+      <a href="/booking/pages/booking-cart.html" class="btn btn--primary btn--full">
+        <i class="bi bi-arrow-right-circle"></i> 前往完成預約
+      </a>
+    </div>
+  </div>
+  <div class="bk-panel-backdrop yr-panel-overlay" id="bkPanelBackdrop"></div>
+</div>
+
 <div data-layout-part="main-header">
 <!-- ========================================
      Header Component
@@ -9,25 +124,25 @@
      Keep this as .partial so Live Server does not inject reload scripts into it.
      可在所有頁面中引用或複製
      ======================================== -->
-<header class="header" id="header">
-    <nav class="navbar">
-    <div class="container">
-      <div class="navbar-content">
+<header class="header yr-site-header">
+    <nav class="navbar yr-site-header__nav">
+    <div class="container yr-site-header__inner">
+      <div class="navbar-content yr-site-header__content">
         <!-- Main hamburger: opens the same left-side dialog on desktop and mobile. -->
-        <button class="navbar-hamburger" type="button" title="展開菜單" aria-label="展開菜單" aria-expanded="false">☰</button>
+        <button class="navbar-hamburger" type="button" title="展開菜單" aria-label="展開菜單" aria-expanded="false"><i class="bi bi-list" aria-hidden="true"></i></button>
 
         <!-- Center logo: CSS keeps the brand centered while menus and actions stay on both sides. -->
-        <div class="navbar-brand">
-          <a href="/pages/home.html" class="logo-link" aria-label="回到首頁">
-            <img src="/assets/icons/brand_icon.png" alt="" class="logo">
-            <span>Yuruicamp</span>
+        <div class="navbar-brand yr-site-header__brand">
+          <a href="/pages/home.html" class="logo-link yr-site-header__logo" aria-label="回到首頁">
+            <img src="" data-logo-path="assets/icons/brand_icon.png" alt="" class="logo yr-site-header__logo-image">
+            <span class="yr-site-header__brand-text">Yuruicamp</span>
           </a>
         </div>
 
         <!-- 右側操作按鈕 -->
-        <div class="navbar-actions">
+        <div class="navbar-actions yr-site-header__actions">
           <div class="navbar-search-wrapper hidden-mobile">
-            <button type="button" class="navbar-search-btn navbar-search-toggle" title="搜尋" aria-expanded="false">🔍</button>
+            <button type="button" class="navbar-search-btn navbar-search-toggle yr-site-header__icon-button" title="搜尋" aria-expanded="false"><i class="bi bi-search" aria-hidden="true"></i></button>
             <form class="navbar-search-form" role="search" aria-hidden="true">
               <input type="text" class="navbar-search-input" placeholder="搜尋商品、品牌..." autocomplete="off" aria-label="搜尋">
               <button type="submit" class="navbar-search-submit" title="送出搜尋">搜尋</button>
@@ -35,24 +150,27 @@
             <div class="navbar-search-dropdown"></div>
           </div>
           <!-- 重點：露營預訂從側欄清單拉出，固定放在 header 右側操作區、購物車前方。 -->
-          <a href="/booking/pages/camp-search.html" class="navbar-booking-link">露營預訂</a>
+          <a href="/booking/pages/camp-search.html" class="navbar-booking-link yr-site-header__booking-link">露營預訂</a>
           <button type="button" class="navbar-cart-btn" title="購物車" aria-controls="siteCartDrawer" aria-expanded="false">
-            🛒<span class="cart-badge" hidden>0</span>
+            <i class="bi bi-bag" aria-hidden="true"></i><span class="cart-badge yr-site-header__cart-count" hidden>0</span>
           </button>
-          <button class="navbar-login-btn" onclick="window.openModal('loginModal')" title="登入">登入</button>
-          <div class="navbar-user-menu" hidden>
-            <div class="user-info">
-              <div class="user-avatar" title="個人資料">?</div>
-              <span class="user-name">用戶</span>
-              <span class="user-menu-chevron">⌄</span>
-            </div>
+          <button class="navbar-login-btn yr-site-header__login-link" onclick="window.openModal('loginModal')" title="登入">登入</button>
+          <div class="navbar-user-menu yr-site-user-menu" hidden>
+            <button class="user-info yr-site-account-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="navbarUserDropdown">
+              <span class="user-avatar yr-site-account-avatar" title="個人資料" aria-hidden="true"><i class="bi bi-person" aria-hidden="true"></i></span>
+              <span class="user-copy yr-site-account-copy">
+                <span class="user-name yr-site-account-name">會員中心</span>
+                <span class="user-provider yr-site-account-provider">Google 登入</span>
+              </span>
+              <span class="user-menu-chevron yr-site-account-chevron" aria-hidden="true"><i class="bi bi-chevron-down" aria-hidden="true"></i></span>
+            </button>
             <!-- 用戶選單下拉菜單 -->
-            <div class="navbar-user-dropdown" hidden>
+            <div class="navbar-user-dropdown" id="navbarUserDropdown" hidden>
               <a href="member-center.html" class="dropdown-item">
-                👤 會員中心
+                <i class="bi bi-person" aria-hidden="true"></i> 會員中心
               </a>
-              <button class="navbar-logout-btn">
-                🚪 登出
+              <button class="navbar-logout-btn" type="button" data-action="logout">
+                <i class="bi bi-box-arrow-right" aria-hidden="true"></i> 登出
               </button>
             </div>
           </div>
@@ -69,7 +187,7 @@
   <div class="navbar-offcanvas">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title">菜單</h5>
-      <button class="offcanvas-close" type="button" aria-label="關閉菜單">✕</button>
+      <button class="offcanvas-close" type="button" aria-label="關閉菜單"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
     </div>
     <div class="offcanvas-body">
       <ul class="navbar-items navbar-items--stacked">
@@ -86,8 +204,8 @@
   <!-- Cart drawer: clicking .navbar-cart-btn opens this panel instead of navigating. -->
   <aside id="siteCartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="siteCartDrawerTitle">
     <div class="cart-drawer__header">
-      <h5 class="cart-drawer__title" id="siteCartDrawerTitle">🛒 我的購物車</h5>
-      <button class="cart-drawer__close" type="button" aria-label="關閉購物車">✕</button>
+      <h5 class="cart-drawer__title" id="siteCartDrawerTitle"><i class="bi bi-bag" aria-hidden="true"></i> 我的購物車</h5>
+      <button class="cart-drawer__close" type="button" aria-label="關閉購物車"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
     </div>
     <div class="cart-drawer__body" id="siteCartDrawerBody"></div>
     <div class="cart-drawer__footer" id="siteCartDrawerFooter">
@@ -115,81 +233,82 @@
 
 <div data-layout-part="shared-auth">
   <!-- 主站與 booking 共用登入 Modal。載入端會把同一份 markup 注入各自頁面。 -->
-  <div id="loginModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
-    <div class="modal-content modal-content--login">
-      <div class="modal-header">
-        <h5 class="modal-title" id="loginModalTitle">歡迎加入 Yuruicamp</h5>
-        <button class="modal-close" type="button" title="關閉">✕</button>
+  <div id="loginModal" class="modal yr-panel-overlay" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+    <div class="modal-content modal-content--login yr-panel yr-panel--auth">
+      <div class="modal-header yr-panel__header">
+        <h5 class="modal-title yr-panel__title" id="loginModalTitle">歡迎加入 Yuruicamp</h5>
+        <button class="modal-close yr-panel__close" type="button" title="關閉" aria-label="關閉"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body yr-panel__body">
         <div class="modal-tab-panel active" data-panel="login">
           <p class="oauth-desc">使用社群帳號快速登入 / 註冊</p>
-          <button class="btn-google-login" type="button">
-            <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          <button class="btn-google-login yr-auth-provider yr-auth-provider--google" type="button">
+            <span class="yr-auth-provider__icon yr-auth-provider--google" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+            </span>
             使用 Google 帳號登入
           </button>
-          <button class="btn-facebook-login" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.117 8.004h-1.528c-.454 0-.773.319-.773.904v1.178h2.227l-.336 2.186h-1.891V18h-2.269v-5.728H8.656v-2.186h1.891V8.694C10.547 6.82 11.662 6 13.302 6c.79 0 1.473.059 1.815.085v1.919z" fill="#fff"/></svg>
+          <button class="btn-facebook-login yr-auth-provider yr-auth-provider--facebook" type="button">
+            <span class="yr-auth-provider__icon yr-auth-provider--facebook" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.117 8.004h-1.528c-.454 0-.773.319-.773.904v1.178h2.227l-.336 2.186h-1.891V18h-2.269v-5.728H8.656v-2.186h1.891V8.694C10.547 6.82 11.662 6 13.302 6c.79 0 1.473.059 1.815.085v1.919z" fill="#fff"/></svg></span>
             使用 Facebook 帳號登入
           </button>
-          <button class="btn-line-login" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386a.631.631 0 0 1-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.63.629.622.622 0 0 1-.601-.452l-1.59-2.161v1.984a.629.629 0 1 1-1.258 0V8.108c0-.345.282-.63.63-.63.261 0 .487.162.592.397l1.598 2.162V8.108a.63.63 0 1 1 1.259 0v4.771zm-5.822 0a.631.631 0 0 1-1.261 0V8.108a.63.63 0 1 1 1.261 0v4.771zm-2.475.629H4.827a.631.631 0 0 1-.63-.629V8.108c0-.345.283-.63.63-.63a.63.63 0 0 1 .63.63v4.141h1.756a.63.63 0 0 1 0 1.259zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314z"/></svg>
+          <button class="btn-line-login yr-auth-provider yr-auth-provider--line" type="button">
+            <span class="yr-auth-provider__icon yr-auth-provider--line" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386a.631.631 0 0 1-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.63.629.622.622 0 0 1-.601-.452l-1.59-2.161v1.984a.629.629 0 1 1-1.258 0V8.108c0-.345.282-.63.63-.63.261 0 .487.162.592.397l1.598 2.162V8.108a.63.63 0 1 1 1.259 0v4.771zm-5.822 0a.631.631 0 0 1-1.261 0V8.108a.63.63 0 1 1 1.261 0v4.771zm-2.475.629H4.827a.631.631 0 0 1-.63-.629V8.108c0-.345.283-.63.63-.63a.63.63 0 0 1 .63.63v4.141h1.756a.63.63 0 0 1 0 1.259zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314z"/></svg></span>
             使用 LINE 帳號登入
           </button>
-          <p class="oauth-privacy">
-            登入即代表您同意 Yuruicamp 的
-            <a href="#">隱私政策</a> 與 <a href="#">服務條款</a>
-          </p>
         </div>
       </div>
+      <footer class="yr-panel__footer">
+        <p class="oauth-privacy">登入即代表您同意 Yuruicamp 的 <a href="#">隱私政策</a> 與 <a href="#">服務條款</a></p>
+      </footer>
     </div>
   </div>
 
   <!-- 主站與 booking 共用個人化問卷 Modal。 -->
-  <div id="personalizationModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="personalizationTitle">
-    <div class="modal-content modal-content--survey">
-      <div class="modal-header">
-        <h5 class="modal-title" id="personalizationTitle">告訴我們你的露營偏好</h5>
-        <button class="modal-close" type="button" title="跳過">✕</button>
+  <div id="personalizationModal" class="modal yr-preference-modal" role="dialog" aria-modal="true" aria-labelledby="personalizationTitle">
+    <div class="modal-content modal-content--survey yr-preference-modal__dialog">
+      <div class="modal-header yr-preference-modal__header">
+        <h5 class="modal-title yr-preference-modal__title" id="personalizationTitle">告訴我們你的露營偏好</h5>
+        <button class="modal-close yr-preference-modal__close" type="button" title="跳過"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
       </div>
-      <div class="modal-body">
-        <div class="stepper-header">
-          <div class="stepper-dot active" data-dot="1">1</div>
-          <div class="stepper-line"></div>
-          <div class="stepper-dot" data-dot="2">2</div>
-          <span class="stepper-text">1 / 2</span>
+      <div class="modal-body yr-preference-modal__body">
+        <div class="stepper-header yr-preference-stepper">
+          <div class="stepper-dot yr-preference-stepper__dot active" data-dot="1">1</div>
+          <div class="stepper-line yr-preference-stepper__line"></div>
+          <div class="stepper-dot yr-preference-stepper__dot" data-dot="2">2</div>
+          <span class="stepper-text yr-preference-stepper__text">1 / 2</span>
         </div>
-        <div class="survey-step active" data-step="1">
-          <p class="survey-question">你喜歡哪種露營風格？</p>
-          <p class="survey-hint">至少選擇 2 個，讓推薦更貼近你的玩法。</p>
-          <div class="survey-tags">
-            <span class="survey-tag" data-value="glamping">豪華露營 Glamping</span>
-            <span class="survey-tag" data-value="backpacking">輕量背包客</span>
-            <span class="survey-tag" data-value="family">親子家庭</span>
-            <span class="survey-tag" data-value="solo">獨行俠</span>
-            <span class="survey-tag" data-value="hiking">登山健行</span>
-            <span class="survey-tag" data-value="car-camping">車頂帳</span>
-            <span class="survey-tag" data-value="ultralight">極輕量</span>
-            <span class="survey-tag" data-value="base-camp">基地營</span>
+        <div class="survey-step yr-preference-step active" data-step="1">
+          <p class="survey-question yr-preference-question">你喜歡哪種露營風格？</p>
+          <p class="survey-hint yr-preference-hint">至少選擇 2 個，讓推薦更貼近你的玩法。</p>
+          <div class="survey-tags yr-preference-options">
+            <span class="survey-tag yr-preference-option" data-value="glamping">豪華露營 Glamping</span>
+            <span class="survey-tag yr-preference-option" data-value="backpacking">輕量背包客</span>
+            <span class="survey-tag yr-preference-option" data-value="family">親子家庭</span>
+            <span class="survey-tag yr-preference-option" data-value="solo">獨行俠</span>
+            <span class="survey-tag yr-preference-option" data-value="hiking">登山健行</span>
+            <span class="survey-tag yr-preference-option" data-value="car-camping">車頂帳</span>
+            <span class="survey-tag yr-preference-option" data-value="ultralight">極輕量</span>
+            <span class="survey-tag yr-preference-option" data-value="base-camp">基地營</span>
           </div>
-          <button id="surveyNextBtn" class="btn btn-primary btn-block" type="button">下一步</button>
+          <button id="surveyNextBtn" class="btn btn-primary btn-block yr-btn--primary" type="button">下一步</button>
         </div>
-        <div class="survey-step" data-step="2">
-          <p class="survey-question">你最想添購哪類裝備？</p>
-          <p class="survey-hint">至少選擇 2 個，之後會同步到會員中心偏好。</p>
-          <div class="survey-tags">
-            <span class="survey-tag" data-value="tent">帳篷</span>
-            <span class="survey-tag" data-value="sleeping-bag">睡袋</span>
-            <span class="survey-tag" data-value="backpack">登山背包</span>
-            <span class="survey-tag" data-value="cooking">炊具</span>
-            <span class="survey-tag" data-value="lighting">照明設備</span>
-            <span class="survey-tag" data-value="clothing">戶外服飾</span>
-            <span class="survey-tag" data-value="chair">桌椅</span>
-            <span class="survey-tag" data-value="navigation">導航裝備</span>
-            <span class="survey-tag" data-value="safety">安全急救</span>
-            <span class="survey-tag" data-value="photography">攝影器材</span>
+        <div class="survey-step yr-preference-step" data-step="2">
+          <p class="survey-question yr-preference-question">你最想添購哪類裝備？</p>
+          <p class="survey-hint yr-preference-hint">至少選擇 2 個，之後會同步到會員中心偏好。</p>
+          <div class="survey-tags yr-preference-options">
+            <span class="survey-tag yr-preference-option" data-value="tent">帳篷</span>
+            <span class="survey-tag yr-preference-option" data-value="sleeping-bag">睡袋</span>
+            <span class="survey-tag yr-preference-option" data-value="backpack">登山背包</span>
+            <span class="survey-tag yr-preference-option" data-value="cooking">炊具</span>
+            <span class="survey-tag yr-preference-option" data-value="lighting">照明設備</span>
+            <span class="survey-tag yr-preference-option" data-value="clothing">戶外服飾</span>
+            <span class="survey-tag yr-preference-option" data-value="chair">桌椅</span>
+            <span class="survey-tag yr-preference-option" data-value="navigation">導航裝備</span>
+            <span class="survey-tag yr-preference-option" data-value="safety">安全急救</span>
+            <span class="survey-tag yr-preference-option" data-value="photography">攝影器材</span>
           </div>
-          <button id="surveyFinishBtn" class="btn btn-primary btn-block" type="button">完成設定</button>
+          <button id="surveyFinishBtn" class="btn btn-primary btn-block yr-btn--primary" type="button">完成設定</button>
         </div>
       </div>
     </div>
@@ -200,7 +319,7 @@
     <div class="modal-content modal-content--confirm">
       <div class="modal-header">
         <h5 class="modal-title" id="surveyCloseConfirmTitle">偏好設定尚未完成</h5>
-        <button class="modal-close" type="button" title="關閉">✕</button>
+        <button class="modal-close" type="button" title="關閉"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
       </div>
       <div class="modal-body">
         <p class="modal-confirm-message">選項還未完成，要關閉視窗之後再來填寫嗎?</p>
@@ -263,7 +382,7 @@
                 class="bk-cart-btn"
                 title="預約背包"
                 aria-label="預約背包">
-          <span aria-hidden="true">🛒</span>
+          <i class="bi bi-backpack yr-booking-icon" aria-hidden="true"></i>
           <span class="bk-badge" id="bookingBadge" hidden>0</span>
         </button>
 
@@ -275,17 +394,20 @@
         </button>
 
         <!-- ③ 已登入：booking 改用主站共用會員下拉結構。 -->
-        <div class="navbar-user-menu" hidden>
-          <div class="user-info">
-            <div class="user-avatar" title="個人資料">?</div>
-            <span class="user-name">用戶</span>
-            <span class="user-menu-chevron">⌄</span>
-          </div>
-          <div class="navbar-user-dropdown" hidden>
+        <div class="navbar-user-menu yr-site-user-menu" hidden>
+          <button class="user-info yr-site-account-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="navbarUserDropdown">
+            <span class="user-avatar yr-site-account-avatar" title="個人資料" aria-hidden="true"><i class="bi bi-person" aria-hidden="true"></i></span>
+            <span class="user-copy yr-site-account-copy">
+              <span class="user-name yr-site-account-name">會員中心</span>
+              <span class="user-provider yr-site-account-provider">Google 登入</span>
+            </span>
+            <span class="user-menu-chevron yr-site-account-chevron" aria-hidden="true"><i class="bi bi-chevron-down" aria-hidden="true"></i></span>
+          </button>
+          <div class="navbar-user-dropdown" id="navbarUserDropdown" hidden>
             <a href="./member-center.html" class="dropdown-item">
               會員中心
             </a>
-            <button class="navbar-logout-btn">
+            <button class="navbar-logout-btn" type="button" data-action="logout">
               登出
             </button>
           </div>
@@ -319,12 +441,12 @@
         <li>
           <!-- 手機版預約背包：點擊關閉 offcanvas 並開啟 Cart Panel -->
           <button id="bkCartBtnMobile" class="bk-offcanvas__cart-btn">
-            <span aria-hidden="true">🛒</span> 預約背包
+            <i class="bi bi-backpack yr-booking-icon" aria-hidden="true"></i> 預約背包
             <span class="bk-badge bk-badge--inline" id="bookingBadgeMobile" hidden>0</span>
           </button>
         </li>
         <li id="bkOffcanvasLogoutItem" hidden>
-          <button id="bkLogoutBtnMobile" class="bk-offcanvas__logout-btn">
+          <button id="bkLogoutBtnMobile" class="bk-offcanvas__logout-btn" type="button" data-action="logout">
             <i class="bi bi-box-arrow-right"></i> 登出
           </button>
         </li>
@@ -343,7 +465,7 @@
 <div id="cartPanel" class="bk-slide-panel" role="dialog" aria-modal="true" aria-label="預約背包">
   <div class="bk-slide-panel__header">
     <h5 class="bk-slide-panel__title">
-      <span aria-hidden="true">🛒</span> 預約背包
+      <i class="bi bi-backpack yr-booking-icon" aria-hidden="true"></i> 預約背包
     </h5>
     <button class="bk-slide-panel__close" id="cartPanelClose" title="關閉" aria-label="關閉預約背包">
       <i class="bi bi-x-lg"></i>

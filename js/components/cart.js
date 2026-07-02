@@ -46,7 +46,7 @@ function _getMainPageUrl(pageName) {
 function _renderCartDrawerEmpty() {
   return [
     '<div class="cart-drawer-empty">',
-    '  <div class="cart-drawer-empty__icon">🛒</div>',
+    '  <div class="cart-drawer-empty__icon"><i class="bi bi-bag" aria-hidden="true"></i></div>',
     '  <h3 class="cart-drawer-empty__title">購物車還是空的</h3>',
     '  <p class="cart-drawer-empty__text">去探索一些露營好物，加入購物車吧。</p>',
     '</div>',
@@ -78,7 +78,7 @@ function _renderCartDrawerItem(item) {
           <span class="cart-drawer-item__qty">${Number(item.quantity || 0)}</span>
           <button class="cart-qty-increase" data-product-id="${_escapeCartHtml(item.id)}" type="button" aria-label="增加數量">+</button>
           <strong class="cart-drawer-item__subtotal">${window.formatCurrency(itemTotal)}</strong>
-          <button class="cart-remove-btn" data-product-id="${_escapeCartHtml(item.id)}" type="button" aria-label="移除商品">🗑️</button>
+          <button class="cart-remove-btn" data-product-id="${_escapeCartHtml(item.id)}" type="button" aria-label="移除商品"><i class="bi bi-trash3" aria-hidden="true"></i></button>
         </div>
       </div>
     </article>
@@ -102,6 +102,21 @@ function _updateCartDrawerSummary() {
   if (shippingEl) shippingEl.textContent = shipping === 0 ? '免運費' : window.formatCurrency(shipping);
   if (totalEl) totalEl.textContent = window.formatCurrency(total);
   if (footer) footer.hidden = window.AppState.cart.length === 0;
+}
+
+/**
+ * 廣播購物車更新事件，供其他頁面元件同步使用。
+ */
+function _emitCartUpdated() {
+  const subtotal = window.calculateCartTotal(window.AppState.cart);
+  const threshold = Number(window.AppConfig?.CART?.FREE_SHIPPING_THRESHOLD) || 0;
+  window.dispatchEvent(new CustomEvent('yurui:cart-updated', {
+    detail: {
+      subtotal,
+      threshold,
+      cartSize: window.AppState.cart.length,
+    },
+  }));
 }
 
 /**
@@ -170,6 +185,7 @@ window.addToCart = (product, quantity = 1) => {
   window.saveAppState();
   window.updateCartBadge();
   window.renderCartDrawer();
+  _emitCartUpdated();
   window.showToast(`已加入購物車`, 'success');
 };
 
@@ -182,6 +198,7 @@ window.removeFromCart = (productId) => {
   window.saveAppState();
   window.updateCartBadge();
   window.renderCartDrawer();
+  _emitCartUpdated();
   window.showToast('已從購物車移除', 'info');
 };
 
@@ -201,6 +218,7 @@ window.updateCartQuantity = (productId, quantity) => {
       window.saveAppState();
       window.updateCartBadge();
       window.renderCartDrawer();
+      _emitCartUpdated();
     }
   }
 };
@@ -213,6 +231,7 @@ window.clearCart = () => {
   window.saveAppState();
   window.updateCartBadge();
   window.renderCartDrawer();
+  _emitCartUpdated();
 };
 
 /**

@@ -1,250 +1,383 @@
-/* ======================================================
-       rental-guide.html 頁面專屬樣式 — Yuruicamp v3
-       ====================================================== */
+/* rental-guide.html page scoped visual refresh */
 
-    /* 整體頁面背景 */
-    .rental-guide-page {
-      background: var(--yc-bg, #F8F5EE);
-      min-height: 100vh;
-      padding-bottom: 4rem;
-    }
+.rental-guide-page {
+  background: var(--yc-bg, #FAF7ED);
+  color: var(--yc-text, #3F463D);
+  min-height: 100vh;
+}
 
-    /* ── Hero Banner ── */
-    .rg-hero {
-      background: linear-gradient(135deg, var(--yc-sage-dark, #62705D) 0%, var(--yc-sage-action, #73816E) 100%);
-      color: #fff;
-      padding: 5rem 1.5rem 4rem;
-      text-align: center;
-    }
+.rental-guide-page main {
+  padding-top: clamp(24px, 3vw, 40px);
+}
 
-    .rg-hero__title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      line-height: 1.25;
-    }
+.rg-hero {
+  background: linear-gradient(135deg, #FAF7ED 0%, #E7ECE2 100%);
+  box-shadow: 0 8px 20px rgba(63, 70, 61, 0.06);
+  text-align: center;
+}
 
-    .rg-hero__subtitle {
-      font-size: 1.15rem;
-      color: rgba(255,253,249,0.85);
-      max-width: 520px;
-      margin: 0 auto 2rem;
-      line-height: 1.7;
-    }
+.rental-guide-page .rg-hero .yr-hero-shell__inner {
+  min-height: 280px;
+  padding: 56px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 620px;
+  margin-inline: auto;
+}
 
-    .rg-hero__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .85rem 2rem;
-      background: var(--yc-cta, #E2D39A);
-      color: var(--yc-on-cta, #4A4537);
-      font-weight: 700;
-      font-size: 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background .2s, transform .2s, box-shadow .2s;
-    }
+.rg-hero__title {
+  margin: 0 0 14px;
+  font-family: var(--yr-font-family-heading, var(--yc-font-heading, "Noto Serif TC", serif));
+  color: var(--yc-text, #3F463D);
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
 
-    .rg-hero__cta:hover {
-      background: var(--yc-cta-hover, #D4C27E);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,.2);
-    }
+.rg-hero__subtitle {
+  margin: 0 auto 26px;
+  max-width: 620px;
+  color: var(--yc-text-muted, #6D6A62);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.7;
+}
 
-    /* ── 通用 Section ── */
-    .rg-section {
-      max-width: 1100px;
-      margin: 4rem auto 0;
-      padding: 0 1.5rem;
-    }
+.rg-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 11px 24px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: var(--yc-sage-dark, #62715E);
+  color: #FAF7ED;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
 
-    .rg-section__title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--yc-text, #3E473D);
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
+.rg-hero__cta:hover {
+  background: var(--yc-sage, #74846F);
+  transform: translateY(-1px);
+}
 
-    .rg-section__desc {
-      text-align: center;
-      color: var(--yc-text-muted, #7B756D);
-      font-size: .95rem;
-      margin-bottom: 2.5rem;
-    }
+.rg-hero__cta i {
+  font-size: 1rem;
+}
 
-    /* ── 流程步驟 ── */
-    .rg-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
+.rg-section {
+  max-width: 1100px;
+  margin: clamp(72px, 7vw, 88px) auto 0;
+  padding: 0 24px;
+}
 
-    .rg-step-card {
-      background: var(--yc-surface, #FFFDF9);
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(60,70,59,.1);
-      padding: 2rem 1.25rem;
-      text-align: center;
-      position: relative;
-    }
+.rg-section__title {
+  margin: 0;
+  text-align: center;
+  color: var(--yc-text, #3F463D);
+  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
 
-    /* 步驟數字圓圈 */
-    .rg-step-card__num {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--yc-sage-action, #73816E);
-      color: #fff;
-      font-size: 1.25rem;
-      font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
+.rg-section__desc {
+  margin: 14px auto 32px;
+  text-align: center;
+  color: var(--yc-text-muted, #6D6A62);
+  font-size: 1rem;
+  line-height: 1.75;
+}
 
-    .rg-step-card__icon {
-      font-size: 2rem;
-      margin-bottom: .75rem;
-    }
+.rg-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
 
-    .rg-step-card__title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--yc-text, #3E473D);
-      margin-bottom: .5rem;
-    }
+.rg-step-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--yc-border, #E2D8CA);
+  background: var(--yc-surface, #FFFDF8);
+  box-shadow: 0 6px 14px rgba(63, 70, 61, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    .rg-step-card__desc {
-      font-size: .875rem;
-      color: var(--yc-text-muted, #7B756D);
-      line-height: 1.6;
-    }
+.rg-step-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(63, 70, 61, 0.08);
+}
 
-    /* 步驟之間的箭頭（偽元素） */
-    .rg-step-card:not(:last-child)::after {
-      content: '→';
-      position: absolute;
-      right: -1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.5rem;
-      color: var(--yc-border, #D8CFC3);
-      z-index: 1;
-    }
+.rg-step-card__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  background: #E7ECE2;
+  color: var(--yc-sage-dark, #62715E);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
 
-    /* ── 裝備分類展示 ── */
-    .rg-equip-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-    }
+.rg-step-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: #E7ECE2;
+  color: var(--yc-sage, #74846F);
+  font-size: 24px;
+}
 
-    .rg-equip-card {
-      background: var(--yc-surface, #FFFDF9);
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(60,70,59,.1);
-      padding: 1.75rem 1.25rem;
-      text-align: center;
-      transition: transform .2s, box-shadow .2s;
-    }
+.rg-step-card__title {
+  margin: 0 0 8px;
+  color: var(--yc-text, #3F463D);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
 
-    .rg-equip-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 24px rgba(60,70,59,.18);
-    }
+.rg-step-card__desc {
+  margin: 0;
+  color: var(--yc-text-muted, #6D6A62);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
 
-    .rg-equip-card__icon { font-size: 2.5rem; margin-bottom: .75rem; }
+.rg-step-card::after {
+  content: none;
+}
 
-    .rg-equip-card__name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--yc-text, #3E473D);
-      margin-bottom: .4rem;
-    }
+.rg-equip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
 
-    .rg-equip-card__desc {
-      font-size: .8rem;
-      color: var(--yc-text-muted, #7B756D);
-      line-height: 1.5;
-    }
+.rg-equip-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--yc-border, #E2D8CA);
+  background: #FFFDF8;
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(63, 70, 61, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    /* ── 押金說明區塊（警示強調） ── */
-    .rg-deposit-box {
-      background: var(--yc-warning-soft, #F4ECE2);
-      border: 2px solid var(--yc-warning, #9A7455);
-      border-radius: 12px;
-      padding: 2rem;
-      max-width: 760px;
-      margin: 0 auto;
-    }
+.rg-equip-card:nth-child(2) {
+  background: #F7F1E8;
+}
 
-    .rg-deposit-box__title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--yc-warning-dark, #6B4D32);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
+.rg-equip-card:nth-child(3) {
+  background: #EEF2EA;
+}
 
-    .rg-deposit-box ul {
-      margin: 0;
-      padding-left: 1.25rem;
-    }
+.rg-equip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(63, 70, 61, 0.08);
+}
 
-    .rg-deposit-box li {
-      color: var(--yc-text-secondary, #625E56);
-      font-size: .925rem;
-      line-height: 1.8;
-      margin-bottom: .25rem;
-    }
+.rg-equip-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: #E7ECE2;
+  color: var(--yc-sage, #74846F);
+  font-size: 24px;
+}
 
-    .rg-deposit-box__link {
-      display: inline-block;
-      margin-top: 1rem;
-      color: var(--yc-sage-action, #73816E);
-      font-size: .875rem;
-      text-decoration: underline;
-    }
+.rg-equip-card__name {
+  margin: 0 0 8px;
+  color: var(--yc-text, #3F463D);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
 
-    .rg-deposit-box__link:hover { color: var(--yc-sage-dark, #62705D); }
+.rg-equip-card__desc {
+  margin: 0;
+  color: var(--yc-text-muted, #6D6A62);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
 
-    /* ── 底部 CTA ── */
-    .rg-cta-section {
-      background: linear-gradient(135deg, var(--yc-sage-dark, #62705D) 0%, var(--yc-sage-action, #73816E) 100%);
-      padding: 4rem 1.5rem;
-      text-align: center;
-      margin-top: 4rem;
-    }
+.rg-deposit-box {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 28px 28px 26px;
+  border: 1px solid #E7D3CB;
+  border-left: 4px solid #9A675D;
+  border-radius: 16px;
+  background: #F3E7E1;
+  color: #6D5C55;
+}
 
-    .rg-cta-section h2 {
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: .75rem;
-    }
+.rg-deposit-box__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  color: #6D5C55;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
 
-    .rg-cta-section p {
-      color: rgba(255,253,249,.85);
-      font-size: .95rem;
-      margin-bottom: 1.75rem;
-    }
+.rg-deposit-box__title .bi {
+  color: #9A675D;
+}
 
-    /* ── RWD ── */
-    @media (max-width: 768px) {
-      .rg-hero__title { font-size: 1.75rem; }
-      .rg-steps       { grid-template-columns: repeat(2, 1fr); }
-      .rg-equip-grid  { grid-template-columns: repeat(2, 1fr); }
+.rg-deposit-box ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
 
-      /* 手機版隱藏步驟箭頭 */
-      .rg-step-card::after { display: none; }
-    }
+.rg-deposit-box li {
+  margin-bottom: 10px;
+  color: #6D5C55;
+  line-height: 1.78;
+}
 
-    @media (max-width: 480px) {
-      .rg-steps      { grid-template-columns: 1fr; }
-      .rg-equip-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+.rg-deposit-box li:last-child {
+  margin-bottom: 0;
+}
+
+.rg-deposit-box__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: #9A675D;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.rg-deposit-box__link:hover {
+  color: #62715E;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rg-cta-section {
+  max-width: 1100px;
+  margin: clamp(64px, 6vw, 88px) auto 48px;
+  padding: clamp(48px, 7vw, 64px) clamp(24px, 4vw, 56px);
+  border: 1px solid var(--yc-border, #E2D8CA);
+  border-radius: 24px;
+  background: linear-gradient(140deg, #EEF2EA 0%, #F7F1E8 100%);
+  text-align: center;
+}
+
+.rg-cta-section h2 {
+  margin: 0 0 12px;
+  color: var(--yc-text, #3F463D);
+  font-size: clamp(1.65rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.rg-cta-section p {
+  margin: 0 0 24px;
+  color: var(--yc-text-muted, #6D6A62);
+  line-height: 1.8;
+}
+
+.rental-guide-page a:focus-visible {
+  outline: 2px solid var(--yc-sage, #74846F);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1024px) {
+  .rental-guide-page .rg-hero .yr-hero-shell__inner {
+    min-height: 240px;
+    padding: 44px 28px;
+  }
+
+  .rg-steps,
+  .rg-equip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .rental-guide-page .rg-hero .yr-hero-shell__inner {
+    min-height: 220px;
+    padding: 36px 20px;
+  }
+
+  .rg-section {
+    padding: 0 20px;
+  }
+
+  .rg-hero__title {
+    font-size: clamp(2rem, 7vw, 2.4rem);
+  }
+
+  .rg-cta-section {
+    margin: 72px 20px 48px;
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 390px) {
+  .rental-guide-page {
+    overflow-x: hidden;
+  }
+
+  .rg-section {
+    padding: 0 16px;
+  }
+
+  .rg-steps,
+  .rg-equip-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .rg-hero__cta {
+    width: 100%;
+  }
+
+  .rg-cta-section {
+    margin: 64px 16px 48px;
+    padding: 40px 20px;
+  }
+
+  .rg-deposit-box {
+    padding: 22px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rg-hero__cta,
+  .rg-step-card,
+  .rg-equip-card {
+    transition: none;
+  }
+
+  .rg-hero__cta:hover,
+  .rg-step-card:hover,
+  .rg-equip-card:hover {
+    transform: none;
+  }
+}

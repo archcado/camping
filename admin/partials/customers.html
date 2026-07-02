@@ -4,25 +4,27 @@
      手風琴列表由 customers.js 的 $.getJSON() 動態產生
 -->
 
-<!-- 頁面標題列 -->
-<div class="d-flex align-items-center justify-content-between mb-4">
-  <div>
-    <h6 class="fw-semibold mb-1">
-      <i class="fas fa-users me-2 text-muted"></i>會員列表
-    </h6>
-    <small class="text-muted">點擊任意會員展開詳細資料與購買紀錄</small>
+<section class="yr-admin-customers-module">
+  <!-- 頁面標題列 -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h6 class="fw-semibold mb-1">
+        <i class="fas fa-users me-2 text-muted"></i>會員列表
+      </h6>
+      <small class="text-muted">點擊任意會員展開詳細資料與購買紀錄</small>
+    </div>
   </div>
-</div>
 
-<!-- Accordion 手風琴容器
-     每位會員為一個 accordion-item
-     由 customers.js 的 renderCustomersAccordion() 動態填入
--->
-<div class="accordion" id="customersAccordion">
-  <!-- 初始載入提示 -->
-  <div class="text-center py-5" id="customersLoadingIndicator">
-    <div class="spinner-border spinner-border-sm me-2"
-         style="color: var(--admin-brand-accent);"></div>
-    <span class="text-muted">載入會員資料中...</span>
+  <!-- Accordion 手風琴容器
+       每位會員為一個 accordion-item
+       由 customers.js 的 renderCustomersAccordion() 動態填入
+  -->
+  <div class="accordion" id="customersAccordion">
+    <!-- 初始載入提示 -->
+    <div class="text-center py-5" id="customersLoadingIndicator">
+      <div class="spinner-border spinner-border-sm me-2"
+           style="color: var(--admin-brand-accent);"></div>
+      <span class="text-muted">載入會員資料中...</span>
+    </div>
   </div>
-</div>
+</section>

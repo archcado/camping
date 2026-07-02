@@ -6,7 +6,7 @@
 .floating-actions {
   position: fixed;
   right: 28px;
-  bottom: 34px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
   z-index: 1200;
 
   display: flex;
@@ -15,72 +15,54 @@
   gap: 14px;
 }
 
-/* 綠色 Line 按鈕：預設只顯示 icon */
+/* Line 按鈕：與回到頂部按鈕統一視覺 */
 .floating-line-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   padding: 0;
-  overflow: hidden;
-  white-space: nowrap;
+  text-decoration: none;
 
-  border-radius: 999px;
-  background-color: #5f9407;
-  color: #fff;
+  border: 1px solid #e2d8ca;
+  border-radius: 12px;
+  background-color: #fffdf8;
+  color: #74846f;
 
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 18px rgba(63, 70, 61, 0.1);
 
-  transition:
-    width 0.35s ease,
-    padding 0.35s ease,
-    background-color 0.35s ease,
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 .floating-line-btn:hover,
 .floating-line-btn:focus-visible {
-  width: 230px;
-  padding-left: 18px;
-  padding-right: 10px;
-  justify-content: flex-start;
-  background-color: #578804;
+  background-color: #74846f;
+  color: #fffdf8;
+  border-color: #74846f;
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.floating-line-btn:focus-visible,
+.floating-top-btn:focus-visible {
+  outline: 2px solid #74846f;
+  outline-offset: 3px;
+}
+
+.floating-line-btn:active,
+.floating-top-btn:active {
+  transform: translateY(0);
 }
 
 .floating-line-label {
-  max-width: 0;
-  opacity: 0;
-  overflow: hidden;
-  margin-right: 0;
-
-  color: #fff;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 1;
-
-  transition:
-    max-width 0.35s ease,
-    opacity 0.25s ease,
-    margin-right 0.35s ease;
-}
-
-.floating-line-btn:hover .floating-line-label,
-.floating-line-btn:focus-visible .floating-line-label {
-  max-width: 150px;
-  opacity: 1;
-  margin-right: 10px;
+  display: none;
 }
 
 .floating-line-icon {
-  flex: 0 0 60px;
-  width: 60px;
-  height: 60px;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
 
   display: flex;
   align-items: center;
@@ -88,59 +70,81 @@
 }
 
 .floating-line-icon i {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: auto;
-  height: auto;
-  font-size: 1.55rem;
+  font-size: 1.2rem;
   line-height: 1;
+}
+
+.floating-line-icon .bi-chat-dots-fill::before {
+  content: "\f660";
 }
 
 /* 回到頂部按鈕 */
 .floating-top-btn {
-  width: 60px;
-  height: 60px;
-  border: 0;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e2d8ca;
+  border-radius: 12px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: var(--yc-sage-action, #73816E);
-  color: #fff;
+  background-color: #fffdf8;
+  color: #74846f;
   cursor: pointer;
 
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 18px rgba(63, 70, 61, 0.1);
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px) scale(0.92);
+  transform: translateY(10px);
 
   transition:
-    opacity 0.35s ease,
-    visibility 0.35s ease,
-    transform 0.35s ease,
-    background-color 0.35s ease;
+    opacity 180ms ease,
+    visibility 180ms ease,
+    transform 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
 .floating-top-btn.is-visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .floating-top-btn:hover,
 .floating-top-btn:focus-visible {
-  background-color: var(--yc-sage-dark, #62705D);
-  transform: translateY(-2px) scale(1);
+  background-color: #74846f;
+  color: #fffdf8;
+  border-color: #74846f;
+  transform: translateY(-2px);
 }
 
 .floating-top-btn i {
-  font-size: 1.45rem;
+  font-size: 1.2rem;
   line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .floating-actions {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .floating-line-btn,
+  .floating-top-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+  }
+
+  .floating-line-icon {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+  }
 }
 
 .bk-footer__payment-icons i {

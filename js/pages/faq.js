@@ -195,7 +195,7 @@ function _initSubmitFeedback() {
 
     // 成功送出 Successfully submitted
     if (typeof window.showToast === 'function') {
-      window.showToast('感謝您的回饋！我們會持續改善服務 😊', 'success');
+      window.showToast('感謝您的回饋！我們會持續改善服務', 'success');
     }
 
     // 重置表單 Reset form
@@ -221,17 +221,6 @@ function _initSubmitFeedback() {
  */
 window.initFaqPage = function () {
   console.log('❓ FAQ 頁初始化開始 FAQ page init start');
-
-  // 設定旗標，告知 main.js 全局組件已在此頁面初始化
-  // Set flag to tell main.js that global components are initialized on this page
-  window._appComponentsInitialized = true;
-
-  // 初始化全局組件
-  // Initialize global components
-  if (typeof window.initNavbar === 'function') window.initNavbar();
-  if (typeof window.initModalListeners === 'function') window.initModalListeners();
-  if (typeof window.initCartListeners === 'function') window.initCartListeners();
-  if (typeof window.initPersonalizationModal === 'function') window.initPersonalizationModal();
 
   // ----------------------------------------
   // 初始化搜尋功能（帶 300ms debounce）

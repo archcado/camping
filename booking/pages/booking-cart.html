@@ -4,35 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#73816E">
-  <link rel="icon" href="../../assets/icons/camping_icon.png" type="image/png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/yuruicamp-favicon.svg">
   <title>確認背包 | Yuruicamp 露營選物</title>
 
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/booking.css">
   <link rel="stylesheet" href="../css/yuruicamp-tags-status.css">
-  <link rel="stylesheet" href="../css/booking-cart.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/theme/booking-shell.css">
+  <link rel="stylesheet" href="../../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/booking-cart.css">
   
 </head>
-<body>
+<body class="yr-theme yr-booking-theme yr-booking-cart-page">
 
-  <div id="booking-header"></div>
+  <div id="header" data-header-context="camp"></div>
 
   <main class="booking-cart-page">
 
     <!-- 步驟進度列 -->
-    <div class="step-progress" style="padding-top:1rem;">
+    <div class="step-progress">
       <div class="step completed">
-        <span><i class="bi bi-check-lg"></i></span>
+        <span><i class="bi bi-check-lg" aria-hidden="true"></i></span>
         選擇營區
       </div>
       <div class="step completed">
-        <span><i class="bi bi-check-lg"></i></span>
+        <span><i class="bi bi-check-lg" aria-hidden="true"></i></span>
         選擇日期
       </div>
       <div class="step completed">
-        <span><i class="bi bi-check-lg"></i></span>
+        <span><i class="bi bi-check-lg" aria-hidden="true"></i></span>
         租借裝備
       </div>
       <div class="step active">
@@ -46,20 +49,20 @@
     </div>
 
     <!-- 頁面標題 -->
-    <div style="max-width:1100px;margin:1.5rem auto 0;padding:0 1rem;">
-      <h1 style="font-size:1.4rem;font-weight:800;color:var(--bk-text);margin:0 0 0.25rem 0;">
-        <i class="bi bi-bag-heart"></i> 我的預約背包
+    <div class="yr-booking-cart-heading">
+      <h1 class="yr-booking-cart-title">
+        <i class="bi bi-bag-heart" aria-hidden="true"></i> 我的預約背包
       </h1>
-      <p id="bkCartCount" style="color:var(--bk-text-muted);font-size:0.9rem;margin:0;"></p>
+      <p id="bkCartCount" class="yr-booking-cart-count"></p>
     </div>
 
     <!-- 空背包狀態 -->
     <div id="bkCartEmpty" class="bk-cart-empty" style="display:none;">
-      <div class="bk-cart-empty__icon"><i class="bi bi-bag-x"></i></div>
+      <div class="bk-cart-empty__icon"><i class="bi bi-bag-x" aria-hidden="true"></i></div>
       <div class="bk-cart-empty__title">背包是空的</div>
       <p class="bk-cart-empty__desc">還沒有選擇任何營區或裝備，去探索看看吧！</p>
       <a href="./camp-search.html" class="btn btn--primary">
-        <i class="bi bi-search"></i> 探索營區
+        <i class="bi bi-search" aria-hidden="true"></i> 探索營區
       </a>
     </div>
 
@@ -73,10 +76,10 @@
         <div class="bk-cart-card" id="bkStayCard">
           <div class="bk-cart-card__header">
             <span class="bk-cart-card__title">
-              <i class="bi bi-house-door"></i> 住宿
+              <i class="bi bi-house-door" aria-hidden="true"></i> 住宿
             </span>
             <a href="#" id="bkEditDateLink" class="bk-cart-edit-link">
-              <i class="bi bi-pencil"></i> 修改日期
+              <i class="bi bi-pencil" aria-hidden="true"></i> 修改日期
             </a>
           </div>
           <div class="bk-cart-card__body" id="bkStayBody">
@@ -88,10 +91,10 @@
         <div class="bk-cart-card" id="bkRentalCard">
           <div class="bk-cart-card__header">
             <span class="bk-cart-card__title">
-              <i class="bi bi-bag"></i> 裝備租借
+              <i class="bi bi-bag" aria-hidden="true"></i> 裝備租借
             </span>
             <a href="./camp-rental.html" class="bk-cart-edit-link">
-              <i class="bi bi-pencil"></i> 修改裝備
+              <i class="bi bi-pencil" aria-hidden="true"></i> 修改裝備
             </a>
           </div>
           <div class="bk-cart-card__body" id="bkRentalBody">
@@ -100,9 +103,9 @@
         </div>
 
         <!-- 清除背包 -->
-        <div style="text-align:right;padding:0 0.25rem;">
+        <div class="bk-cart-clear-wrap">
           <button id="bkClearCartBtn" class="bk-cart-clear-btn">
-            <i class="bi bi-trash3"></i> 清除背包
+            <i class="bi bi-trash3" aria-hidden="true"></i> 清除背包
           </button>
         </div>
 
@@ -115,35 +118,35 @@
           <h3>費用摘要</h3>
 
           <!-- 費用逐項 -->
-          <div id="bkCostRows" style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1rem;"></div>
+          <div id="bkCostRows"></div>
 
-          <hr style="border:none;border-top:2px solid var(--bk-border);margin:0 0 1rem 0;">
+          <hr class="bk-cart-summary-divider">
 
           <!-- 合計 -->
-          <div class="cost-total" style="margin-bottom:1.5rem;">
+          <div class="cost-total">
             <span>應付總金額</span>
             <strong class="cost-total__amount" id="bkFinalAmount">NT$0</strong>
           </div>
 
           <!-- 前往結帳 -->
-          <a href="./booking-checkout.html" class="btn btn--primary btn--full" id="bkCheckoutBtn"
-             style="font-size:1rem;padding:0.9rem;text-align:center;display:block;">
-            <i class="bi bi-arrow-right-circle"></i> 前往結帳
+          <a href="./booking-checkout.html" class="btn btn--primary btn--full" id="bkCheckoutBtn">
+            <i class="bi bi-arrow-right-circle" aria-hidden="true"></i> 前往結帳
           </a>
 
           <!-- 繼續修改 -->
-          <a href="./camp-rental.html"
-             style="display:block;text-align:center;margin-top:0.875rem;color:var(--bk-text-muted);font-size:0.85rem;text-decoration:none;">
-            ← 返回修改裝備
+          <a href="./camp-rental.html" class="bk-cart-back-link">
+            <i class="bi bi-arrow-left" aria-hidden="true"></i> 返回修改裝備
           </a>
 
           <!-- 安全保障 -->
-          <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--bk-border);text-align:center;">
-            <p style="font-size:0.75rem;color:var(--bk-text-muted);margin:0 0 0.25rem 0;">
-              🔒 SSL 加密保護，安全付款
+          <div class="bk-cart-security">
+            <p class="bk-cart-security__line">
+              <i class="bi bi-shield-lock" aria-hidden="true"></i>
+              <span>SSL 加密保護，安全付款</span>
             </p>
-            <p style="font-size:0.75rem;color:var(--bk-text-muted);margin:0;">
-              📋 預約確認信將寄送至您的信箱
+            <p class="bk-cart-security__line">
+              <i class="bi bi-envelope-check" aria-hidden="true"></i>
+              <span>預約確認信將寄送至您的信箱</span>
             </p>
           </div>
 

@@ -1,0 +1,288 @@
+.yr-checkout-page {
+  --yr-header-height: 88px;
+  background: #faf7ed;
+  color: #4b433b;
+}
+
+.yr-checkout-page .yr-checkout-main {
+  padding-top: 2rem !important;
+  padding-bottom: 4rem !important;
+}
+
+.yr-checkout-page .yr-checkout-heading h1 {
+  color: #4b433b !important;
+  font-weight: 700 !important;
+}
+
+.yr-checkout-page .yr-checkout-steps {
+  color: #756d64 !important;
+  flex-wrap: wrap;
+}
+
+.yr-checkout-page .yr-checkout-step {
+  color: #756d64 !important;
+  font-weight: 500 !important;
+}
+
+.yr-checkout-page .yr-checkout-step.is-active {
+  color: #74846f !important;
+}
+
+.yr-checkout-page .checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.yr-checkout-page .checkout-form-column,
+.yr-checkout-page .checkout-summary-column {
+  min-width: 0;
+  overflow: visible;
+}
+
+.yr-checkout-page .yr-checkout-main,
+.yr-checkout-page .checkout-layout {
+  overflow: visible;
+}
+
+.yr-checkout-page .checkout-panel-header,
+.yr-checkout-page .checkout-panel-body,
+.yr-checkout-page .yr-checkout-summary-card {
+  background: #fffdf8 !important;
+  border: 1px solid #e4dacd !important;
+  box-shadow: 0 4px 18px rgba(63, 70, 61, 0.05);
+}
+
+.yr-checkout-page .checkout-panel-header {
+  border-radius: 16px !important;
+}
+
+.yr-checkout-page .checkout-panel.open .checkout-panel-header {
+  border-radius: 16px 16px 0 0 !important;
+}
+
+.yr-checkout-page .checkout-panel-body {
+  border-top: none !important;
+  border-radius: 0 0 16px 16px !important;
+}
+
+.yr-checkout-page .panel-arrow {
+  color: #746f67 !important;
+}
+
+.yr-checkout-page .yr-checkout-panel-index {
+  background: #74846f !important;
+  color: #fffdf8 !important;
+}
+
+.yr-checkout-page input[type='text'],
+.yr-checkout-page input[type='email'],
+.yr-checkout-page input[type='tel'],
+.yr-checkout-page textarea {
+  border: 1px solid #ddd1c2 !important;
+  border-radius: 8px !important;
+  background: #fffdf8 !important;
+  color: #4b433b !important;
+}
+
+.yr-checkout-page input::placeholder,
+.yr-checkout-page textarea::placeholder {
+  color: #9a9187 !important;
+}
+
+.yr-checkout-page input[type='text']:focus,
+.yr-checkout-page input[type='email']:focus,
+.yr-checkout-page input[type='tel']:focus,
+.yr-checkout-page textarea:focus {
+  border-color: #8d9c86 !important;
+  box-shadow: 0 0 0 3px rgba(141, 156, 134, 0.14) !important;
+}
+
+.yr-checkout-page .radio-option {
+  border: 1px solid #ddd1c2 !important;
+  background: #fffdf8 !important;
+  border-radius: 12px !important;
+}
+
+.yr-checkout-page .radio-option:hover {
+  border-color: #cbbdaa !important;
+}
+
+.yr-checkout-page .radio-option:has(input:checked) {
+  border-color: #8d9c86 !important;
+  background: #edf2eb !important;
+}
+
+.yr-checkout-page .radio-option input[type='radio'] {
+  accent-color: #74846f !important;
+}
+
+.yr-checkout-page #creditCardSection {
+  background: #f8f4ec !important;
+  border-color: #ddd1c2 !important;
+  border-radius: 12px !important;
+}
+
+.yr-checkout-page .yr-checkout-summary-card {
+  position: sticky !important;
+  align-self: start;
+  border-radius: 16px !important;
+  top: calc(var(--yr-header-height, 88px) + 24px) !important;
+}
+
+.yr-checkout-page #checkoutItemsList > div {
+  border-bottom: 1px solid #ece3d8 !important;
+}
+
+.yr-checkout-page #checkoutItemsList {
+  overflow: visible !important;
+}
+
+.yr-checkout-page #checkoutItemsList > div > div[style*='position:relative'] {
+  position: relative;
+  overflow: visible;
+}
+
+.yr-checkout-page #checkoutItemsList img {
+  display: block;
+  border-radius: 10px !important;
+  border-color: #e4dacd !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.yr-checkout-page #checkoutItemsList span[style*='position:absolute'] {
+  top: -6px !important;
+  right: -6px !important;
+  z-index: 2;
+  background: #9a675d !important;
+  color: #fffdf8 !important;
+}
+
+.yr-checkout-page #checkoutItemsList div[style*='font-size:0.875rem'][style*='font-weight:600'] {
+  color: #4b433b !important;
+}
+
+.yr-checkout-page #checkoutItemsList div[style*='font-size:0.75rem'] {
+  color: #8a8278 !important;
+}
+
+.yr-checkout-page #checkoutItemsList div[style*='font-weight:700'][style*='font-size:0.9rem'] {
+  color: #5f6b5c !important;
+}
+
+.yr-checkout-page #checkoutApplyCouponBtn {
+  background: #fffdf8 !important;
+  color: #74846f !important;
+  border: 1px solid #74846f !important;
+  border-radius: 8px !important;
+}
+
+.yr-checkout-page #checkoutApplyCouponBtn:hover,
+.yr-checkout-page #checkoutApplyCouponBtn:focus-visible {
+  background: #edf2eb !important;
+  color: #62715e !important;
+  border-color: #62715e !important;
+}
+
+.yr-checkout-page .yr-member-fill-btn {
+  color: #5f695a !important;
+  background: #f2eee6 !important;
+  border: 1px solid #d9d0c4 !important;
+  box-shadow: none !important;
+}
+
+.yr-checkout-page .yr-member-fill-btn:hover,
+.yr-checkout-page .yr-member-fill-btn:focus-visible {
+  color: #515c4d !important;
+  background: #e8ede4 !important;
+  border-color: #cbd5c5 !important;
+}
+
+.yr-checkout-page .yr-member-fill-btn:focus-visible {
+  outline: 2px solid #8d9c86;
+  outline-offset: 3px;
+}
+
+.yr-checkout-page #checkoutAppliedCouponTexts {
+  color: #6f7f69 !important;
+}
+
+.yr-checkout-page #checkoutCouponMsg[style*='#16a34a'] {
+  color: #6f7f69 !important;
+  background: #eef3ea;
+  border: 1px solid #d5e0d0;
+  border-radius: 8px;
+  padding: 0.4rem 0.55rem;
+}
+
+.yr-checkout-page #checkoutCouponMsg[style*='#ef4444'] {
+  color: #95645c !important;
+  background: #f4e8e4;
+  border: 1px solid #ddbfb8;
+  border-radius: 8px;
+  padding: 0.4rem 0.55rem;
+}
+
+.yr-checkout-page #checkoutDiscountRow span:first-child,
+.yr-checkout-page #checkoutDiscount {
+  color: #9a675d !important;
+}
+
+.yr-checkout-page #checkoutTotal {
+  color: #62715e !important;
+}
+
+.yr-checkout-page .yr-checkout-submit-wrap {
+  grid-column: 1 / -1;
+}
+
+.yr-checkout-page #confirmOrderBtn {
+  min-height: 46px;
+  border-radius: 10px !important;
+  background: #74846f !important;
+  border-color: #74846f !important;
+  color: #fffdf8 !important;
+  box-shadow: none !important;
+}
+
+.yr-checkout-page #confirmOrderBtn:hover,
+.yr-checkout-page #confirmOrderBtn:focus-visible {
+  background: #62715e !important;
+  border-color: #62715e !important;
+}
+
+.yr-checkout-page #confirmOrderBtn:disabled {
+  opacity: 0.55;
+}
+
+@media (max-width: 900px) {
+  .yr-checkout-page .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .yr-checkout-page .yr-checkout-summary-card {
+    position: static !important;
+    top: auto !important;
+    align-self: auto;
+  }
+
+  .yr-checkout-page .yr-checkout-submit-wrap {
+    margin-top: 0.25rem !important;
+  }
+
+  .yr-checkout-page #confirmOrderBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-checkout-page .checkout-panel-body > div[style*='grid-template-columns:1fr 1fr'] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .yr-checkout-page #creditCardSection > div[style*='grid-template-columns:1fr 1fr'] {
+    grid-template-columns: 1fr !important;
+  }
+}

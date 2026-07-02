@@ -1,0 +1,23 @@
+{
+  "productId": "prod-014",
+  "brand": "DEUTER",
+  "productName": "26L 輕量日用背包",
+  "sourceData": {
+    "mainImage": "https://picsum.photos/seed/daypack1/400/300",
+    "originalGalleryImages": [
+      "https://picsum.photos/seed/daypack1/400/300",
+      "https://picsum.photos/seed/daypack1b/400/300"
+    ]
+  },
+  "localImage": "assets/images/products/prod-014/main.webp",
+  "imagePolicy": {
+    "singleImageOnly": true,
+    "filename": "main.webp",
+    "aspectRatio": "4:3",
+    "recommendedSize": "1200x900",
+    "background": "網站底色系留白背景",
+    "composition": "單一商品完整置中，不使用多視角或複雜情境"
+  },
+  "status": "pending",
+  "notes": "此版本每個商品只保留一張 main.webp。尚未修改 data/products.json。"
+}

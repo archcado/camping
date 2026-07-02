@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuruicamp Drawer System Sandbox</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="./styles/drawer-system.css" />
+  </head>
+  <body class="yr-drawer-system-page">
+    <main class="yr-drawer-system">
+      <section class="yr-hero">
+        <div class="yr-hero__copy">
+          <p class="yr-eyebrow">Yuruicamp Drawer System Sandbox</p>
+          <h1>統一滑出式面板設計系統驗證頁</h1>
+          <p class="yr-lead">
+            以裝備商城選單為基準，統整導覽、登入與購物車三種 Drawer 的外殼、節奏與視覺語言。
+          </p>
+        </div>
+        <div class="yr-hero__chips" aria-label="測試條件">
+          <span class="yr-chip">Desktop 1440 × 900</span>
+          <span class="yr-chip">Tablet 1024 × 768</span>
+          <span class="yr-chip">Portrait 768 × 1024</span>
+          <span class="yr-chip">Mobile 390 × 844</span>
+        </div>
+      </section>
+
+      <section class="yr-section">
+        <div class="yr-section__head">
+          <h2>設計原則</h2>
+          <p>共用外殼、分離內容、維持低飽和與柔和層級。</p>
+        </div>
+        <div class="yr-principles">
+          <article class="yr-card">
+            <h3>外殼一致</h3>
+            <p>Header、Body、Footer、Overlay 與 Close button 只保留一套。</p>
+          </article>
+          <article class="yr-card">
+            <h3>內容差異化</h3>
+            <p>導覽、登入、購物車僅透過內容與少量 modifier 區隔。</p>
+          </article>
+          <article class="yr-card">
+            <h3>品牌低彩度</h3>
+            <p>以鼠尾草綠、奶油白、柔和邊框與輕量陰影作為主要語言。</p>
+          </article>
+          <article class="yr-card">
+            <h3>可及性</h3>
+            <p>支援鍵盤、Escape、Focus return 與清楚的 aria 標記。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="yr-section">
+        <div class="yr-section__head">
+          <h2>Drawer Design Tokens</h2>
+          <p>依照既有裝備商城基準，沒有新增互相衝突的品牌色。</p>
+        </div>
+        <div class="yr-token-grid">
+          <article class="yr-token-card">
+            <span class="yr-token-swatch" style="background: #fffdf8"></span>
+            <strong>Surface</strong>
+            <code>#fffdf8</code>
+          </article>
+          <article class="yr-token-card">
+            <span class="yr-token-swatch" style="background: #e5dbce"></span>
+            <strong>Border</strong>
+            <code>#e5dbce</code>
+          </article>
+          <article class="yr-token-card">
+            <span class="yr-token-swatch" style="background: #9ead96"></span>
+            <strong>Brand</strong>
+            <code>#9ead96</code>
+          </article>
+          <article class="yr-token-card">
+            <span class="yr-token-swatch" style="background: #7c8b76"></span>
+            <strong>Brand Strong</strong>
+            <code>#7c8b76</code>
+          </article>
+          <article class="yr-token-card">
+            <span class="yr-token-swatch" style="background: #e1e9dc"></span>
+            <strong>Brand Pale</strong>
+            <code>#e1e9dc</code>
+          </article>
+          <article class="yr-token-card">
+            <span class="yr-token-swatch" style="background: #fff8e8"></span>
+            <strong>Overlay</strong>
+            <code>rgba(63,70,61,.36)</code>
+          </article>
+        </div>
+      </section>
+
+      <section class="yr-section">
+        <div class="yr-section__head">
+          <h2>Open Demo</h2>
+          <p>按鈕只控制這個 sandbox，不依賴正式資料與正式 JS。</p>
+        </div>
+        <div class="yr-actions">
+          <button class="yr-button yr-button--primary" type="button" data-open-drawer="navigation">
+            開啟導覽選單
+          </button>
+          <button class="yr-button yr-button--secondary" type="button" data-open-drawer="auth">
+            開啟登入面板
+          </button>
+          <button class="yr-button yr-button--secondary" type="button" data-open-drawer="cart">
+            開啟購物車
+          </button>
+        </div>
+      </section>
+
+      <section class="yr-section">
+        <div class="yr-section__head">
+          <h2>Drawer Width & RWD</h2>
+          <p>桌機維持邊距與完整圓角，手機縮為近全寬但不貼邊。</p>
+        </div>
+        <div class="yr-width-grid">
+          <article class="yr-card">
+            <h3>Desktop</h3>
+            <ul class="yr-list">
+              <li>最大寬度約 480px</li>
+              <li>視窗右側與上下保留 16px</li>
+              <li>圓角完整可見</li>
+            </ul>
+          </article>
+          <article class="yr-card">
+            <h3>Mobile</h3>
+            <ul class="yr-list">
+              <li>約 `calc(100vw - 1rem)`</li>
+              <li>保留 8–12px 外邊距</li>
+              <li>Body 可獨立捲動</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="yr-section">
+        <div class="yr-section__head">
+          <h2>Component States</h2>
+          <p>展示 default / hover / active / focus 的主要組件節奏。</p>
+        </div>
+        <div class="yr-state-grid">
+          <article class="yr-card">
+            <h3>Navigation</h3>
+            <div class="yr-nav-state">
+              <a href="#" class="yr-nav-state__item">商品</a>
+              <a href="#" class="yr-nav-state__item">部落格</a>
+              <a href="#" class="yr-nav-state__item is-active">分店</a>
+              <a href="#" class="yr-nav-state__item">常見問題</a>
+            </div>
+          </article>
+
+          <article class="yr-card">
+            <h3>Social Buttons</h3>
+            <div class="yr-social-state">
+              <button class="yr-auth-provider" type="button">
+                <span class="yr-auth-provider__icon yr-auth-provider--google" aria-hidden="true">G</span>
+                <span>使用 Google 帳號登入</span>
+              </button>
+              <button class="yr-auth-provider" type="button">
+                <span class="yr-auth-provider__icon yr-auth-provider--facebook" aria-hidden="true">f</span>
+                <span>使用 Facebook 帳號登入</span>
+              </button>
+              <button class="yr-auth-provider" type="button">
+                <span class="yr-auth-provider__icon yr-auth-provider--line" aria-hidden="true">L</span>
+                <span>使用 LINE 帳號登入</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="yr-card">
+            <h3>Cart Item</h3>
+            <div class="yr-cart-state">
+              <img
+                class="yr-cart-state__image"
+                alt="示意商品圖片"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Crect width='112' height='112' rx='18' fill='%23f3ebdd'/%3E%3Cpath d='M28 77l18-26 16 18 12-13 10 21H28z' fill='%239ead96'/%3E%3Ccircle cx='77' cy='35' r='8' fill='%23c7d4c1'/%3E%3C/svg%3E"
+              />
+              <div class="yr-cart-state__content">
+                <p class="yr-cart-state__brand">Yuruicamp</p>
+                <h4>森林色折疊椅</h4>
+                <p>單價 NT$1,280</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="yr-card">
+            <h3>Quantity Controls</h3>
+            <div class="yr-qty-state" role="group" aria-label="數量控制">
+              <button type="button" aria-label="減少數量">−</button>
+              <span>2</span>
+              <button type="button" aria-label="增加數量">+</button>
+            </div>
+          </article>
+
+          <article class="yr-card">
+            <h3>Footer Buttons</h3>
+            <div class="yr-footer-state">
+              <button class="yr-button yr-button--primary" type="button">前往結帳</button>
+              <button class="yr-button yr-button--secondary" type="button">返回修改</button>
+            </div>
+          </article>
+
+          <article class="yr-card">
+            <h3>Close Button</h3>
+            <button class="yr-close-sample" type="button" aria-label="關閉">
+              <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section class="yr-section">
+        <div class="yr-section__head">
+          <h2>Comparison Notes</h2>
+          <p>下表整理現況與建議統一方向。</p>
+        </div>
+        <div class="yr-table-wrap">
+          <table class="yr-table">
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>裝備商城選單</th>
+                <th>登入面板</th>
+                <th>購物車面板</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>HTML 來源</th>
+                <td>components/header.partial</td>
+                <td>components/header.partial</td>
+                <td>components/header.partial</td>
+              </tr>
+              <tr>
+                <th>CSS 來源</th>
+                <td>css/theme/theme-header.css</td>
+                <td>booking/css/booking.css + booking/css/base.css</td>
+                <td>css/main.css + css/theme/theme-components.css</td>
+              </tr>
+              <tr>
+                <th>JS 控制</th>
+                <td>js/components/header.js</td>
+                <td>js/components/auth.js + booking/js/booking-header.js</td>
+                <td>js/components/cart.js + js/main.js</td>
+              </tr>
+              <tr>
+                <th>寬度</th>
+                <td>約 380px / 360px / 100vw-16px</td>
+                <td>420px 右側滿版感</td>
+                <td>400px，桌機右側抽屜</td>
+              </tr>
+              <tr>
+                <th>高度</th>
+                <td>上下保留邊距，非整高</td>
+                <td>100vh</td>
+                <td>100vh</td>
+              </tr>
+              <tr>
+                <th>圓角</th>
+                <td>24px / 22px / 20px</td>
+                <td>8px，右側登入為 0</td>
+                <td>無明顯圓角，偏工具型</td>
+              </tr>
+              <tr>
+                <th>背景</th>
+                <td>奶油白半透與鼠尾草陰影</td>
+                <td>白色、偏高彩社群按鈕</td>
+                <td>白色、工具型清單感</td>
+              </tr>
+              <tr>
+                <th>Header</th>
+                <td>品牌＋ context＋ close</td>
+                <td>標題＋ close，節奏較緊</td>
+                <td>標題＋ close，資訊密度較高</td>
+              </tr>
+              <tr>
+                <th>關閉按鈕</th>
+                <td>圓形、柔和 hover</td>
+                <td>較小、圓角較弱</td>
+                <td>無邊界 icon button</td>
+              </tr>
+              <tr>
+                <th>Body 捲動</th>
+                <td>獨立捲動</td>
+                <td>獨立捲動</td>
+                <td>獨立捲動</td>
+              </tr>
+              <tr>
+                <th>Footer</th>
+                <td>雙 CTA</td>
+                <td>登入說明／隱私節奏</td>
+                <td>小計、運費、合計、結帳</td>
+              </tr>
+              <tr>
+                <th>Overlay</th>
+                <td>淡鼠尾草灰黑遮罩</td>
+                <td>黑色半透明</td>
+                <td>黑色半透明＋ blur</td>
+              </tr>
+              <tr>
+                <th>RWD</th>
+                <td>桌機留邊、手機近全寬</td>
+                <td>手機維持右側滑入</td>
+                <td>手機與桌機邏輯分離</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="yr-section">
+        <div class="yr-section__head">
+          <h2>正式導入時預計修改的檔案</h2>
+          <p>本頁不會直接修改它們，只列出導入路徑。</p>
+        </div>
+        <ul class="yr-list yr-list--notes">
+          <li><code>components/header.partial</code></li>
+          <li><code>js/components/header.js</code></li>
+          <li><code>js/components/auth.js</code></li>
+          <li><code>js/components/cart.js</code></li>
+          <li><code>css/theme/theme-header.css</code></li>
+          <li><code>css/main.css</code></li>
+          <li><code>booking/css/booking.css</code></li>
+          <li><code>booking/css/base.css</code></li>
+          <li><code>booking/js/booking-header.js</code></li>
+          <li><code>js/main.js</code></li>
+        </ul>
+      </section>
+    </main>
+
+    <div class="yr-drawer-overlay" data-drawer-overlay="navigation" data-drawer-state="navigation" hidden>
+      <aside
+        class="yr-drawer yr-drawer--navigation"
+        id="navigation-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="navigation-drawer-title"
+        tabindex="-1"
+      >
+        <header class="yr-drawer__header">
+          <div class="yr-drawer__title" id="navigation-drawer-title">Yuruicamp｜裝備商城</div>
+          <button class="yr-drawer__close" type="button" aria-label="關閉">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div class="yr-drawer__body">
+          <nav class="yr-drawer-nav" aria-label="裝備商城導覽">
+            <a class="yr-drawer-nav__item is-active" href="#">
+              <span>商品</span><i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </a>
+            <a class="yr-drawer-nav__item" href="#">
+              <span>部落格</span><i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </a>
+            <a class="yr-drawer-nav__item" href="#">
+              <span>分店</span><i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </a>
+            <a class="yr-drawer-nav__item" href="#">
+              <span>常見問題</span><i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </a>
+          </nav>
+        </div>
+        <footer class="yr-drawer__footer">
+          <a class="yr-drawer__footer-link" href="../booking/pages/camp-search.html">前往營地預約</a>
+          <button
+            class="yr-drawer__footer-link yr-drawer__footer-link--ghost"
+            type="button"
+            data-open-drawer="cart"
+          >
+            購物車 0
+          </button>
+        </footer>
+      </aside>
+    </div>
+
+    <div class="yr-drawer-overlay" data-drawer-overlay="auth" data-drawer-state="auth" hidden>
+      <aside
+        class="yr-drawer yr-drawer--auth"
+        id="auth-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-drawer-title"
+        tabindex="-1"
+      >
+        <header class="yr-drawer__header">
+          <div>
+            <div class="yr-drawer__title" id="auth-drawer-title">歡迎加入 Yuruicamp</div>
+            <p class="yr-drawer__subtitle">使用社群帳號快速登入／註冊</p>
+          </div>
+          <button class="yr-drawer__close" type="button" aria-label="關閉">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div class="yr-drawer__body">
+          <div class="yr-social-stack">
+            <button class="yr-auth-provider" type="button">
+              <span class="yr-auth-provider__icon yr-auth-provider--google" aria-hidden="true">G</span>
+              <span>使用 Google 帳號登入</span>
+            </button>
+            <button class="yr-auth-provider" type="button">
+              <span class="yr-auth-provider__icon yr-auth-provider--facebook" aria-hidden="true">f</span>
+              <span>使用 Facebook 帳號登入</span>
+            </button>
+            <button class="yr-auth-provider" type="button">
+              <span class="yr-auth-provider__icon yr-auth-provider--line" aria-hidden="true">L</span>
+              <span>使用 LINE 帳號登入</span>
+            </button>
+          </div>
+        </div>
+        <footer class="yr-drawer__footer">
+          <small>社群登入僅示範低彩度外觀，正式流程不在此頁變更。</small>
+        </footer>
+      </aside>
+    </div>
+
+    <div class="yr-drawer-overlay" data-drawer-overlay="cart" data-drawer-state="cart" hidden>
+      <aside
+        class="yr-drawer yr-drawer--cart"
+        id="cart-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cart-drawer-title"
+        tabindex="-1"
+      >
+        <header class="yr-drawer__header">
+          <div class="yr-drawer__title" id="cart-drawer-title">我的購物車</div>
+          <button class="yr-drawer__close" type="button" aria-label="關閉">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div class="yr-drawer__body">
+          <article class="yr-cart-item">
+            <img
+              class="yr-cart-item__image"
+              alt="森林色折疊椅"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' rx='24' fill='%23f3ebdd'/%3E%3Cpath d='M38 112l26-40 20 22 18-22 20 40H38z' fill='%239ead96'/%3E%3Ccircle cx='109' cy='48' r='12' fill='%23c7d4c1'/%3E%3C/svg%3E"
+            />
+            <div class="yr-cart-item__content">
+              <div class="yr-cart-item__brand">Yuruicamp</div>
+              <a class="yr-cart-item__name" href="#">森林色折疊椅</a>
+              <div class="yr-cart-item__meta">單價 NT$1,280</div>
+              <div class="yr-cart-item__actions">
+                <div class="yr-qty-control" role="group" aria-label="商品數量">
+                  <button type="button" aria-label="減少數量">−</button>
+                  <span>2</span>
+                  <button type="button" aria-label="增加數量">+</button>
+                </div>
+                <button class="yr-cart-item__remove" type="button" aria-label="刪除商品">
+                  <i class="bi bi-trash3" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="yr-cart-item__subtotal">
+                <span>小計</span>
+                <strong>NT$2,560</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+        <footer class="yr-drawer__footer yr-drawer__footer--cart">
+          <div class="yr-cart-summary">
+            <div><span>商品小計</span><strong>NT$2,560</strong></div>
+            <div><span>運費</span><strong>NT$0</strong></div>
+            <div class="is-total"><span>合計</span><strong>NT$2,560</strong></div>
+          </div>
+          <button class="yr-button yr-button--primary yr-drawer-cart__checkout" type="button">
+            前往結帳
+          </button>
+        </footer>
+      </aside>
+    </div>
+
+    <script src="./js/drawer-system.js"></script>
+  </body>
+</html>

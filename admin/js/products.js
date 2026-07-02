@@ -79,6 +79,15 @@ var PRODUCT_MIN_STOCK_DEFAULT = 5;
 // 租借待處理的庫存異動明細（與商店的 pendingMovementItems 分開追蹤）
 // Pending rental movement items, tracked separately from store items
 var pendingRentalMovementItems = [];
+var productsFilterState = {
+  query: '',
+  category: '',
+  stock: ''
+};
+
+function getActiveProductsView() {
+  return $('.admin-product-tab.active').data('products-view') === 'rental' ? 'rental' : 'store';
+}
 
 /**
  * 取得指定商品、指定分店 / 營地的最低庫存閾值。
@@ -212,6 +221,7 @@ window.initProducts = function () {
   isMinStockMode = false;
 
   bindProductViewTabs();
+  populateProductsCategoryFilterOptions('store');
 
   // ── 讀取並消費 pendingNavFilter（從 KPI 卡片「低庫存商品」跳來時） ──
   var _showLowStock = false;
@@ -239,6 +249,7 @@ window.initProducts = function () {
 
     adminMinStockCache = (minStock && typeof minStock === 'object') ? minStock : {};
     adminProductsCache = (products || []).map(normalizeProductBranch);
+    populateProductsCategoryFilterOptions('store');
     renderProductsTable(adminProductsCache);
 
     // 低庫存導航：渲染完成後，捲動到第一列紅色（低庫存）商品並顯示提示
@@ -259,10 +270,11 @@ window.initProducts = function () {
     }
   }).fail(function () {
     $('#productsTableBody').html(
-      '<tr><td colspan="9" class="text-center text-danger py-4">' +
+      '<tr><td colspan="9" class="text-center py-4 yr-admin-products-error">' +
       '<i class="fas fa-exclamation-triangle me-2"></i>載入商品數據失敗' +
       '</td></tr>'
     );
+    updateProductsResultCount(0, 0, 'store', 'error');
   });
 
   // 頁面初始化時即預載租借資料（Eager Loading）
@@ -379,6 +391,31 @@ window.initProducts = function () {
 
   // （已移除固定營地 checkbox 監聽器，所有營地直接顯示可編輯欄位）
   // Rental-camp-check handler removed; all preset camps are always editable.
+
+  $(document).on('input.products', '#productsSearchInput', function () {
+    productsFilterState.query = ($(this).val() || '').trim().toLowerCase();
+    rerenderProductsCurrentView();
+  });
+
+  $(document).on('change.products', '#productsCategoryFilter', function () {
+    productsFilterState.category = $(this).val() || '';
+    rerenderProductsCurrentView();
+  });
+
+  $(document).on('change.products', '#productsStockFilter', function () {
+    productsFilterState.stock = $(this).val() || '';
+    rerenderProductsCurrentView();
+  });
+
+  $(document).on('click.products', '#productsClearFilters', function () {
+    productsFilterState.query = '';
+    productsFilterState.category = '';
+    productsFilterState.stock = '';
+    $('#productsSearchInput').val('');
+    $('#productsCategoryFilter').val('');
+    $('#productsStockFilter').val('');
+    rerenderProductsCurrentView();
+  });
 
   // 新增自訂營地按鈕：每次點擊新增一列自訂名稱 + 數量欄位。
   // Add custom camp row on button click.
@@ -599,20 +636,12 @@ window.initProducts = function () {
       return;
     }
 
-    var $field = $('<div>', { class: 'mb-2 product-spec-field' });
-    var $label = $('<label>', { class: 'form-label small text-muted mb-1' })
-      .attr('for', specKey)
-      .text(specKey);
-    var $input = $('<input>', {
-      type: 'text',
-      class: 'form-control form-control-sm'
-    })
-      .attr('id', specKey)
-      .attr('data-spec-key', specKey);
-
-    $field.append($label, $input);
-    $('#productSpecFields').append($field);
+    addSpecificationField(specKey, '');
     $('#newProductSpec').val('').trigger('focus');
+  });
+
+  $(document).on('click.products', '.remove-product-spec-btn', function () {
+    $(this).closest('.product-spec-field').remove();
   });
 
   // ── Task 6：分店庫存數量即時加總 ────────────────────────────────────────────
@@ -1013,19 +1042,23 @@ function switchProductView(view) {
     $panel.toggleClass('d-none', $panel.data('products-panel') !== nextView);
   });
 
+  populateProductsCategoryFilterOptions(nextView);
   if (nextView === 'rental') {
     loadRentalProducts();
+  } else {
+    renderProductsTable(adminProductsCache);
   }
 }
 
 function loadRentalProducts() {
   if (adminRentalsLoaded) {
+    populateProductsCategoryFilterOptions('rental');
     renderRentalProductsTable(adminRentalsCache);
     return;
   }
 
   $('#rentalProductsTableBody').html(
-    '<tr><td colspan="11" class="text-center py-4">' +
+    '<tr><td colspan="11" class="text-center py-4 yr-admin-products-loading">' +
     '<div class="spinner-border spinner-border-sm me-2" style="color: var(--admin-brand-accent);"></div>' +
     '<span class="text-muted">載入租借商品中...</span>' +
     '</td></tr>'
@@ -1047,13 +1080,15 @@ function loadRentalProducts() {
     });
 
     adminRentalsLoaded = true;
+    populateProductsCategoryFilterOptions('rental');
     renderRentalProductsTable(adminRentalsCache);
   }).fail(function () {
     $('#rentalProductsTableBody').html(
-      '<tr><td colspan="11" class="text-center text-danger py-4">' +
+      '<tr><td colspan="11" class="text-center py-4 yr-admin-products-error">' +
       '<i class="fas fa-exclamation-triangle me-2"></i>載入租借商品數據失敗' +
       '</td></tr>'
     );
+    updateProductsResultCount(0, 0, 'rental', 'error');
   });
 }
 
@@ -1189,7 +1224,9 @@ function confirmRentalStockChangeWithReason($row, rental, rentalId, nextCampByKe
   // 更新唯讀 total 欄位的靜態顯示數字
   // Refresh the read-only rental-total display cell
   $row.find('.total-stock-value').text(totalStock);
-  $row.toggleClass('table-danger', isRentalProductLowStock(rental));
+  var rentalLow = isRentalProductLowStock(rental);
+  $row.toggleClass('table-danger', rentalLow);
+  $row.find('.yr-admin-product-stock-state').html(renderStockStatusTag(getStockStatusState(totalStock, rentalLow)));
   refreshRowLowStockCells($row, getLowCampKeys(rental));
   setRowOriginalStockValues($row);
   syncStockConfirmState($row);
@@ -1502,7 +1539,9 @@ function confirmStoreStockChange($row, product, branchStock, totalStock) {
   delete product.stock;
 
   $row.find('.total-stock-value').text(totalStock);
-  $row.toggleClass('table-danger', isStoreProductLowStock(product));
+  var storeLow = isStoreProductLowStock(product);
+  $row.toggleClass('table-danger', storeLow);
+  $row.find('.yr-admin-product-stock-state').html(renderStockStatusTag(getStockStatusState(totalStock, storeLow)));
   refreshRowLowStockCells($row, getLowBranchIds(product));
   setRowOriginalStockValues($row);
   syncStockConfirmState($row);
@@ -2163,11 +2202,11 @@ function buildRentalStockCell(rental, campKey, label, campByKey, lowCampKeys) {
 function buildMinStockControl(fieldName, minQty, label) {
   var safeQty = normalizeStockValue(minQty);
 
-  return '<div class="input-group input-group-sm admin-stock-control">' +
+  return '<div class="input-group input-group-sm admin-stock-control yr-admin-stock-distribution yr-admin-stock-location">' +
     '<button type="button" class="btn btn-outline-warning stock-step-btn" ' +
     'data-stock-action="decrement" title="' + escapeHtml(label) + ' 最低庫存減少">' +
     '<i class="fas fa-minus"></i></button>' +
-    '<input type="number" class="form-control text-center stock-input" ' +
+    '<input type="number" class="form-control text-center stock-input yr-admin-stock-location__quantity" ' +
     'min="0" value="' + safeQty + '" data-original-qty="' + safeQty + '" ' +
     'data-stock-field="' + escapeHtml(fieldName) + '" ' +
     'data-min-stock-field="' + escapeHtml(fieldName) + '" ' +
@@ -2217,11 +2256,11 @@ function refreshRowLowStockCells($row, lowFieldIds) {
 function buildStockControl(fieldName, qty, label) {
   var safeQty = normalizeStockValue(qty);
 
-  return '<div class="input-group input-group-sm admin-stock-control">' +
+  return '<div class="input-group input-group-sm admin-stock-control yr-admin-stock-distribution yr-admin-stock-location">' +
     '<button type="button" class="btn btn-outline-secondary stock-step-btn" ' +
     'data-stock-action="decrement" title="' + escapeHtml(label) + ' 減少">' +
     '<i class="fas fa-minus"></i></button>' +
-    '<input type="number" class="form-control text-center stock-input" ' +
+    '<input type="number" class="form-control text-center stock-input yr-admin-stock-location__quantity" ' +
     'min="0" value="' + safeQty + '" data-original-qty="' + safeQty + '" ' +
     'data-stock-field="' + escapeHtml(fieldName) + '" aria-label="' + escapeHtml(label) + '">' +
     '<button type="button" class="btn btn-outline-secondary stock-step-btn" ' +
@@ -2463,19 +2502,28 @@ function addSpecificationField(specKey, value) {
     return;
   }
 
-  var $field = $('<div>', { class: 'mb-2 product-spec-field' });
-  var $label = $('<label>', { class: 'form-label small text-muted mb-1' })
-    .attr('for', specKey)
+  var safeId = 'product-spec-' + String(specKey).replace(/[^a-zA-Z0-9_-]/g, '-');
+  var $field = $('<div>', { class: 'mb-2 product-spec-field yr-admin-product-spec-row' });
+  var $header = $('<div>', { class: 'd-flex align-items-center justify-content-between gap-2 mb-1' });
+  var $label = $('<label>', { class: 'form-label small text-muted mb-0' })
+    .attr('for', safeId)
     .text(specKey);
+  var $removeButton = $('<button>', {
+    type: 'button',
+    class: 'btn btn-sm btn-outline-danger remove-product-spec-btn',
+    'aria-label': '刪除規格 ' + specKey,
+    title: '刪除規格'
+  }).html('<i class="fas fa-trash"></i>');
   var $input = $('<input>', {
     type: 'text',
     class: 'form-control form-control-sm'
   })
-    .attr('id', specKey)
+    .attr('id', safeId)
     .attr('data-spec-key', specKey)
     .val(value || '');
 
-  $field.append($label, $input);
+  $header.append($label, $removeButton);
+  $field.append($header, $input);
   $('#productSpecFields').append($field);
 }
 
@@ -2494,7 +2542,7 @@ function upsertAdminProductCache(product) {
 function buildProductRow(p) {
   var stock    = getProductTotalStock(p);
   var isLow    = !isMinStockMode && isStoreProductLowStock(p);
-  var rowClass = isLow ? ' class="table-danger"' : '';
+  var stockState = getStockStatusState(stock, isLow);
   var imgSrc   = p.thumbnail || PRODUCT_IMAGE_PLACEHOLDER;
   // 在正常模式下，取得庫存不足的分店 ID 清單，用於橘色格子標示
   // In normal mode, get low-branch IDs for orange cell highlighting
@@ -2502,30 +2550,33 @@ function buildProductRow(p) {
 
   // 欄位順序（依 SDD v1.0）：圖片 | 名稱 | 分類 | 操作 | 總庫存(唯讀) | 主倉 | 分店A | 分店B | 分店C
   // Column order (SDD v1.0): img | name | category | action | total(readonly) | main | branchA | branchB | branchC
-  return '<tr data-product-id="' + escapeHtml(p.id) + '" data-inventory-type="store"' + rowClass + '>' +
+  return '<tr data-product-id="' + escapeHtml(p.id) + '" data-inventory-type="store" class="yr-admin-products-row' + (isLow ? ' table-danger' : '') + '">' +
 
     // ── 固定欄 1：圖片 ──
-    '<td class="sticky-col sticky-col-img">' +
-    '<img src="' + escapeHtml(imgSrc) + '" width="48" height="48" class="rounded object-fit-cover"' +
+    '<td class="sticky-col sticky-col-img yr-admin-product-image">' +
+    '<img src="' + escapeHtml(imgSrc) + '" width="48" height="48" class="rounded object-fit-cover yr-admin-product-image__img"' +
     ' onerror="this.src=\'' + PRODUCT_IMAGE_PLACEHOLDER + '\'">' +
     '</td>' +
 
     // ── 固定欄 2：商品名稱（超過欄寬截斷，hover 顯示完整名稱）──
     '<td class="sticky-col sticky-col-name fw-semibold">' +
-    '<span class="product-name-cell" title="' + escapeHtml(p.name) + '">' +
+    '<div class="d-flex flex-column gap-1">' +
+    '<span class="product-name-cell yr-admin-product-name" title="' + escapeHtml(p.name) + '">' +
     escapeHtml(p.name) +
     '</span>' +
+    renderProductTypeTag('store') +
+    '</div>' +
     '</td>' +
 
     // ── 固定欄 3：分類 ──
     '<td class="sticky-col sticky-col-category">' +
-    '<span class="badge bg-light text-dark border">' + escapeHtml(p.category || '—') + '</span>' +
+    '<span class="yr-admin-product-category">' + escapeHtml(p.category || '—') + '</span>' +
     '</td>' +
 
     // ── 固定欄 4：操作（依模式顯示不同按鈕）──
     // Normal mode: 編輯 + 調撥 + 確定（庫存異動）
     // Min-stock mode: 確定（儲存最低庫存設定）
-    '<td class="sticky-col sticky-col-action">' +
+    '<td class="sticky-col sticky-col-action yr-admin-product-actions">' +
     '<div class="d-flex flex-column gap-1">' +
     (isMinStockMode
       ? '' +
@@ -2533,18 +2584,18 @@ function buildProductRow(p) {
         '<i class="fas fa-check me-1"></i>確定' +
         '</button>'
       : '' +
-        '<button type="button" class="btn btn-sm btn-outline-secondary edit-product-btn" title="編輯商品">' +
+        '<button type="button" class="btn btn-sm btn-outline-secondary edit-product-btn yr-admin-product-action-btn yr-admin-product-action-btn--secondary" title="編輯商品">' +
         '<i class="fas fa-pen me-1"></i>編輯' +
         '</button>' +
         // 調撥按鈕：只有當商品有 rentalId 時才顯示
         // Transfer button: only shown when the product has a linked rentalId
         (p.rentalId
-          ? '<button type="button" class="btn btn-sm btn-outline-primary transfer-to-rental-btn" title="調撥" ' +
+          ? '<button type="button" class="btn btn-sm btn-outline-primary transfer-to-rental-btn yr-admin-product-action-btn yr-admin-product-action-btn--outline" title="調撥" ' +
             'data-product-id="' + escapeHtml(p.id) + '">' +
             '<i class="fas fa-exchange-alt me-1"></i>調撥' +
             '</button>'
           : '') +
-        '<button type="button" class="btn btn-sm btn-success stock-confirm-btn d-none" title="確定庫存異動" disabled>' +
+        '<button type="button" class="btn btn-sm btn-success stock-confirm-btn d-none yr-admin-product-action-btn yr-admin-product-action-btn--primary" title="確定庫存異動" disabled>' +
         '<i class="fas fa-check me-1"></i>確定' +
         '</button>'
     ) +
@@ -2558,15 +2609,16 @@ function buildProductRow(p) {
         var totalMin = ADMIN_PRODUCT_BRANCH_IDS.reduce(function (sum, branchId) {
           return sum + getMinStockValue('store', p.id, branchId);
         }, 0);
-        return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold text-warning" ' +
+        return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold yr-admin-product-threshold-sum" ' +
                'data-total-stock-display>' +
                '<span class="total-stock-value">' + totalMin + '</span>' +
                '<br><small class="text-muted fw-normal" style="font-size:0.65rem;">閾值合計</small>' +
                '</td>';
       }
-      return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold" ' +
+      return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold yr-admin-product-stock" ' +
              'data-total-stock-display>' +
-             '<span class="total-stock-value">' + stock + '</span>' +
+             '<span class="total-stock-value yr-admin-stock-total-value">' + stock + '</span>' +
+             '<div class="mt-1 yr-admin-product-stock-state">' + renderStockStatusTag(stockState) + '</div>' +
              '</td>';
     })() +
 
@@ -2585,7 +2637,7 @@ function buildRentalRow(item) {
   var rental     = normalizeRentalItem(item);
   var stock      = getRentalTotalStock(rental);
   var isLow      = !isMinStockMode && isRentalProductLowStock(rental);
-  var rowClass   = isLow ? ' class="table-danger"' : '';
+  var stockState = getStockStatusState(stock, isLow);
   var campByKey  = rental.campByKey || {};
   // 在正常模式下，取得庫存不足的營地 key 清單，用於橘色格子標示
   // In normal mode, get low-camp keys for orange cell highlighting
@@ -2611,30 +2663,33 @@ function buildRentalRow(item) {
 
   // 欄位順序（依 SDD v1.0）：圖片 | 名稱 | 分類 | 操作 | 總租借庫存(唯讀) | 主倉 | 各營區（可捲動）
   // Column order (SDD v1.0): img | name | category | action | rental-total(readonly) | main | camps (scrollable)
-  return '<tr data-product-id="' + escapeHtml(rental.id) + '" data-inventory-type="rental"' + rowClass + '>' +
+  return '<tr data-product-id="' + escapeHtml(rental.id) + '" data-inventory-type="rental" class="yr-admin-products-row' + (isLow ? ' table-danger' : '') + '">' +
 
     // ── 固定欄 1：圖片 ──
-    '<td class="sticky-col sticky-col-img">' +
-    '<img src="' + escapeHtml(rental.image) + '" width="48" height="48" class="rounded object-fit-cover"' +
+    '<td class="sticky-col sticky-col-img yr-admin-product-image">' +
+    '<img src="' + escapeHtml(rental.image) + '" width="48" height="48" class="rounded object-fit-cover yr-admin-product-image__img"' +
     ' onerror="this.src=\'' + PRODUCT_IMAGE_PLACEHOLDER + '\'">' +
     '</td>' +
 
     // ── 固定欄 2：商品名稱（超過欄寬截斷，hover 顯示完整名稱）──
     '<td class="sticky-col sticky-col-name fw-semibold">' +
-    '<span class="product-name-cell" title="' + escapeHtml(rental.name) + '">' +
+    '<div class="d-flex flex-column gap-1">' +
+    '<span class="product-name-cell yr-admin-product-name" title="' + escapeHtml(rental.name) + '">' +
     escapeHtml(rental.name) +
     '</span>' +
+    renderProductTypeTag('rental') +
+    '</div>' +
     '</td>' +
 
     // ── 固定欄 3：分類 ──
     '<td class="sticky-col sticky-col-category">' +
-    '<span class="badge bg-light text-dark border">' + escapeHtml(rental.category || '其他') + '</span>' +
+    '<span class="yr-admin-product-category">' + escapeHtml(rental.category || '其他') + '</span>' +
     '</td>' +
 
     // ── 固定欄 4：操作（依模式顯示不同按鈕）──
     // Normal mode: 編輯 + 確定（庫存異動）
     // Min-stock mode: 確定（儲存最低庫存設定）
-    '<td class="sticky-col sticky-col-action">' +
+    '<td class="sticky-col sticky-col-action yr-admin-product-actions">' +
     '<div class="d-flex flex-column gap-1">' +
     (isMinStockMode
       ? '' +
@@ -2642,11 +2697,11 @@ function buildRentalRow(item) {
         '<i class="fas fa-check me-1"></i>確定' +
         '</button>'
       : '' +
-        '<button type="button" class="btn btn-sm btn-outline-primary transfer-from-rental-btn" title="調撥" ' +
+        '<button type="button" class="btn btn-sm btn-outline-primary transfer-from-rental-btn yr-admin-product-action-btn yr-admin-product-action-btn--outline" title="調撥" ' +
         'data-rental-id="' + escapeHtml(rental.id) + '">' +
         '<i class="fas fa-exchange-alt me-1"></i>調撥' +
         '</button>' +
-        '<button type="button" class="btn btn-sm btn-success stock-confirm-btn d-none" title="確定庫存異動" disabled>' +
+        '<button type="button" class="btn btn-sm btn-success stock-confirm-btn d-none yr-admin-product-action-btn yr-admin-product-action-btn--primary" title="確定庫存異動" disabled>' +
         '<i class="fas fa-check me-1"></i>確定' +
         '</button>'
     ) +
@@ -2661,15 +2716,16 @@ function buildRentalRow(item) {
         var totalMin = allCampKeys.reduce(function (sum, key) {
           return sum + getMinStockValue('rental', rental.id, key);
         }, 0);
-        return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold text-warning" ' +
+        return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold yr-admin-product-threshold-sum" ' +
                'data-total-stock-display>' +
                '<span class="total-stock-value">' + totalMin + '</span>' +
                '<br><small class="text-muted fw-normal" style="font-size:0.65rem;">閾值合計</small>' +
                '</td>';
       }
-      return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold" ' +
+      return '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold yr-admin-product-stock" ' +
              'data-total-stock-display>' +
-             '<span class="total-stock-value">' + stock + '</span>' +
+             '<span class="total-stock-value yr-admin-stock-total-value">' + stock + '</span>' +
+             '<div class="mt-1 yr-admin-product-stock-state">' + renderStockStatusTag(stockState) + '</div>' +
              '</td>';
     })() +
 
@@ -3074,7 +3130,9 @@ function submitBranchToCampTransfer() {
   var $storeRow = $('#productsTableBody tr[data-product-id="' + escapeSelector(productId) + '"]');
   if ($storeRow.length) {
     $storeRow.find('.total-stock-value').text(product['total-stock']);
-    $storeRow.toggleClass('table-danger', !isMinStockMode && isStoreProductLowStock(product));
+    var storeLow = !isMinStockMode && isStoreProductLowStock(product);
+    $storeRow.toggleClass('table-danger', storeLow);
+    $storeRow.find('.yr-admin-product-stock-state').html(renderStockStatusTag(getStockStatusState(product['total-stock'], storeLow)));
     refreshRowLowStockCells($storeRow, getLowBranchIds(product));
     var $branchInput = $storeRow.find('.stock-input[data-stock-field="' + branchId + '"]');
     $branchInput
@@ -3201,7 +3259,9 @@ function _updateRentalTableRow(rentalId, rental, distributions) {
     return sum + normalizeStockValue(rental.campByKey[key]);
   }, 0);
   $rentalRow.find('.total-stock-value').text(rentalTotal);
-  $rentalRow.toggleClass('table-danger', !isMinStockMode && isRentalProductLowStock(rental));
+  var rentalLow = !isMinStockMode && isRentalProductLowStock(rental);
+  $rentalRow.toggleClass('table-danger', rentalLow);
+  $rentalRow.find('.yr-admin-product-stock-state').html(renderStockStatusTag(getStockStatusState(rentalTotal, rentalLow)));
   refreshRowLowStockCells($rentalRow, getLowCampKeys(rental));
 
   distributions.forEach(function (d) {
@@ -3295,15 +3355,134 @@ function escapeHtml(value) {
   });
 }
 
+function getStockStatusState(totalStock, isLow) {
+  var safeTotal = normalizeStockValue(totalStock);
+  if (safeTotal <= 0) {
+    return 'out';
+  }
+  if (isLow) {
+    return 'low';
+  }
+  return 'normal';
+}
+
+function renderStockStatusTag(state) {
+  var labelMap = {
+    normal: '正常庫存',
+    low: '低庫存',
+    out: '缺貨',
+    unknown: '狀態未知'
+  };
+  var safeState = labelMap[state] ? state : 'unknown';
+  return '<span class="yr-admin-stock-status yr-admin-stock-status--' + safeState + '">' +
+    labelMap[safeState] + '</span>';
+}
+
+function renderProductTypeTag(type) {
+  var map = {
+    store: { label: '商店商品', cls: 'store' },
+    rental: { label: '租借商品', cls: 'rental' }
+  };
+  var meta = map[type] || map.store;
+  return '<span class="yr-admin-product-type yr-admin-product-type--' + meta.cls + '">' + meta.label + '</span>';
+}
+
+function getCategoryValue(item) {
+  return (item && item.category ? String(item.category) : '其他').trim();
+}
+
+function applyProductsFilters(list, view) {
+  var src = Array.isArray(list) ? list.slice() : [];
+  var query = (productsFilterState.query || '').trim().toLowerCase();
+  var category = productsFilterState.category || '';
+  var stock = productsFilterState.stock || '';
+
+  return src.filter(function (item) {
+    var name = String((item && item.name) || '').toLowerCase();
+    if (query && name.indexOf(query) === -1) {
+      return false;
+    }
+    if (category && getCategoryValue(item) !== category) {
+      return false;
+    }
+    if (stock) {
+      var total = view === 'rental' ? getRentalTotalStock(item) : getProductTotalStock(item);
+      var isLow = view === 'rental' ? isRentalProductLowStock(item) : isStoreProductLowStock(item);
+      var state = getStockStatusState(total, isLow);
+      if (stock === 'normal' && state !== 'normal') { return false; }
+      if (stock === 'low' && state !== 'low') { return false; }
+      if (stock === 'out' && state !== 'out') { return false; }
+    }
+    return true;
+  });
+}
+
+function populateProductsCategoryFilterOptions(view) {
+  var source = view === 'rental' ? adminRentalsCache : adminProductsCache;
+  var selected = $('#productsCategoryFilter').val() || '';
+  var categoryMap = {};
+
+  (source || []).forEach(function (item) {
+    var category = getCategoryValue(item);
+    if (category) {
+      categoryMap[category] = true;
+    }
+  });
+
+  var options = ['<option value="">全部分類</option>'].concat(
+    Object.keys(categoryMap).sort().map(function (category) {
+      return '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>';
+    })
+  ).join('');
+
+  $('#productsCategoryFilter').html(options);
+  if (selected && categoryMap[selected]) {
+    $('#productsCategoryFilter').val(selected);
+  } else {
+    productsFilterState.category = '';
+    $('#productsCategoryFilter').val('');
+  }
+}
+
+function updateProductsFilterUI() {
+  var hasFilter = !!(productsFilterState.query || productsFilterState.category || productsFilterState.stock);
+  $('#productsClearFilters').toggleClass('d-none', !hasFilter);
+}
+
+function updateProductsResultCount(total, shown, view, state) {
+  var $node = $('#productsResultCount');
+  if (!$node.length) { return; }
+  if (state === 'error') {
+    $node.text((view === 'rental' ? '租借' : '商店') + '資料載入異常');
+    return;
+  }
+  var viewLabel = view === 'rental' ? '租借商品' : '商店商品';
+  $node.text(viewLabel + '：' + shown + ' / ' + total + ' 筆');
+}
+
+function rerenderProductsCurrentView() {
+  updateProductsFilterUI();
+  if (getActiveProductsView() === 'rental') {
+    renderRentalProductsTable(adminRentalsCache);
+  } else {
+    renderProductsTable(adminProductsCache);
+  }
+}
+
 /**
  * 將 products 陣列渲染成 HTML 表格列，填入 #productsTableBody
  * @param {Array} products - products.json 的資料陣列
  */
 function renderProductsTable(products) {
-  if (!products || products.length === 0) {
+  var source = Array.isArray(products) ? products : [];
+  var filtered = applyProductsFilters(source, 'store');
+
+  if (!source || source.length === 0) {
     $('#productsTableBody').html(
-      '<tr><td colspan="9" class="text-center text-muted py-4">目前沒有商品</td></tr>'
+      '<tr><td colspan="9" class="text-center py-4 yr-admin-products-empty"><i class="fas fa-box-open me-2"></i>目前沒有商品</td></tr>'
     );
+    updateProductsResultCount(0, 0, 'store', 'empty');
+    updateProductsFilterUI();
     updateMovementGenerateButtonState();
     if (typeof window.applyEditPermission === 'function') {
       window.applyEditPermission('products', $('#contentArea'));
@@ -3311,11 +3490,26 @@ function renderProductsTable(products) {
     return;
   }
 
-  var html = products.map(function (p) {
+  if (filtered.length === 0) {
+    $('#productsTableBody').html(
+      '<tr><td colspan="9" class="text-center py-4 yr-admin-products-empty"><i class="fas fa-filter me-2"></i>沒有符合條件的商品</td></tr>'
+    );
+    updateProductsResultCount(source.length, 0, 'store', 'empty');
+    updateProductsFilterUI();
+    updateMovementGenerateButtonState();
+    if (typeof window.applyEditPermission === 'function') {
+      window.applyEditPermission('products', $('#contentArea'));
+    }
+    return;
+  }
+
+  var html = filtered.map(function (p) {
     return buildProductRow(p);
   }).join('');
 
   $('#productsTableBody').html(html);
+  updateProductsResultCount(source.length, filtered.length, 'store', 'normal');
+  updateProductsFilterUI();
   updateMovementGenerateButtonState();
 
   if (typeof window.applyEditPermission === 'function') {
@@ -3326,18 +3520,34 @@ function renderProductsTable(products) {
 
 // 將租借商品快取渲染到租借表格，庫存欄位使用 camp 數量加總。
 function renderRentalProductsTable(rentals) {
-  if (!rentals || rentals.length === 0) {
+  var source = Array.isArray(rentals) ? rentals : [];
+  var filtered = applyProductsFilters(source, 'rental');
+
+  if (!source || source.length === 0) {
     $('#rentalProductsTableBody').html(
-      '<tr><td colspan="11" class="text-center text-muted py-4">目前沒有租借商品</td></tr>'
+      '<tr><td colspan="11" class="text-center py-4 yr-admin-products-empty"><i class="fas fa-campground me-2"></i>目前沒有租借商品</td></tr>'
     );
+    updateProductsResultCount(0, 0, 'rental', 'empty');
+    updateProductsFilterUI();
     return;
   }
 
-  var html = rentals.map(function (item) {
+  if (filtered.length === 0) {
+    $('#rentalProductsTableBody').html(
+      '<tr><td colspan="11" class="text-center py-4 yr-admin-products-empty"><i class="fas fa-filter me-2"></i>沒有符合條件的租借商品</td></tr>'
+    );
+    updateProductsResultCount(source.length, 0, 'rental', 'empty');
+    updateProductsFilterUI();
+    return;
+  }
+
+  var html = filtered.map(function (item) {
     return buildRentalRow(item);
   }).join('');
 
   $('#rentalProductsTableBody').html(html);
+  updateProductsResultCount(source.length, filtered.length, 'rental', 'normal');
+  updateProductsFilterUI();
 
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('products', $('#contentArea'));

@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#73816E">
   <meta name="description" content="Yuruicamp 會員中心 - 管理會員資料、購買紀錄與預約租借紀錄">
-  <link rel="icon" href="../../assets/icons/camping_icon.png" type="image/png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/yuruicamp-favicon.svg">
   <title>會員中心 | Yuruicamp 預約系統</title>
 
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/booking.css">
   <link rel="stylesheet" href="../css/yuruicamp-tags-status.css">
-  <link rel="stylesheet" href="../css/member-center.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/theme/booking-shell.css">
+  <link rel="stylesheet" href="../../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/member-center.css">
 </head>
-<body>
+<body class="yr-booking-theme yr-booking-member-page">
 
-  <div id="booking-header"></div>
+  <div id="header" data-header-context="camp"></div>
 
   <!-- 重點：booking 會員中心保留 booking 外殼，顯示內容改與前台共用 components/member-center.partial。 -->
   <div id="memberCenterMount" data-component-mount="member-center"></div>

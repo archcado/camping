@@ -4,35 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Yuruicamp 全系列露營裝備 - 帳篷、背包、炊具、睡袋、照明一次購齊。篩選品牌、分類、價格輕鬆找到心儀商品。">
-  <meta name="theme-color" content="#244d4d">
+  <meta name="theme-color" content="#FAF7ED">
   <title>商品列表 - Yuruicamp 露營選物</title>
   <!-- 預先連線外部資源，減少 DNS 查詢延遲 / Preconnect to reduce DNS lookup latency -->
   <link rel="preconnect" href="https://picsum.photos">
   <link rel="dns-prefetch" href="https://picsum.photos">
   <link rel="stylesheet" href="../css/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏕️</text></svg>">
+  <link rel="stylesheet" href="../css/theme/theme-tokens.css">
+  <link rel="stylesheet" href="../css/theme/theme-base.css">
+  <link rel="stylesheet" href="../css/theme/theme-components.css">
+  <link rel="stylesheet" href="../css/theme/theme-layout.css">
+  <link rel="stylesheet" href="../css/theme/theme-header.css">
+  <link rel="stylesheet" href="../css/theme/pages/products.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
 </head>
-<body>
+<body class="yr-theme yr-products-page">
 
- <div id="header"></div>
+ <div id="header" class="yr-site-header-root" data-header-context="shop"></div>
 
   
   <!-- ===================================================
        頁面頂部 Banner（商品列表頁小型 Banner）
        =================================================== -->
-  <div class="page-banner">
+  <div class="page-banner yr-page-banner">
     <div class="container">
       <!-- 麵包屑 -->
       <nav aria-label="麵包屑">
-        <ol class="breadcrumb" style="margin-bottom:0.75rem;">
+        <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="home.html">首頁</a></li>
           <li class="breadcrumb-sep">/</li>
           <li class="breadcrumb-item active">全部商品</li>
         </ol>
       </nav>
-      <h1 class="page-banner-title">全部商品</h1>
-      <p class="page-banner-sub">精選 18 款頂級露營裝備，探索你的下一個冒險</p>
+      <h1 class="page-banner-title yr-page-banner-title">全部商品</h1>
+      <p class="page-banner-sub yr-page-banner-sub">精選 18 款頂級露營裝備，探索你的下一個冒險</p>
     </div>
   </div>
 
@@ -41,14 +47,16 @@
        Advertisement Carousel (Personalized Products)
        =================================================== -->
   <div class="ad-carousel-container">
-    <div class="ad-carousel">
-      <div class="ad-carousel-slides" id="adCarouselSlides">
-        <!-- 重點：由 JS 動態生成，優先抓取符合使用者 survey-tags 的 interest_tags 商品。 -->
-      </div>
-      <button class="ad-carousel-btn ad-carousel-prev" id="adCarouselPrev" title="上一個" aria-label="上一個廣告">❮</button>
-      <button class="ad-carousel-btn ad-carousel-next" id="adCarouselNext" title="下一個" aria-label="下一個廣告">❯</button>
-      <div class="ad-carousel-dots" id="adCarouselDots">
-        <!-- 由 JS 動態生成 dot indicators -->
+    <div class="container">
+      <div class="ad-carousel">
+        <div class="ad-carousel-slides" id="adCarouselSlides">
+          <!-- 重點：由 JS 動態生成，優先抓取符合使用者 survey-tags 的 interest_tags 商品。 -->
+        </div>
+        <button class="ad-carousel-btn ad-carousel-prev" id="adCarouselPrev" title="上一個" aria-label="上一個廣告"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
+        <button class="ad-carousel-btn ad-carousel-next" id="adCarouselNext" title="下一個" aria-label="下一個廣告"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+        <div class="ad-carousel-dots" id="adCarouselDots">
+          <!-- 由 JS 動態生成 dot indicators -->
+        </div>
       </div>
     </div>
   </div>
@@ -56,15 +64,15 @@
   <!-- ===================================================
        主內容：側邊欄 + 商品網格
        =================================================== -->
-  <main style="padding: 0 0 4rem 0;">
+  <main class="yr-products-main" style="padding: 0 0 4rem 0;">
     <div class="container">
-      <div style="display:flex; gap:1.5rem; align-items:flex-start;">
+      <div class="yr-products-shell" style="display:flex; gap:1.5rem; align-items:flex-start;">
 
         <!-- =============================================
              步驟 5.1：PC 版篩選側邊欄
              在手機版會被隱藏（CSS .hidden-mobile for sidebar）
              ============================================= -->
-        <aside class="filter-sidebar" style="width:240px; flex-shrink:0;" id="filterSidebar">
+        <aside class="filter-sidebar yr-filter-sidebar" style="width:240px; flex-shrink:0;" id="filterSidebar">
 
           <!-- 側邊欄標題 + 重置按鈕 -->
           <div class="filter-sidebar-title">
@@ -105,7 +113,7 @@
                 >
               </div>
               <button
-                class="btn btn-outline btn-sm"
+                class="btn btn-outline btn-sm yr-btn yr-btn--secondary"
                 id="applyPriceBtn"
                 style="margin-top:0.5rem;"
               >
@@ -126,8 +134,8 @@
           <div class="filter-group">
             <p class="filter-group-title">快選</p>
             <ul class="filter-category-list">
-              <button class="filter-category-btn" data-tag="new" id="filterNewBtn">🆕 最新商品</button>
-              <button class="filter-category-btn" data-tag="bestseller" id="filterBestBtn">🔥 熱銷商品</button>
+              <button class="filter-category-btn" data-tag="new" id="filterNewBtn"><i class="bi bi-stars" aria-hidden="true"></i> 最新商品</button>
+              <button class="filter-category-btn" data-tag="bestseller" id="filterBestBtn"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> 熱銷商品</button>
             </ul>
           </div>
 
@@ -136,12 +144,12 @@
         <!-- =============================================
              步驟 5.2：商品主區域（工具列 + 網格）
              ============================================= -->
-        <div style="flex:1; min-width:0;">
+        <div class="yr-products-content" style="flex:1; min-width:0;">
 
           <!-- 工具列：商品數量 + 排序下拉 -->
-          <div class="product-list-toolbar">
-            <span class="product-count" id="productCount">共 0 件商品</span>
-            <select class="product-sort-select" id="sortSelect" aria-label="排序方式">
+          <div class="product-list-toolbar yr-products-toolbar">
+            <span class="product-count yr-product-count" id="productCount">共 0 件商品</span>
+            <select class="product-sort-select yr-product-sort-select" id="sortSelect" aria-label="排序方式">
               <option value="default">預設排序</option>
               <option value="price-asc">價格：低到高</option>
               <option value="price-desc">價格：高到低</option>
@@ -151,7 +159,7 @@
           </div>
 
           <!-- 商品網格（由 JS 動態生成） -->
-          <div class="products-grid" id="productsGrid">
+          <div class="products-grid yr-products-grid" id="productsGrid">
             <!-- 骨架屏加載佔位 -->
             <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line long"></div><div class="skeleton-line price"></div></div></div>
             <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line long"></div><div class="skeleton-line price"></div></div></div>
@@ -162,7 +170,7 @@
           </div>
 
           <!-- 分頁 -->
-          <div class="pagination" id="pagination" style="display:none;">
+          <div class="pagination yr-products-pagination" id="pagination" style="display:none;">
             <!-- 由 JS 動態生成 -->
           </div>
         </div>
@@ -174,21 +182,21 @@
   <!-- ===================================================
        步驟 5.3：手機版底部篩選按鈕（固定）
        =================================================== -->
-  <button class="mobile-filter-btn" id="mobileFilterBtn" aria-label="開啟篩選">
-    ⚙️ 篩選
+  <button class="mobile-filter-btn yr-mobile-filter-btn yr-btn yr-btn--primary" id="mobileFilterBtn" aria-label="開啟篩選">
+    <i class="bi bi-sliders2" aria-hidden="true"></i> 篩選
   </button>
 
   <!-- ===================================================
        步驟 5.3：手機版 Bottom Sheet（由下往上滑出）
        =================================================== -->
-  <div id="filterSheet" class="filter-sheet" role="dialog" aria-modal="true" aria-label="商品篩選">
+  <div id="filterSheet" class="filter-sheet yr-filter-sheet" role="dialog" aria-modal="true" aria-label="商品篩選">
     <!-- 拖動把手 -->
     <div class="filter-sheet-handle"></div>
 
     <!-- 標題 -->
     <div class="filter-sheet-header">
       <h3 class="filter-sheet-title">篩選商品</h3>
-      <button class="filter-sheet-close" id="filterSheetClose" aria-label="關閉">✕</button>
+      <button class="filter-sheet-close" id="filterSheetClose" aria-label="關閉"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
     </div>
 
     <!-- 分類（Chip 樣式） -->
@@ -217,16 +225,16 @@
     </div>
 
     <!-- 底部：重置 + 應用 -->
-    <div class="filter-sheet-footer">
-      <button class="btn btn-outline" id="mobileResetBtn" style="flex:1;">重置篩選</button>
-      <button class="btn btn-primary" id="mobileApplyBtn" style="flex:2;">套用篩選</button>
+    <div class="filter-sheet-footer yr-filter-sheet-footer">
+      <button class="btn btn-outline yr-btn yr-btn--secondary" id="mobileResetBtn" style="flex:1;">重置篩選</button>
+      <button class="btn btn-primary yr-btn yr-btn--primary" id="mobileApplyBtn" style="flex:2;">套用篩選</button>
     </div>
   </div>
 
   <!-- Filter Sheet 背景遮罩 -->
   <div class="offcanvas-backdrop" id="filterSheetBackdrop"></div>
 
-   <div id="footer"></div>
+   <div id="footer" class="yr-site-footer-root"></div>
 
   <!-- ===================================================
        JavaScript 載入
@@ -249,5 +257,3 @@
 
 </body>
 </html>
-
-

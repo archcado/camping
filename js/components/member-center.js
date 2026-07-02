@@ -18,13 +18,15 @@
   var DATA_PATHS = {
     users: joinPath(config.dataBasePath, 'users.json'),
     orders: joinPath(config.dataBasePath, 'orders.json'),
-    rentalOrders: joinPath(config.dataBasePath, 'rentalOrders.json')
+    rentalOrders: joinPath(config.dataBasePath, 'rentalOrders.json'),
+    products: joinPath(config.dataBasePath, 'products.json')
   };
 
   var REWARD_POINT_RATE = 0.1;
   var REVIEW_STORAGE_KEY = 'member_center_reviews';
   var MOCK_ORDERS_STORAGE_KEY = 'mockOrders';
   var MOCK_USER_POINT_DELTAS_STORAGE_KEY = 'mockUserPointDeltas';
+  var DEFAULT_PRODUCT_IMAGE_FALLBACK = '../assets/images/products/prod-001/main.webp';
 
   var state = {
     root: null,
@@ -32,6 +34,9 @@
     user: null,
     users: [],
     orders: [],
+    products: [],
+    productsById: new Map(),
+    productImageFallback: '',
     rentalOrders: [],
     activeFilters: {
       purchase: 'all',
@@ -84,6 +89,17 @@
   var PREFERENCE_EQUIPMENT_VALUES = ['tent', 'sleeping-bag', 'backpack', 'cooking', 'lighting', 'clothing', 'chair', 'navigation', 'safety', 'photography'];
   var PURCHASE_TAB_FILTERS = ['all', 'unshipped', 'shipped', 'returned'];
   var RENTAL_TAB_FILTERS = ['all', 'pending', 'confirmed', 'refunded'];
+  var BOOTSTRAP_ICON_CLASS_PATTERN = /^bi-[a-z0-9-]+$/;
+  var EMOJI_ICON_PATTERN = /[\u{1F300}-\u{1FAFF}\u2600-\u27BF]/u;
+  var NOTIFICATION_TYPE_ICON_MAP = {
+    order: 'bi-box-seam',
+    promo: 'bi-tag',
+    coupon: 'bi-tag',
+    shipping: 'bi-truck',
+    security: 'bi-shield-lock',
+    account: 'bi-person',
+    system: 'bi-bell'
+  };
 
   function joinPath(base, fileName) {
     return String(base || '').replace(/\/+$/, '') + '/' + fileName;
@@ -102,6 +118,67 @@
     } catch (error) {
       return fallback;
     }
+  }
+
+  function normalizeIdentifier(value) {
+    if (value == null) return '';
+    return String(value).trim();
+  }
+
+  function resolveDataAssetPath(path) {
+    var value = normalizeIdentifier(path);
+    if (!value) return '';
+    if (/^(?:https?:)?\/\//i.test(value) || value.indexOf('data:') === 0 || value.indexOf('blob:') === 0) {
+      return value;
+    }
+    if (value.charAt(0) === '/') return value;
+
+    try {
+      var dataBaseUrl = new URL(joinPath(config.dataBasePath || '../data', ''), window.location.href);
+      var resolved = new URL(value, dataBaseUrl);
+      return resolved.pathname + resolved.search + resolved.hash;
+    } catch (_error) {
+      return value;
+    }
+  }
+
+  function getItemProductId(item) {
+    if (!item || typeof item !== 'object') return '';
+    return normalizeIdentifier(item.productId || item.id || item.product_id);
+  }
+
+  function getProductPrimaryImage(product) {
+    if (!product || typeof product !== 'object') return '';
+    var image = normalizeIdentifier(product.image || product.imageUrl || product.thumbnail);
+    if (!image && Array.isArray(product.images) && product.images.length > 0) {
+      image = normalizeIdentifier(product.images[0]);
+    }
+    return resolveDataAssetPath(image);
+  }
+
+  function buildProductsById(products) {
+    return (Array.isArray(products) ? products : []).reduce(function (map, product) {
+      var productId = normalizeIdentifier(product && (product.id || product.productId || product.product_id));
+      if (productId) map.set(productId, product);
+      return map;
+    }, new Map());
+  }
+
+  function getOrderImageFallback() {
+    if (state.productImageFallback) return state.productImageFallback;
+
+    var firstCatalogImage = getProductPrimaryImage(state.products[0]);
+    state.productImageFallback = firstCatalogImage || resolveDataAssetPath(DEFAULT_PRODUCT_IMAGE_FALLBACK);
+    return state.productImageFallback;
+  }
+
+  function resolveOrderItemImage(item) {
+    var productId = getItemProductId(item);
+    var product = productId ? state.productsById.get(productId) : null;
+    var latestProductImage = getProductPrimaryImage(product);
+    var snapshotImage = resolveDataAssetPath(item && item.image);
+
+    return latestProductImage || snapshotImage || getOrderImageFallback();
   }
 
   /** 重點：安全讀取 localStorage 陣列，避免 checkout 暫存資料壞掉時影響會員中心。 */
@@ -149,6 +226,31 @@
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
+  }
+
+  function getNotificationFallbackIconClass(type) {
+    var normalizedType = normalizeIdentifier(type).toLowerCase();
+    return NOTIFICATION_TYPE_ICON_MAP[normalizedType] || 'bi-bell';
+  }
+
+  function isEmojiIcon(value) {
+    var icon = normalizeIdentifier(value);
+    return Boolean(icon) && EMOJI_ICON_PATTERN.test(icon);
+  }
+
+  /** 重點：通知圖示只允許安全的 bi-* class，其他值改走 emoji 或 type fallback。 */
+  function getNotificationIconHtml(notification) {
+    var icon = normalizeIdentifier(notification && notification.icon);
+    if (BOOTSTRAP_ICON_CLASS_PATTERN.test(icon)) {
+      return '<div class="notif-item__icon" aria-hidden="true"><i class="bi ' + icon + '" aria-hidden="true"></i></div>';
+    }
+
+    if (isEmojiIcon(icon)) {
+      return '<div class="notif-item__icon notif-item__icon--emoji" aria-hidden="true">' + escapeHtml(icon) + '</div>';
+    }
+
+    var fallbackClass = getNotificationFallbackIconClass(notification && notification.type);
+    return '<div class="notif-item__icon" aria-hidden="true"><i class="bi ' + fallbackClass + '" aria-hidden="true"></i></div>';
   }
 
   function showMcToast(message, type) {
@@ -417,12 +519,13 @@
   function buildThumbsHtml(items) {
     var safeItems = Array.isArray(items) ? items : [];
     if (safeItems.length === 0) return '';
+    var fallbackImage = getOrderImageFallback();
 
     return '<div class="rec-item__thumbs">'
       + safeItems.slice(0, 3).map(function (item) {
-        var image = item.image || 'https://picsum.photos/seed/fallback/80/80';
+        var image = resolveOrderItemImage(item);
         return '<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(item.name || '商品') + '" class="rec-item__thumb"'
-          + ' onerror="this.src=\'https://picsum.photos/seed/fallback/80/80\'">';
+          + ' onerror="this.onerror=null; this.src=\'' + escapeHtml(fallbackImage) + '\'">';
       }).join('')
       + (safeItems.length > 3 ? '<span class="rec-item__more">+' + (safeItems.length - 3) + '</span>' : '')
       + '</div>';
@@ -581,12 +684,14 @@
     if (!order) return;
 
     var status = getStatusInfo(order.status);
+    var fallbackImage = getOrderImageFallback();
     var itemsHtml = (order.items || []).map(function (item) {
       var quantity = Number(item.quantity || 0);
       var subtotal = Number(item.price || 0) * quantity;
+      var image = resolveOrderItemImage(item);
       return '<div class="bk-order-item-row">'
-        + '<img src="' + escapeHtml(item.image || 'https://picsum.photos/seed/fallback/80/80') + '" alt="' + escapeHtml(item.name || '商品') + '" class="bk-order-item-img"'
-        + ' onerror="this.src=\'https://picsum.photos/seed/fallback/80/80\'">'
+        + '<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(item.name || '商品') + '" class="bk-order-item-img"'
+        + ' onerror="this.onerror=null; this.src=\'' + escapeHtml(fallbackImage) + '\'">'
         + '<div>'
         + '<div class="bk-order-item-name">' + escapeHtml(item.name || '未命名商品') + '</div>'
         + '<div class="bk-order-item-qty">x ' + quantity + '，' + formatMoney(subtotal) + '</div>'
@@ -624,12 +729,14 @@
     if (!order) return;
 
     var status = getRentalStatusInfo(order.status);
+    var fallbackImage = getOrderImageFallback();
     var itemsHtml = (order.items || []).map(function (item) {
       var quantity = Number(item.quantity || 0);
       var subtotal = Number(item.price || 0) * quantity;
+      var image = resolveOrderItemImage(item);
       return '<div class="bk-order-item-row">'
-        + '<img src="' + escapeHtml(item.image || 'https://picsum.photos/seed/fallback/80/80') + '" alt="' + escapeHtml(item.name || '商品') + '" class="bk-order-item-img"'
-        + ' onerror="this.src=\'https://picsum.photos/seed/fallback/80/80\'">'
+        + '<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(item.name || '商品') + '" class="bk-order-item-img"'
+        + ' onerror="this.onerror=null; this.src=\'' + escapeHtml(fallbackImage) + '\'">'
         + '<div>'
         + '<div class="bk-order-item-name">' + escapeHtml(item.name || '未命名租借品') + '</div>'
         + '<div class="bk-order-item-qty">x ' + quantity + '，' + formatMoney(subtotal) + '</div>'
@@ -958,9 +1065,10 @@
     // 重點：通知讀取後只更新畫面內狀態，不回寫 JSON，避免靜態資料檔被瀏覽器直接改寫。
     container.innerHTML = notifications.map(function (notification) {
       var read = Boolean(notification.read);
-      return '<div class="notif-item" id="notif-' + escapeHtml(notification.id) + '" data-notif-id="' + escapeHtml(notification.id) + '">'
+      return '<div class="notif-item' + (read ? ' read' : '') + '" id="notif-' + escapeHtml(notification.id) + '" data-notif-id="' + escapeHtml(notification.id) + '">'
         + '<div class="notif-item__dot' + (read ? ' read' : '') + '"></div>'
-        + '<div>'
+        + getNotificationIconHtml(notification)
+        + '<div class="notif-item__content">'
         + '<div class="notif-item__title">' + linkNotificationText(notification.title) + '</div>'
         + '<div class="notif-item__body">' + linkNotificationText(notification.message) + '</div>'
         + '<div class="notif-item__date">' + escapeHtml(notification.time) + '</div>'
@@ -1382,12 +1490,16 @@
     var results = await Promise.all([
       fetchJson(DATA_PATHS.users, []),
       fetchJson(DATA_PATHS.orders, []),
-      fetchJson(DATA_PATHS.rentalOrders, [])
+      fetchJson(DATA_PATHS.rentalOrders, []),
+      fetchJson(DATA_PATHS.products, [])
     ]);
     var memberId = getCurrentMemberId();
 
     state.users = applyUserPointDeltas(results[0]);
     state.user = selectUser(state.users);
+    state.products = Array.isArray(results[3]) ? results[3] : [];
+    state.productsById = buildProductsById(state.products);
+    state.productImageFallback = '';
     state.orders = mergeOrders(results[1], readStorageArray(MOCK_ORDERS_STORAGE_KEY)).filter(function (order) {
       return !order.userId || order.userId === memberId || (state.user && order.userId === state.user.id);
     });

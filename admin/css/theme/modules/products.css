@@ -1,0 +1,394 @@
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products__header {
+  border-bottom: 1px solid var(--yr-admin-divider) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar {
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products__stock-note {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module #minStockModeHint {
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar__tabs {
+  display: inline-flex;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar__filters {
+  gap: 0.5rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-search {
+  min-width: 220px;
+  max-width: 320px;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-filter {
+  min-width: 132px;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-result-count {
+  color: var(--yr-admin-text-muted);
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products__tabs {
+  background: var(--yr-admin-surface-muted);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  padding: 0.25rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products__tab {
+  border-radius: 8px !important;
+  border: 1px solid transparent;
+  color: var(--yr-admin-tab-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products__tab.active {
+  background: var(--yr-admin-state-sage-bg) !important;
+  border-color: var(--yr-admin-state-sage-border) !important;
+  color: var(--yr-admin-state-sage-text) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products__tab::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: 2px;
+  border-radius: 2px;
+  background: transparent;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products__tab.active::after {
+  background: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-table {
+  --bs-table-bg: var(--yr-admin-table-bg);
+  --bs-table-color: var(--yr-admin-text);
+  --bs-table-border-color: var(--yr-admin-table-border);
+  --bs-table-hover-bg: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-table .yr-admin-products-th {
+  background: var(--yr-admin-table-header-bg);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row > td {
+  border-color: var(--yr-admin-table-border);
+  background: var(--yr-admin-table-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row:hover > td {
+  background: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row.table-danger > td {
+  background: #f4ece9 !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-table .sticky-col {
+  background: var(--yr-admin-table-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-table thead .sticky-col {
+  background: var(--yr-admin-table-header-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-image__img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 1px solid var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-name {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-category {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 7px;
+  padding: 4px 8px;
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-type,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-type--store {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-type--rental {
+  background: var(--yr-admin-info-bg);
+  border-color: var(--yr-admin-info-border);
+  color: var(--yr-admin-info-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-status--normal {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-status--low {
+  background: var(--yr-admin-warning-bg);
+  border-color: var(--yr-admin-warning-border);
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-status--out {
+  background: var(--yr-admin-danger-bg);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-status--unknown {
+  background: var(--yr-admin-neutral-bg);
+  border-color: var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-stock {
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-threshold-sum {
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-total-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-actions .yr-admin-product-action-btn {
+  min-height: 32px;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-action-btn--primary {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-action-btn--secondary {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-border-strong);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-action-btn--outline {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-info-border);
+  color: var(--yr-admin-info-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .min-stock-confirm-btn {
+  background: var(--yr-admin-warning-bg);
+  border-color: var(--yr-admin-warning-border);
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .min-stock-confirm-btn:hover:not(:disabled) {
+  background: #ece0cd;
+  border-color: #bea37f;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .stock-cell-below-min .admin-stock-control .stock-input {
+  background: #f7efe2;
+  border-color: #c8ad86;
+  color: #69543b;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-table tr.table-danger .stock-cell-below-min .admin-stock-control .stock-input {
+  background: #f5e8df;
+  border-color: #c4a091;
+  color: #6f5045;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module #productsTable thead.min-stock-mode-header,
+.yr-admin-dashboard-page .yr-admin-products-module #rentalProductsTable thead.min-stock-mode-header {
+  background: #f3ebdd !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .min-stock-mode .admin-stock-control .stock-step-btn {
+  border-color: #c5b08a;
+  color: #6e5a3c;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-empty,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-loading,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-error {
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-error {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .modal-content {
+  background: var(--yr-admin-modal-bg);
+  border: 1px solid var(--yr-admin-modal-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .modal-header,
+.yr-admin-dashboard-page .yr-admin-product-modal .modal-footer {
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-product-modal-section + .yr-admin-product-modal-section {
+  margin-top: 0.75rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-product-image-upload__item .form-control {
+  border-style: dashed;
+  border-color: var(--yr-admin-border-strong);
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-product-image-upload__item .form-control:focus {
+  border-color: var(--yr-admin-primary-hover);
+  box-shadow: 0 0 0 0.2rem var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-product-image-upload__hint {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-product-spec-fields .yr-admin-product-spec-row {
+  padding: 0.5rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 8px;
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .remove-product-spec-btn {
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text);
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .remove-product-spec-btn:hover {
+  background: var(--yr-admin-danger-bg);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-stock-distribution .yr-admin-stock-location__name {
+  color: var(--yr-admin-text-muted);
+  background: var(--yr-admin-surface-muted);
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-stock-location__quantity {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal .yr-admin-stock-total {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-product-modal #productSpecFields,
+.yr-admin-dashboard-page .yr-admin-product-modal #rentalCampList,
+.yr-admin-dashboard-page .yr-admin-product-modal #rentalCampPresetList,
+.yr-admin-dashboard-page .yr-admin-product-modal #editBranchPresetList {
+  overflow-x: auto;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module [id="productsModuleCard"] .yr-admin-modal .modal-body [id="transferModeHint"],
+.yr-admin-dashboard-page .yr-admin-products-module [id="productsModuleCard"] .yr-admin-modal .modal-body [id="transferDistributionCounter"] {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module [id="productsModuleCard"] .yr-admin-modal [id="addTransferCampRow"] {
+  border-color: var(--yr-admin-border-strong);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module [id="productsModuleCard"] .yr-admin-modal [id="submitTransferToRental"] {
+  background: var(--yr-admin-brand);
+  border-color: var(--yr-admin-brand);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module [id="productsModuleCard"] .yr-admin-modal [id="submitTransferToRental"]:hover {
+  background: var(--yr-admin-brand-strong);
+  border-color: var(--yr-admin-brand-strong);
+}
+
+@media (max-width: 1024px) {
+  .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar {
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar__filters {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-search {
+    min-width: 180px;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-product-modal .modal-body .col-6 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar__filters,
+  .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-toolbar__filters > * {
+    width: 100%;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-result-count {
+    margin-left: 0 !important;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-product-modal .modal-body {
+    overflow-x: hidden;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-product-modal .rental-camp-row {
+    flex-wrap: wrap;
+  }
+}

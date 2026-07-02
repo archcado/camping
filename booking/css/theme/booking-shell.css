@@ -1,0 +1,306 @@
+.yr-booking-theme {
+  background: #faf7ed;
+  color: #3f463d;
+  overflow-x: hidden;
+}
+
+.yr-booking-theme #booking-header,
+.yr-booking-theme #booking-footer {
+  width: 100%;
+}
+
+.yr-booking-theme .booking-header {
+  background: rgba(255, 253, 248, 0.96);
+  border-bottom: 1px solid #e5dbce;
+  box-shadow: 0 4px 18px rgba(63, 70, 61, 0.05);
+}
+
+.yr-booking-theme .bk-navbar__inner {
+  min-height: 90px;
+  max-width: min(100% - 2rem, 1200px);
+  padding: 0.75rem 0;
+}
+
+.yr-booking-theme .bk-navbar__brand .brand,
+.yr-booking-theme .brand-sub {
+  color: #4f554d;
+}
+
+.yr-booking-theme .bk-navbar__brand .logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.yr-booking-theme .bk-nav-link {
+  color: #4f554d;
+}
+
+.yr-booking-theme .bk-nav-link:hover,
+.yr-booking-theme .bk-nav-link.active {
+  color: #62715e;
+}
+
+.yr-booking-theme .bk-nav-link.active {
+  border-bottom-color: #62715e;
+}
+
+.yr-booking-theme .bk-hamburger,
+.yr-booking-theme .bk-cart-btn,
+.yr-booking-theme .booking-header .user-info,
+.yr-booking-theme .booking-header .navbar-login-btn {
+  color: #738071;
+}
+
+.yr-booking-theme .bk-hamburger,
+.yr-booking-theme .bk-cart-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.yr-booking-theme .bk-hamburger:hover,
+.yr-booking-theme .bk-cart-btn:hover {
+  background: #eef2ea;
+  color: #566554;
+}
+
+.yr-booking-theme .bk-switch-btn {
+  color: #fffdf8;
+  background: #62715e;
+  border-color: #62715e;
+  border-radius: 10px;
+}
+
+.yr-booking-theme .bk-switch-btn:hover {
+  color: #fffdf8;
+  background: #566554;
+  border-color: #566554;
+}
+
+.yr-booking-theme .booking-header .navbar-login-btn {
+  background: #fffdf8;
+  border: 1px solid #c9d5c3;
+  border-radius: 10px;
+}
+
+.yr-booking-theme .booking-header .navbar-login-btn:hover {
+  background: #eef2ea;
+  border-color: #c9d5c3;
+  color: #566554;
+}
+
+.yr-booking-theme .bk-badge,
+.yr-booking-theme #bookingBadge,
+.yr-booking-theme #bookingBadgeMobile {
+  background: #a36f61;
+  color: #fffdf8;
+}
+
+.yr-booking-theme .booking-header .navbar-user-dropdown {
+  border-color: #e5dbce;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(63, 70, 61, 0.12);
+}
+
+.yr-booking-theme .booking-header .navbar-user-dropdown .dropdown-item,
+.yr-booking-theme .booking-header .navbar-user-dropdown .navbar-logout-btn {
+  color: #4f554d;
+}
+
+.yr-booking-theme .booking-header .navbar-user-dropdown .dropdown-item:hover,
+.yr-booking-theme .booking-header .navbar-user-dropdown .navbar-logout-btn:hover {
+  background: #eef2ea;
+  color: #566554;
+}
+
+.yr-booking-theme .bk-offcanvas {
+  background: #fffdf8;
+  border-right: 1px solid #e5dbce;
+  box-shadow: 0 12px 26px rgba(63, 70, 61, 0.12);
+}
+
+.yr-booking-theme .bk-offcanvas__title,
+.yr-booking-theme .bk-offcanvas__list li a {
+  color: #4f554d;
+}
+
+.yr-booking-theme .bk-offcanvas__list li a:hover,
+.yr-booking-theme .bk-offcanvas__cart-btn:hover {
+  background: #eef2ea;
+  color: #566554;
+}
+
+.yr-booking-theme .booking-footer {
+  margin-top: 2rem;
+  background: linear-gradient(180deg, #fffdf8 0%, #f4f8f1 100%);
+  border-top: 1px solid #e5dbce;
+  color: #3f463d;
+}
+
+.yr-booking-theme .bk-footer__inner {
+  max-width: min(100% - 2rem, 1200px);
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+.yr-booking-theme .bk-footer__heading,
+.yr-booking-theme .bk-footer__subheading {
+  color: #3f463d;
+}
+
+.yr-booking-theme .bk-footer__tagline,
+.yr-booking-theme .bk-footer__links a,
+.yr-booking-theme .bk-footer__contact-item,
+.yr-booking-theme .bk-footer__copyright,
+.yr-booking-theme .bk-footer__policy a,
+.yr-booking-theme .bk-footer__payment {
+  color: #746f67;
+}
+
+.yr-booking-theme .bk-footer__links a:hover,
+.yr-booking-theme .bk-footer__policy a:hover {
+  color: #62715e;
+}
+
+.yr-booking-theme .bk-footer__divider {
+  border-top-color: #e5dbce;
+}
+
+.yr-booking-theme .social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #e5dbce;
+  background: #fffdf8;
+  color: #74846f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.yr-booking-theme .social a i {
+  color: currentColor;
+  font-size: 1rem;
+}
+
+.yr-booking-theme .social a:hover {
+  background: #62715e;
+  border-color: #62715e;
+  color: #fffdf8;
+  transform: translateY(-1px);
+}
+
+.yr-booking-theme .bk-footer__payment-icons i {
+  color: #738071;
+}
+
+.yr-booking-theme .bk-footer__payment-icons i:hover {
+  color: #566554;
+}
+
+@media (max-width: 1024px) {
+  .yr-booking-theme .bk-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .yr-booking-theme .bk-navbar__inner {
+    max-width: min(100% - 1.5rem, 1200px);
+    min-height: 82px;
+  }
+
+  .yr-booking-theme .bk-navbar__brand .logo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .yr-booking-theme .bk-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 390px) {
+  .yr-booking-theme .bk-navbar__inner {
+    max-width: calc(100% - 1rem);
+  }
+
+  .yr-booking-theme .bk-footer__inner {
+    max-width: calc(100% - 1rem);
+  }
+}
+
+/* Shared booking shell primitives */
+.yr-booking-theme :focus-visible {
+  outline: 2px solid #74846f;
+  outline-offset: 3px;
+}
+
+.yr-booking-theme .btn,
+.yr-booking-theme button,
+.yr-booking-theme [type="button"],
+.yr-booking-theme [type="submit"],
+.yr-booking-theme [role="button"] {
+  min-height: 44px;
+}
+
+.yr-booking-theme .btn--primary {
+  border-radius: 10px;
+  border-color: #74846f;
+  background: #74846f;
+  color: #fffdf8;
+}
+
+.yr-booking-theme .btn--primary:hover {
+  border-color: #62715e;
+  background: #62715e;
+  color: #fffdf8;
+  transform: translateY(-1px);
+}
+
+.yr-booking-theme .btn--outline {
+  border-radius: 10px;
+}
+
+.yr-booking-theme input:not([type="checkbox"], [type="radio"]),
+.yr-booking-theme select,
+.yr-booking-theme textarea {
+  border-radius: 10px;
+  border-color: #e2d8ca;
+  background: #fffdf8;
+  color: #3f463d;
+}
+
+.yr-booking-theme input::placeholder,
+.yr-booking-theme textarea::placeholder {
+  color: #6d6a62;
+}
+
+.yr-booking-theme input:not([type="checkbox"], [type="radio"]):focus,
+.yr-booking-theme select:focus,
+.yr-booking-theme textarea:focus {
+  border-color: #74846f;
+  box-shadow: 0 0 0 3px rgb(116 132 111 / 14%);
+}
+
+.yr-booking-theme input[type="checkbox"],
+.yr-booking-theme input[type="radio"] {
+  accent-color: #74846f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-booking-theme .btn--primary {
+    transition: none;
+  }
+
+  .yr-booking-theme .btn--primary:hover {
+    transform: none;
+  }
+}

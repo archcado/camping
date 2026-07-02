@@ -1,0 +1,1195 @@
+.yr-admin-login-page,
+.yr-admin-dashboard-page {
+  color: var(--yr-admin-text);
+  font-family: var(--yr-admin-font-family);
+  line-height: var(--yr-admin-line-height);
+}
+
+.yr-admin-login-page .btn,
+.yr-admin-dashboard-page .btn {
+  border-radius: var(--yr-admin-radius-md);
+  min-height: 44px;
+  font-weight: 600;
+  transition:
+    background-color var(--yr-admin-transition-fast),
+    border-color var(--yr-admin-transition-fast),
+    color var(--yr-admin-transition-fast),
+    transform var(--yr-admin-transition-fast),
+    box-shadow var(--yr-admin-transition-fast);
+}
+
+.yr-admin-login-page .btn-primary,
+.yr-admin-dashboard-page .btn-primary {
+  background: var(--yr-admin-brand);
+  border-color: var(--yr-admin-brand);
+  color: var(--yr-admin-text-inverse);
+}
+
+.yr-admin-login-page .btn-primary:hover,
+.yr-admin-dashboard-page .btn-primary:hover,
+.yr-admin-login-page .btn-primary:focus-visible,
+.yr-admin-dashboard-page .btn-primary:focus-visible {
+  background: var(--yr-admin-brand-strong);
+  border-color: var(--yr-admin-brand-strong);
+}
+
+.yr-admin-login-page .btn-outline-secondary,
+.yr-admin-dashboard-page .btn-outline-secondary,
+.yr-admin-login-page .btn-secondary,
+.yr-admin-dashboard-page .btn-secondary {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-border-strong);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-login-page .btn-outline-secondary:hover,
+.yr-admin-dashboard-page .btn-outline-secondary:hover,
+.yr-admin-login-page .btn-secondary:hover,
+.yr-admin-dashboard-page .btn-secondary:hover {
+  background: var(--yr-admin-surface-soft);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-login-page .btn-danger,
+.yr-admin-dashboard-page .btn-danger {
+  background: var(--yr-admin-danger-soft);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-login-page .btn-danger:hover,
+.yr-admin-dashboard-page .btn-danger:hover {
+  background: var(--yr-admin-danger-soft);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-login-page .btn:active,
+.yr-admin-dashboard-page .btn:active {
+  transform: translateY(0);
+}
+
+.yr-admin-login-page .btn:disabled,
+.yr-admin-dashboard-page .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.yr-admin-login-page .form-control,
+.yr-admin-dashboard-page .form-control,
+.yr-admin-login-page .form-select,
+.yr-admin-dashboard-page .form-select {
+  min-height: 44px;
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: var(--yr-admin-radius-sm);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-login-page .form-control::placeholder,
+.yr-admin-dashboard-page .form-control::placeholder {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-login-page .form-control:focus,
+.yr-admin-dashboard-page .form-control:focus,
+.yr-admin-login-page .form-select:focus,
+.yr-admin-dashboard-page .form-select:focus {
+  border-color: var(--yr-admin-brand);
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-login-page .form-check-input,
+.yr-admin-dashboard-page .form-check-input {
+  accent-color: var(--yr-admin-brand);
+}
+
+.yr-admin-login-page .form-label,
+.yr-admin-dashboard-page .form-label {
+  color: var(--yr-admin-text);
+  font-weight: 600;
+}
+
+.yr-admin-login-page .card,
+.yr-admin-dashboard-page .card {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: var(--yr-admin-radius-lg);
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .card {
+  border-radius: 14px;
+}
+
+.yr-admin-login-page .alert,
+.yr-admin-dashboard-page .alert {
+  border-radius: var(--yr-admin-radius-sm);
+  border-width: 1px;
+}
+
+.yr-admin-login-page .alert-danger,
+.yr-admin-dashboard-page .alert-danger {
+  background: var(--yr-admin-danger-soft);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-login-page .modal-content,
+.yr-admin-dashboard-page .modal-content {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: var(--yr-admin-radius-lg);
+  box-shadow: var(--yr-admin-shadow-md);
+}
+
+.yr-admin-login-page .modal-header,
+.yr-admin-dashboard-page .modal-header,
+.yr-admin-login-page .modal-footer,
+.yr-admin-dashboard-page .modal-footer {
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .table {
+  --bs-table-bg: var(--yr-admin-surface);
+  --bs-table-color: var(--yr-admin-text);
+  --bs-table-border-color: var(--yr-admin-border);
+  --bs-table-striped-bg: var(--yr-admin-surface);
+  --bs-table-hover-bg: var(--yr-admin-table-hover);
+}
+
+.yr-admin-dashboard-page .table > :not(caption) > * > * {
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page .table > thead th,
+.yr-admin-dashboard-page .table-light > :not(caption) > * > * {
+  background: var(--yr-admin-surface-soft);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .badge {
+  border-radius: 8px;
+}
+
+.yr-admin-dashboard-page .table-danger > :not(caption) > * > *,
+.yr-admin-dashboard-page tr.table-danger > :not(caption) > * {
+  --bs-table-bg: var(--yr-admin-danger-soft);
+
+  background: var(--yr-admin-danger-soft) !important;
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-login-page .is-invalid,
+.yr-admin-dashboard-page .is-invalid {
+  border-color: var(--yr-admin-danger);
+}
+
+.yr-admin-login-page .is-invalid:focus,
+.yr-admin-dashboard-page .is-invalid:focus {
+  border-color: var(--yr-admin-danger);
+  box-shadow: 0 0 0 3px rgb(154 103 93 / 14%);
+}
+
+.yr-admin-login-page .invalid-feedback,
+.yr-admin-dashboard-page .invalid-feedback {
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-login-page :focus-visible,
+.yr-admin-dashboard-page :focus-visible {
+  outline: 2px solid var(--yr-admin-brand);
+  outline-offset: 3px;
+}
+
+.yr-admin-dashboard-page .text-secondary,
+.yr-admin-dashboard-page .text-muted {
+  color: var(--yr-admin-text-muted) !important;
+}
+
+.yr-admin-dashboard-page .text-danger,
+.yr-admin-dashboard-page .dropdown-item.text-danger,
+.yr-admin-dashboard-page .fa-exclamation-triangle.text-danger,
+.yr-admin-dashboard-page .text-danger.fw-bold {
+  color: var(--yr-admin-danger) !important;
+}
+
+.yr-admin-dashboard-page .dropdown-item.text-danger:hover {
+  background: var(--yr-admin-danger-soft);
+}
+
+.yr-admin-dashboard-page .form-text {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .input-group-text {
+  background: var(--yr-admin-surface-soft);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text-muted);
+}
+
+/* p2: dashboard component palette unification (card/button/table/form/badge/modal/dropdown) */
+.yr-admin-dashboard-page .card,
+.yr-admin-dashboard-page .yr-admin-card {
+  background: var(--yr-admin-card-bg);
+  border: 1px solid var(--yr-admin-card-border);
+  box-shadow: var(--yr-admin-card-shadow);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .card-header,
+.yr-admin-dashboard-page .card-footer {
+  background: var(--yr-admin-surface);
+  color: var(--yr-admin-text);
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .card-body {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .btn-primary,
+.yr-admin-dashboard-page .yr-admin-primary-action {
+  background: var(--yr-admin-primary-hover);
+  border-color: var(--yr-admin-primary-hover);
+  color: var(--yr-admin-primary-text);
+}
+
+.yr-admin-dashboard-page .btn-primary:hover,
+.yr-admin-dashboard-page .btn-primary:focus-visible,
+.yr-admin-dashboard-page .yr-admin-primary-action:hover,
+.yr-admin-dashboard-page .yr-admin-primary-action:focus-visible {
+  background: var(--yr-admin-primary-active);
+  border-color: var(--yr-admin-primary-active);
+  color: var(--yr-admin-primary-text);
+}
+
+.yr-admin-dashboard-page .btn-primary:active,
+.yr-admin-dashboard-page .btn-primary.active,
+.yr-admin-dashboard-page .yr-admin-primary-action:active,
+.yr-admin-dashboard-page .yr-admin-primary-action.active {
+  background: var(--yr-admin-primary-active);
+  border-color: var(--yr-admin-primary-active);
+}
+
+.yr-admin-dashboard-page .btn-secondary,
+.yr-admin-dashboard-page .btn-outline-secondary {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-border-strong);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .btn-secondary:hover,
+.yr-admin-dashboard-page .btn-outline-secondary:hover {
+  background: var(--yr-admin-surface-muted);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .btn-outline-primary {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-primary);
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .btn-outline-primary:hover {
+  background: var(--yr-admin-primary-soft);
+  border-color: var(--yr-admin-primary-hover);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .btn-danger {
+  background: var(--yr-admin-danger-bg);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .btn-outline-danger {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .btn-danger:hover,
+.yr-admin-dashboard-page .btn-outline-danger:hover {
+  background: var(--yr-admin-danger-bg);
+  border-color: var(--yr-admin-danger);
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .btn:disabled,
+.yr-admin-dashboard-page .btn.disabled {
+  background: var(--yr-admin-surface-subtle);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text-muted);
+  opacity: 1;
+}
+
+.yr-admin-dashboard-page .table {
+  --bs-table-bg: var(--yr-admin-table-bg);
+  --bs-table-color: var(--yr-admin-text);
+  --bs-table-border-color: var(--yr-admin-table-border);
+  --bs-table-striped-bg: var(--yr-admin-surface-subtle);
+  --bs-table-hover-bg: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .table > thead th,
+.yr-admin-dashboard-page .table-light > :not(caption) > * > * {
+  background: var(--yr-admin-table-header-bg);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .table > :not(caption) > * > * {
+  border-color: var(--yr-admin-table-border);
+}
+
+.yr-admin-dashboard-page .table-hover > tbody > tr:hover > * {
+  background: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .table-active > :not(caption) > * > * {
+  background: var(--yr-admin-table-row-selected);
+}
+
+.yr-admin-dashboard-page .form-control,
+.yr-admin-dashboard-page .form-select {
+  background: var(--yr-admin-input-bg);
+  border: 1px solid var(--yr-admin-input-border);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .form-control::placeholder {
+  color: var(--yr-admin-input-placeholder);
+}
+
+.yr-admin-dashboard-page .form-control:focus,
+.yr-admin-dashboard-page .form-select:focus {
+  background: var(--yr-admin-input-bg);
+  border-color: var(--yr-admin-input-border-focus);
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .form-control:disabled,
+.yr-admin-dashboard-page .form-control[readonly],
+.yr-admin-dashboard-page .form-select:disabled {
+  background: var(--yr-admin-surface-subtle);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .form-check-input {
+  border-color: var(--yr-admin-input-border);
+}
+
+.yr-admin-dashboard-page .form-check-input:checked {
+  background-color: var(--yr-admin-primary-hover);
+  border-color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .form-check-input:focus {
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .input-group-text {
+  background: var(--yr-admin-surface-muted);
+  border-color: var(--yr-admin-input-border);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .form-text {
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .invalid-feedback {
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-dashboard-page .is-invalid,
+.yr-admin-dashboard-page .is-invalid:focus {
+  border-color: var(--yr-admin-danger);
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .badge {
+  border-radius: 7px;
+  padding: 4px 8px;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .badge.bg-success,
+.yr-admin-dashboard-page .badge.bg-primary {
+  background: var(--yr-admin-success-bg) !important;
+  border: 1px solid var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text) !important;
+}
+
+.yr-admin-dashboard-page .badge.bg-warning {
+  background: var(--yr-admin-warning-bg) !important;
+  border: 1px solid var(--yr-admin-warning-border);
+  color: var(--yr-admin-warning-text) !important;
+}
+
+.yr-admin-dashboard-page .badge.bg-danger {
+  background: var(--yr-admin-danger-bg) !important;
+  border: 1px solid var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger-text) !important;
+}
+
+.yr-admin-dashboard-page .badge.bg-info {
+  background: var(--yr-admin-info-bg) !important;
+  border: 1px solid var(--yr-admin-info-border);
+  color: var(--yr-admin-info-text) !important;
+}
+
+.yr-admin-dashboard-page .badge.bg-secondary {
+  background: var(--yr-admin-neutral-bg) !important;
+  border: 1px solid var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text) !important;
+}
+
+.yr-admin-dashboard-page .modal-content {
+  background: var(--yr-admin-modal-bg);
+  border: 1px solid var(--yr-admin-modal-border);
+}
+
+.yr-admin-dashboard-page .modal-header,
+.yr-admin-dashboard-page .modal-footer {
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .modal-title {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .modal-backdrop.show {
+  background: var(--yr-admin-modal-backdrop);
+  opacity: 1;
+}
+
+.yr-admin-dashboard-page .modal .btn-close {
+  opacity: 0.7;
+}
+
+.yr-admin-dashboard-page .modal .btn-close:hover {
+  opacity: 1;
+}
+
+.yr-admin-dashboard-page .dropdown-menu {
+  background: var(--yr-admin-dropdown-bg);
+  border: 1px solid var(--yr-admin-dropdown-border);
+  box-shadow: var(--yr-admin-shadow-sm);
+}
+
+.yr-admin-dashboard-page .dropdown-item {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .dropdown-item:hover,
+.yr-admin-dashboard-page .dropdown-item:focus {
+  color: var(--yr-admin-text);
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .dropdown-item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .dropdown-divider {
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-products {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--yr-admin-shadow-sm);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-products .yr-admin-products__header {
+  background: var(--yr-admin-surface) !important;
+  border-bottom: 1px solid var(--yr-admin-border) !important;
+  border-radius: 16px 16px 0 0 !important;
+}
+
+.yr-admin-products .yr-admin-products__title {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-products .yr-admin-products__description,
+.yr-admin-products .yr-admin-products__stock-note {
+  color: var(--yr-admin-text-muted) !important;
+}
+
+.yr-admin-products .yr-admin-products__actions .btn {
+  min-height: 34px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.yr-admin-products .yr-admin-products__actions button:first-child {
+  background-color: var(--yr-admin-brand-strong) !important;
+  border-color: var(--yr-admin-brand-strong) !important;
+  color: #fff !important;
+}
+
+.yr-admin-products [id="toggleMinStockMode"] {
+  border-color: var(--yr-admin-warning-border) !important;
+  color: var(--yr-admin-warning) !important;
+  background: var(--yr-admin-warning-soft) !important;
+}
+
+.yr-admin-products [id="generateMovementRecord"] {
+  border-color: var(--yr-admin-success-border) !important;
+  color: var(--yr-admin-brand-strong) !important;
+  background: var(--yr-admin-success-soft) !important;
+}
+
+.yr-admin-products [id="generateMovementRecord"][disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.yr-admin-products .yr-admin-products__tabs {
+  background: var(--yr-admin-surface-soft);
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-products .yr-admin-products__tab {
+  border-radius: 8px !important;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--yr-admin-tab-text);
+}
+
+.yr-admin-products .yr-admin-products__tab.active {
+  background: var(--yr-admin-tab-active-bg) !important;
+  border-color: var(--yr-admin-tab-active-border) !important;
+  color: var(--yr-admin-tab-active-text) !important;
+}
+
+.yr-admin-products .yr-admin-products__tab i {
+  color: var(--yr-admin-tab-icon);
+}
+
+.yr-admin-products .yr-admin-products__tab:hover {
+  background: var(--yr-admin-tab-hover-bg);
+  color: var(--yr-admin-tab-active-text);
+}
+
+.yr-admin-products .yr-admin-products__tab:hover i,
+.yr-admin-products .yr-admin-products__tab.active i {
+  color: var(--yr-admin-tab-icon);
+}
+
+.yr-admin-dashboard-page [id="notifBadge"] {
+  width: 1.05rem;
+  height: 1.05rem;
+  min-width: 1.05rem;
+  min-height: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 999px !important;
+  font-size: 0.62rem;
+  line-height: 1;
+  background: var(--yr-admin-danger) !important;
+  color: var(--yr-admin-text-inverse);
+}
+
+.yr-admin-dashboard-page [id="btnCompleteBooking"],
+.yr-admin-dashboard-page [id="submitAddProduct"] {
+  background: var(--yr-admin-brand) !important;
+  border-color: var(--yr-admin-brand) !important;
+  color: var(--yr-admin-text-inverse) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-primary-action {
+  background: var(--yr-admin-brand) !important;
+  border-color: var(--yr-admin-brand) !important;
+  color: var(--yr-admin-text-inverse) !important;
+}
+
+.yr-admin-dashboard-page [id="btnCompleteBooking"]:hover,
+.yr-admin-dashboard-page [id="submitAddProduct"]:hover {
+  background: var(--yr-admin-brand-strong) !important;
+  border-color: var(--yr-admin-brand-strong) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-primary-action:hover {
+  background: var(--yr-admin-brand-strong) !important;
+  border-color: var(--yr-admin-brand-strong) !important;
+}
+
+.yr-admin-dashboard-page [id="bookingCancelModal"] .modal-title .fa-exclamation-triangle {
+  color: var(--yr-admin-danger) !important;
+}
+
+.yr-admin-dashboard-page [id="confirmCancelBtn"] {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-dashboard-page [id="confirmCancelBtn"]:hover {
+  background: var(--yr-admin-danger-soft);
+  border-color: var(--yr-admin-danger-border);
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-dashboard-page .text-danger[class*="fw-"],
+.yr-admin-dashboard-page label .text-danger {
+  color: var(--yr-admin-danger) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-danger-text {
+  color: var(--yr-admin-danger) !important;
+}
+
+.yr-admin-modal .modal-content {
+  background: var(--yr-admin-surface);
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 14px;
+}
+
+.yr-admin-modal .modal-header,
+.yr-admin-modal .modal-footer {
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-modal .modal-title {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-modal .form-select:focus,
+.yr-admin-modal .form-control:focus,
+.yr-admin-modal .form-control-plaintext:focus {
+  border-color: var(--yr-admin-brand-strong);
+  box-shadow: 0 0 0 0.2rem var(--yr-admin-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-admin-login-page .btn,
+  .yr-admin-dashboard-page .btn,
+  .yr-admin-login-page .form-control,
+  .yr-admin-dashboard-page .form-control,
+  .yr-admin-login-page .form-select,
+  .yr-admin-dashboard-page .form-select {
+    transition: none;
+  }
+}
+
+/* round 3: status/actions/data-link harmonization */
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-reviews-module,
+  .yr-admin-reviews-tabs,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  [id="bookingDetailModal"],
+  [id="orderDetailModal"]
+) .badge {
+  border-radius: 7px !important;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-reviews-module,
+  .yr-admin-reviews-tabs,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  [id="bookingDetailModal"],
+  [id="orderDetailModal"]
+) .rounded-pill {
+  border-radius: 7px !important;
+}
+
+.yr-admin-dashboard-page :is(
+  .booking-id-link,
+  .order-id-link,
+  .booking-customer-link,
+  .customer-order-link
+) {
+  color: var(--yr-admin-data-link) !important;
+  text-decoration-color: var(--yr-admin-data-link-underline) !important;
+  text-underline-offset: 3px;
+}
+
+.yr-admin-dashboard-page :is(
+  .booking-id-link,
+  .order-id-link,
+  .booking-customer-link,
+  .customer-order-link
+):hover {
+  color: var(--yr-admin-data-link-hover) !important;
+  text-decoration-color: var(--yr-admin-data-link) !important;
+}
+
+.yr-admin-dashboard-page :is(.yr-admin-bookings-module, .yr-admin-orders-module, .yr-admin-discounts-module) .table {
+  --bs-table-bg: var(--yr-admin-surface);
+  --bs-table-color: #3f463d;
+  --bs-table-border-color: var(--yr-admin-border);
+  --bs-table-hover-bg: var(--yr-admin-table-row-hover-soft);
+}
+
+.yr-admin-dashboard-page :is(.yr-admin-bookings-module, .yr-admin-orders-module, .yr-admin-discounts-module) .table-light > :not(caption) > * > *,
+.yr-admin-dashboard-page :is(.yr-admin-bookings-module, .yr-admin-orders-module, .yr-admin-discounts-module) .table > thead th {
+  background: var(--yr-admin-surface-soft);
+  color: var(--yr-admin-text);
+  border-color: var(--yr-admin-border);
+}
+
+.yr-admin-dashboard-page :is(.yr-admin-bookings-module, .yr-admin-orders-module, .yr-admin-discounts-module) .table > tbody > tr:hover > * {
+  background: var(--yr-admin-table-row-hover-soft);
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module .sort-icon,
+  .yr-admin-bookings-module .filter-icon,
+  .yr-admin-orders-module .sort-icon,
+  .yr-admin-orders-module .filter-icon
+) {
+  color: var(--yr-admin-table-head-icon) !important;
+}
+
+.yr-admin-dashboard-page :is(.yr-admin-bookings-module, .yr-admin-orders-module, .yr-admin-discounts-module) .card-header {
+  background: var(--yr-admin-surface) !important;
+  color: var(--yr-admin-text);
+  border-bottom: 1px solid var(--yr-admin-border) !important;
+}
+
+.yr-admin-dashboard-page :is(.yr-admin-bookings-module, .yr-admin-orders-module, .yr-admin-discounts-module) .card-header i {
+  color: var(--yr-admin-header-icon) !important;
+}
+
+.yr-admin-dashboard-page :is([id="bookingPeriodBtns"], [id="orderPeriodBtns"]) .btn {
+  border-radius: 9px !important;
+  min-height: 38px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.yr-admin-dashboard-page :is([id="bookingPeriodBtns"], [id="orderPeriodBtns"]) .btn.btn-outline-secondary {
+  background: var(--yr-admin-surface);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page :is([id="bookingPeriodBtns"], [id="orderPeriodBtns"]) .btn.btn-outline-secondary:hover {
+  background: var(--yr-admin-surface-soft);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-brand-strong);
+}
+
+.yr-admin-dashboard-page :is([id="bookingPeriodBtns"], [id="orderPeriodBtns"]) .btn.active,
+.yr-admin-dashboard-page :is([id="bookingPeriodBtns"], [id="orderPeriodBtns"]) .btn.btn-outline-secondary.active {
+  background: var(--yr-admin-state-sage-bg);
+  border-color: var(--yr-admin-state-sage-border);
+  color: #4f604b;
+}
+
+.yr-admin-dashboard-page :is(.btn-confirm-booking, .btn-complete-order, .btn-ship-order, .btn-submit-reply) {
+  background: var(--yr-admin-surface) !important;
+  color: var(--yr-admin-state-sage-text) !important;
+  border: 1px solid #8ea087 !important;
+  border-radius: 9px !important;
+  min-height: 38px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.yr-admin-dashboard-page :is(.btn-confirm-booking, .btn-complete-order, .btn-ship-order, .btn-submit-reply):hover {
+  background: var(--yr-admin-state-sage-bg) !important;
+  color: #4f604b !important;
+  border-color: #6f8069 !important;
+}
+
+.yr-admin-dashboard-page :is(.btn-cancel-booking, .btn-delete-coupon) {
+  background: var(--yr-admin-surface) !important;
+  color: var(--yr-admin-state-danger-text) !important;
+  border: 1px solid #cfa8a0 !important;
+  border-radius: 9px !important;
+  min-height: 38px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.yr-admin-dashboard-page :is(.btn-cancel-booking, .btn-delete-coupon):hover {
+  background: var(--yr-admin-state-danger-bg) !important;
+  color: #84564f !important;
+  border-color: #b98379 !important;
+}
+
+.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-warning {
+  background: var(--yr-admin-surface) !important;
+  color: var(--yr-admin-state-warm-text) !important;
+  border: 1px solid #c8b38f !important;
+  border-radius: 9px !important;
+  min-height: 38px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-warning:hover {
+  background: var(--yr-admin-state-warm-bg) !important;
+  color: #745a39 !important;
+  border-color: #a98a5d !important;
+}
+
+.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-success {
+  background: var(--yr-admin-surface) !important;
+  color: var(--yr-admin-state-sage-text) !important;
+  border: 1px solid #8ea087 !important;
+  border-radius: 9px !important;
+  min-height: 38px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-success:hover {
+  background: var(--yr-admin-state-sage-bg) !important;
+  color: #4f604b !important;
+  border-color: #6f8069 !important;
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  [id="bookingDetailModal"]
+) :is(.badge.bg-success, .badge.bg-primary, .payment-status-badge.bg-success, .booking-status-badge.bg-primary, .booking-status-badge.bg-success) {
+  background: var(--yr-admin-state-sage-bg) !important;
+  color: var(--yr-admin-state-sage-text) !important;
+  border: 1px solid var(--yr-admin-state-sage-border);
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  [id="bookingDetailModal"]
+) :is(.badge.bg-warning, .booking-status-badge.bg-warning) {
+  background: var(--yr-admin-state-warm-bg) !important;
+  color: var(--yr-admin-state-warm-text) !important;
+  border: 1px solid var(--yr-admin-state-warm-border);
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  [id="bookingDetailModal"]
+) :is(.badge.bg-danger, .booking-status-badge.bg-danger) {
+  background: var(--yr-admin-state-danger-bg) !important;
+  color: var(--yr-admin-state-danger-text) !important;
+  border: 1px solid var(--yr-admin-state-danger-border);
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  [id="bookingDetailModal"]
+) :is(.badge.bg-secondary, .payment-status-badge.bg-secondary) {
+  background: var(--yr-admin-state-neutral-bg) !important;
+  color: var(--yr-admin-state-neutral-text) !important;
+  border: 1px solid var(--yr-admin-state-neutral-border);
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-orders-module,
+  [id="orderDetailModal"]
+) :is(.badge.bg-success, .badge.bg-primary) {
+  background: var(--yr-admin-state-sage-bg) !important;
+  color: var(--yr-admin-state-sage-text) !important;
+  border: 1px solid var(--yr-admin-state-sage-border);
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-orders-module,
+  [id="orderDetailModal"]
+) .badge.bg-warning {
+  background: var(--yr-admin-state-warm-bg) !important;
+  color: var(--yr-admin-state-warm-text) !important;
+  border: 1px solid var(--yr-admin-state-warm-border);
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-orders-module,
+  [id="orderDetailModal"]
+) .badge.bg-danger {
+  background: var(--yr-admin-state-danger-bg) !important;
+  color: var(--yr-admin-state-danger-text) !important;
+  border: 1px solid var(--yr-admin-state-danger-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-orders-module .badge.bg-info {
+  background: var(--yr-admin-state-neutral-bg) !important;
+  color: var(--yr-admin-state-neutral-text) !important;
+  border: 1px solid var(--yr-admin-state-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-code {
+  color: var(--yr-admin-primary-hover);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .status-badge.bg-secondary {
+  background: var(--yr-admin-state-neutral-bg) !important;
+  color: var(--yr-admin-state-neutral-text) !important;
+  border: 1px solid var(--yr-admin-state-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .text-danger.fw-bold {
+  color: var(--yr-admin-state-danger-text) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-success {
+  background: var(--yr-admin-state-sage-bg) !important;
+  color: var(--yr-admin-state-sage-text) !important;
+  border: 1px solid var(--yr-admin-state-sage-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-info {
+  background: var(--yr-admin-surface-sage) !important;
+  color: var(--yr-admin-state-neutral-text) !important;
+  border: 1px solid var(--yr-admin-state-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-danger {
+  background: var(--yr-admin-state-danger-bg) !important;
+  color: var(--yr-admin-state-danger-text) !important;
+  border: 1px solid var(--yr-admin-state-danger-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-secondary {
+  background: var(--yr-admin-state-neutral-bg) !important;
+  color: var(--yr-admin-state-neutral-text) !important;
+  border: 1px solid var(--yr-admin-state-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .text-muted.small {
+  color: var(--yr-admin-state-neutral-text) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .accordion-button img {
+  background: var(--yr-admin-avatar-soft-bg);
+  color: var(--yr-admin-avatar-soft-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .fw-bold.text-success {
+  color: var(--yr-admin-state-sage-text) !important;
+  font-weight: 700;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tag-delete-btn .text-danger {
+  color: var(--yr-admin-state-danger-text) !important;
+}
+
+/* round 4: low-saturation color refinement */
+.yr-admin-dashboard-page .yr-admin-analytics-tabs .nav-link {
+  color: var(--yr-admin-tab-text);
+  background: transparent;
+  border-color: transparent;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-tabs .nav-link i {
+  color: var(--yr-admin-tab-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-tabs .nav-link:hover {
+  color: var(--yr-admin-tab-active-text);
+  background: var(--yr-admin-tab-hover-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-tabs .nav-link.active {
+  color: var(--yr-admin-tab-active-text);
+  background: var(--yr-admin-tab-active-bg);
+  border-color: var(--yr-admin-tab-active-border) var(--yr-admin-tab-active-border) var(--yr-admin-tab-active-bg);
+  box-shadow: inset 0 -2px 0 var(--yr-admin-state-sage-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-tabs .nav-link.active i {
+  color: var(--yr-admin-tab-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable h3 {
+  color: var(--yr-admin-text) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable :is(p, small) {
+  color: var(--yr-admin-text-muted) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiOrders"] .kpi-icon-wrap,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiRentalAmt"] .kpi-icon-wrap {
+  background: var(--yr-admin-kpi-info-bg) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiOrders"] .kpi-icon-wrap i,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiRentalAmt"] .kpi-icon-wrap i {
+  color: var(--yr-admin-kpi-info-icon) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiPending"] .kpi-icon-wrap,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiPending"] .kpi-icon-wrap {
+  background: var(--yr-admin-kpi-warm-bg) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiPending"] .kpi-icon-wrap i,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiPending"] .kpi-icon-wrap i {
+  color: var(--yr-admin-kpi-warm-icon) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiRefund"] .kpi-icon-wrap,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiCancelRate"] .kpi-icon-wrap {
+  background: var(--yr-admin-kpi-danger-bg) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiRefund"] .kpi-icon-wrap i,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiCancelRate"] .kpi-icon-wrap i {
+  color: var(--yr-admin-kpi-danger-icon) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiSoldQty"] .kpi-icon-wrap,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiCompleted"] .kpi-icon-wrap {
+  background: var(--yr-admin-kpi-sage-bg) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiSoldQty"] .kpi-icon-wrap i,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiCompleted"] .kpi-icon-wrap i {
+  color: var(--yr-admin-kpi-sage-icon) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiLowStock"] .kpi-icon-wrap,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiRentalRatio"] .kpi-icon-wrap {
+  background: var(--yr-admin-kpi-clay-bg) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="shopKpiLowStock"] .kpi-icon-wrap i,
+.yr-admin-dashboard-page .yr-admin-analytics-module .kpi-clickable[data-kpi-id="bookKpiRentalRatio"] .kpi-icon-wrap i {
+  color: var(--yr-admin-kpi-clay-icon) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .status-badge.bg-success,
+.yr-admin-dashboard-page .yr-admin-discounts-module .badge.bg-success {
+  background: var(--yr-admin-state-sage-bg) !important;
+  color: var(--yr-admin-tab-active-text) !important;
+  border: 1px solid #bbc7b7;
+  border-radius: 7px !important;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  .yr-admin-products,
+  [id="employeeTableBody"]
+) .btn-outline-primary {
+  background-color: #fffdf8 !important;
+  color: #5f705b !important;
+  border-color: #8fa08a !important;
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  .yr-admin-products,
+  [id="employeeTableBody"]
+) .btn-outline-primary:hover {
+  background-color: #e7ece2 !important;
+  color: #4f604b !important;
+  border-color: #6f7d6b !important;
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  .yr-admin-products,
+  [id="employeeTableBody"]
+) .btn-outline-primary:focus-visible {
+  box-shadow: 0 0 0 3px rgb(111 125 107 / 16%) !important;
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  .yr-admin-products,
+  [id="employeeTableBody"]
+) .btn-outline-primary:active,
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  .yr-admin-products,
+  [id="employeeTableBody"]
+) .btn-outline-primary.active {
+  background-color: #dde5d9 !important;
+  color: #3f4d3d !important;
+  border-color: #5b6858 !important;
+}
+
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  .yr-admin-products,
+  [id="employeeTableBody"]
+) .btn-outline-primary:disabled,
+.yr-admin-dashboard-page :is(
+  .yr-admin-bookings-module,
+  .yr-admin-orders-module,
+  .yr-admin-discounts-module,
+  .yr-admin-customers-module,
+  .yr-admin-products,
+  [id="employeeTableBody"]
+) .btn-outline-primary.disabled {
+  color: #8a9187 !important;
+  background-color: #f0f0eb !important;
+  border-color: #d5d7d0 !important;
+  opacity: 1;
+}
+
+.yr-admin-dashboard-page [id="movementTableBody"] .movement-detail-link {
+  color: #566553 !important;
+  text-decoration-line: underline;
+  text-decoration-color: #aeb9aa !important;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page [id="movementTableBody"] .movement-detail-link:hover {
+  color: #3f4d3d !important;
+  text-decoration-color: #566553 !important;
+}
+
+.yr-admin-dashboard-page [id="movementTableBody"] .movement-detail-link:visited {
+  color: #566553 !important;
+}
+
+.yr-admin-dashboard-page [id="movementTableBody"] .movement-detail-link:focus-visible {
+  outline: 2px solid #6f7d6b;
+  outline-offset: 3px;
+  border-radius: 3px;
+}

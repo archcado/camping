@@ -13,46 +13,27 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 後台專屬樣式 -->
   <link rel="stylesheet" href="css/admin.css">
-
-  <style>
-    /* 登入頁獨立樣式：深色漸層背景 */
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* 規格書指定：Sidebar 背景色的漸層 */
-      background: linear-gradient(135deg, #1e2329 0%, #2d3748 50%, #1a2a3a 100%);
-    }
-
-    /* 裝飾性背景圖案（露營圓圈點點） */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(36, 77, 77, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(36, 77, 77, 0.2) 0%, transparent 40%);
-      pointer-events: none;
-    }
-  </style>
+  <link rel="stylesheet" href="css/theme/admin-theme-tokens.css">
+  <link rel="stylesheet" href="css/theme/admin-theme-components.css">
+  <link rel="stylesheet" href="css/theme/admin-login.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/yuruicamp-favicon.svg">
 </head>
-<body>
+<body class="yr-admin-login-page">
 
   <!-- ========== 登入卡片 ========== -->
-  <div class="card shadow-lg login-card position-relative">
+  <div class="card login-card yr-admin-login-card position-relative">
     <div class="card-body">
 
       <!-- 品牌 Logo 區塊 -->
-      <div class="text-center mb-4">
+      <div class="text-center mb-4 yr-admin-login-brand">
         <!-- 帳篷 Icon 作為 Logo 替代 -->
-        <div class="mb-3">
-          <i class="fas fa-campground fs-1" style="color: var(--admin-brand-accent);"></i>
+        <div class="mb-3 yr-admin-login-logo">
+          <i class="fas fa-campground fs-1"></i>
         </div>
-        <h4 class="fw-bold mb-1" style="color: var(--admin-brand-accent);">
+        <h4 class="fw-bold mb-1 yr-admin-login-title">
           Yuruicamp 後台
         </h4>
-        <p class="text-muted small mb-0">賣家管理系統</p>
+        <p class="small mb-0 yr-admin-login-subtitle">賣家管理系統</p>
       </div>
 
       <!-- 登入表單 -->
@@ -61,7 +42,7 @@
         <!-- 員工 ID 欄位 -->
         <div class="mb-3">
           <label class="form-label fw-semibold" for="username">
-            <i class="fas fa-id-badge me-1 text-muted"></i>員工 ID
+            <i class="fas fa-id-badge me-1 yr-admin-login-label-icon"></i>員工 ID
           </label>
           <input type="text"
                  class="form-control"
@@ -75,7 +56,7 @@
         <!-- 密碼欄位 -->
         <div class="mb-4">
           <label class="form-label fw-semibold" for="password">
-            <i class="fas fa-lock me-1 text-muted"></i>密碼
+            <i class="fas fa-lock me-1 yr-admin-login-label-icon"></i>密碼
           </label>
           <div class="input-group">
             <input type="password"
@@ -84,7 +65,7 @@
                    placeholder="請輸入密碼"
                    autocomplete="current-password">
             <!-- 顯示/隱藏密碼切換按鈕 -->
-            <button class="btn btn-outline-secondary" type="button" id="togglePassword"
+            <button class="btn btn-outline-secondary yr-admin-toggle-password" type="button" id="togglePassword"
                     title="顯示/隱藏密碼">
               <i class="fas fa-eye" id="toggleIcon"></i>
             </button>
@@ -94,8 +75,7 @@
 
         <!-- 登入按鈕 -->
         <button type="submit"
-                class="btn w-100 text-white fw-semibold py-2"
-                style="background-color: var(--admin-brand-accent);"
+                class="btn w-100 text-white fw-semibold py-2 yr-admin-login-submit"
                 id="loginBtn">
           <i class="fas fa-sign-in-alt me-2"></i>登入後台
         </button>
@@ -103,15 +83,15 @@
       </form>
 
       <!-- 提示文字（Demo 說明） -->
-      <div class="text-center mt-4">
+      <div class="text-center mt-4 yr-admin-login-demo">
         <small class="text-muted">
-          <i class="fas fa-info-circle me-1"></i>
+          <i class="fas fa-info-circle me-1 yr-admin-login-demo-icon"></i>
           Demo：員工 ID <code>01</code>（老闆）/ <code>02</code>（員工），密碼任意非空即可
         </small>
       </div>
 
       <!-- 登入錯誤訊息區 -->
-      <div id="loginError" class="alert alert-danger mt-3 d-none small mb-0" role="alert"></div>
+      <div id="loginError" class="alert alert-danger mt-3 d-none small mb-0 yr-admin-login-error" role="alert"></div>
 
     </div>
   </div>

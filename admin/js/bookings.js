@@ -172,6 +172,20 @@ window.initBookings = function () {
     applyBookingFiltersAndSort();
   });
 
+  // ── 清除篩選按鈕 ───────────────────────────────────
+  $(document).on('click.bookings', '#btnClearBookingFilters', function () {
+    bookingFilterState.paymentStatus = [];
+    bookingFilterState.bookingStatus = [];
+    bookingFilterState.hasRental = [];
+    bookingFilterState.region = [];
+    if (bookingDateState.days === 'custom') {
+      $('#bookingDateRangePicker').hide().val('');
+      applyBookingDayRange('all');
+    } else {
+      applyBookingFiltersAndSort();
+    }
+  });
+
   // ── 點擊預約單號 → 開啟明細 Modal ────────────────────────────
   $(document).on('click.bookings', '.booking-id-link', function () {
     var bookingId = $(this).data('booking-id');
@@ -202,9 +216,7 @@ window.initBookings = function () {
 
     // 更新畫面：badge、data 屬性、操作欄
     $row.find('.booking-status-badge')
-        .removeClass('bg-warning text-dark')
-        .addClass('bg-primary')
-        .text('已確認');
+        .replaceWith(renderBookingStatusTag('confirmed'));
     $row.attr('data-booking-status', 'confirmed');
 
     // 確認後操作欄改為只顯示「取消」
@@ -248,12 +260,11 @@ window.initBookings = function () {
     // 更新畫面上的 badge
     var $row = $('#bookingsTableBody tr[data-booking-id="' + bookingId + '"]');
     $row.find('.booking-status-badge')
-        .removeClass('bg-warning text-dark bg-primary bg-success')
-        .addClass('bg-danger')
-        .text('已取消');
+        .replaceWith(renderBookingStatusTag('cancelled'));
     $row.attr('data-booking-status', 'cancelled');
     $row.attr('data-payment-status', 'refunded');
     $row.find('.payment-status-badge').replaceWith(getPayBadgeHtml('refunded'));
+    $row.find('.equipment-return-badge').replaceWith(getEquipmentReturnBadgeHtml(booking));
     // 清空操作欄（已取消無操作）
     $row.find('td:last-child').empty();
 
@@ -291,10 +302,9 @@ window.initBookings = function () {
     // 更新表格列的 badge
     var $row = $('#bookingsTableBody tr[data-booking-id="' + bookingId + '"]');
     $row.find('.booking-status-badge')
-        .removeClass('bg-primary bg-warning text-dark')
-        .addClass('bg-success')
-        .text('已完成');
+        .replaceWith(renderBookingStatusTag('completed'));
     $row.attr('data-booking-status', 'completed');
+    $row.find('.equipment-return-badge').replaceWith(getEquipmentReturnBadgeHtml(booking));
     // 已完成無操作按鈕
     $row.find('td:last-child').empty();
 
@@ -322,14 +332,24 @@ function loadBookingsData() {
     applyBookingFiltersAndSort();
   } else {
     $.getJSON('data/bookings.json', function (bookings) {
+      if (!Array.isArray(bookings)) {
+        $('#bookingsTableBody').html(
+          '<tr><td colspan="10" class="text-center py-4 yr-admin-bookings-error">' +
+          '<i class="fas fa-circle-exclamation me-2"></i>預約資料格式錯誤' +
+          '</td></tr>'
+        );
+        updateBookingResultCount(0, 'error', '資料格式錯誤');
+        return;
+      }
       window.bookingsCache = bookings;
       applyBookingFiltersAndSort();
     }).fail(function () {
       $('#bookingsTableBody').html(
-        '<tr><td colspan="10" class="text-center text-danger py-4">' +
+        '<tr><td colspan="10" class="text-center py-4 yr-admin-bookings-error">' +
         '<i class="fas fa-exclamation-triangle me-2"></i>載入預約數據失敗' +
         '</td></tr>'
       );
+      updateBookingResultCount(0, 'error', '載入失敗');
     });
   }
 }
@@ -664,6 +684,13 @@ function updateBookingFilterUI() {
 
   // 同步日期篩選器按鈕 active 狀態與期間文字標籤
   updateBookingPeriodLabel();
+
+  var hasFilter =
+    bookingFilterState.paymentStatus.length > 0 ||
+    bookingFilterState.bookingStatus.length > 0 ||
+    bookingFilterState.hasRental.length > 0 ||
+    bookingFilterState.region.length > 0;
+  $('#btnClearBookingFilters').toggleClass('d-none', !hasFilter);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -676,45 +703,42 @@ function updateBookingFilterUI() {
 function renderBookingsTable(bookings) {
   if (!bookings || bookings.length === 0) {
     $('#bookingsTableBody').html(
-      '<tr><td colspan="10" class="text-center text-muted py-4">' +
+      '<tr><td colspan="10" class="text-center py-4 yr-admin-bookings-empty">' +
       '<i class="fas fa-inbox me-2"></i>沒有符合條件的預約</td></tr>'
     );
+    updateBookingResultCount(0, 'empty');
     return;
   }
-
-  // 訂單狀態 badge（4 種）
-  var statusBadgeMap = {
-    pending:   '<span class="badge bg-warning text-dark booking-status-badge">待確認</span>',
-    confirmed: '<span class="badge bg-primary booking-status-badge">已確認</span>',
-    completed: '<span class="badge bg-success booking-status-badge">已完成</span>',
-    cancelled: '<span class="badge bg-danger booking-status-badge">已取消</span>'
-  };
 
   var html = bookings.map(function (booking) {
     var info = booking.booking_info;
 
     // ── 付款 / 狀態 badge ──
     var payBadge    = getPayBadgeHtml(booking.payment_status);
-    var statusBadge = statusBadgeMap[booking.status] || '';
+    var statusBadge = renderBookingStatusTag(booking.status);
+    var equipmentBadge = getEquipmentReturnBadgeHtml(booking);
 
     // ── 含租借 badge（同時計算 hasRental 字串供 data 屬性使用）──
     var hasRental = booking.selected_rentals && booking.selected_rentals.length > 0;
     var rentalBadge = hasRental
-      ? '<span class="badge bg-success">有租借</span>'
-      : '<span class="badge bg-secondary">無</span>';
+      ? '<span class="yr-admin-booking-rental-flag yr-admin-booking-rental-flag--yes">有租借</span>'
+      : '<span class="yr-admin-booking-rental-flag yr-admin-booking-rental-flag--none">無租借</span>';
 
     // ── 操作按鈕（依狀態顯示）──
     var actionBtns = '';
     if (booking.status === 'pending') {
       actionBtns =
-        '<button class="btn btn-sm btn-outline-primary btn-confirm-booking me-1" ' +
+        '<button class="btn btn-sm btn-outline-primary btn-confirm-booking yr-admin-bookings-action-btn yr-admin-bookings-action-btn--primary me-1" ' +
         'title="確認預約"><i class="fas fa-check me-1"></i>確認預約</button>' +
-        '<button class="btn btn-sm btn-outline-danger btn-cancel-booking" ' +
+        '<button class="btn btn-sm btn-outline-danger btn-cancel-booking yr-admin-bookings-action-btn yr-admin-bookings-action-btn--danger" ' +
         'title="取消預約"><i class="fas fa-times me-1"></i>取消</button>';
     } else if (booking.status === 'confirmed') {
       actionBtns =
-        '<button class="btn btn-sm btn-outline-danger btn-cancel-booking" ' +
+        '<button class="btn btn-sm btn-outline-danger btn-cancel-booking yr-admin-bookings-action-btn yr-admin-bookings-action-btn--danger" ' +
         'title="取消預約"><i class="fas fa-times me-1"></i>取消</button>';
+    }
+    if (!actionBtns) {
+      actionBtns = '<span class="text-muted small">—</span>';
     }
 
     // ── 下單日期：只取 YYYY-MM-DD ──
@@ -744,25 +768,27 @@ function renderBookingsTable(bookings) {
 
     // ── <tr> 包含新增的 data-region 和 data-has-rental 屬性 ──
     return '<tr data-booking-id="' + booking.id + '"' +
+           ' class="yr-admin-bookings-row"' +
            ' data-booking-status="' + booking.status + '"' +
            ' data-payment-status="' + booking.payment_status + '"' +
            ' data-submitted-at="' + (booking.submitted_at || '').slice(0, 10) + '"' +
            ' data-region="' + info.region + '"' +
            ' data-has-rental="' + (hasRental ? 'true' : 'false') + '">' +
-           '<td>' + idLink + '</td>' +
-           '<td>' + dateStr + '</td>' +
+           '<td class="yr-admin-booking-id">' + idLink + '</td>' +
+           '<td class="yr-admin-booking-date">' + dateStr + '</td>' +
            '<td>' + customerLink + '</td>' +
-           '<td>' + amountStr + '</td>' +
+           '<td class="text-end yr-admin-booking-amount">' + amountStr + '</td>' +
            '<td>' + campStr + '</td>' +
-           '<td class="text-center">' + rentalBadge + '</td>' +
-           '<td>' + payBadge + '</td>' +
-           '<td>' + statusBadge + '</td>' +
+           '<td class="text-center"><div class="yr-admin-booking-rental-stack">' + rentalBadge + equipmentBadge + '</div></td>' +
+           '<td class="yr-admin-bookings-status-col">' + payBadge + '</td>' +
+           '<td class="yr-admin-bookings-status-col">' + statusBadge + '</td>' +
            '<td>' + info.region + '</td>' +
-           '<td>' + actionBtns + '</td>' +
+           '<td class="yr-admin-bookings-actions">' + actionBtns + '</td>' +
            '</tr>';
   }).join('');
 
   $('#bookingsTableBody').html(html);
+  updateBookingResultCount(bookings.length, 'normal');
 
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('bookings', $('#contentArea'));
@@ -777,6 +803,10 @@ function renderBookingsTable(bookings) {
  * @param {Object} booking - 來自 window.bookingsCache 的單筆預約物件
  */
 function showBookingModal(booking) {
+  if (!booking || !booking.booking_info) {
+    $('#bkModalHistory').html('<li class="yr-admin-bookings-error"><i class="fas fa-circle-exclamation me-2"></i>預約資料不存在</li>');
+    return;
+  }
   var info    = booking.booking_info;
   var rentals = booking.selected_rentals || [];
   var zones   = booking.selected_zones   || [];
@@ -785,13 +815,7 @@ function showBookingModal(booking) {
   // ── 標題：預約單號 + 狀態 badge ──
   $('#bkModalId').text(booking.id);
 
-  var statusLabelMap = {
-    pending:   '<span class="badge bg-warning text-dark">待確認</span>',
-    confirmed: '<span class="badge bg-primary">已確認</span>',
-    completed: '<span class="badge bg-success">已完成</span>',
-    cancelled: '<span class="badge bg-danger">已取消</span>'
-  };
-  $('#bkModalStatus').html(statusLabelMap[booking.status] || '');
+  $('#bkModalStatus').html(renderBookingStatusTag(booking.status));
 
   // ── 訂購人資訊（需查詢 customersCache 取得電話/Email）──
   var customerName  = getCustomerName(booking.customer_id);
@@ -814,7 +838,7 @@ function showBookingModal(booking) {
   $('#bkModalStayDetail').html(
     '<div class="mb-2 text-muted small">' +
     '<i class="fas fa-campground me-1"></i>' + info.campground_name +
-    '&ensp;<span class="badge bg-secondary bg-opacity-50 text-dark">' + info.region + '</span>' +
+    '&ensp;<span class="yr-admin-booking-status yr-admin-booking-status--unknown">' + info.region + '</span>' +
     '</div>' +
     '<div class="mb-2 text-muted small">' +
     '<i class="fas fa-calendar-alt me-1"></i>' +
@@ -867,14 +891,14 @@ function showBookingModal(booking) {
 
   if (summary.applied_discount > 0) {
     costHtml +=
-      '<div class="d-flex justify-content-between mb-1 text-success">' +
+      '<div class="d-flex justify-content-between mb-1 yr-admin-booking-cost-discount">' +
       '<span><i class="fas fa-tag me-1"></i>租借折扣</span>' +
       '<span>- NT$ ' + summary.applied_discount.toLocaleString() + '</span></div>';
   }
 
   costHtml +=
     '<hr class="my-2">' +
-    '<div class="d-flex justify-content-between fw-bold">' +
+    '<div class="d-flex justify-content-between fw-bold yr-admin-booking-detail-total">' +
     '<span>合計</span>' +
     '<span>NT$ ' + (summary.final_amount || 0).toLocaleString() + '</span></div>';
 
@@ -885,8 +909,13 @@ function showBookingModal(booking) {
   if (showReturn) {
     $('#equipmentReturnSection').removeClass('d-none');
     $('#equipmentReturnedCheck').prop('checked', booking.equipment_returned || false);
+    var returnState = booking.equipment_returned ? 'returned' : 'pending';
+    $('#equipmentReturnSection').find('.form-check-label').html(
+      '確認裝備已全數歸還 &ensp;' + renderEquipmentReturnTag(returnState)
+    );
   } else {
     $('#equipmentReturnSection').addClass('d-none');
+    $('#equipmentReturnSection').find('.form-check-label').text('確認裝備已全數歸還');
   }
 
   // ── 完成按鈕：僅 confirmed 狀態顯示 ──
@@ -898,14 +927,13 @@ function showBookingModal(booking) {
 
   // ── 狀態紀錄時間軸 ──
   var historyHtml = (booking.history || []).map(function (entry) {
-    return '<li class="d-flex align-items-start gap-2 mb-1">' +
-           '<i class="fas fa-circle mt-1" ' +
-           'style="font-size:6px; color:var(--admin-brand-accent); flex-shrink:0;"></i>' +
-           '<span><span class="text-muted me-2">' + entry.time + '</span>' +
-           entry.action + '</span>' +
+    return '<li class="yr-admin-booking-history__item">' +
+           '<span class="yr-admin-booking-history__dot" aria-hidden="true"></span>' +
+           '<span><span class="yr-admin-booking-history__time">' + entry.time + '</span>' +
+           '<span class="yr-admin-booking-history__action">' + entry.action + '</span></span>' +
            '</li>';
   }).join('');
-  $('#bkModalHistory').html(historyHtml || '<li class="text-muted">無紀錄</li>');
+  $('#bkModalHistory').html(historyHtml || '<li class="yr-admin-booking-history__item"><span class="yr-admin-booking-history__action text-muted">無紀錄</span></li>');
 
   // 開啟 Modal
   new bootstrap.Modal('#bookingDetailModal').show();
@@ -925,11 +953,99 @@ function showBookingModal(booking) {
  * @returns {string}
  */
 function getPayBadgeHtml(paymentStatus) {
-  var map = {
-    paid:     '<span class="badge bg-success payment-status-badge">已付款</span>',
-    refunded: '<span class="badge bg-secondary payment-status-badge">已退款</span>'
+  var labelMap = {
+    paid: '已付款',
+    unpaid: '未付款',
+    refunded: '已退款',
+    failed: '付款失敗'
   };
-  return map[paymentStatus] || '';
+  var label = labelMap[paymentStatus] || '未知';
+  return '<span class="payment-status-badge yr-admin-booking-payment ' +
+    getBookingPaymentClass(paymentStatus) + '">' + label + '</span>';
+}
+
+function renderBookingStatusTag(status) {
+  var labelMap = {
+    pending: '待確認',
+    confirmed: '已確認',
+    completed: '已完成',
+    cancelled: '已取消'
+  };
+  var label = labelMap[status] || '未知';
+  return '<span class="booking-status-badge yr-admin-booking-status ' +
+    getBookingStatusClass(status) + '">' + label + '</span>';
+}
+
+function getEquipmentReturnBadgeHtml(booking) {
+  var state = 'unknown';
+  if (!booking) {
+    state = 'unknown';
+  } else if (!booking.selected_rentals || booking.selected_rentals.length === 0) {
+    state = 'not-required';
+  } else if (booking.equipment_returned) {
+    state = 'returned';
+  } else {
+    state = 'pending';
+  }
+  return renderEquipmentReturnTag(state);
+}
+
+function renderEquipmentReturnTag(state) {
+  var labelMap = {
+    pending: '待歸還',
+    returned: '已歸還',
+    'not-required': '免歸還',
+    unknown: '狀態未知'
+  };
+  var label = labelMap[state] || labelMap.unknown;
+  return '<span class="equipment-return-badge yr-admin-equipment-return ' +
+    getEquipmentReturnClass(state) + '">' + label + '</span>';
+}
+
+function getBookingStatusClass(status) {
+  var map = {
+    pending: 'yr-admin-booking-status--pending',
+    confirmed: 'yr-admin-booking-status--confirmed',
+    completed: 'yr-admin-booking-status--completed',
+    cancelled: 'yr-admin-booking-status--cancelled'
+  };
+  return map[status] || 'yr-admin-booking-status--unknown';
+}
+
+function getBookingPaymentClass(status) {
+  var map = {
+    paid: 'yr-admin-booking-payment--paid',
+    unpaid: 'yr-admin-booking-payment--unpaid',
+    refunded: 'yr-admin-booking-payment--refunded',
+    failed: 'yr-admin-booking-payment--failed'
+  };
+  return map[status] || 'yr-admin-booking-payment--unknown';
+}
+
+function getEquipmentReturnClass(state) {
+  var map = {
+    pending: 'yr-admin-equipment-return--pending',
+    returned: 'yr-admin-equipment-return--returned',
+    'not-required': 'yr-admin-equipment-return--not-required',
+    unknown: 'yr-admin-equipment-return--unknown'
+  };
+  return map[state] || 'yr-admin-equipment-return--unknown';
+}
+
+function updateBookingResultCount(count, state, detail) {
+  var $node = $('#bookingResultCount');
+  if (!$node.length) return;
+  $node.removeClass('yr-admin-bookings-result-count--error');
+  if (state === 'error') {
+    $node.addClass('yr-admin-bookings-result-count--error');
+    $node.text('預約資料讀取異常：' + (detail || '請稍後重試'));
+    return;
+  }
+  if (state === 'empty') {
+    $node.text('篩選結果：0 筆');
+    return;
+  }
+  $node.text('篩選結果：' + count + ' 筆');
 }
 
 /**

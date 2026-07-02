@@ -1,3 +1,6 @@
+@import url('theme/theme-panel.css');
+@import url('theme/theme-toast.css');
+
 /* ========================================
    Yuruicamp 主樣式表
    由 SCSS 編譯而來
@@ -1204,83 +1207,6 @@ hr {
   justify-content: center;
   font-size: 0.75rem;
   font-weight: 700;
-}
-
-.navbar-hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #333333;
-}
-
-@media (max-width: 991px) {
-  .navbar-menu {
-    display: none !important;
-  }
-
-  .navbar-hamburger {
-    display: block !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .navbar-hamburger {
-    display: block;
-  }
-}
-
-/* ========================================
-   手機版導覽側欄（Navbar Offcanvas）
-   - 預設隱藏在螢幕左側外面
-   - JS 加上 .active 後從左滑入
-   ======================================== */
-
-/* 側欄主體：固定定位，預設藏在左側外 */
-/* Offcanvas panel: fixed position, hidden off-screen to the left by default */
-.navbar-offcanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100%;
-  background-color: #ffffff;
-  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.1);
-  z-index: 1050;
-  transform: translateX(-100%);  /* 藏在左側，-100% = 完全移出螢幕 */
-  transition: transform 250ms ease;
-  overflow-y: auto;
-}
-
-/* 點擊漢堡（☰）後，JS 加上 .active，側欄從左滑入 */
-/* When .active is added by JS, the panel slides in from the left */
-.navbar-offcanvas.active {
-  transform: translateX(0);
-}
-
-/* 側欄內的導覽清單：直向排列，間距由 li 的 padding 控制 */
-/* Navigation list inside offcanvas: vertical layout */
-.navbar-offcanvas .navbar-items {
-  flex-direction: column;
-  gap: 0;
-}
-
-/* 每個選項下方加分隔線，最後一項不加 */
-/* Each nav item gets a bottom border, except the last one */
-.navbar-offcanvas .navbar-items li {
-  border-bottom: 1px solid #f0f0f0;
-  padding: 0.75rem 0;
-}
-
-.navbar-offcanvas .navbar-items li:last-child {
-  border-bottom: none;
-}
-
-/* 側欄導覽連結的字體大小 */
-/* Font size for offcanvas nav links */
-.navbar-offcanvas .navbar-items a {
-  font-size: 1rem;
 }
 
 /* ========================================
@@ -4551,16 +4477,6 @@ img {
   /* 數量增減按鈕 */
   .qty-btn { min-width: 44px; min-height: 44px; }
 
-  /* 漢堡按鈕放大 */
-  .navbar-hamburger {
-    width: 44px;
-    height: 44px;
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   /* 購物車按鈕放大 */
   .navbar-cart-btn {
     min-width: 44px;
@@ -4570,9 +4486,6 @@ img {
     justify-content: center;
     font-size: 1.2rem;
   }
-
-  /* offcanvas 關閉按鈕放大 */
-  .offcanvas-close { min-width: 44px; min-height: 44px; }
 
   /* Modal 關閉按鈕 */
   .modal-close { min-width: 44px; min-height: 44px; }
@@ -4596,9 +4509,6 @@ img {
 /* === Safe Area Inset（iPhone 有 Home Bar 的機型）===
    Support iPhone X+ home indicator safe area */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .navbar-offcanvas {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
   .floating-line-btn {
     bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
@@ -4606,15 +4516,6 @@ img {
   .cart-offcanvas {
     padding-bottom: env(safe-area-inset-bottom);
   }
-}
-
-/* === Offcanvas 開啟時禁止 body 滾動 ===
-   Prevent background scroll when offcanvas/modal is open */
-body.offcanvas-open {
-  overflow: hidden;
-  /* iOS Safari 特別需要這個 */
-  position: fixed;
-  width: 100%;
 }
 
 /* === 手機版字型大小與行距優化 ===
@@ -4730,7 +4631,6 @@ body.offcanvas-open {
 .branch-card,
 .toast,
 .modal,
-.navbar-offcanvas,
 .faq-accordion-body {
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
@@ -4805,7 +4705,6 @@ img {
 /* === will-change：提示瀏覽器提前合成動畫圖層
    告訴瀏覽器「這個元素要動」，讓 GPU 預先分配記憶體
    Will-change hints for better animation performance */
-.navbar-offcanvas,
 .modal,
 .toast,
 .product-card:hover,
@@ -4858,7 +4757,6 @@ body {
    Print styles - hide unnecessary elements when printing */
 @media print {
   .navbar,
-  .navbar-offcanvas,
   .offcanvas-backdrop,
   .toast-container,
   .modal,
@@ -4920,7 +4818,7 @@ body {
 .floating-actions {
   position: fixed;
   right: 28px;
-  bottom: 34px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
   z-index: 1200;
 
   display: flex;
@@ -4935,66 +4833,46 @@ body {
   align-items: center;
   justify-content: center;
 
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   padding: 0;
-  overflow: hidden;
-  white-space: nowrap;
+  border: 1px solid #e2d8ca;
+  border-radius: 12px;
+  background-color: #fffdf8;
+  color: #74846f;
 
-  border-radius: 999px;
-  background-color: #5f9407;
-  color: #fff;
+  box-shadow: 0 6px 18px rgba(63, 70, 61, 0.1);
 
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
-
-  transition:
-    width 0.35s ease,
-    padding 0.35s ease,
-    background-color 0.35s ease,
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 .floating-line-btn:hover,
 .floating-line-btn:focus-visible {
-  width: 230px;
-  padding-left: 18px;
-  padding-right: 10px;
-  justify-content: flex-start;
-  background-color: #578804;
+  border-color: #74846f;
+  background-color: #74846f;
+  color: #fffdf8;
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.floating-line-btn:focus-visible,
+.floating-top-btn:focus-visible {
+  outline: 2px solid #74846f;
+  outline-offset: 3px;
+}
+
+.floating-line-btn:active,
+.floating-top-btn:active {
+  transform: translateY(0);
 }
 
 .floating-line-label {
-  max-width: 0;
-  opacity: 0;
-  overflow: hidden;
-  margin-right: 0;
-
-  color: #fff;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 1;
-
-  transition:
-    max-width 0.35s ease,
-    opacity 0.25s ease,
-    margin-right 0.35s ease;
-}
-
-.floating-line-btn:hover .floating-line-label,
-.floating-line-btn:focus-visible .floating-line-label {
-  max-width: 150px;
-  opacity: 1;
-  margin-right: 10px;
+  display: none;
 }
 
 .floating-line-icon {
-  flex: 0 0 60px;
-  width: 60px;
-  height: 60px;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
 
   display: flex;
   align-items: center;
@@ -5008,53 +4886,81 @@ body {
 
   width: auto;
   height: auto;
-  font-size: 1.55rem;
+  font-size: 1.2rem;
   line-height: 1;
+}
+
+.floating-line-icon .bi-chat-dots-fill::before {
+  content: "\f660";
 }
 
 /* 黃色回到頂部按鈕 */
 .floating-top-btn {
-  width: 60px;
-  height: 60px;
-  border: 0;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e2d8ca;
+  border-radius: 12px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: #f7c62f;
-  color: #fff;
+  background-color: #fffdf8;
+  color: #74846f;
   cursor: pointer;
 
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 18px rgba(63, 70, 61, 0.1);
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px) scale(0.92);
+  transform: translateY(10px);
 
   transition:
-    opacity 0.35s ease,
-    visibility 0.35s ease,
-    transform 0.35s ease,
-    background-color 0.35s ease;
+    opacity 180ms ease,
+    visibility 180ms ease,
+    transform 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
 .floating-top-btn.is-visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .floating-top-btn:hover,
 .floating-top-btn:focus-visible {
-  background-color: #efba12;
-  transform: translateY(-2px) scale(1);
+  border-color: #74846f;
+  background-color: #74846f;
+  color: #fffdf8;
+  transform: translateY(-2px);
 }
 
 .floating-top-btn i {
-  font-size: 1.45rem;
+  font-size: 1.2rem;
   line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .floating-actions {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .floating-line-btn,
+  .floating-top-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+  }
+
+  .floating-line-icon {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+  }
 }
 
 /* ========================================
@@ -5128,14 +5034,6 @@ body {
   font-size: 1.125rem;
   font-weight: 600;
   margin: 0;
-}
-
-.offcanvas-close {
-  background: none;
-  border: none;
-  color: #666;
-  cursor: pointer;
-  font-size: 1.5rem;
 }
 
 .navbar-items--stacked {
@@ -5526,43 +5424,3 @@ body {
     font-size: 1.55rem;
   }
 }
-
-/* ============================================================
-   Header Drawer Overrides
-   The primary navigation now lives behind the left hamburger on every viewport.
-   ============================================================ */
-.navbar-content {
-  align-items: center;
-  display: flex;
-  position: relative;
-}
-
-.navbar-hamburger {
-  align-items: center;
-  background: none;
-  border: none;
-  color: #244d4d;
-  cursor: pointer;
-  display: inline-flex !important;
-  font-size: 1.4rem;
-  height: 40px;
-  justify-content: center;
-  margin-right: auto;
-  width: 40px;
-  z-index: 2;
-}
-
-.navbar-menu {
-  display: none !important;
-}
-
-.navbar-offcanvas {
-  left: 0;
-  right: auto;
-  transform: translateX(-100%);
-}
-
-.navbar-offcanvas.active {
-  transform: translateX(0);
-}
-

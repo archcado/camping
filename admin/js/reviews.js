@@ -1,179 +1,436 @@
 ﻿/**
  * admin/js/reviews.js
  * 評論管理模組
- * 使用 jQuery Event Namespace (.reviews) 防止重複導覽時事件堆疊
+ * Review management — filter, search, sort, reply modal, localStorage persistence
  *
- * 容器 ID：#reviewsContainer
- * 篩選按鈕：.filter-btn（帶 data-filter="all|unreplied|replied"）
- * Tab Badge：#tabCountAll, #tabCountUnreplied, #tabCountReplied
+ * 使用 jQuery Event Namespace (.reviews) 防止重複導覽時事件堆疊
+ * Data: admin/data/reviews.json（種子）+ localStorage.adminReviews（使用者變更）
  */
+
+var REVIEWS_STORAGE_KEY = 'adminReviews';
+
+/** @type {{ allReviews: Array, statusFilter: string, searchQuery: string, ratingFilter: string, sortBy: string }} */
+var reviewsState = {
+  allReviews: [],
+  statusFilter: 'all',
+  searchQuery: '',
+  ratingFilter: '',
+  sortBy: 'unreplied-first',
+};
 
 window.initReviews = function () {
   $(document).off('.reviews');
+  bindReviewEvents();
 
-  $.getJSON('data/reviews.json', function (reviews) {
-    if (!Array.isArray(reviews)) {
-      renderReviewsMessage('error', '評論資料格式錯誤');
-      return;
-    }
-
-    renderReviewCards(reviews);
-    updateReviewCounters();
-    applyReviewFilter('all');
-  }).fail(function () {
-    renderReviewsMessage('error', '載入評論數據失敗');
-  });
-
-  // 篩選切換（.filter-btn 帶 data-filter 屬性）
-  $(document).on('click.reviews', '.filter-btn', function () {
-    var filter = $(this).data('filter');
-
-    // 更新按鈕 active 樣式
-    $('.filter-btn').removeClass('active');
-    $(this).addClass('active');
-    applyReviewFilter(filter);
-  });
-
-  // 展開回覆輸入框
-  $(document).on('click.reviews', '.btn-reply-toggle', function () {
-    var $form = $(this).closest('.review-card').find('.reply-form');
-    $form.toggleClass('d-none');
-    if (!$form.hasClass('d-none')) {
-      $form.find('textarea').trigger('focus');
-    }
-  });
-
-  // 提交回覆
-  $(document).on('click.reviews', '.btn-submit-reply', function () {
-    var $card     = $(this).closest('.review-card');
-    var reviewId  = $card.data('review-id');
-    var $textarea = $card.find('.reply-form textarea');
-    var replyText = $textarea.val().trim();
-
-    if (!replyText) {
-      window.showAdminToast('回覆內容不能為空', 'danger');
-      return;
-    }
-
-    $card.find('.reply-form').addClass('d-none');
-    $card.attr('data-replied', 'true');
-    $card.removeClass('yr-admin-review-card--pending').addClass('yr-admin-review-card--answered');
-    $card.find('.replied-badge').replaceWith(renderReviewStatus(true));
-    $card.find('.btn-reply-toggle').hide();
-    $card.find('.reply-display').remove();
-    $card.find('.card-body').append(renderReplyDisplay(replyText));
-
-    updateReviewCounters();
-    applyReviewFilter($('.filter-btn.active').data('filter') || 'all');
-
-    window.showAdminToast('評論 ' + reviewId + ' 已送出回覆');
+  loadReviews(function (reviews) {
+    reviewsState.allReviews = reviews;
+    applyFiltersAndRender();
+    updateReviewTabCounts();
   });
 };
 
+// ==========================================================
+// === 資料載入 / 儲存（localStorage mock，未來可換 REST API）===
+// ==========================================================
+
 /**
- * 取得評論狀態 class
- * @param {boolean|undefined} replied
- * @returns {string}
+ * 從 localStorage 或 JSON 種子載入評論
+ * Load reviews from localStorage override or JSON seed
  */
-function getReviewStatusClass(replied) {
-  if (replied === true) return 'yr-admin-review-status--answered';
-  if (replied === false) return 'yr-admin-review-status--pending';
-  return 'yr-admin-review-status--unknown';
+function loadReviews(callback) {
+  var cached = localStorage.getItem(REVIEWS_STORAGE_KEY);
+  if (cached) {
+    try {
+      callback(JSON.parse(cached));
+      return;
+    } catch (e) {
+      localStorage.removeItem(REVIEWS_STORAGE_KEY);
+    }
+  }
+
+  $.getJSON('data/reviews.json', function (reviews) {
+    callback(reviews || []);
+  }).fail(function () {
+    $('#reviewsContainer').html(
+      '<div class="alert alert-danger mb-0">' +
+        '<i class="fas fa-exclamation-triangle me-2"></i>載入評論數據失敗' +
+        '</div>'
+    );
+  });
 }
 
 /**
- * 渲染評論狀態
- * @param {boolean|undefined} replied
- * @returns {string}
+ * 寫入 localStorage（模擬後端持久化）
+ * Persist reviews to localStorage
  */
-function renderReviewStatus(replied) {
-  var statusClass = getReviewStatusClass(replied);
-  var label = replied === true ? '已回覆' : (replied === false ? '待回覆' : '狀態未知');
-  var icon = replied === true ? 'fa-circle-check' : (replied === false ? 'fa-clock' : 'fa-circle-question');
-  return '<span class="yr-admin-review-status ' + statusClass + ' replied-badge">' +
-    '<i class="fas ' + icon + ' me-1" aria-hidden="true"></i>' + label +
-    '</span>';
+function saveReviews(reviews) {
+  localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
+  reviewsState.allReviews = reviews;
+}
+
+/** 取得目前登入的管理員資訊 / Current admin from sessionStorage */
+function getCurrentAdmin() {
+  return {
+    id: sessionStorage.getItem('adminId') || '—',
+    name: sessionStorage.getItem('adminName') || '管理員',
+  };
+}
+
+/** 產生 YYYY-MM-DD HH:mm 格式時間字串 / Format current datetime */
+function formatNow() {
+  var d = new Date();
+  var pad = function (n) {
+    return String(n).padStart(2, '0');
+  };
+  return (
+    d.getFullYear() +
+    '-' +
+    pad(d.getMonth() + 1) +
+    '-' +
+    pad(d.getDate()) +
+    ' ' +
+    pad(d.getHours()) +
+    ':' +
+    pad(d.getMinutes())
+  );
+}
+
+/** HTML 跳脫，防止 XSS / Escape HTML for safe rendering */
+function escapeHtml(str) {
+  return $('<div>')
+    .text(str || '')
+    .html();
+}
+
+// ==========================================================
+// === 事件綁定 ===
+// ==========================================================
+
+function bindReviewEvents() {
+  // 狀態 Tab：全部 / 未回覆 / 已回覆
+  $(document).on('click.reviews', '.filter-btn', function () {
+    reviewsState.statusFilter = $(this).data('filter');
+    $('.filter-btn').removeClass('active btn-dark').addClass('btn-outline-secondary');
+    $(this).removeClass('btn-outline-secondary').addClass('active btn-dark');
+    applyFiltersAndRender();
+  });
+
+  // 搜尋（即時）
+  $(document).on('input.reviews', '#reviewSearchInput', function () {
+    reviewsState.searchQuery = $(this).val().trim().toLowerCase();
+    applyFiltersAndRender();
+  });
+
+  // 評分篩選
+  $(document).on('change.reviews', '#reviewRatingFilter', function () {
+    reviewsState.ratingFilter = $(this).val();
+    applyFiltersAndRender();
+  });
+
+  // 排序
+  $(document).on('change.reviews', '#reviewSortSelect', function () {
+    reviewsState.sortBy = $(this).val();
+    applyFiltersAndRender();
+  });
+
+  // 清除條件
+  $(document).on('click.reviews', '#btnClearReviewFilters', function () {
+    reviewsState.statusFilter = 'all';
+    reviewsState.searchQuery = '';
+    reviewsState.ratingFilter = '';
+    reviewsState.sortBy = 'unreplied-first';
+
+    $('#reviewSearchInput').val('');
+    $('#reviewRatingFilter').val('');
+    $('#reviewSortSelect').val('unreplied-first');
+    $('.filter-btn').removeClass('active btn-dark').addClass('btn-outline-secondary');
+    $('.filter-btn[data-filter="all"]').removeClass('btn-outline-secondary').addClass('active btn-dark');
+
+    applyFiltersAndRender();
+  });
+
+  // 開啟回覆 Modal（新增或編輯）
+  $(document).on('click.reviews', '.btn-open-reply-modal', function () {
+    var reviewId = $(this).data('review-id');
+    var mode = $(this).data('mode') || 'create';
+    openReviewReplyModal(reviewId, mode);
+  });
+
+  // Modal 送出回覆 / 儲存編輯
+  $(document).on('click.reviews', '#btnSubmitReviewReply', function () {
+    submitReviewReply();
+  });
+
+  // Modal 刪除回覆
+  $(document).on('click.reviews', '#btnDeleteReviewReply', function () {
+    deleteReviewReply();
+  });
+}
+
+// ==========================================================
+// === 篩選 / 排序 / 渲染 ===
+// ==========================================================
+
+function applyFiltersAndRender() {
+  var filtered = filterReviews(reviewsState.allReviews);
+  filtered = sortReviews(filtered);
+  renderReviewCards(filtered);
+  updateClearButtonVisibility();
+}
+
+/** 依狀態、搜尋、評分篩選 / Apply status, search, rating filters */
+function filterReviews(reviews) {
+  return reviews.filter(function (r) {
+    if (reviewsState.statusFilter === 'unreplied' && r.replied === true) return false;
+    if (reviewsState.statusFilter === 'replied' && r.replied !== true) return false;
+
+    if (reviewsState.ratingFilter) {
+      var rating = Number(r.rating) || 0;
+      if (reviewsState.ratingFilter === '1-2' && (rating < 1 || rating > 2)) return false;
+      if (reviewsState.ratingFilter === '3' && rating !== 3) return false;
+      if (reviewsState.ratingFilter === '4-5' && (rating < 4 || rating > 5)) return false;
+    }
+
+    if (reviewsState.searchQuery) {
+      var q = reviewsState.searchQuery;
+      var haystack = [r.id, r.buyerName, r.productName, r.comment, r.replyText].join(' ').toLowerCase();
+      if (haystack.indexOf(q) === -1) return false;
+    }
+
+    return true;
+  });
+}
+
+/** 排序評論列表 / Sort review list */
+function sortReviews(reviews) {
+  var list = reviews.slice();
+
+  list.sort(function (a, b) {
+    if (reviewsState.sortBy === 'unreplied-first') {
+      if (a.replied !== b.replied) return a.replied ? 1 : -1;
+      if (!a.replied && !b.replied) {
+        var ra = Number(a.rating) || 0;
+        var rb = Number(b.rating) || 0;
+        if (ra !== rb) return ra - rb;
+      }
+      return String(b.createdAt).localeCompare(String(a.createdAt));
+    }
+    if (reviewsState.sortBy === 'date-desc') {
+      return String(b.createdAt).localeCompare(String(a.createdAt));
+    }
+    if (reviewsState.sortBy === 'rating-asc') {
+      return (Number(a.rating) || 0) - (Number(b.rating) || 0);
+    }
+    if (reviewsState.sortBy === 'rating-desc') {
+      return (Number(b.rating) || 0) - (Number(a.rating) || 0);
+    }
+    return 0;
+  });
+
+  return list;
+}
+
+/** 更新 Tab 計數 Badge / Update tab count badges */
+function updateReviewTabCounts() {
+  var total = reviewsState.allReviews.length;
+  var replied = reviewsState.allReviews.filter(function (r) {
+    return r.replied === true;
+  }).length;
+  $('#tabCountAll').text(total);
+  $('#tabCountReplied').text(replied);
+  $('#tabCountUnreplied').text(total - replied);
+}
+
+/** 有非預設篩選時顯示「清除條件」/ Show clear button when filters active */
+function updateClearButtonVisibility() {
+  var hasExtra =
+    reviewsState.statusFilter !== 'all' ||
+    reviewsState.searchQuery !== '' ||
+    reviewsState.ratingFilter !== '' ||
+    reviewsState.sortBy !== 'unreplied-first';
+
+  $('#btnClearReviewFilters').toggleClass('d-none', !hasExtra);
+}
+
+/** 依目前 Tab 回傳空狀態文案 / Empty state message per filter */
+function getReviewEmptyMessage() {
+  if (reviewsState.searchQuery || reviewsState.ratingFilter) {
+    return '找不到符合條件的評論';
+  }
+  if (reviewsState.statusFilter === 'unreplied') {
+    return '太棒了！目前沒有待回覆的評論';
+  }
+  if (reviewsState.statusFilter === 'replied') {
+    return '尚無已回覆的評論';
+  }
+  return '目前沒有評論';
 }
 
 /**
- * 渲染星等（1-5）
+ * 渲染星星評分（1–5 顆）
  * @param {number} rating
- * @returns {string}
  */
-function renderReviewRating(rating) {
-  var safeRating = Number(rating);
-  if (!Number.isFinite(safeRating)) {
-    safeRating = 0;
-  }
-  safeRating = Math.max(0, Math.min(5, Math.round(safeRating)));
-
-  var stars = '';
+function renderStars(rating) {
+  var html = '';
+  var r = Number(rating) || 0;
   for (var i = 1; i <= 5; i++) {
-    stars += i <= safeRating
-      ? '<i class="fas fa-star yr-admin-review-star yr-admin-review-star--filled" aria-hidden="true"></i>'
-      : '<i class="far fa-star yr-admin-review-star yr-admin-review-star--empty" aria-hidden="true"></i>';
+    html += i <= r ? '<i class="fas fa-star text-warning"></i>' : '<i class="far fa-star text-muted"></i>';
   }
+  return html;
+}
 
-  return '<div class="yr-admin-review-rating" role="img" aria-label="評分 ' + safeRating + ' / 5">' +
-    stars +
-    '<span class="yr-admin-review-rating-text">' + safeRating + ' / 5</span>' +
-    '</div>';
+/** 未回覆卡片的左邊框樣式（低分優先標示）/ Border class for unreplied cards */
+function getReviewCardBorderClass(review) {
+  if (review.replied === true) return '';
+  var rating = Number(review.rating) || 0;
+  if (rating <= 2) return ' review-card-urgent';
+  return ' review-card-pending';
+}
+
+/** 渲染買家附圖縮圖 / Render buyer photo thumbnails */
+function renderReviewPhotos(photos) {
+  if (!photos || !photos.length) return '';
+
+  var thumbs = photos
+    .map(function (url) {
+      return (
+        '<a href="' +
+        escapeHtml(url) +
+        '" target="_blank" rel="noopener" class="review-photo-thumb">' +
+        '<img src="' +
+        escapeHtml(url) +
+        '" alt="評論附圖"' +
+        ' onerror="this.parentElement.classList.add(\'d-none\')">' +
+        '</a>'
+      );
+    })
+    .join('');
+
+  return '<div class="review-photos d-flex flex-wrap gap-2 mt-2">' + thumbs + '</div>';
+}
+
+/** 渲染賣家回覆區塊 / Render seller reply block */
+function renderReplyBlock(review) {
+  if (review.replied !== true || !review.replyText) return '';
+
+  var metaParts = [];
+  if (review.replyAt) metaParts.push('回覆於 ' + escapeHtml(review.replyAt));
+  // 不顯示回覆人員姓名 / Do not show responder name on UI
+  if (review.replyUpdatedAt) metaParts.push('（已編輯 ' + escapeHtml(review.replyUpdatedAt) + '）');
+
+  return (
+    '<div class="reply-display mt-3 p-3 bg-light border-start border-3 border-success rounded-end">' +
+    '<div class="small text-muted mb-1"><i class="fas fa-store me-1"></i>賣家回覆</div>' +
+    '<p class="mb-1 review-reply-text">' +
+    escapeHtml(review.replyText) +
+    '</p>' +
+    (metaParts.length ? '<div class="small text-muted">' + metaParts.join(' · ') + '</div>' : '') +
+    '</div>'
+  );
 }
 
 /**
- * 將 reviews 陣列渲染成卡片清單，填入 #reviewsContainer
- * @param {Array} reviews - reviews.json 的資料陣列
+ * 將 reviews 陣列渲染成單欄卡片清單
+ * @param {Array} reviews
  */
 function renderReviewCards(reviews) {
   if (!reviews || reviews.length === 0) {
-    renderReviewsMessage('empty', '目前沒有評論');
+    $('#reviewsContainer').html(
+      '<div class="text-center text-muted py-5">' +
+        '<i class="far fa-comment-dots fa-2x mb-2 d-block opacity-50"></i>' +
+        escapeHtml(getReviewEmptyMessage()) +
+        '</div>'
+    );
     return;
   }
 
-  var html = '<div class="row g-3">' +
-    reviews.map(function (r) {
-      var isReplied = r.replied === true;
-      var statusHtml = renderReviewStatus(r.replied);
-      var replyDisplayHtml = (isReplied && r.replyText) ? renderReplyDisplay(r.replyText) : '';
-      var cardStateClass = isReplied ? 'yr-admin-review-card--answered' : 'yr-admin-review-card--pending';
+  var html =
+    '<div class="row g-3">' +
+    reviews
+      .map(function (r) {
+        var isReplied = r.replied === true;
+        var rating = Number(r.rating) || 0;
+        var urgentBadge = !isReplied && rating <= 2 ? '<span class="badge bg-danger ms-1">需優先</span>' : '';
 
-      var replyToggleBtn = isReplied ? '' :
-        '<button class="btn btn-sm btn-outline-secondary btn-reply-toggle mt-2">' +
-        '<i class="fas fa-reply me-1"></i>回覆</button>';
+        var repliedBadge = isReplied
+          ? '<span class="badge bg-success">已回覆</span>'
+          : '<span class="badge bg-warning text-dark">待回覆</span>';
 
-      var avatarSrc = r.buyerAvatar || 'https://placehold.co/40x40/cccccc/555555?text=U';
+        var avatarSrc = r.buyerAvatar || 'https://placehold.co/44x44/cccccc/555555?text=U';
 
-      return '<div class="col-12 col-lg-6">' +
-        '<div class="card review-card yr-admin-review-card ' + cardStateClass + '"' +
-        ' data-review-id="' + r.id + '"' +
-        ' data-replied="' + isReplied + '">' +
-        '<div class="card-body">' +
-        '<div class="yr-admin-review-card__header">' +
-        '<img src="' + avatarSrc + '" width="40" height="40"' +
-        ' class="yr-admin-review-avatar"' +
-        ' onerror="this.src=\'https://placehold.co/40x40/cccccc/555555?text=U\'">' +
-        '<div class="flex-grow-1">' +
-        '<div class="d-flex justify-content-between align-items-center">' +
-        '<span class="fw-semibold">' + escapeHtml(r.buyerName || '匿名使用者') + '</span>' +
-        statusHtml +
-        '</div>' +
-        '<div class="yr-admin-review-card__meta">' +
-        '<span>' + escapeHtml(r.createdAt || '日期未知') + '</span>' +
-        '<span aria-hidden="true">·</span>' +
-        '<span>' + escapeHtml(r.productName || '商品資訊缺漏') + '</span>' +
-        '</div>' +
-        '<div class="mt-1">' + renderReviewRating(r.rating) + '</div>' +
-        '</div></div>' +
-        '<p class="mb-1 small yr-admin-review-card__content">' + escapeHtml(r.comment || '') + '</p>' +
-        replyDisplayHtml +
-        '<div class="yr-admin-review-card__actions">' + replyToggleBtn + '</div>' +
-        '<div class="reply-form d-none mt-2">' +
-        '<textarea class="form-control form-control-sm mb-1" rows="3" placeholder="輸入回覆內容..." aria-label="回覆評論"></textarea>' +
-        '<button class="btn btn-sm btn-primary btn-submit-reply">' +
-        '<i class="fas fa-paper-plane me-1"></i>送出回覆</button>' +
-        '</div>' +
-        '</div></div></div>';
-    }).join('') +
+        var actionBtn = isReplied
+          ? '<button type="button" class="btn btn-sm btn-outline-secondary btn-open-reply-modal"' +
+            ' data-review-id="' +
+            escapeHtml(r.id) +
+            '" data-mode="edit">' +
+            '<i class="fas fa-pen me-1"></i>編輯回覆</button>'
+          : '<button type="button" class="btn btn-sm btn-outline-success btn-open-reply-modal"' +
+            ' data-review-id="' +
+            escapeHtml(r.id) +
+            '" data-mode="create">' +
+            '<i class="fas fa-reply me-1"></i>回覆評論</button>';
+
+        return (
+          '<div class="col-12">' +
+          '<div class="card shadow-sm review-card' +
+          getReviewCardBorderClass(r) +
+          '"' +
+          ' data-review-id="' +
+          escapeHtml(r.id) +
+          '"' +
+          ' data-replied="' +
+          isReplied +
+          '"' +
+          ' data-rating="' +
+          rating +
+          '">' +
+          '<div class="card-body">' +
+          '<div class="d-flex align-items-start gap-3">' +
+          '<img src="' +
+          escapeHtml(avatarSrc) +
+          '" width="44" height="44"' +
+          ' class="rounded-circle border object-fit-cover flex-shrink-0"' +
+          ' alt="' +
+          escapeHtml(r.buyerName) +
+          ' 頭像"' +
+          ' onerror="this.src=\'https://placehold.co/44x44/cccccc/555555?text=U\'">' +
+          '<div class="flex-grow-1 min-w-0">' +
+          '<div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-1">' +
+          '<div class="d-flex flex-wrap align-items-center gap-2">' +
+          '<span class="fw-semibold">' +
+          escapeHtml(r.buyerName) +
+          '</span>' +
+          '<span class="badge bg-secondary">' +
+          escapeHtml(r.id) +
+          '</span>' +
+          repliedBadge +
+          urgentBadge +
+          '</div>' +
+          '<div class="review-card-stars">' +
+          renderStars(rating) +
+          '</div>' +
+          '</div>' +
+          '<div class="small text-muted mb-2">' +
+          escapeHtml(r.createdAt) +
+          ' · ' +
+          escapeHtml(r.productName) +
+          '</div>' +
+          '<div class="review-buyer-comment">' +
+          '<div class="small text-muted mb-1">買家評論</div>' +
+          '<p class="mb-0">' +
+          escapeHtml(r.comment) +
+          '</p>' +
+          renderReviewPhotos(r.photos) +
+          '</div>' +
+          renderReplyBlock(r) +
+          '<div class="d-flex justify-content-end mt-3">' +
+          actionBtn +
+          '</div>' +
+          '</div></div>' +
+          '</div></div></div>'
+        );
+      })
+      .join('') +
     '</div>';
 
   $('#reviewsContainer').html(html);
@@ -183,77 +440,117 @@ function renderReviewCards(reviews) {
   }
 }
 
-function renderReplyDisplay(replyText) {
-  return '<div class="reply-display yr-admin-review-reply">' +
-    '<div class="yr-admin-review-reply__header"><i class="fas fa-store me-1" aria-hidden="true"></i>賣家回覆</div>' +
-    '<p class="yr-admin-review-reply__content">' + escapeHtml(replyText) + '</p>' +
-    '</div>';
+// ==========================================================
+// === Modal：回覆 / 編輯 / 刪除 ===
+// ==========================================================
+
+/**
+ * 開啟回覆 Modal
+ * @param {string} reviewId
+ * @param {'create'|'edit'} mode
+ */
+function openReviewReplyModal(reviewId, mode) {
+  var review = reviewsState.allReviews.find(function (r) {
+    return r.id === reviewId;
+  });
+  if (!review) return;
+
+  var isEdit = mode === 'edit';
+  var avatarSrc = review.buyerAvatar || 'https://placehold.co/44x44/cccccc/555555?text=U';
+
+  $('#reviewReplyModalId').val(review.id);
+  $('#reviewReplyModalTitle').text(isEdit ? '編輯回覆' : '回覆評論');
+  $('#reviewModalAvatar').attr('src', avatarSrc);
+  $('#reviewModalBuyerName').text(review.buyerName);
+  $('#reviewModalReviewId').text(review.id);
+  $('#reviewModalStars').html(renderStars(review.rating));
+  $('#reviewModalMeta').text(review.createdAt + ' · ' + review.productName);
+  $('#reviewModalComment').text(review.comment);
+  $('#reviewReplyTextarea').val(isEdit ? review.replyText || '' : '');
+
+  $('#btnDeleteReviewReply').toggleClass('d-none', !isEdit);
+  $('#btnSubmitReviewReply').html(
+    isEdit ? '<i class="fas fa-save me-1"></i>儲存修改' : '<i class="fas fa-paper-plane me-1"></i>送出回覆'
+  );
+
+  var modalEl = document.getElementById('reviewReplyModal');
+  var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  modal.show();
+
+  modalEl.addEventListener('shown.bs.modal', function onShown() {
+    $('#reviewReplyTextarea').trigger('focus');
+    modalEl.removeEventListener('shown.bs.modal', onShown);
+  });
 }
 
-function updateReviewCounters() {
-  var totalCards = $('.review-card').length;
-  var repliedCards = $('.review-card[data-replied="true"]').length;
-  var unrepCards = totalCards - repliedCards;
+/** 送出或更新回覆 / Submit or update reply */
+function submitReviewReply() {
+  var reviewId = $('#reviewReplyModalId').val();
+  var replyText = $('#reviewReplyTextarea').val().trim();
 
-  $('#tabCountAll').text(totalCards);
-  $('#tabCountUnreplied').text(unrepCards);
-  $('#tabCountReplied').text(repliedCards);
-}
-
-function applyReviewFilter(filter) {
-  var selectedFilter = filter || 'all';
-  var $cards = $('.review-card');
-  var $filterEmpty = $('#reviewsContainer').find('.yr-admin-reviews-empty--filter');
-
-  $cards.show();
-  if (selectedFilter === 'unreplied') {
-    $cards.hide();
-    $('.review-card[data-replied="false"]').show();
-  } else if (selectedFilter === 'replied') {
-    $cards.hide();
-    $('.review-card[data-replied="true"]').show();
-  }
-
-  var visibleCount = $('.review-card:visible').length;
-  var label = selectedFilter === 'unreplied'
-    ? '待回覆'
-    : (selectedFilter === 'replied' ? '已回覆' : '全部');
-  $('#reviewsResultCount').text('顯示 ' + visibleCount + ' 筆評論（' + label + '）');
-
-  if (!$cards.length) {
+  if (!replyText) {
+    window.showAdminToast('回覆內容不能為空', 'danger');
     return;
   }
 
-  if (visibleCount === 0) {
-    if (!$filterEmpty.length) {
-      $('#reviewsContainer').append(
-        '<div class="yr-admin-reviews-empty yr-admin-reviews-empty--filter text-center py-4 mt-3">' +
-        '<i class="fas fa-inbox me-2" aria-hidden="true"></i>此分類目前沒有評論' +
-        '</div>'
-      );
+  var admin = getCurrentAdmin();
+  var now = formatNow();
+  var wasReplied = false;
+
+  var updated = reviewsState.allReviews.map(function (r) {
+    if (r.id !== reviewId) return r;
+
+    wasReplied = r.replied === true;
+    var next = Object.assign({}, r, {
+      replied: true,
+      replyText: replyText,
+    });
+
+    if (!wasReplied) {
+      next.replyAt = now;
+      next.repliedBy = admin.id;
+      next.repliedByName = admin.name;
+      next.replyUpdatedAt = null;
+    } else {
+      next.replyUpdatedAt = now;
     }
-  } else {
-    $filterEmpty.remove();
-  }
+
+    return next;
+  });
+
+  saveReviews(updated);
+  updateReviewTabCounts();
+  applyFiltersAndRender();
+
+  var modalEl = document.getElementById('reviewReplyModal');
+  bootstrap.Modal.getInstance(modalEl).hide();
+
+  window.showAdminToast(wasReplied ? '評論 ' + reviewId + ' 回覆已更新' : '評論 ' + reviewId + ' 已送出回覆');
 }
 
-function renderReviewsMessage(type, message) {
-  var cssClass = type === 'error' ? 'yr-admin-reviews-error' : (type === 'loading' ? 'yr-admin-reviews-loading' : 'yr-admin-reviews-empty');
-  var icon = type === 'error' ? 'fa-exclamation-triangle' : (type === 'loading' ? 'fa-spinner fa-spin' : 'fa-comment-slash');
-  $('#reviewsContainer').html(
-    '<div class="' + cssClass + ' text-center">' +
-    '<i class="fas ' + icon + ' me-2" aria-hidden="true"></i>' + escapeHtml(message) +
-    '</div>'
-  );
-  $('#reviewsResultCount').text('顯示 0 筆評論');
-  $('#tabCountAll, #tabCountUnreplied, #tabCountReplied').text('0');
-}
+/** 刪除回覆，狀態回到待回覆 / Delete reply and reset to unreplied */
+function deleteReviewReply() {
+  var reviewId = $('#reviewReplyModalId').val();
+  if (!window.confirm('確定要刪除此回覆嗎？評論將回到「待回覆」狀態。')) return;
 
-function escapeHtml(text) {
-  return String(text || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+  var updated = reviewsState.allReviews.map(function (r) {
+    if (r.id !== reviewId) return r;
+    return Object.assign({}, r, {
+      replied: false,
+      replyText: '',
+      replyAt: null,
+      repliedBy: null,
+      repliedByName: null,
+      replyUpdatedAt: null,
+    });
+  });
+
+  saveReviews(updated);
+  updateReviewTabCounts();
+  applyFiltersAndRender();
+
+  var modalEl = document.getElementById('reviewReplyModal');
+  bootstrap.Modal.getInstance(modalEl).hide();
+
+  window.showAdminToast('評論 ' + reviewId + ' 回覆已刪除', 'warning');
 }

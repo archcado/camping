@@ -542,6 +542,28 @@
   color: var(--yr-color-text-muted);
 }
 
+/* ── 預約背包空狀態「前往找營地」CTA
+   覆寫全域 .btn--outline 的黃色，改為鼠尾草綠次要樣式。
+   與 Drawer 關閉按鈕、空狀態圖示（--yr-color-brand-strong）保持同色系。
+   不影響 .btn--primary 或 Drawer 外的任何 .btn--outline。 */
+.bk-slide-panel.yr-panel .cart-panel__empty .btn--outline {
+  background: var(--yr-color-brand-pale);
+  border-color: var(--yr-color-brand-soft);
+  color: var(--yr-color-brand-strong);
+}
+
+.bk-slide-panel.yr-panel .cart-panel__empty .btn--outline:hover {
+  background: var(--yr-color-brand-soft);
+  border-color: var(--yr-color-brand);
+  color: var(--yr-color-brand-strong);
+}
+
+.bk-slide-panel.yr-panel .cart-panel__empty .btn--outline:active {
+  background: var(--yr-color-brand-strong);
+  border-color: var(--yr-color-brand-strong);
+  color: var(--yr-color-text-on-brand);
+}
+
 .cart-drawer.yr-panel .cart-drawer-item {
   display: flex;
   gap: 0.9rem;

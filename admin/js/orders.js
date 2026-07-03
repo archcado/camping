@@ -8,7 +8,7 @@
  *   3. 訂單狀態支援 3 種：未出貨 / 已出貨 / 已退貨
  *   4. 點擊訂單編號開啟 modal，modal 內顯示訂單紀錄時間軸
  *   5. 點擊出貨按鈕後更新 orderStatus 並 push 新 history 紀錄
- *   6. 欄位排序（可疊加）：訂單編號、訂單日期、總金額
+ *   6. 欄位排序（可疊加）：訂單日期、總金額
  *   7. 多選篩選：付款狀態、訂單狀態（漏斗 icon + checkbox Dropdown）
  *
  * 使用 jQuery Event Namespace (.orders) 防止重複導覽時事件堆疊
@@ -19,11 +19,13 @@
 // ─────────────────────────────────────────────
 
 /**
- * 排序堆疊：依點擊時間順序排列
- * 每個元素：{ key: 'id' | 'createdAt' | 'total', dir: 'asc' | 'desc' }
- * 初始值設為日期降冪（最新訂單在最上面）
+ * 使用者明確設定的排序堆疊（空陣列 = 使用隱含預設排序）
+ * 每個元素：{ key: 'createdAt' | 'total', dir: 'asc' | 'desc' }
  */
-var sortStack = [{ key: 'createdAt', dir: 'desc' }];
+var sortStack = [];
+
+/** 隱含預設：最新訂單在最上面（sortStack 為空時套用） */
+var DEFAULT_ORDER_SORT = [{ key: 'createdAt', dir: 'desc' }];
 
 /**
  * 篩選條件：各欄位目前勾選的值
@@ -31,10 +33,10 @@ var sortStack = [{ key: 'createdAt', dir: 'desc' }];
  * dateStart / dateEnd 為 YYYY-MM-DD 字串，null = 不篩選
  */
 var filterState = {
-  paymentStatus: [],   // e.g. ['paid', 'unpaid']
-  orderStatus:   [],   // e.g. ['unshipped']
-  dateStart:     null, // e.g. '2026-05-23'
-  dateEnd:       null  // e.g. '2026-06-22'
+  paymentStatus: [], // e.g. ['paid', 'unpaid']
+  orderStatus: [], // e.g. ['unshipped']
+  dateStart: null, // e.g. '2026-05-23'
+  dateEnd: null, // e.g. '2026-06-22'
 };
 
 /**
@@ -52,27 +54,29 @@ var orderDateState = { days: 30, startDate: null, endDate: null };
 
 window.initOrders = function () {
   // 移除舊有事件，防止切換頁面時事件重複綁定
-  // 同時清除 bookings 的事件：兩個模組共用 .sortable-th / .filter-icon / .filter-dropdown 選擇器，
-  // 若 bookings 事件殘留，點擊漏斗 icon 會被雙重觸發（toggle 兩次 = 無效果）
+  // 多個模組共用 .sortable-th / .filter-icon / .filter-dropdown 選擇器，
+  // 若其他頁事件殘留，點擊漏斗 icon 會被雙重觸發（toggle 兩次 = 無效果）
   $(document).off('.bookings');
   $(document).off('.orders');
+  $(document).off('.movement');
+  $(document).off('.customers');
 
-  // ── 每次進入訂單頁重置排序與篩選狀態（還原預設：日期降冪） ──
-  sortStack      = [{ key: 'createdAt', dir: 'desc' }];
-  filterState    = { paymentStatus: [], orderStatus: [], dateStart: null, dateEnd: null };
+  // ── 每次進入訂單頁重置排序與篩選狀態（排序回到隱含預設：日期降冪） ──
+  sortStack = [];
+  filterState = { paymentStatus: [], orderStatus: [], dateStart: null, dateEnd: null };
   // 日期選鈕狀態也同步重置（預設「近 30 天」）
   orderDateState = { days: 30, startDate: null, endDate: null };
 
   // ── 初始化日期篩選器 UI ─────────────────────────
   setupOrderPeriodFilter(); // 綁定快速選鈕點擊事件
-  initOrderFlatpickr();     // 初始化 flatpickr
+  initOrderFlatpickr(); // 初始化 flatpickr
 
   // ── 讀取並消費 pendingNavFilter（從 KPI 卡片點擊跳來時） ──
   if (window.pendingNavFilter && window.pendingNavFilter.section === 'orders') {
     var nav = window.pendingNavFilter;
-    filterState.orderStatus   = nav.orderStatus   || [];
+    filterState.orderStatus = nav.orderStatus || [];
     filterState.paymentStatus = nav.paymentStatus || [];
-    window.pendingNavFilter   = null; // 消費後立即清除，避免切換回來時重複套用
+    window.pendingNavFilter = null; // 消費後立即清除，避免切換回來時重複套用
 
     if (nav.dateStart && nav.dateEnd) {
       // KPI 帶日期（如「本期訂單數」）→ 自定義範圍，自定義按鈕 active
@@ -91,32 +95,33 @@ window.initOrders = function () {
   // ── 載入訂單資料（若快取已存在則不重新 fetch） ──────
   if (!window.ordersCache || !window.ordersCache.length) {
     $.getJSON('data/orders.json', function (orders) {
-      window.ordersCache = orders;   // 存入全域快取，供 modal 讀取
+      window.ordersCache = orders; // 存入全域快取，供 modal 讀取
       applyFiltersAndSort();
     }).fail(function () {
       $('#ordersTableBody').html(
-        '<tr><td colspan="7" class="text-center py-4 yr-admin-orders-error">' +
-        '<i class="fas fa-exclamation-triangle me-2"></i>載入訂單數據失敗' +
-        '</td></tr>'
+        '<tr><td colspan="7" class="text-center text-danger py-4">' +
+          '<i class="fas fa-exclamation-triangle me-2"></i>載入訂單數據失敗' +
+          '</td></tr>'
       );
-      updateOrdersResultCount(0, true);
     });
+  } else {
+    applyFiltersAndSort();
   }
 
-  // ── 排序：點擊 .sortable-th 標頭 ──────────────────
-  // 三段式循環：無排序 → asc ↑ → desc ↓ → 移除（回無排序）
-  $(document).on('click.orders', '.sortable-th', function () {
-    var key = $(this).data('sort-key');   // 欄位 key：id / createdAt / total
-    var idx = sortStack.findIndex(function (s) { return s.key === key; });
+  // ── 排序：點擊 .sortable-th 標頭（限定 #ordersTable，避免跨頁衝突）──
+  // 三段式：asc ↑ → desc ↓ → 移除；sortStack 空時用隱含 createdAt desc
+  // 首次點擊某欄只排序該欄（不自動疊加 createdAt，避免日期篩選後點總金額無效）
+  $(document).on('click.orders', '#ordersTable .sortable-th', function () {
+    var key = $(this).data('sort-key');
+    var idx = sortStack.findIndex(function (s) {
+      return s.key === key;
+    });
 
     if (idx === -1) {
-      // 此欄尚未在排序堆疊中 → 加入，預設升冪
       sortStack.push({ key: key, dir: 'asc' });
     } else if (sortStack[idx].dir === 'asc') {
-      // 目前升冪 → 改為降冪
       sortStack[idx].dir = 'desc';
     } else {
-      // 目前降冪 → 從堆疊移除（回無排序）
       sortStack.splice(idx, 1);
     }
 
@@ -125,30 +130,30 @@ window.initOrders = function () {
 
   // ── 篩選 Dropdown 開關：點擊漏斗 icon ──────────────
   // 點擊 .filter-icon → 顯示/隱藏同一個 th 內的 .filter-dropdown
-  $(document).on('click.orders', '.filter-icon', function (e) {
-    e.stopPropagation();   // 防止冒泡到 document，避免立即被關閉
+  $(document).on('click.orders', '#ordersTable .filter-icon', function (e) {
+    e.stopPropagation(); // 防止冒泡到 document，避免立即被關閉
     var $th = $(this).closest('.filter-th');
     var $dropdown = $th.find('.filter-dropdown');
 
     // 先關閉所有其他已開啟的 Dropdown，再 toggle 當前的
-    $('.filter-dropdown').not($dropdown).addClass('d-none');
+    $('#ordersTable .filter-dropdown').not($dropdown).addClass('d-none');
     $dropdown.toggleClass('d-none');
   });
 
   // ── 點擊 Dropdown 內部（checkbox / label）時，阻止冒泡關閉 ──
-  $(document).on('click.orders', '.filter-dropdown', function (e) {
+  $(document).on('click.orders', '#ordersTable .filter-dropdown', function (e) {
     e.stopPropagation();
   });
 
   // ── 點擊頁面其他地方 → 關閉所有 Dropdown ──────────
   $(document).on('click.orders', function () {
-    $('.filter-dropdown').addClass('d-none');
+    $('#ordersTable .filter-dropdown').addClass('d-none');
   });
 
   // ── 篩選 checkbox 勾選/取消 ────────────────────────
-  $(document).on('change.orders', '.filter-dropdown input[type="checkbox"]', function () {
-    var $th  = $(this).closest('.filter-th');
-    var key  = $th.data('filter-key');   // 'paymentStatus' 或 'orderStatus'
+  $(document).on('change.orders', '#ordersTable .filter-dropdown input[type="checkbox"]', function () {
+    var $th = $(this).closest('.filter-th');
+    var key = $th.data('filter-key'); // 'paymentStatus' 或 'orderStatus'
 
     // 收集該欄位所有勾選中的 checkbox 值
     var selected = [];
@@ -160,16 +165,21 @@ window.initOrders = function () {
     applyFiltersAndSort();
   });
 
-  // ── 清除排序按鈕 ───────────────────────────────────
+  // ── 清除條件按鈕：還原預設排序 + 清空欄位篩選 + 還原預設日期（近 30 天）──
   $(document).on('click.orders', '#btnClearSort', function () {
-    sortStack = [{ key: 'createdAt', dir: 'desc' }];   // 還原預設：日期降冪
-    applyFiltersAndSort();
+    sortStack = [];
+    filterState.paymentStatus = [];
+    filterState.orderStatus = [];
+    // applyOrderDayRange 內部會呼叫 applyFiltersAndSort()
+    applyOrderDayRange(30);
   });
 
   // ── 點擊訂單編號 → 開啟訂單明細 modal ───────────────
   $(document).on('click.orders', '.order-id-link', function () {
     var orderId = $(this).data('order-id');
-    var order = (window.ordersCache || []).find(function (o) { return o.id === orderId; });
+    var order = (window.ordersCache || []).find(function (o) {
+      return o.id === orderId;
+    });
     if (!order) return;
     showOrderModal(order);
   });
@@ -177,9 +187,11 @@ window.initOrders = function () {
   // ── 「完成」按鈕：已出貨 + 非貨到付款 訂單才可標記完成 ──────────
   // 點擊後：更新 orderStatus → 'completed'，push history，顯示 Toast，重新渲染表格
   $(document).on('click.orders', '.btn-complete-order', function () {
-    var $row    = $(this).closest('tr');
+    var $row = $(this).closest('tr');
     var orderId = $row.data('order-id');
-    var order   = (window.ordersCache || []).find(function (o) { return o.id === orderId; });
+    var order = (window.ordersCache || []).find(function (o) {
+      return o.id === orderId;
+    });
     if (!order) return;
 
     // 二次防護：COD 訂單不允許完成（按鈕邏輯已過濾，此處防止異常呼叫）
@@ -189,13 +201,21 @@ window.initOrders = function () {
 
     // 產生當下時間字串，格式：YYYY-MM-DD HH:MM:SS（與出貨邏輯一致）
     var now = new Date();
-    var pad = function (n) { return String(n).padStart(2, '0'); };
-    var timeStr = now.getFullYear() + '-' +
-                  pad(now.getMonth() + 1) + '-' +
-                  pad(now.getDate()) + ' ' +
-                  pad(now.getHours()) + ':' +
-                  pad(now.getMinutes()) + ':' +
-                  pad(now.getSeconds());
+    var pad = function (n) {
+      return String(n).padStart(2, '0');
+    };
+    var timeStr =
+      now.getFullYear() +
+      '-' +
+      pad(now.getMonth() + 1) +
+      '-' +
+      pad(now.getDate()) +
+      ' ' +
+      pad(now.getHours()) +
+      ':' +
+      pad(now.getMinutes()) +
+      ':' +
+      pad(now.getSeconds());
 
     order.history = order.history || [];
     order.history.push({ time: timeStr, action: '已完成' });
@@ -208,24 +228,34 @@ window.initOrders = function () {
 
   // ── 出貨按鈕 ──────────────────────────────────────
   $(document).on('click.orders', '.btn-ship-order', function () {
-    var $btn    = $(this);
-    var $row    = $btn.closest('tr');
+    var $btn = $(this);
+    var $row = $btn.closest('tr');
     var orderId = $row.data('order-id');
 
     // 更新記憶體中的快取資料
-    var order = (window.ordersCache || []).find(function (o) { return o.id === orderId; });
+    var order = (window.ordersCache || []).find(function (o) {
+      return o.id === orderId;
+    });
     if (order) {
       order.orderStatus = 'shipped';
 
       // 產生當下時間字串，格式：YYYY-MM-DD HH:MM:SS
       var now = new Date();
-      var pad = function (n) { return String(n).padStart(2, '0'); };
-      var timeStr = now.getFullYear() + '-' +
-                    pad(now.getMonth() + 1) + '-' +
-                    pad(now.getDate()) + ' ' +
-                    pad(now.getHours()) + ':' +
-                    pad(now.getMinutes()) + ':' +
-                    pad(now.getSeconds());
+      var pad = function (n) {
+        return String(n).padStart(2, '0');
+      };
+      var timeStr =
+        now.getFullYear() +
+        '-' +
+        pad(now.getMonth() + 1) +
+        '-' +
+        pad(now.getDate()) +
+        ' ' +
+        pad(now.getHours()) +
+        ':' +
+        pad(now.getMinutes()) +
+        ':' +
+        pad(now.getSeconds());
 
       order.history = order.history || [];
       order.history.push({ time: timeStr, action: '已出貨' });
@@ -252,9 +282,13 @@ window.initOrders = function () {
  */
 function fmtOrderDate(d) {
   if (!d) return '';
-  return d.getFullYear() + '/' +
-    String(d.getMonth() + 1).padStart(2, '0') + '/' +
-    String(d.getDate()).padStart(2, '0');
+  return (
+    d.getFullYear() +
+    '/' +
+    String(d.getMonth() + 1).padStart(2, '0') +
+    '/' +
+    String(d.getDate()).padStart(2, '0')
+  );
 }
 
 /**
@@ -264,9 +298,13 @@ function fmtOrderDate(d) {
  */
 function fmtOrderDateISO(d) {
   if (!d) return null;
-  return d.getFullYear() + '-' +
-    String(d.getMonth() + 1).padStart(2, '0') + '-' +
-    String(d.getDate()).padStart(2, '0');
+  return (
+    d.getFullYear() +
+    '-' +
+    String(d.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    String(d.getDate()).padStart(2, '0')
+  );
 }
 
 /**
@@ -279,33 +317,33 @@ function fmtOrderDateISO(d) {
 function applyOrderDayRange(days) {
   if (days === 'all') {
     // 清空日期限制
-    orderDateState.days      = 'all';
+    orderDateState.days = 'all';
     orderDateState.startDate = null;
-    orderDateState.endDate   = null;
-    filterState.dateStart    = null;
-    filterState.dateEnd      = null;
+    orderDateState.endDate = null;
+    filterState.dateStart = null;
+    filterState.dateEnd = null;
   } else if (days === 'month') {
     // 本月：從本月 1 日到今天
     // new Date(year, month, 1) 的 month 是 0-indexed，getMonth() 回傳值剛好吻合
-    var now   = new Date();
+    var now = new Date();
     var start = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    orderDateState.days      = 'month';
+    orderDateState.days = 'month';
     orderDateState.startDate = start;
-    orderDateState.endDate   = new Date(now);
-    filterState.dateStart    = fmtOrderDateISO(start);
-    filterState.dateEnd      = fmtOrderDateISO(new Date(now));
+    orderDateState.endDate = new Date(now);
+    filterState.dateStart = fmtOrderDateISO(start);
+    filterState.dateEnd = fmtOrderDateISO(new Date(now));
   } else {
     // 往前推 days-1 天（含今天共 days 天），與 analytics.js applyDayRange() 邏輯相同
-    var now   = new Date();
+    var now = new Date();
     var start = new Date(now);
     start.setDate(start.getDate() - (days - 1));
 
-    orderDateState.days      = days;
+    orderDateState.days = days;
     orderDateState.startDate = start;
-    orderDateState.endDate   = new Date(now);
-    filterState.dateStart    = fmtOrderDateISO(start);
-    filterState.dateEnd      = fmtOrderDateISO(new Date(now));
+    orderDateState.endDate = new Date(now);
+    filterState.dateStart = fmtOrderDateISO(start);
+    filterState.dateEnd = fmtOrderDateISO(new Date(now));
   }
   // 非 custom 模式：收起 flatpickr input
   if (days !== 'custom') {
@@ -324,14 +362,24 @@ function applyOrderDayRange(days) {
  * @param {string} dateEnd   - e.g. '2026-06-22'
  */
 function applyOrderCustomRange(dateStart, dateEnd) {
-  orderDateState.days      = 'custom';
+  orderDateState.days = 'custom';
   // 解析字串為 Date 物件，供期間文字格式化使用
   orderDateState.startDate = dateStart ? new Date(dateStart + 'T00:00:00') : null;
-  orderDateState.endDate   = dateEnd   ? new Date(dateEnd   + 'T00:00:00') : null;
-  filterState.dateStart    = dateStart || null;
-  filterState.dateEnd      = dateEnd   || null;
+  orderDateState.endDate = dateEnd ? new Date(dateEnd + 'T00:00:00') : null;
+  filterState.dateStart = dateStart || null;
+  filterState.dateEnd = dateEnd || null;
   updateOrderPeriodLabel();
   applyFiltersAndSort();
+
+  // 同步 flatpickr 顯示，並確保 input 可見（與 label 格式一致：YYYY-MM-DD 至 YYYY-MM-DD）
+  var pickerEl = document.querySelector('#orderDateRangePicker');
+  if (pickerEl && pickerEl._flatpickr && orderDateState.startDate && orderDateState.endDate) {
+    pickerEl._flatpickr.setDate(
+      [orderDateState.startDate, orderDateState.endDate],
+      false // 不觸發 onChange，避免重複篩選
+    );
+  }
+  $('#orderDateRangePicker').show();
 }
 
 /**
@@ -349,14 +397,23 @@ function updateOrderPeriodLabel() {
   }
 
   // 更新期間文字標籤
+  var $label = $('#orderPeriodLabel');
+
+  // custom 模式：日期已由 flatpickr input 顯示，隱藏 label 避免重複
+  if (days === 'custom') {
+    $label.addClass('d-none').text('');
+    return;
+  }
+
+  $label.removeClass('d-none');
+
   if (days === 'all') {
-    $('#orderPeriodLabel').text('全部期間');
+    $label.text('全部期間');
   } else if (orderDateState.startDate && orderDateState.endDate) {
-    $('#orderPeriodLabel').text(
-      fmtOrderDate(orderDateState.startDate) + ' ～ ' + fmtOrderDate(orderDateState.endDate)
-    );
+    // 格式與 flatpickr 一致：YYYY-MM-DD 至 YYYY-MM-DD
+    $label.text(fmtOrderDateISO(orderDateState.startDate) + ' 至 ' + fmtOrderDateISO(orderDateState.endDate));
   } else {
-    $('#orderPeriodLabel').text('');
+    $label.text('');
   }
 }
 
@@ -369,9 +426,7 @@ function initOrderFlatpickr() {
   if (typeof flatpickr === 'undefined') return; // CDN 未載入時安全跳過
 
   // 取繁體中文語系（與 analytics.js 邏輯一致）
-  var locale = (flatpickr.l10ns && flatpickr.l10ns.zh_tw)
-    ? flatpickr.l10ns.zh_tw
-    : 'default';
+  var locale = flatpickr.l10ns && flatpickr.l10ns.zh_tw ? flatpickr.l10ns.zh_tw : 'default';
 
   flatpickr('#orderDateRangePicker', {
     mode: 'range',
@@ -381,11 +436,11 @@ function initOrderFlatpickr() {
       // 必須兩個日期都選完才觸發；只選一個就關閉時維持上一次狀態
       if (selectedDates.length === 2) {
         var start = fmtOrderDateISO(selectedDates[0]);
-        var end   = fmtOrderDateISO(selectedDates[1]);
+        var end = fmtOrderDateISO(selectedDates[1]);
         applyOrderCustomRange(start, end);
       }
       // 否則不更新，維持現狀
-    }
+    },
   });
 }
 
@@ -396,15 +451,31 @@ function initOrderFlatpickr() {
  *  - 點擊「近 7 天 / 近 30 天 / 近 3 個月」：
  *      • 若該按鈕已 active → toggle off，回到「全部期間」(applyOrderDayRange('all'))
  *      • 否則 → 套用對應天數 (applyOrderDayRange(days))
- *  - 點擊「自定義」：顯示 flatpickr input 並觸發開啟
+ *  - 點擊「自定義」：切換 custom 模式、隱藏期間 label、顯示 flatpickr 並開啟
  */
+function enterOrderCustomMode() {
+  // 切換為 custom 模式，讓 updateOrderPeriodLabel() 隱藏 #orderPeriodLabel
+  orderDateState.days = 'custom';
+  updateOrderPeriodLabel();
+
+  // 預填目前篩選區間，避免從固定期間切換時 input 與 label 各顯示各的
+  var pickerEl = document.querySelector('#orderDateRangePicker');
+  if (pickerEl && pickerEl._flatpickr && orderDateState.startDate && orderDateState.endDate) {
+    pickerEl._flatpickr.setDate(
+      [orderDateState.startDate, orderDateState.endDate],
+      false // 不觸發 onClose，避免重複篩選
+    );
+  }
+
+  $('#orderDateRangePicker').show().trigger('click');
+}
+
 function setupOrderPeriodFilter() {
   $(document).on('click.orders', '#orderPeriodBtns button[data-days]', function () {
     var days = $(this).data('days');
 
     if (days === 'custom') {
-      // 顯示 flatpickr input 並開啟選擇器
-      $('#orderDateRangePicker').show().trigger('click');
+      enterOrderCustomMode();
     } else if (days === 'month') {
       // 本月按鈕：已 active 則 toggle off 回全部期間，否則套用本月範圍
       // 必須在 parseInt 之前處理，因為 parseInt('month', 10) === NaN
@@ -426,6 +497,34 @@ function setupOrderPeriodFilter() {
 // ─────────────────────────────────────────────
 // 核心資料管線
 // ─────────────────────────────────────────────
+
+/**
+ * 取得實際用於排序的堆疊（空 sortStack → 隱含預設 createdAt desc）
+ */
+function getEffectiveSortStack() {
+  return sortStack.length > 0 ? sortStack : DEFAULT_ORDER_SORT;
+}
+
+/**
+ * 依欄位型別比較兩筆值，回傳 -1 / 0 / 1
+ * @param {string} key
+ * @param {*} valA
+ * @param {*} valB
+ */
+function compareOrderValues(key, valA, valB) {
+  if (key === 'total') {
+    var numA = Number(valA) || 0;
+    var numB = Number(valB) || 0;
+    if (numA < numB) return -1;
+    if (numA > numB) return 1;
+    return 0;
+  }
+  var strA = String(valA || '');
+  var strB = String(valB || '');
+  if (strA < strB) return -1;
+  if (strA > strB) return 1;
+  return 0;
+}
 
 /**
  * 依目前的 filterState 篩選、依 sortStack 排序，再重新渲染表格
@@ -464,21 +563,17 @@ function applyFiltersAndSort() {
   }
 
   // ── Step 2：排序 ──────────────────────────────────
-  // 依 sortStack 的優先順序逐層比較（多鍵穩定排序）
-  if (sortStack.length > 0) {
-    data.sort(function (a, b) {
-      for (var i = 0; i < sortStack.length; i++) {
-        var key  = sortStack[i].key;
-        var dir  = sortStack[i].dir === 'asc' ? 1 : -1;
-        var valA = a[key];
-        var valB = b[key];
-        if (valA < valB) return -1 * dir;
-        if (valA > valB) return  1 * dir;
-        // 相等時繼續比下一層
-      }
-      return 0;
-    });
-  }
+  // 依有效排序堆疊逐層比較（多鍵穩定排序，支援疊加）
+  var stackToUse = getEffectiveSortStack();
+  data.sort(function (a, b) {
+    for (var i = 0; i < stackToUse.length; i++) {
+      var key = stackToUse[i].key;
+      var dir = stackToUse[i].dir === 'asc' ? 1 : -1;
+      var cmp = compareOrderValues(key, a[key], b[key]);
+      if (cmp !== 0) return cmp * dir;
+    }
+    return 0;
+  });
 
   // ── Step 3：渲染 + 更新 UI ────────────────────────
   renderOrdersTable(data);
@@ -491,34 +586,35 @@ function applyFiltersAndSort() {
 // ─────────────────────────────────────────────
 
 /**
- * 依 sortStack 更新欄位標頭的箭頭 icon 和「清除排序」按鈕的顯隱
+ * 依 sortStack 更新欄位標頭的箭頭 icon 和「清除條件」按鈕的顯隱
  */
 function updateSortUI() {
   // 所有排序 icon 先重置為雙箭頭（灰色、未排序狀態）
-  $('.sort-icon')
-    .removeClass('fa-sort-up fa-sort-down sort-active')
-    .addClass('fa-sort');
+  $('#ordersTable .sort-icon').removeClass('fa-sort-up fa-sort-down sort-active').addClass('fa-sort');
 
-  // 依 sortStack 設定對應欄位的箭頭方向和顏色
-  sortStack.forEach(function (s) {
-    var $icon = $('.sortable-th[data-sort-key="' + s.key + '"] .sort-icon');
+  // 依有效排序堆疊設定對應欄位的箭頭方向和顏色
+  getEffectiveSortStack().forEach(function (s) {
+    var $icon = $('#ordersTable .sortable-th[data-sort-key="' + s.key + '"] .sort-icon');
     $icon
       .removeClass('fa-sort')
       .addClass(s.dir === 'asc' ? 'fa-sort-up' : 'fa-sort-down')
-      .addClass('sort-active');   // 換成品牌色
+      .addClass('sort-active'); // 換成品牌色
   });
 
-  // 有排序條件時顯示「清除排序」按鈕；否則隱藏
-  // sortStack 長度 > 1 或第一層不是預設的日期降冪 → 視為「有排序」
-  var isDefault = (
-    sortStack.length === 1 &&
-    sortStack[0].key === 'createdAt' &&
-    sortStack[0].dir === 'desc'
-  );
-  if (isDefault || sortStack.length === 0) {
-    $('#btnClearSort').addClass('d-none');
-  } else {
+  // 預設排序：使用者尚未明確修改 sortStack（隱含 createdAt desc）
+  var isDefaultSort = sortStack.length === 0;
+
+  // 欄位篩選：付款狀態 / 訂單狀態任一有勾選
+  var hasColumnFilter = filterState.paymentStatus.length > 0 || filterState.orderStatus.length > 0;
+
+  // 日期篩選：預設為「近 30 天」
+  var isDefaultDate = orderDateState.days === 30;
+
+  // 任一條件成立 → 顯示「清除條件」
+  if (!isDefaultSort || hasColumnFilter || !isDefaultDate) {
     $('#btnClearSort').removeClass('d-none');
+  } else {
+    $('#btnClearSort').addClass('d-none');
   }
 }
 
@@ -530,9 +626,9 @@ function updateSortUI() {
 function updateFilterUI() {
   // 遍歷兩個可篩選的欄位（漏斗 icon + 紅點）
   ['paymentStatus', 'orderStatus'].forEach(function (key) {
-    var $th   = $('.filter-th[data-filter-key="' + key + '"]');
+    var $th = $('#ordersTable .filter-th[data-filter-key="' + key + '"]');
     var $icon = $th.find('.filter-icon');
-    var $dot  = $th.find('.filter-dot');
+    var $dot = $th.find('.filter-dot');
 
     if (filterState[key].length > 0) {
       // 有啟用中的篩選條件：icon 變品牌色 + 顯示紅點
@@ -564,67 +660,99 @@ function updateFilterUI() {
  * @param {Array} orders - 已篩選並排序完畢的訂單陣列
  */
 function renderOrdersTable(orders) {
-  if (!Array.isArray(orders)) {
+  if (!orders || orders.length === 0) {
     $('#ordersTableBody').html(
-      '<tr><td colspan="7" class="text-center py-4 yr-admin-orders-error">' +
-      '<i class="fas fa-exclamation-circle me-2"></i>訂單資料格式錯誤' +
-      '</td></tr>'
+      '<tr><td colspan="7" class="text-center text-muted py-4">' +
+        '<i class="fas fa-inbox me-2"></i>沒有符合條件的訂單' +
+        '</td></tr>'
     );
-    updateOrdersResultCount(0, true);
     return;
   }
 
-  if (orders.length === 0) {
-    $('#ordersTableBody').html(
-      '<tr><td colspan="7" class="text-center py-4 yr-admin-orders-empty">' +
-      '<i class="fas fa-inbox me-2"></i>沒有符合條件的訂單' +
-      '</td></tr>'
-    );
-    updateOrdersResultCount(0, false);
-    return;
-  }
+  // 付款狀態 badge（3 種）
+  // paid = 已付款（綠）/ unpaid = 未付款（黃）/ cod = 貨到付款（藍）
+  var payBadgeMap = {
+    paid: '<span class="badge bg-success">已付款</span>',
+    unpaid: '<span class="badge bg-warning text-dark">未付款</span>',
+    cod: '<span class="badge bg-info text-dark">貨到付款</span>',
+  };
 
-  var html = orders.map(function (order) {
-    var payBadge = renderPaymentStatusTag(order.paymentStatus);
-    var statusBadge = renderOrderStatusTag(order.orderStatus);
+  // 訂單狀態 badge（4 種）
+  // unshipped = 黃色 / shipped = 綠色 / returned = 紅色 / completed = 藍色
+  var orderStatusMap = {
+    unshipped: '<span class="badge bg-warning text-dark order-status-badge">未出貨</span>',
+    shipped: '<span class="badge bg-success order-status-badge">已出貨</span>',
+    returned: '<span class="badge bg-danger order-status-badge">已退貨</span>',
+    completed: '<span class="badge bg-primary order-status-badge">已完成</span>',
+  };
 
-    // 操作欄按鈕邏輯：
-    //   未出貨               → 顯示「出貨」按鈕
-    //   已出貨 且 非貨到付款 → 顯示「完成」按鈕（COD 訂單送達時無法確認付款，故不允許完成）
-    //   其餘狀態             → 不顯示按鈕
-    var actionBtn = '';
-    if (order.orderStatus === 'unshipped') {
-      actionBtn = '<button class="btn btn-sm btn-outline-success btn-ship-order yr-admin-orders-action-btn yr-admin-orders-action-btn--primary" title="確認出貨">' +
-                  '<i class="fas fa-truck me-1"></i>出貨</button>';
-    } else if (order.orderStatus === 'shipped' && order.paymentStatus !== 'cod') {
-      actionBtn = '<button class="btn btn-sm btn-outline-primary btn-complete-order yr-admin-orders-action-btn yr-admin-orders-action-btn--secondary" title="確認送達完成">' +
-                  '<i class="fas fa-check-circle me-1"></i>完成</button>';
-    }
+  var html = orders
+    .map(function (order) {
+      var payBadge = payBadgeMap[order.paymentStatus] || '';
+      var statusBadge = orderStatusMap[order.orderStatus] || '';
 
-    // 只取日期部分（YYYY-MM-DD），不顯示時間
-    var date = order.createdAt.split(' ')[0] || '';
+      // 操作欄按鈕邏輯：
+      //   未出貨               → 顯示「出貨」按鈕
+      //   已出貨 且 非貨到付款 → 顯示「完成」按鈕（COD 訂單送達時無法確認付款，故不允許完成）
+      //   其餘狀態             → 不顯示按鈕
+      var actionBtn = '';
+      if (order.orderStatus === 'unshipped') {
+        actionBtn =
+          '<button class="btn btn-sm btn-outline-success btn-ship-order" title="確認出貨">' +
+          '<i class="fas fa-truck me-1"></i>出貨</button>';
+      } else if (order.orderStatus === 'shipped' && order.paymentStatus !== 'cod') {
+        actionBtn =
+          '<button class="btn btn-sm btn-outline-primary btn-complete-order" title="確認送達完成">' +
+          '<i class="fas fa-check-circle me-1"></i>完成</button>';
+      }
 
-    // 訂單編號：可點擊連結樣式
-    var idLink = '<span class="order-id-link yr-admin-orders-order-id fw-semibold" ' +
-                 'data-order-id="' + order.id + '" ' +
-                'style="cursor:pointer;" ' +
-                 'title="點擊查看訂單明細">' +
-                 order.id + '</span>';
+      // 只取日期部分（YYYY-MM-DD），不顯示時間
+      var date = order.createdAt.split(' ')[0] || '';
 
-    return '<tr data-order-id="' + order.id + '"' +
-           ' data-order-status="' + order.orderStatus + '" class="yr-admin-orders-row">' +
-           '<td>' + idLink + '</td>' +
-           '<td>' + date + '</td>' +
-           '<td class="fw-semibold">' + order.buyerName + '</td>' +
-           '<td class="fw-semibold text-end yr-admin-orders-amount">NT$ ' + order.total.toLocaleString() + '</td>' +
-           '<td>' + payBadge + '</td>' +
-           '<td>' + statusBadge + '</td>' +
-           '<td class="yr-admin-orders-actions">' + actionBtn + '</td>' +
-           '</tr>';
-  }).join('');
+      // 訂單編號：可點擊連結樣式
+      var idLink =
+        '<span class="admin-cell-link order-id-link" ' +
+        'data-order-id="' +
+        order.id +
+        '" ' +
+        'title="點擊查看訂單明細">' +
+        order.id +
+        '</span>';
+
+      return (
+        '<tr data-order-id="' +
+        order.id +
+        '"' +
+        ' data-order-status="' +
+        order.orderStatus +
+        '">' +
+        '<td>' +
+        idLink +
+        '</td>' +
+        '<td>' +
+        date +
+        '</td>' +
+        '<td class="fw-semibold">' +
+        order.buyerName +
+        '</td>' +
+        '<td class="admin-cell-amount">NT$ ' +
+        order.total.toLocaleString() +
+        '</td>' +
+        '<td>' +
+        payBadge +
+        '</td>' +
+        '<td>' +
+        statusBadge +
+        '</td>' +
+        '<td>' +
+        actionBtn +
+        '</td>' +
+        '</tr>'
+      );
+    })
+    .join('');
 
   $('#ordersTableBody').html(html);
-  updateOrdersResultCount(orders.length, false);
 
   // 依編輯權限停用出貨按鈕
   if (typeof window.applyEditPermission === 'function') {
@@ -645,17 +773,36 @@ window.showOrderModal = function (order) {
   $('#modalOrderId').text(order.id);
   $('#modalBuyerName').text(order.buyerName);
 
-  $('#modalOrderStatus').html(renderOrderStatusTag(order.orderStatus));
+  // 訂單狀態 badge（4 種，需與 renderOrdersTable 的 orderStatusMap 保持一致）
+  var statusMap = {
+    unshipped: '<span class="badge bg-warning text-dark">未出貨</span>',
+    shipped: '<span class="badge bg-success">已出貨</span>',
+    returned: '<span class="badge bg-danger">已退貨</span>',
+    completed: '<span class="badge bg-primary">已完成</span>',
+  };
+  $('#modalOrderStatus').html(statusMap[order.orderStatus] || '');
 
   // 商品清單
-  var itemsHtml = (order.items || []).map(function (item) {
-    return '<tr>' +
-      '<td>' + item.name + '</td>' +
-      '<td class="text-center">' + item.qty + '</td>' +
-      '<td class="text-end">NT$ ' + item.price.toLocaleString() + '</td>' +
-      '<td class="text-end">NT$ ' + (item.qty * item.price).toLocaleString() + '</td>' +
-      '</tr>';
-  }).join('');
+  var itemsHtml = (order.items || [])
+    .map(function (item) {
+      return (
+        '<tr>' +
+        '<td>' +
+        item.name +
+        '</td>' +
+        '<td class="text-center">' +
+        item.qty +
+        '</td>' +
+        '<td class="text-end">NT$ ' +
+        item.price.toLocaleString() +
+        '</td>' +
+        '<td class="text-end">NT$ ' +
+        (item.qty * item.price).toLocaleString() +
+        '</td>' +
+        '</tr>'
+      );
+    })
+    .join('');
   $('#modalItemsList').html(itemsHtml);
   $('#modalTotal').text('NT$ ' + order.total.toLocaleString());
 
@@ -674,90 +821,22 @@ window.showOrderModal = function (order) {
   }
 
   // 訂單紀錄時間軸
-  var historyHtml = (order.history || []).map(function (entry) {
-    return '<li class="yr-admin-order-history__item d-flex align-items-start gap-2 mb-1">' +
-           '<i class="fas fa-circle mt-1 yr-admin-order-history__dot" style="font-size:6px; flex-shrink:0;"></i>' +
-           '<span><span class="text-muted me-2 yr-admin-order-history__time">' + entry.time + '</span>' +
-           '<span class="yr-admin-order-history__action">' + entry.action + '</span></span>' +
-           '</li>';
-  }).join('');
-  $('#modalHistory').html(historyHtml || '<li class="text-muted yr-admin-order-history__item">無紀錄</li>');
+  var historyHtml = (order.history || [])
+    .map(function (entry) {
+      return (
+        '<li class="d-flex align-items-start gap-2 mb-1">' +
+        '<i class="fas fa-circle mt-1" style="font-size:5px; color:var(--admin-brand-accent); flex-shrink:0;"></i>' +
+        '<span><span class="text-muted me-2">' +
+        entry.time +
+        '</span>' +
+        entry.action +
+        '</span>' +
+        '</li>'
+      );
+    })
+    .join('');
+  $('#modalHistory').html(historyHtml || '<li class="text-muted">無紀錄</li>');
 
   // 開啟 modal
   new bootstrap.Modal('#orderDetailModal').show();
 };
-
-function updateOrdersResultCount(count, isError) {
-  var $el = $('#ordersResultCount');
-  if (!$el.length) return;
-  if (isError) {
-    $el.text('目前結果：載入失敗').addClass('yr-admin-orders-result-count--error');
-    return;
-  }
-  $el.removeClass('yr-admin-orders-result-count--error');
-  $el.text('目前結果：' + count + ' 筆');
-}
-
-function getOrderStatusClass(status) {
-  var statusClassMap = {
-    unshipped: 'yr-admin-order-status--pending',
-    shipped: 'yr-admin-order-status--shipped',
-    completed: 'yr-admin-order-status--completed',
-    returned: 'yr-admin-order-status--returned',
-    cancelled: 'yr-admin-order-status--cancelled',
-    processing: 'yr-admin-order-status--processing',
-    pending: 'yr-admin-order-status--pending'
-  };
-  return statusClassMap[status] || 'yr-admin-order-status--unknown';
-}
-
-function getOrderStatusMeta(status) {
-  var statusMetaMap = {
-    unshipped: { text: '未出貨', icon: 'fas fa-hourglass-half' },
-    shipped: { text: '已出貨', icon: 'fas fa-truck' },
-    completed: { text: '已完成', icon: 'fas fa-check-circle' },
-    returned: { text: '已退貨', icon: 'fas fa-undo' },
-    cancelled: { text: '已取消', icon: 'fas fa-ban' },
-    processing: { text: '處理中', icon: 'fas fa-gear' },
-    pending: { text: '待處理', icon: 'fas fa-clock' }
-  };
-  return statusMetaMap[status] || { text: status || '未知狀態', icon: 'fas fa-circle-question' };
-}
-
-function renderOrderStatusTag(status) {
-  var meta = getOrderStatusMeta(status);
-  return '<span class="yr-admin-order-status ' + getOrderStatusClass(status) + '">' +
-    '<i class="' + meta.icon + ' me-1" aria-hidden="true"></i>' +
-    '<span>' + meta.text + '</span>' +
-    '</span>';
-}
-
-function getPaymentStatusClass(status) {
-  var paymentClassMap = {
-    paid: 'yr-admin-payment-status--paid',
-    unpaid: 'yr-admin-payment-status--unpaid',
-    cod: 'yr-admin-payment-status--cod',
-    refunded: 'yr-admin-payment-status--refunded',
-    failed: 'yr-admin-payment-status--failed'
-  };
-  return paymentClassMap[status] || 'yr-admin-payment-status--unknown';
-}
-
-function getPaymentStatusMeta(status) {
-  var paymentMetaMap = {
-    paid: { text: '已付款', icon: 'fas fa-circle-check' },
-    unpaid: { text: '未付款', icon: 'fas fa-circle-exclamation' },
-    cod: { text: '貨到付款', icon: 'fas fa-money-bill-wave' },
-    refunded: { text: '已退款', icon: 'fas fa-rotate-left' },
-    failed: { text: '付款失敗', icon: 'fas fa-circle-xmark' }
-  };
-  return paymentMetaMap[status] || { text: status || '未知付款', icon: 'fas fa-circle-question' };
-}
-
-function renderPaymentStatusTag(status) {
-  var meta = getPaymentStatusMeta(status);
-  return '<span class="yr-admin-payment-status ' + getPaymentStatusClass(status) + '">' +
-    '<i class="' + meta.icon + ' me-1" aria-hidden="true"></i>' +
-    '<span>' + meta.text + '</span>' +
-    '</span>';
-}

@@ -98,7 +98,7 @@
                 <div class="mc-stat-card__label">可用折價券</div>
               </div>
               <div class="mc-stat-card">
-                <div class="mc-stat-card__num danger" id="statUnread">0</div>
+                <div class="mc-stat-card__num mc-stat-card__num--unread" id="statUnread">0</div>
                 <div class="mc-stat-card__label">未讀通知</div>
               </div>
             </div>

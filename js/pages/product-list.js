@@ -20,12 +20,14 @@ const _state = {
     minPrice:   null,    // 最低價格
     maxPrice:   null,    // 最高價格
     tag:        '',      // 快選標籤（'new' | 'bestseller' | ''）
+    keyword:    '',      // URL keyword（?keyword=...）
   },
 
   sortBy: 'default',    // 排序方式
 };
 
 let _adCarouselTimer = null; // 重點：輪播可因 survey-tags 更新而重算，需保留 timer 供重置。
+let _adCarouselCleanup = null;
 
 // ----------------------------------------
 // 工具：計算折扣百分比
@@ -149,9 +151,9 @@ function _buildCard(product) {
       <div class="product-card-image-wrap">
         <img
           src="${product.image}"
-          alt="${product.name}"
+          alt="${product.brand} ${product.name}"
           loading="lazy"
-          onerror="this.src='https://placehold.co/400x300/f2f2f2/999?text=${encodeURIComponent(product.name)}'"
+          onerror="this.onerror=null; this.src='../assets/images/products/prod-001/main.webp'"
         >
         ${badgeHTML}
       </div>
@@ -305,17 +307,33 @@ function _applyFilters() {
   let result = [..._state.allProducts];
   const f = _state.filters;
 
-  // ① 分類篩選
+  // ① URL keyword 篩選（名稱 / 品牌 / 分類 / 標籤）
+  const keyword = (f.keyword || '').trim().toLowerCase();
+  if (keyword) {
+    result = result.filter((p) => {
+      const searchable = [
+        p.name,
+        p.brand,
+        p.category,
+        ...(Array.isArray(p.tags) ? p.tags : []),
+        ...(Array.isArray(p.keywords) ? p.keywords : []),
+        ...(Array.isArray(p.interest_tags) ? p.interest_tags : []),
+      ].join(' ').toLowerCase();
+      return searchable.includes(keyword);
+    });
+  }
+
+  // ② 分類篩選
   if (f.category) {
     result = result.filter(p => p.category === f.category);
   }
 
-  // ② 品牌篩選（多選）
+  // ③ 品牌篩選（多選）
   if (f.brands.length > 0) {
     result = result.filter(p => f.brands.includes(p.brand));
   }
 
-  // ③ 價格範圍
+  // ④ 價格範圍
   if (f.minPrice !== null) {
     result = result.filter(p => p.price >= f.minPrice);
   }
@@ -323,14 +341,14 @@ function _applyFilters() {
     result = result.filter(p => p.price <= f.maxPrice);
   }
 
-  // ④ 快選標籤
+  // ⑤ 快選標籤
   if (f.tag === 'new') {
     result = result.filter(p => p.isNew === true);
   } else if (f.tag === 'bestseller') {
     result = result.filter(p => p.isBestSeller === true);
   }
 
-  // ⑤ 排序
+  // ⑥ 排序
   switch (_state.sortBy) {
     case 'price-asc':
       result.sort((a, b) => a.price - b.price);
@@ -357,7 +375,7 @@ function _applyFilters() {
 // 重置全部篩選
 // ----------------------------------------
 window._resetAllFilters = function () {
-  _state.filters = { category: '', brands: [], minPrice: null, maxPrice: null, tag: '' };
+  _state.filters = { category: '', brands: [], minPrice: null, maxPrice: null, tag: '', keyword: '' };
 
   // 重置 UI
   document.querySelectorAll('.filter-category-btn').forEach(b => {
@@ -578,6 +596,21 @@ function _initSortSelect() {
 function _handleUrlParams() {
   const params = new URLSearchParams(window.location.search);
   const filter = params.get('filter');
+  const rawKeyword = params.get('keyword');
+
+  let keyword = '';
+  if (typeof rawKeyword === 'string') {
+    try {
+      keyword = decodeURIComponent(rawKeyword);
+    } catch (error) {
+      keyword = rawKeyword;
+    }
+    keyword = keyword.trim();
+  }
+
+  if (keyword) {
+    _state.filters.keyword = keyword;
+  }
 
   if (filter === 'new') {
     _state.filters.tag = 'new';
@@ -652,23 +685,45 @@ async function _handleAddToCart(productId) {
 function _initAdCarousel() {
   const slidesContainer = document.getElementById('adCarouselSlides');
   const dotsContainer = document.getElementById('adCarouselDots');
+  const prevBtn = document.getElementById('adCarouselPrev');
+  const nextBtn = document.getElementById('adCarouselNext');
+  const carouselRoot = document.querySelector('.ad-carousel');
   
   if (!slidesContainer || !dotsContainer) return;
+
+  if (typeof _adCarouselCleanup === 'function') {
+    _adCarouselCleanup();
+    _adCarouselCleanup = null;
+  }
+  if (_adCarouselTimer) {
+    clearInterval(_adCarouselTimer);
+    _adCarouselTimer = null;
+  }
 
   const adProducts = _selectAdCarouselProducts();
   const container = document.querySelector('.ad-carousel-container');
   if (!adProducts || adProducts.length === 0) {
     // 重點：偏好與 NEW 商品都沒有資料時才隱藏廣告輪播容器。
     if (container) container.style.display = 'none';
+    slidesContainer.innerHTML = '';
+    dotsContainer.innerHTML = '';
+    if (prevBtn) prevBtn.hidden = true;
+    if (nextBtn) nextBtn.hidden = true;
+    dotsContainer.hidden = true;
     return;
   }
   if (container) container.style.display = '';
 
-  let currentSlide = 0;
-  slidesContainer.style.transform = 'translateX(0%)';
+  const realSlideCount = adProducts.length;
+  const isLooping = realSlideCount > 1;
+  const renderedProducts = isLooping
+    ? [adProducts[realSlideCount - 1], ...adProducts, adProducts[0]]
+    : adProducts;
+  let renderedIndex = isLooping ? 1 : 0;
+  let isTransitionResetting = false;
 
   // 生成 slides 和 dots
-  slidesContainer.innerHTML = adProducts.map((product) => `
+  slidesContainer.innerHTML = renderedProducts.map((product) => `
     <div class="ad-carousel-slide" data-product-id="${product.id}">
       <div class="ad-carousel-content">
         <span class="ad-carousel-badge">${product.isNew ? '<i class="bi bi-stars" aria-hidden="true"></i> 新品選物' : '推薦選物'}</span>
@@ -686,43 +741,122 @@ function _initAdCarousel() {
     `<button class="ad-carousel-dot ${idx === 0 ? 'active' : ''}" data-slide="${idx}" title="第 ${idx + 1} 個廣告"></button>`
   ).join('');
 
-  // 輪播邏輯
-  function goToSlide(n) {
-    if (n >= adProducts.length) currentSlide = 0;
-    else if (n < 0) currentSlide = adProducts.length - 1;
-    else currentSlide = n;
+  if (prevBtn) prevBtn.hidden = !isLooping;
+  if (nextBtn) nextBtn.hidden = !isLooping;
+  dotsContainer.hidden = !isLooping;
 
-    const offset = -currentSlide * 100;
-    slidesContainer.style.transform = `translateX(${offset}%)`;
-
-    // 更新 dots
-    document.querySelectorAll('.ad-carousel-dot').forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentSlide);
+  const dotElements = Array.from(dotsContainer.querySelectorAll('.ad-carousel-dot'));
+  const getRealIndex = () => {
+    if (!isLooping) return 0;
+    return (renderedIndex - 1 + realSlideCount) % realSlideCount;
+  };
+  const syncDots = () => {
+    const realIndex = getRealIndex();
+    dotElements.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === realIndex);
     });
-  }
-
-  // 按鈕事件
-  const prevBtn = document.getElementById('adCarouselPrev');
-  const nextBtn = document.getElementById('adCarouselNext');
-  if (prevBtn) prevBtn.onclick = () => goToSlide(currentSlide - 1);
-  if (nextBtn) nextBtn.onclick = () => goToSlide(currentSlide + 1);
-
-  // Dots 點擊
-  document.querySelectorAll('.ad-carousel-dot').forEach(dot => {
-    dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide)));
-  });
-
-  // Slide 點擊進入商品詳情
-  slidesContainer.onclick = (e) => {
-    const slide = e.target.closest('.ad-carousel-slide');
+  };
+  const moveToRenderedIndex = (nextRenderedIndex, animate = true) => {
+    renderedIndex = nextRenderedIndex;
+    if (!animate) {
+      slidesContainer.style.transition = 'none';
+    }
+    slidesContainer.style.transform = `translateX(${-renderedIndex * 100}%)`;
+    syncDots();
+    if (!animate) {
+      void slidesContainer.offsetHeight;
+      slidesContainer.style.transition = '';
+    }
+  };
+  const nextSlide = () => {
+    if (!isLooping || isTransitionResetting) return;
+    moveToRenderedIndex(renderedIndex + 1, true);
+  };
+  const previousSlide = () => {
+    if (!isLooping || isTransitionResetting) return;
+    moveToRenderedIndex(renderedIndex - 1, true);
+  };
+  const startAutoplay = () => {
+    if (!isLooping) return;
+    if (_adCarouselTimer) clearInterval(_adCarouselTimer);
+    _adCarouselTimer = setInterval(() => {
+      nextSlide();
+    }, 5000);
+  };
+  const stopAutoplay = () => {
+    if (_adCarouselTimer) {
+      clearInterval(_adCarouselTimer);
+      _adCarouselTimer = null;
+    }
+  };
+  const handleTransitionEnd = () => {
+    if (!isLooping || isTransitionResetting) return;
+    if (renderedIndex === 0) {
+      isTransitionResetting = true;
+      moveToRenderedIndex(realSlideCount, false);
+      isTransitionResetting = false;
+      return;
+    }
+    if (renderedIndex === realSlideCount + 1) {
+      isTransitionResetting = true;
+      moveToRenderedIndex(1, false);
+      isTransitionResetting = false;
+    }
+  };
+  const handlePrevClick = () => previousSlide();
+  const handleNextClick = () => nextSlide();
+  const handleDotClick = (event) => {
+    const dot = event.target.closest('.ad-carousel-dot');
+    if (!dot || !isLooping) return;
+    const targetRealIndex = parseInt(dot.dataset.slide, 10);
+    if (!Number.isFinite(targetRealIndex)) return;
+    moveToRenderedIndex(targetRealIndex + 1, true);
+  };
+  const handleSlideClick = (event) => {
+    const slide = event.target.closest('.ad-carousel-slide');
     if (slide) {
       window.location.href = `product-detail.html?id=${slide.dataset.productId}`;
     }
   };
+  const handleMouseEnter = () => stopAutoplay();
+  const handleMouseLeave = () => startAutoplay();
+  const handleVisibilityChange = () => {
+    if (document.hidden) stopAutoplay();
+    else startAutoplay();
+  };
+  const handleResize = () => {
+    moveToRenderedIndex(renderedIndex, false);
+  };
 
-  // 自動輪播（可選）
-  if (_adCarouselTimer) clearInterval(_adCarouselTimer);
-  _adCarouselTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+  if (prevBtn) prevBtn.addEventListener('click', handlePrevClick);
+  if (nextBtn) nextBtn.addEventListener('click', handleNextClick);
+  dotsContainer.addEventListener('click', handleDotClick);
+  slidesContainer.addEventListener('click', handleSlideClick);
+  slidesContainer.addEventListener('transitionend', handleTransitionEnd);
+  if (carouselRoot) {
+    carouselRoot.addEventListener('mouseenter', handleMouseEnter);
+    carouselRoot.addEventListener('mouseleave', handleMouseLeave);
+  }
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.addEventListener('resize', handleResize);
+
+  moveToRenderedIndex(renderedIndex, false);
+  startAutoplay();
+
+  _adCarouselCleanup = () => {
+    stopAutoplay();
+    if (prevBtn) prevBtn.removeEventListener('click', handlePrevClick);
+    if (nextBtn) nextBtn.removeEventListener('click', handleNextClick);
+    dotsContainer.removeEventListener('click', handleDotClick);
+    slidesContainer.removeEventListener('click', handleSlideClick);
+    slidesContainer.removeEventListener('transitionend', handleTransitionEnd);
+    if (carouselRoot) {
+      carouselRoot.removeEventListener('mouseenter', handleMouseEnter);
+      carouselRoot.removeEventListener('mouseleave', handleMouseLeave);
+    }
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    window.removeEventListener('resize', handleResize);
+  };
 }
 
 /**

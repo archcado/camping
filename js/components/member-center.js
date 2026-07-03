@@ -926,6 +926,34 @@
     return Number.isFinite(expiry.getTime()) && expiry < new Date();
   }
 
+  function parseLocalDate(dateStr) {
+    if (!dateStr || typeof dateStr !== 'string') return null;
+    var parts = dateStr.split('-');
+    if (parts.length !== 3) return null;
+    var year = parseInt(parts[0], 10);
+    var month = parseInt(parts[1], 10);
+    var day = parseInt(parts[2], 10);
+    if (!year || !month || !day) return null;
+    var d = new Date(year, month - 1, day);
+    return Number.isFinite(d.getTime()) ? d : null;
+  }
+
+  function getDaysUntilExpiry(dateStr) {
+    var expiry = parseLocalDate(dateStr);
+    if (!expiry) return null;
+    var today = new Date();
+    var todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    return Math.ceil((expiry.getTime() - todayMidnight.getTime()) / (1000 * 60 * 60 * 24));
+  }
+
+  function getCouponExpiryClass(dateStr) {
+    var days = getDaysUntilExpiry(dateStr);
+    if (days === null) return '';
+    if (days <= 30) return 'is-expiring-soon';
+    if (days <= 60) return 'is-expiring';
+    return '';
+  }
+
   function formatCoupon(coupon) {
     var isPercent = coupon.type === 'percent';
     var discountVal = isPercent ? coupon.discount + '%' : Number(coupon.discount || 0).toLocaleString('zh-TW');
@@ -935,6 +963,7 @@
     return {
       code: coupon.code,
       expired: isCouponExpired(coupon),
+      expiryClass: (!isCouponExpired(coupon) && coupon.expiry) ? getCouponExpiryClass(coupon.expiry) : '',
       discountVal: discountVal,
       discountUnit: discountUnit,
       title: title,
@@ -971,7 +1000,7 @@
       + '<div class="coupon-right">'
       + '<div class="coupon-title">' + escapeHtml(coupon.title) + '</div>'
       + '<div class="coupon-condition">' + escapeHtml(coupon.condition) + '</div>'
-      + '<div class="coupon-expiry"><i class="bi bi-clock"></i> ' + escapeHtml(coupon.expiry) + '</div>'
+      + '<div class="coupon-expiry' + (coupon.expiryClass ? ' ' + coupon.expiryClass : '') + '"><i class="bi bi-clock"></i> ' + escapeHtml(coupon.expiry) + '</div>'
       + '<div class="coupon-code-row">'
       + '<span class="coupon-code">' + escapeHtml(coupon.code) + '</span>'
       + (!coupon.expired ? '<button class="copy-btn" type="button" data-copy-coupon="' + escapeHtml(coupon.code) + '">複製</button>' : '')
@@ -1148,6 +1177,10 @@
     setText('statBookings', String(upcomingRentals));
     setText('statCoupons', String(activeCoupons));
     setText('statUnread', String(unread));
+    var unreadEl = document.getElementById('statUnread');
+    if (unreadEl) {
+      unreadEl.classList.toggle('is-active', unread > 0);
+    }
   }
 
   function initCouponTabs() {

@@ -255,7 +255,9 @@
   color: var(--bk-primary);
 }
 
-.mc-stat-card__num.danger { color: #c0392b; }
+.mc-stat-card__num--unread { color: var(--bk-primary); }
+
+.mc-stat-card__num--unread.is-active { color: var(--yc-warning); }
 
 .mc-stat-card__label {
   font-size: 0.78rem;
@@ -773,6 +775,31 @@
 
 .mc-login-guard__back:hover { color: var(--bk-primary); }
 
+/* ── 會員中心主要操作按鈕（品牌綠覆寫）────────────────────────
+   登入、儲存修改、送出評價屬於認證 / 表單操作，
+   不應沿用 --yc-cta 商業轉換黃色。
+   選擇器限定在 .member-center-component 作用域，
+   不影響購物車結帳、預約結帳等 Conversion CTA 按鈕。
+*/
+.member-center-component .btn--primary {
+  background: var(--yr-color-brand-strong);
+  border-color: var(--yr-color-brand-strong);
+  color: var(--yr-color-text-on-brand);
+}
+
+.member-center-component .btn--primary:hover {
+  background: var(--yr-color-brand-hover);
+  border-color: var(--yr-color-brand-hover);
+  color: var(--yr-color-text-on-brand);
+}
+
+.member-center-component .btn--primary:active {
+  background: var(--yr-color-brand-hover);
+  border-color: var(--yr-color-brand-hover);
+  color: var(--yr-color-text-on-brand);
+  transform: none;
+}
+
 /* ============================================================
    訂單狀態篩選 tabs
 ============================================================ */
@@ -885,7 +912,9 @@
 
 .coupon-title     { font-size: 0.9rem;  font-weight: 700; color: var(--bk-primary); margin-bottom: 0.15rem; }
 .coupon-condition { font-size: 0.75rem; color: var(--bk-text-muted); margin-bottom: 0.15rem; }
-.coupon-expiry    { font-size: 0.72rem; color: #e55a00; margin-bottom: 0.45rem; }
+.coupon-expiry    { font-size: 0.72rem; color: var(--bk-text-muted); margin-bottom: 0.45rem; }
+.coupon-expiry.is-expiring      { color: var(--yc-warning); }
+.coupon-expiry.is-expiring-soon { color: var(--yc-error); }
 .coupon-code-row  { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 
 .coupon-code {

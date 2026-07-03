@@ -80,7 +80,7 @@
 
 .yr-booking-theme .booking-header .navbar-login-btn {
   background: #fffdf8;
-  border: 1px solid #c9d5c3;
+  border: 1px solid var(--yr-color-brand-strong);
   border-radius: 10px;
 }
 
@@ -253,15 +253,15 @@
 
 .yr-booking-theme .btn--primary {
   border-radius: 10px;
-  border-color: #74846f;
-  background: #74846f;
-  color: #fffdf8;
+  border-color: var(--yr-color-brand-strong);
+  background: var(--yr-color-brand-strong);
+  color: var(--yr-color-text-on-brand);
 }
 
 .yr-booking-theme .btn--primary:hover {
-  border-color: #62715e;
-  background: #62715e;
-  color: #fffdf8;
+  border-color: var(--yr-color-brand-hover);
+  background: var(--yr-color-brand-hover);
+  color: var(--yr-color-text-on-brand);
   transform: translateY(-1px);
 }
 

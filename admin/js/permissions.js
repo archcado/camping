@@ -11,14 +11,14 @@
 // ==========================================================
 /** @type {Array<{key: string, label: string}>} */
 window.ADMIN_SECTIONS = [
-  { key: 'analytics',   label: '分析報表' },
-  { key: 'orders',      label: '訂單管理' },
-  { key: 'movement',    label: '庫存異動紀錄' },
-  { key: 'products',    label: '商品與庫存' },
-  { key: 'customers',   label: '客戶管理' },
-  { key: 'discounts',   label: '折扣管理' },
-  { key: 'reviews',     label: '評論管理' },
-  { key: 'bookings',    label: '預約/租借管理' },
+  { key: 'analytics', label: '分析報表' },
+  { key: 'orders', label: '訂單管理' },
+  { key: 'movement', label: '庫存異動紀錄' },
+  { key: 'products', label: '商品與庫存' },
+  { key: 'customers', label: '客戶管理' },
+  { key: 'discounts', label: '折扣管理' },
+  { key: 'reviews', label: '評論管理' },
+  { key: 'bookings', label: '預約/租借管理' },
   { key: 'permissions', label: '權限管理' },
 ];
 
@@ -70,15 +70,15 @@ function initEmployeeStore() {
       isActive: true,
       createdAt: seedDate,
       permissions: {
-        analytics:   { view: false, edit: false },
-        orders:      { view: true,  edit: true  },
-        movement:    { view: false, edit: false },
-        products:    { view: false, edit: false },
-        customers:   { view: true,  edit: false },
-        discounts:   { view: false, edit: false },
-        reviews:     { view: false, edit: false },
+        analytics: { view: false, edit: false },
+        orders: { view: true, edit: true },
+        movement: { view: false, edit: false },
+        products: { view: false, edit: false },
+        customers: { view: true, edit: false },
+        discounts: { view: false, edit: false },
+        reviews: { view: false, edit: false },
         permissions: { view: false, edit: false },
-        bookings:    { view: false, edit: false },
+        bookings: { view: false, edit: false },
       },
     },
   ];
@@ -119,9 +119,11 @@ function getNextEmployeeId(employees) {
 
 /** 依 ID 查找員工 / Find employee by id */
 function findEmployeeById(id) {
-  return fetchEmployees().find(function (emp) {
-    return emp.id === id;
-  }) || null;
+  return (
+    fetchEmployees().find(function (emp) {
+      return emp.id === id;
+    }) || null
+  );
 }
 
 /** 計算啟用中的超級管理員人數 / Count active super admins */
@@ -247,78 +249,70 @@ window.initPermissions = function () {
 function renderEmployeeTable() {
   var employees = fetchEmployees();
   var currentId = sessionStorage.getItem('adminId') || '';
-  updateEmployeeResultCount(employees.length);
 
   if (!employees.length) {
     $('#employeeTableBody').html(
-      '<tr><td colspan="5" class="yr-admin-permissions-empty text-center py-4">' +
-      '<i class="fas fa-user-slash me-2" aria-hidden="true"></i>尚無員工資料</td></tr>'
+      '<tr><td colspan="5" class="text-center text-muted py-4">尚無員工資料</td></tr>'
     );
     return;
   }
 
-  var html = employees.map(function (emp) {
-    var roleLabel = renderEmployeeRole(emp);
-    var statusBadge = renderEmployeeStatus(emp);
+  var html = employees
+    .map(function (emp) {
+      var roleLabel = emp.isSuperAdmin ? '超級管理員' : '一般員工';
+      var statusBadge = emp.isActive
+        ? '<span class="badge bg-success">啟用</span>'
+        : '<span class="badge bg-secondary">停用</span>';
 
-    var toggleBtn = '';
-    // 自己那一列不顯示停用按鈕 / Hide toggle on current user's row
-    if (emp.id !== currentId) {
-      var toggleLabel = emp.isActive ? '停用' : '啟用';
-      var toggleClass = emp.isActive ? 'btn-outline-warning' : 'btn-outline-success';
-      toggleBtn =
-        '<button type="button" class="btn btn-sm ' + toggleClass + ' btn-toggle-employee ms-1" ' +
-        'data-employee-id="' + emp.id + '">' +
-        '<i class="fas ' + (emp.isActive ? 'fa-user-slash' : 'fa-user-check') + ' me-1" aria-hidden="true"></i>' +
-        toggleLabel + '</button>';
-    }
+      var toggleBtn = '';
+      // 自己那一列不顯示停用按鈕 / Hide toggle on current user's row
+      if (emp.id !== currentId) {
+        var toggleLabel = emp.isActive ? '停用' : '啟用';
+        var toggleClass = emp.isActive ? 'btn-outline-warning' : 'btn-outline-success';
+        toggleBtn =
+          '<button type="button" class="btn btn-sm ' +
+          toggleClass +
+          ' btn-toggle-employee ms-1" ' +
+          'data-employee-id="' +
+          emp.id +
+          '">' +
+          toggleLabel +
+          '</button>';
+      }
 
-    return '<tr data-employee-id="' + emp.id + '">' +
-      '<td class="yr-admin-permission-id">' + emp.id + '</td>' +
-      '<td>' + escapeHtml(emp.displayName) + '</td>' +
-      '<td class="yr-admin-permission-role">' + roleLabel + '</td>' +
-      '<td>' + statusBadge + '</td>' +
-      '<td class="yr-admin-permission-actions">' +
+      return (
+        '<tr data-employee-id="' +
+        emp.id +
+        '">' +
+        '<td class="fw-semibold">' +
+        emp.id +
+        '</td>' +
+        '<td>' +
+        escapeHtml(emp.displayName) +
+        '</td>' +
+        '<td>' +
+        roleLabel +
+        '</td>' +
+        '<td>' +
+        statusBadge +
+        '</td>' +
+        '<td>' +
         '<button type="button" class="btn btn-sm btn-outline-primary btn-edit-employee" ' +
-        'data-employee-id="' + emp.id + '">' +
-        '<i class="fas fa-pen me-1" aria-hidden="true"></i>編輯</button>' +
+        'data-employee-id="' +
+        emp.id +
+        '">編輯</button>' +
         toggleBtn +
-      '</td>' +
-      '</tr>';
-  }).join('');
+        '</td>' +
+        '</tr>'
+      );
+    })
+    .join('');
 
   $('#employeeTableBody').html(html);
 
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('permissions', $('#contentArea'));
   }
-}
-
-function updateEmployeeResultCount(count) {
-  $('#permissionResultCount').text('目前 ' + count + ' 位員工');
-}
-
-function renderEmployeeStatus(emp) {
-  if (emp && emp.isActive === true) {
-    return '<span class="yr-admin-employee-status yr-admin-employee-status--active">' +
-      '<i class="fas fa-circle-check me-1" aria-hidden="true"></i>啟用</span>';
-  }
-  if (emp && emp.isActive === false) {
-    return '<span class="yr-admin-employee-status yr-admin-employee-status--disabled">' +
-      '<i class="fas fa-circle-pause me-1" aria-hidden="true"></i>停用</span>';
-  }
-  return '<span class="yr-admin-employee-status yr-admin-employee-status--unknown">' +
-    '<i class="fas fa-circle-question me-1" aria-hidden="true"></i>未知</span>';
-}
-
-function renderEmployeeRole(emp) {
-  if (emp && emp.isSuperAdmin === true) {
-    return '<span class="yr-admin-role yr-admin-role--super-admin">超級管理員</span>';
-  }
-  if (emp && emp.isSuperAdmin === false) {
-    return '<span class="yr-admin-role yr-admin-role--staff">一般員工</span>';
-  }
-  return '<span class="yr-admin-role yr-admin-role--unknown">角色未知</span>';
 }
 
 /** 開啟新增/編輯 Modal / Open add or edit employee modal */
@@ -332,7 +326,10 @@ function openEmployeeModal(employeeId) {
   $('#empIsSuperAdmin').prop('checked', isEdit ? emp.isSuperAdmin : false);
   $('#employeeModal').data('edit-id', isEdit ? emp.id : '');
 
-  renderPermissionMatrix(isEdit ? emp.permissions : getDefaultPermissions(false), isEdit ? emp.isSuperAdmin : false);
+  renderPermissionMatrix(
+    isEdit ? emp.permissions : getDefaultPermissions(false),
+    isEdit ? emp.isSuperAdmin : false
+  );
 
   new bootstrap.Modal('#employeeModal').show();
 }
@@ -345,17 +342,31 @@ function renderPermissionMatrix(permissions, lockAll) {
     var checkedView = lockAll || perm.view ? ' checked' : '';
     var checkedEdit = lockAll || perm.edit ? ' checked' : '';
 
-    return '<tr>' +
-      '<td>' + sec.label + '</td>' +
-      '<td class="text-center">' +
-        '<input type="checkbox" class="form-check-input perm-view-cb" ' +
-        'data-section="' + sec.key + '"' + checkedView + disabledAttr + '>' +
+    return (
+      '<tr>' +
+      '<td>' +
+      sec.label +
       '</td>' +
       '<td class="text-center">' +
-        '<input type="checkbox" class="form-check-input perm-edit-cb" ' +
-        'data-section="' + sec.key + '"' + checkedEdit + disabledAttr + '>' +
+      '<input type="checkbox" class="form-check-input perm-view-cb" ' +
+      'data-section="' +
+      sec.key +
+      '"' +
+      checkedView +
+      disabledAttr +
+      '>' +
       '</td>' +
-      '</tr>';
+      '<td class="text-center">' +
+      '<input type="checkbox" class="form-check-input perm-edit-cb" ' +
+      'data-section="' +
+      sec.key +
+      '"' +
+      checkedEdit +
+      disabledAttr +
+      '>' +
+      '</td>' +
+      '</tr>'
+    );
   }).join('');
 
   $('#permissionMatrixBody').html(rows);
@@ -403,7 +414,9 @@ function saveEmployeeFromModal() {
   var currentAdminId = sessionStorage.getItem('adminId') || '';
 
   if (isEdit) {
-    var idx = employees.findIndex(function (e) { return e.id === editId; });
+    var idx = employees.findIndex(function (e) {
+      return e.id === editId;
+    });
     if (idx === -1) {
       window.showAdminToast('找不到員工資料', 'error');
       return;
@@ -463,7 +476,9 @@ function saveEmployeeFromModal() {
 /** 停用或啟用員工 / Toggle employee active status */
 function toggleEmployeeStatus(employeeId) {
   var employees = fetchEmployees();
-  var idx = employees.findIndex(function (e) { return e.id === employeeId; });
+  var idx = employees.findIndex(function (e) {
+    return e.id === employeeId;
+  });
   if (idx === -1) return;
 
   var target = employees[idx];

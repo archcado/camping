@@ -4,8 +4,20 @@
     "userId": "user-001",
     "orderNumber": "#ORD-20260101",
     "items": [
-      { "productId": "prod-001", "name": "輕量化露營帳篷 2人", "price": 2999, "quantity": 1, "image": "https://picsum.photos/seed/tent1/80/80" },
-      { "productId": "prod-005", "name": "USB 充電 LED 露營燈", "price": 399, "quantity": 2, "image": "https://picsum.photos/seed/lamp1/80/80" }
+      {
+        "productId": "prod-001",
+        "name": "輕量化露營帳篷 2人",
+        "price": 2999,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/tent1/80/80"
+      },
+      {
+        "productId": "prod-005",
+        "name": "USB 充電 LED 露營燈",
+        "price": 399,
+        "quantity": 2,
+        "image": "https://picsum.photos/seed/lamp1/80/80"
+      }
     ],
     "subtotal": 3797,
     "points": 380,
@@ -29,14 +41,18 @@
     "userId": "user-001",
     "orderNumber": "#ORD-20260215",
     "items": [
-      { "productId": "prod-002", "name": "專業登山背包 65L", "price": 4999, "quantity": 1, "image": "https://picsum.photos/seed/pack1/80/80" }
+      {
+        "productId": "prod-002",
+        "name": "專業登山背包 65L",
+        "price": 4999,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/pack1/80/80"
+      }
     ],
     "subtotal": 4999,
     "points": 500,
     "shippingFee": 0,
-    "coupons": [
-      { "code": "CAMP200", "type": "fixed", "discount": 200 }
-    ],
+    "coupons": [{ "code": "CAMP200", "type": "fixed", "discount": 200 }],
     "discount": 200,
     "total": 4799,
     "status": "shipped",
@@ -55,15 +71,25 @@
     "userId": "user-001",
     "orderNumber": "#ORD-20260310",
     "items": [
-      { "productId": "prod-007", "name": "防風防水戶外衝鋒衣", "price": 3599, "quantity": 1, "image": "https://picsum.photos/seed/jacket1/80/80" },
-      { "productId": "prod-017", "name": "快乾排汗機能T恤", "price": 699, "quantity": 2, "image": "https://picsum.photos/seed/tshirt1/80/80" }
+      {
+        "productId": "prod-007",
+        "name": "防風防水戶外衝鋒衣",
+        "price": 3599,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/jacket1/80/80"
+      },
+      {
+        "productId": "prod-017",
+        "name": "快乾排汗機能T恤",
+        "price": 699,
+        "quantity": 2,
+        "image": "https://picsum.photos/seed/tshirt1/80/80"
+      }
     ],
     "subtotal": 4997,
     "points": 500,
     "shippingFee": 0,
-    "coupons": [
-      { "code": "SUMMER10", "type": "percent", "discount": 10, "amount": 500 }
-    ],
+    "coupons": [{ "code": "SUMMER10", "type": "percent", "discount": 10, "amount": 500 }],
     "discount": 500,
     "total": 4497,
     "status": "unshipped",
@@ -81,8 +107,20 @@
     "userId": "user-001",
     "orderNumber": "#ORD-20260401",
     "items": [
-      { "productId": "prod-008", "name": "攜帶式淨水器", "price": 899, "quantity": 1, "image": "https://picsum.photos/seed/filter1/80/80" },
-      { "productId": "prod-011", "name": "登山健行手杖（一對）", "price": 1299, "quantity": 1, "image": "https://picsum.photos/seed/poles1/80/80" }
+      {
+        "productId": "prod-008",
+        "name": "攜帶式淨水器",
+        "price": 899,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/filter1/80/80"
+      },
+      {
+        "productId": "prod-011",
+        "name": "登山健行手杖（一對）",
+        "price": 1299,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/poles1/80/80"
+      }
     ],
     "subtotal": 2198,
     "points": 220,
@@ -105,8 +143,20 @@
     "userId": "user-001",
     "orderNumber": "#ORD-20260510",
     "items": [
-      { "productId": "prod-012", "name": "鈦合金炊具組 4件套", "price": 2199, "quantity": 1, "image": "https://picsum.photos/seed/cook1/80/80" },
-      { "productId": "prod-006", "name": "戶外輕量折疊椅", "price": 799, "quantity": 2, "image": "https://picsum.photos/seed/chair1/80/80" }
+      {
+        "productId": "prod-012",
+        "name": "鈦合金炊具組 4件套",
+        "price": 2199,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/cook1/80/80"
+      },
+      {
+        "productId": "prod-006",
+        "name": "戶外輕量折疊椅",
+        "price": 799,
+        "quantity": 2,
+        "image": "https://picsum.photos/seed/chair1/80/80"
+      }
     ],
     "subtotal": 3797,
     "points": 380,

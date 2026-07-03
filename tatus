@@ -1,0 +1,155 @@
+[1mdiff --git a/admin/js/customers.js b/admin/js/customers.js[m
+[1mindex 1fcd293..82d770d 100644[m
+[1m--- a/admin/js/customers.js[m
+[1m+++ b/admin/js/customers.js[m
+[36m@@ -5,19 +5,35 @@[m
+  *[m
+  * window.tagColorMap 的鍵值必須與 customers.json 的 tags 陣列完全一致（含中文）[m
+  * inline editing 支援：[m
+[31m- *   - tier（會員等級）、points（點數）：按鈕儲存 + Enter 鍵儲存[m
+[31m- *   - tags（標籤）：下拉 checkbox 多選 + 新增 / 刪除標籤[m
+[32m+[m[32m *   - phone / email / birthday / tier / points / tags：可連續編輯多欄，面板底部「確認變更」一次提交（Bootstrap Modal 預覽，不用 alert）[m
+[32m+[m[32m *   - 手機 / Email / 生日：必填；手機須 09 開頭 10 碼；Email 格式由 validators.js 驗證[m
+[32m+[m[32m *   - 標籤庫：新增 / 刪除標籤（刪除仍用 confirm）[m
+[32m+[m[32m * 主列為唯讀摘要（桌面 table / 手機卡片）；展開後才可編輯，儲存後同步更新主列[m
+[32m+[m[32m * 篩選：會員等級/標籤（欄內 OR，兩欄 AND 疊加）；排序：註冊日期/消費總額（三段式）[m
+  */[m
+ [m
+[32m+[m[32m// ─────────────────────────────────────────────[m
+[32m+[m[32m// 篩選 / 排序狀態（每次進入會員列表重置）[m
+[32m+[m[32m// ─────────────────────────────────────────────[m
+[32m+[m
+[32m+[m[32m/** @type {Array<{key: string, dir: 'asc'|'desc'}>} */[m
+[32m+[m[32mvar customerSortStack = [];[m
+[32m+[m
+[32m+[m[32m/** @type {{ tier: string[], tags: string[] }} */[m
+[32m+[m[32mvar customerFilterState = {[m
+[32m+[m[32m  tier: [],[m
+[32m+[m[32m  tags: [],[m
+[32m+[m[32m};[m
+[32m+[m
+ // ==========================================================================[m
+ // Step 1 — 全域標籤顏色對應表[m
+ //   改掛在 window 上，讓新增 / 刪除標籤時全頁共用同一份資料[m
+ //   || 語法：若已存在（例如切換頁面回來）就保留舊值，不重置[m
+ // ==========================================================================[m
+ window.tagColorMap = window.tagColorMap || {[m
+[31m-  '高消費':   'bg-success',[m
+[31m-  '新會員':   'bg-info text-dark',[m
+[31m-  '高退貨率': 'bg-danger',[m
+[32m+[m[32m  高消費: 'bg-success',[m
+[32m+[m[32m  新會員: 'bg-info text-dark',[m
+[32m+[m[32m  高退貨率: 'bg-danger',[m
+ };[m
+ [m
+ /**[m
+[36m@@ -31,6 +47,516 @@[m [mfunction getTagBadge(tag) {[m
+   return '<span class="badge ' + cls + ' me-1">' + tag + '</span>';[m
+ }[m
+ [m
+[32m+[m[32m/**[m
+[32m+[m[32m * 手機顯示格式：去掉 dash 和空格[m
+[32m+[m[32m * Display phone without dashes or spaces — e.g. "0912-345-678" → "0912345678"[m
+[32m+[m[32m * @param {string} phone[m
+[32m+[m[32m * @returns {string}[m
+[32m+[m[32m */[m
+[32m+[m[32mfunction formatPhoneDisplay(phone) {[m
+[32m+[m[32m  if (!phone) {[m
+[32m+[m[32m    return '—';[m
+[32m+[m[32m  }[m
+[32m+[m[32m  return String(phone).replace(/[\s-]/g, '');[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/**[m
+[32m+[m[32m * 將 ISO 日期轉成 YYYY-MM-DD 顯示（生日、註冊日期等通用）[m
+[32m+[m[32m * Format ISO date for display — e.g. "2023-08-15"[m
+[32m+[m[32m * @param {string} isoDate[m
+[32m+[m[32m * @returns {string}[m
+[32m+[m[32m */[m
+[32m+[m[32mfunction formatDateDisplay(isoDate) {[m
+[32m+[m[32m  if (!isoDate) {[m
+[32m+[m[32m    return '—';[m
+[32m+[m[32m  }[m
+[32m+[m[32m  return String(isoDate).slice(0, 10);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/**[m
+[32m+[m[32m * 從展開區的編輯控制項向上找到客戶 ID[m
+[32m+[m[32m * @param {jQuery} $el[m
+[32m+[m[32m * @returns {string|undefined}[m
+[32m+[m[32m */[m
+[32m+[m[32mfunction getCustomerIdFromDetail($el) {[m
+[32m+[m[32m  return $el.closest('.customer-detail-panel').data('customer-id');[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/**[m
+[32m+[m[32m * 編輯儲存後，同步更新主列（桌面 table 列 + 手機卡片）的唯讀顯示[m
+[32m+[m[32m * @param {string} customerId[m
+[32m+[m[32m * @param {Object} fields - { phone, email, birthday, tier, tagsHtml }[m
+[32m+[m[32m */[m
+[32m+[m[32mfunction syncCustomerMainRow(customerId, fields) {[m
+[32m+[m[32m  var $summary = $('.customer-summary-row[data-customer-id="' + customerId + '"]');[m
+[32m+[m[32m  var $card = $('.customer-mobile-card[data-customer-id="' + customerId + '"]');[m
+[32m+[m[32m  var $details = $('.customer-detail-panel[data-customer-id="' + customerId + '"]');[m
+[32m+[m
+[32m+[m[32m  if (fields.phone !== undefined) {[m
+[32m+[m[32m    var displayPhone = formatPhoneDisplay(fields.phone);[m
+[32m+[m[32m    $summary.find('.cell-phone').text(displayPhone);[m
+[32m+[m[32m    $card.find('.card-field-phone .card-value').text(displayPhone);[m
+[32m+[m[32m    $details.find('.phone-display').text(displayPhone);[m
+[32m+[m[32m  }[m
+[32m+[m[32m  if (fields.email !== undefined) {[m
+[32m+[m[32m    var emailText = fields.email || '—';[m
+[32m+[m[32m    $summary.find('.cell-email').text(emailText);[m
+[32m+[m[32m    $card.find('.card-field-email .card-value').text(emailText);[m
+[32m+[m[32m    $details.find('.email-display').text(emailText);[m
+[32m+[m[32m  }[m
+[32m+[m[32m  if (fields.birthday !== undefined) {[m
+[32m+[m[32m    var birthdayText = formatDateDisplay(fields.birthday);[m
+[32m+[m[32m    $details.find('.birthday-display').text(birthdayText);[m
+[32m+[m[32m  }[m
+[32m+[m[32m  if (fields.tier !== undefined) {[m
+[32m+[m[32m    var tierText = fields.tier || '一般';[m
+[32m+[m[32m    $summary.find('.cell-tier').text(tierText);[m
+[32m+[m[32m    $card.find('.card-field-tier .card-value').text(tierText);[m
+[32m+[m[32m    $details.find('.tier-display').text(tierText);[m
+[32m+[m[32m  }[m
+[32m+[m[32m  if (fields.tagsHtml !== undefined) {[m
+[32m+[m[32m    $summary.find('.cell-tags').html(fields.tagsHtml);[m
+[32m+[m[32m    $card.find('.card-field-tags .card-value').html(fields.tagsHtml);[m
+[32m+[m[32m    $details.find('.tags-display').html(fields.tagsHtml);[m
+[32m+[m[32m  }[m
+[32m+[m[32m  if (fields.points !== undefined) {[m
+[32m+[m[32m    $details.find('.points-display').text(fields.points);[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m// ─────────────────────────────────────────────[m
+[32m+[m[32m// 批次編輯：快照 / 草稿 / 比對 / 還原[m
+[32m+[m[32m// Batch edit: snapshot, draft, diff, revert[m
+[32m+[m[32m// ─────────────────────────────────────────────[m
+[32m+[m
+[32m+[m[32m/** 欄位中文名稱（確認 Modal 摘要用） */[m
+[32m+[m[32mvar CUSTOMER_FIELD_LABELS = {[m
+[32m+[m[32m  phone: '手機號碼',[m
+[32m+[m[32m  email: '電子信箱',[m
+[32m+[m[32m  birthday: '生日',[m
+[32m+[m[32m  tier: '會員等級',[m
+[32m+[m[32m  points: '點數',[m
+[32m+[m[32m  tags: '標籤',[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m/** 將畫面上的「—」視為空字串 / Treat em dash display as empty */[m
+[32m+[m[32mfunction normalizeEmptyDisplay(text) {[m
+[32m+[m[32m  var t = String(text || '').trim();[m
+[32m+[m[32m  return t === '—' ? '' : t;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/** 手機比對用：只保留數字 / Digits-only phone for diff */[m
+[32m+[m[32mfunction normalizePhoneValue(phone) {[m
+[32m+[m[32m  return String(phone || '').replace(/\D/g, '');[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/** 生日比對用：統一成 YYYY-MM-DD / Normalize birthday for diff */[m
+[32m+[m[32mfunction normalizeBirthdayValue(val) {[m
+[32m+[m[32m  var s = norm

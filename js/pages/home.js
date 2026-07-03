@@ -59,7 +59,7 @@ function _buildProductCard(product, badgeType = '') {
     : null;
 
   return `
-    <div class="product-card" data-product-id="${product.id}" role="article">
+    <div class="product-card" data-product-id="${product.id}" role="link" tabindex="0" aria-label="查看 ${product.name} 商品詳情">
 
       <!-- 商品圖片 + 標籤 -->
       <div class="product-card-image-wrap">
@@ -188,18 +188,36 @@ function _bindCardEvents() {
 
     row.addEventListener('click', async (e) => {
       // ① 點擊「加入購物車」底部按鈕
-      if (e.target.classList.contains('product-card-add-btn')) {
-        const productId = e.target.dataset.productId;
+      const addBtn = e.target.closest('.product-card-add-btn');
+      if (addBtn) {
+        const productId = addBtn.dataset.productId;
         await _handleAddToCart(productId);
         return;
       }
 
       // ② 點擊卡片其他區域 → 跳轉商品詳情頁
       const card = e.target.closest('.product-card');
-      if (card) {
-        const productId = card.dataset.productId;
-        window.location.href = `product-detail.html?id=${productId}`;
-      }
+      if (!card) return;
+
+      const interactive = e.target.closest('button, a, input, select, textarea, label, [role="button"], [role="link"]');
+      if (interactive && card.contains(interactive) && interactive !== card) return;
+
+      const productId = card.dataset.productId;
+      window.location.href = `product-detail.html?id=${productId}`;
+    });
+
+    row.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+
+      const card = e.target.closest('.product-card');
+      if (!card) return;
+
+      const interactive = e.target.closest('button, a, input, select, textarea, label, [role="button"], [role="link"]');
+      if (interactive && card.contains(interactive) && interactive !== card) return;
+
+      e.preventDefault();
+      const productId = card.dataset.productId;
+      window.location.href = `product-detail.html?id=${productId}`;
     });
   });
 }

@@ -4,8 +4,20 @@
     "userId": "user-001",
     "orderNumber": "#RENT-20260412",
     "items": [
-      { "productId": "rent-001", "name": "雙人快搭帳篷", "price": 480, "quantity": 1, "image": "https://picsum.photos/seed/rent-tent/80/80" },
-      { "productId": "rent-004", "name": "營地折疊桌", "price": 180, "quantity": 1, "image": "https://picsum.photos/seed/rent-table/80/80" }
+      {
+        "productId": "rent-001",
+        "name": "雙人快搭帳篷",
+        "price": 480,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/rent-tent/80/80"
+      },
+      {
+        "productId": "rent-004",
+        "name": "營地折疊桌",
+        "price": 180,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/rent-table/80/80"
+      }
     ],
     "subtotal": 1320,
     "deposit": 2000,
@@ -24,8 +36,20 @@
     "userId": "user-001",
     "orderNumber": "#RENT-20260503",
     "items": [
-      { "productId": "rent-008", "name": "保冷冰桶 35L", "price": 220, "quantity": 1, "image": "https://picsum.photos/seed/rent-cooler/80/80" },
-      { "productId": "rent-010", "name": "露營燈串", "price": 120, "quantity": 2, "image": "https://picsum.photos/seed/rent-light/80/80" }
+      {
+        "productId": "rent-008",
+        "name": "保冷冰桶 35L",
+        "price": 220,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/rent-cooler/80/80"
+      },
+      {
+        "productId": "rent-010",
+        "name": "露營燈串",
+        "price": 120,
+        "quantity": 2,
+        "image": "https://picsum.photos/seed/rent-light/80/80"
+      }
     ],
     "subtotal": 920,
     "deposit": 1200,
@@ -44,7 +68,13 @@
     "userId": "user-001",
     "orderNumber": "#RENT-20260601",
     "items": [
-      { "productId": "rent-012", "name": "登山睡袋", "price": 260, "quantity": 2, "image": "https://picsum.photos/seed/rent-sleepingbag/80/80" }
+      {
+        "productId": "rent-012",
+        "name": "登山睡袋",
+        "price": 260,
+        "quantity": 2,
+        "image": "https://picsum.photos/seed/rent-sleepingbag/80/80"
+      }
     ],
     "subtotal": 1560,
     "deposit": 1600,
@@ -63,7 +93,13 @@
     "userId": "user-001",
     "orderNumber": "#RENT-20260308",
     "items": [
-      { "productId": "rent-015", "name": "卡式瓦斯爐", "price": 160, "quantity": 1, "image": "https://picsum.photos/seed/rent-stove/80/80" }
+      {
+        "productId": "rent-015",
+        "name": "卡式瓦斯爐",
+        "price": 160,
+        "quantity": 1,
+        "image": "https://picsum.photos/seed/rent-stove/80/80"
+      }
     ],
     "subtotal": 320,
     "deposit": 800,

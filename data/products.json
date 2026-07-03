@@ -62,9 +62,7 @@
     "price": 599,
     "originalPrice": 899,
     "image": "../assets/images/products/prod-003/main.webp",
-    "images": [
-      "../assets/images/products/prod-003/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-003/main.webp"],
     "description": "輕便易攜帶的瓦斯爐具，高海拔仍可穩定點火，附防風罩設計。",
     "specifications": {
       "weight": "0.4kg",
@@ -89,9 +87,7 @@
     "price": 1999,
     "originalPrice": 2499,
     "image": "../assets/images/products/prod-004/main.webp",
-    "images": [
-      "../assets/images/products/prod-004/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-004/main.webp"],
     "description": "四季通用防水睡袋，適用溫度 -5°C 至 15°C，採用高蓬鬆填充棉。",
     "specifications": {
       "weight": "1.0kg",
@@ -116,9 +112,7 @@
     "price": 399,
     "originalPrice": 599,
     "image": "../assets/images/products/prod-005/main.webp",
-    "images": [
-      "../assets/images/products/prod-005/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-005/main.webp"],
     "description": "USB 充電式 LED 露營燈，800 流明超亮，可調色溫，支援 Type-C 充電。",
     "specifications": {
       "brightness": "800 流明",
@@ -143,9 +137,7 @@
     "price": 799,
     "originalPrice": 1199,
     "image": "../assets/images/products/prod-006/main.webp",
-    "images": [
-      "../assets/images/products/prod-006/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-006/main.webp"],
     "description": "輕便舒適的戶外折疊椅，鋁合金骨架，承重 150kg，折疊後小巧易攜。",
     "specifications": {
       "weight": "1.2kg",
@@ -198,9 +190,7 @@
     "price": 899,
     "originalPrice": 1199,
     "image": "../assets/images/products/prod-008/main.webp",
-    "images": [
-      "../assets/images/products/prod-008/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-008/main.webp"],
     "description": "中空纖維淨水技術，過濾精度 0.1 微米，可去除 99.99% 細菌和原蟲。",
     "specifications": {
       "filtrationRate": "0.1 微米",
@@ -279,9 +269,7 @@
     "price": 1299,
     "originalPrice": 1699,
     "image": "../assets/images/products/prod-011/main.webp",
-    "images": [
-      "../assets/images/products/prod-011/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-011/main.webp"],
     "description": "碳纖維登山杖，輕量僅 225g/支，防震設計，三節可調長度 100-135cm。",
     "specifications": {
       "weight": "225g/支",
@@ -306,9 +294,7 @@
     "price": 2199,
     "originalPrice": 2799,
     "image": "../assets/images/products/prod-012/main.webp",
-    "images": [
-      "../assets/images/products/prod-012/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-012/main.webp"],
     "description": "日本 Snow Peak 鈦合金炊具，超輕量，含 1.4L 鍋、鍋蓋、碗、折疊握把。",
     "specifications": {
       "material": "鈦合金",
@@ -333,9 +319,7 @@
     "price": 2799,
     "originalPrice": 3499,
     "image": "../assets/images/products/prod-013/main.webp",
-    "images": [
-      "../assets/images/products/prod-013/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-013/main.webp"],
     "description": "自動充氣設計，開閥即膨脹，厚度 5cm，R 值 3.2，適合三季露營。",
     "specifications": {
       "thickness": "5cm",
@@ -360,9 +344,7 @@
     "price": 1899,
     "originalPrice": 2399,
     "image": "../assets/images/products/prod-014/main.webp",
-    "images": [
-      "../assets/images/products/prod-014/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-014/main.webp"],
     "description": "適合日間健行的輕量背包，透氣背板設計，含雨蓋，側袋可放水瓶。",
     "specifications": {
       "capacity": "26升",
@@ -387,9 +369,7 @@
     "price": 1199,
     "originalPrice": 1599,
     "image": "../assets/images/products/prod-015/main.webp",
-    "images": [
-      "../assets/images/products/prod-015/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-015/main.webp"],
     "description": "雙太陽能板快速充電，防水防塵 IP65，支援 QC3.0 快充，含 LED 手電筒。",
     "specifications": {
       "capacity": "20000mAh",
@@ -414,9 +394,7 @@
     "price": 499,
     "originalPrice": 699,
     "image": "../assets/images/products/prod-016/main.webp",
-    "images": [
-      "../assets/images/products/prod-016/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-016/main.webp"],
     "description": "雙面設計，上層柔軟絨布、下層防水牛津布，配有繫帶輕鬆捲收。",
     "specifications": {
       "size": "200 x 200cm",
@@ -441,9 +419,7 @@
     "price": 699,
     "originalPrice": 999,
     "image": "../assets/images/products/prod-017/main.webp",
-    "images": [
-      "../assets/images/products/prod-017/main.webp"
-    ],
+    "images": ["../assets/images/products/prod-017/main.webp"],
     "description": "Omni-Wick 快排汗技術，輕薄透氣，抗 UV SPF 50，適合夏季健行。",
     "specifications": {
       "material": "100% 聚酯纖維",
@@ -479,7 +455,7 @@
       "waterproof": "3000mm",
       "poles": "附 280cm 主桿 x2"
     },
-    "colors":["沙漠棕", "炭灰"],
+    "colors": ["沙漠棕", "炭灰"],
     "stock": 15,
     "rating": 4.8,
     "reviews": 34,

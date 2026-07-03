@@ -1347,28 +1347,29 @@ hr {
   position: relative;  /* 讓下拉選單基於此定位 */
   display: flex;
   align-items: center;
+  --navbar-search-panel-width: 280px; /* 搜尋表單與下拉選單共用寬度 */
 }
 
 /* 搜尋表單（flex 排列輸入框和按鈕） */
 .navbar-search-form {
   display: flex;
   align-items: center;
-  background-color: #f2f2f2;
-  border: 1px solid #e0e0e0;
+  background-color: var(--yr-color-surface);
+  border: 1px solid var(--yr-color-text-subtle); /* 4.55:1 vs surface，符合 WCAG 3:1 non-text */
   border-radius: 9999px; /* 圓形外框 */
   overflow: hidden;
   transition: border-color 250ms;
-  width: 220px;
+  /* width 由 --navbar-search-panel-width 統一控制，見絕對定位區塊 */
 }
 
 .navbar-search-form:focus-within {
-  border-color: #244d4d; /* 聚焦時顯示主色邊框 */
-  background-color: #fff;
+  border-color: var(--yr-color-brand-strong); /* 聚焦時切換為品牌綠，與預設暖灰可明確區分 */
 }
 
 /* 搜尋輸入框（移除預設樣式） */
 .navbar-search-input {
   flex: 1;
+  min-width: 0;           /* 防止 flex 子項撐破容器 */
   border: none !important;
   background: transparent !important;
   padding: 0.4rem 0.75rem !important;
@@ -1385,11 +1386,11 @@ hr {
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  color: #666;
+  color: var(--yr-color-text-muted);
 }
 
 .navbar-search-btn:hover {
-  color: #244d4d;
+  color: var(--yr-color-brand-strong);
 }
 
 /* 搜尋下拉選單容器 */
@@ -1398,11 +1399,11 @@ hr {
   position: absolute;
   top: calc(100% + 8px);       /* 在搜尋框正下方 */
   left: 0;
-  width: 280px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  width: var(--navbar-search-panel-width); /* 與搜尋表單同寬 */
+  background-color: var(--yr-color-bg);   /* #fcf8ef 暖奶油，與頁面色溫一致；surface #fffefa 偏白 */
+  border: 1px solid var(--yr-color-border);
+  border-radius: var(--yr-theme-radius-md);
+  box-shadow: var(--yr-theme-shadow-sm);
   z-index: 1500;
   overflow: hidden;
 }
@@ -1420,48 +1421,61 @@ hr {
 
 /* 下拉標題（熱門搜尋 / 搜尋建議） */
 .search-dropdown-title {
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #999;
+  color: var(--yr-color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--yr-color-border);
 }
 
 /* 建議清單（移除 ul 預設樣式） */
 .search-dropdown-list {
   list-style: none;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
 }
 
 /* 每個建議項目 */
 .search-dropdown-item {
-  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;             /* 確保可點擊面積，符合 WCAG 2.5.8 */
+  padding: 0.625rem 1rem;
   font-size: 0.875rem;
-  color: #333;
+  color: var(--yr-color-text);
   cursor: pointer;
   transition: background-color 150ms;
 }
 
 .search-dropdown-item:hover {
-  background-color: #f6fbf6;
-  color: #244d4d;
+  background-color: var(--yr-color-brand-pale);
+  color: var(--yr-color-brand-hover); /* 5.58:1 vs brand-pale，符合 WCAG AA */
+}
+
+/* focus-visible：供 tabindex 鍵盤操作時使用
+   注意：目前 JS 模板的 <li> 沒有 tabindex，需補 tabindex="0" 才能 Tab 鍵聚焦 */
+.search-dropdown-item:focus-visible {
+  outline: 2px solid var(--yr-color-brand-strong);
+  outline-offset: -2px;
+  background-color: var(--yr-color-brand-pale);
+  color: var(--yr-color-brand-hover); /* 5.58:1，currentColor 圖示同步達標 */
 }
 
 /* 空結果提示 */
 .search-dropdown-empty {
   padding: 1rem;
   font-size: 0.875rem;
-  color: #999;
+  color: var(--yr-color-text-subtle);
   text-align: center;
 }
 
-/* 手機版：隱藏展開式搜尋框，只顯示 icon */
+/* 手機版：限制搜尋面板最大寬度不超出視窗 */
 @media (max-width: 767px) {
-  .navbar-search-form {
-    width: 160px;
+  .navbar-search-wrapper {
+    --navbar-search-panel-width: min(280px, calc(100vw - 2rem));
   }
 }
 
@@ -4284,8 +4298,7 @@ img {
   /* 首頁精選商品區：顯示更多欄位 */
   .featured-scroll-row .product-card { min-width: 220px; }
 
-  /* Navbar 搜尋框加寬 */
-  .navbar-search-form { width: 280px; }
+  /* Navbar 搜尋框寬度已由 --navbar-search-panel-width 統一控制，此規則已移除 */
 
   /* 部落格列表：三欄 */
   .blog-grid { grid-template-columns: repeat(3, 1fr); }
@@ -5046,7 +5059,7 @@ body {
   position: absolute;
   right: 0;
   top: calc(100% + 0.75rem);
-  width: 280px;
+  width: var(--navbar-search-panel-width); /* 與下拉選單共用，由 wrapper 變數控制 */
   z-index: 1500;
 }
 
@@ -5056,13 +5069,25 @@ body {
 }
 
 .navbar-search-submit {
-  background: #244d4d;
+  background: var(--yr-color-brand-strong);
   border: none;
-  color: #fff;
+  color: var(--yr-theme-on-brand); /* --yr-color-text-on-brand 不存在於 .yr-theme，使用等義 Token */
   cursor: pointer;
-  font-size: 0.82rem;
+  font-size: 0.875rem;     /* 統一與輸入框 font-size，避免字元過小 */
   font-weight: 700;
-  padding: 0.45rem 0.85rem;
+  padding: 0.45rem 0.9rem;
+  white-space: nowrap;     /* 防止「搜尋」換行 */
+  word-break: keep-all;    /* 強制中文字不拆行 */
+  flex: 0 0 4rem;          /* 固定 64px，文字右緣約 256px < pill clip 起點 260px，完全在安全區內 */
+  min-width: 4rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-search-submit:hover {
+  background: var(--yr-color-brand-hover);
 }
 
 .navbar-search-dropdown {

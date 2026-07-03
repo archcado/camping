@@ -6,7 +6,7 @@
     "phone": "02-8789-1234",
     "hours": "週一至週日 10:00–20:00",
     "image": "https://picsum.photos/seed/store1/600/400",
-    "latitude": 25.0330,
+    "latitude": 25.033,
     "longitude": 121.5654,
     "mapQuery": "台北市信義區信義路五段100號",
     "features": ["體驗區", "專業諮詢", "租借服務", "停車場"],

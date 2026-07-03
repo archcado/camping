@@ -86,11 +86,34 @@
   color: #faf7ed;
 }
 
-.yr-theme .ad-carousel-dot {
-  background: rgba(116, 132, 111, 0.4);
+.yr-products-page .ad-carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.yr-theme .ad-carousel-dot.active {
+.yr-products-page .ad-carousel-dot {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(116, 132, 111, 0.4);
+  line-height: 0;
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+.yr-products-page .ad-carousel-dot.active {
+  width: 26px;
+  height: 8px;
+  border-radius: 999px;
   background: #74846f;
 }
 

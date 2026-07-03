@@ -1,5 +1,5 @@
 .yr-camp-search-page .hero-banner {
-  min-height: clamp(34rem, 64vh, 44rem);
+  min-height: clamp(26rem, 48vh, 32rem); /* 桌機 1440×900: 48vh=432px vs 舊 64vh=576px，減少約 144px */
 }
 
 .yr-camp-search-page .yr-hero-shell--booking {
@@ -15,7 +15,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-block: clamp(4.5rem, 8vw, 7rem);
+  padding-block: clamp(3rem, 5vw, 4.5rem); /* 桌機 1440px: 72px×2 vs 舊 112px×2，減少約 80px */
 }
 
 .yr-camp-search-page .hero-banner .search-bar-section {
@@ -299,7 +299,7 @@
   }
 
   .yr-camp-search-page .hero-content {
-    padding-block: clamp(4rem, 8vw, 5.5rem);
+    padding-block: clamp(2.5rem, 5vw, 4rem); /* 1024px: 5vw=51px vs 舊 8vw=82px */
   }
 
   .yr-camp-search-page .hero-banner .search-bar {
@@ -314,11 +314,11 @@
 
 @media (width <= 768px) {
   .yr-camp-search-page .hero-banner {
-    min-height: clamp(30rem, 62vh, 38rem);
+    min-height: auto; /* 手機版：搜尋欄單列，高度由內容自然撐開，不強制固定視窗比例 */
   }
 
   .yr-camp-search-page .hero-content {
-    padding-block: clamp(2.5rem, 9vw, 3.25rem);
+    padding-block: clamp(2rem, 7vw, 3rem); /* 768px: 7vw=54px → max 3rem=48px per side */
   }
 
   .yr-camp-search-page .hero-banner .search-bar {

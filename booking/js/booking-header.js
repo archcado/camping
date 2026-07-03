@@ -8,6 +8,7 @@
   var campPreferenceCompletedInSession = false;
   var CAMP_PREFERENCE_COMPLETED_KEY = 'campPreferencesCompleted';
   var CAMP_PREFERENCE_ANSWERS_KEY = 'campPreferenceAnswers';
+  var BOOKING_CART_UPDATED_EVENT = 'bookingCartUpdated';
 
   /**
    * Creates the toast container when booking utility scripts are not loaded yet.
@@ -59,14 +60,32 @@
   }
 
   /**
+   * Converts values to finite numbers and falls back safely when invalid.
+   */
+  function toSafeFiniteNumber(value, fallback) {
+    var num = Number(value);
+    return isFinite(num) ? num : fallback;
+  }
+
+  /**
+   * Converts cart quantities to non-negative integers.
+   */
+  function toSafeCartQuantity(value) {
+    var qty = Math.floor(toSafeFiniteNumber(value, 0));
+    return qty > 0 ? qty : 0;
+  }
+
+  /**
    * Counts the total selected booking and rental items stored in the cart.
    */
   function getBookingCartTotal(cart) {
-    var zoneCount = (cart.selected_zones || []).reduce(function (sum, zone) {
-      return sum + (zone.quantity || 0);
+    var zones = Array.isArray(cart && cart.selected_zones) ? cart.selected_zones : [];
+    var rentals = Array.isArray(cart && cart.selected_rentals) ? cart.selected_rentals : [];
+    var zoneCount = zones.reduce(function (sum, zone) {
+      return sum + toSafeCartQuantity(zone.quantity);
     }, 0);
-    var rentalCount = (cart.selected_rentals || []).reduce(function (sum, rental) {
-      return sum + (rental.quantity || 0);
+    var rentalCount = rentals.reduce(function (sum, rental) {
+      return sum + toSafeCartQuantity(rental.quantity);
     }, 0);
     return zoneCount + rentalCount;
   }
@@ -665,8 +684,7 @@
       clearBtn.addEventListener('click', function () {
         showConfirmToast('確定要清空預約背包嗎？', function () {
           localStorage.removeItem('bookingCart');
-          updateBookingBadge();
-          renderCartPanel();
+          window.dispatchEvent(new CustomEvent(BOOKING_CART_UPDATED_EVENT));
         });
       });
     }
@@ -756,6 +774,17 @@
   }
 
   /**
+   * Handles same-tab bookingCart updates and refreshes badge + open cart panel.
+   */
+  function handleBookingCartUpdated() {
+    updateBookingBadge();
+    var cartPanel = document.getElementById('cartPanel');
+    if (cartPanel && cartPanel.classList.contains('is-open')) {
+      renderCartPanel();
+    }
+  }
+
+  /**
    * Refreshes booking header user UI after shared auth events.
    */
   function handleAuthChanged() {
@@ -817,6 +846,7 @@
     });
     document.addEventListener('keydown', handleEscapeKey);
     window.addEventListener('storage', handleStorageChange);
+    window.addEventListener(BOOKING_CART_UPDATED_EVENT, handleBookingCartUpdated);
     window.addEventListener('yurui:auth-changed', handleAuthChanged);
   }
 

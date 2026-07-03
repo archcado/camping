@@ -8,17 +8,22 @@
  *   ⑤ 結帳成功後清除 LocalStorage，顯示導購橫幅
  */
 
+var BOOKING_CART_STORAGE_KEY = 'bookingCart';
+var BOOKING_CART_UPDATED_EVENT = 'bookingCartUpdated';
+
 $(document).ready(function () {
-
-  const stored = localStorage.getItem('bookingCart');
-
-  if (!stored) {
+  var cartState = readBookingCartState();
+  if (cartState.status === 'missing') {
     showToast('購物車資料為空，請重新選擇。', 'warning');
     window.location.href = './booking-cart.html';
     return;
   }
-
-  const bookingCart = JSON.parse(stored);
+  if (cartState.status === 'invalid') {
+    showToast('購物車資料異常，請重新選擇。', 'warning');
+    window.location.href = './booking-cart.html';
+    return;
+  }
+  const bookingCart = cartState.cart;
 
   renderCheckoutPage(bookingCart);
   initAccordionPanels();
@@ -27,7 +32,6 @@ $(document).ready(function () {
   $('#confirmPayBtn').on('click', function () {
     handleCheckout(bookingCart);
   });
-
 });
 
 // ============================================================
@@ -35,31 +39,35 @@ $(document).ready(function () {
 // ============================================================
 
 function renderCheckoutPage(cart) {
-  const info    = cart.booking_info;
-  const zones   = cart.selected_zones;
-  const rentals = cart.selected_rentals;
-  const summary = cart.summary;
+  const info = isPlainObject(cart.booking_info) ? cart.booking_info : {};
+  const zones = Array.isArray(cart.selected_zones) ? cart.selected_zones : [];
+  const rentals = Array.isArray(cart.selected_rentals) ? cart.selected_rentals : [];
+  const summary = normalizeSummary(cart.summary);
 
   // 住宿資訊
-  const zoneRowsHTML = zones.map(z => `
+  const zoneRowsHTML = zones
+    .map(
+      (z) => `
     <div class="detail-row">
       <span>
-        <strong>${info.campground_name}</strong>・${z.zone_type}・×${z.quantity} 個營位
+        <strong>${String(info.campground_name || '')}</strong>・${String(z.zone_type || '')}・×${toSafeCount(z.quantity)} 個營位
       </span>
-      <span><strong>NT$${z.subtotal.toLocaleString()}</strong></span>
+      <span><strong>NT$${toSafeMoney(z.subtotal).toLocaleString()}</strong></span>
     </div>
-  `).join('');
+  `
+    )
+    .join('');
 
   $('#stayDetail').html(`
     <div class="detail-row detail-row--meta">
       <i class="bi bi-calendar3"></i>
-      ${info.check_in} ～ ${info.check_out}
-      （${info.total_days} 晚｜平日 ${info.weekday_count} 晚、假日 ${info.holiday_count} 晚）
+      ${String(info.check_in || '')} ～ ${String(info.check_out || '')}
+      （${toSafeCount(info.total_days)} 晚｜平日 ${toSafeCount(info.weekday_count)} 晚、假日 ${toSafeCount(info.holiday_count)} 晚）
     </div>
     <div class="detail-row detail-row--meta">
-      <i class="bi bi-geo-alt"></i> ${info.region}
+      <i class="bi bi-geo-alt"></i> ${String(info.region || '')}
       &nbsp;&nbsp;
-      <i class="bi bi-people"></i> ${info.guest_count} 人
+      <i class="bi bi-people"></i> ${toSafeCount(info.guest_count)} 人
     </div>
     ${zoneRowsHTML}
   `);
@@ -68,12 +76,16 @@ function renderCheckoutPage(cart) {
   if (!rentals || rentals.length === 0) {
     $('#rentalDetail').html('<p class="no-rental">本次未選擇租借裝備。</p>');
   } else {
-    const rentalRowsHTML = rentals.map(r => `
+    const rentalRowsHTML = rentals
+      .map(
+        (r) => `
       <div class="detail-row">
-        <span>${r.name} ×${r.quantity}</span>
-        <span><strong>NT$${r.subtotal.toLocaleString()}</strong></span>
+        <span>${String(r.name || '')} ×${toSafeCount(r.quantity)}</span>
+        <span><strong>NT$${toSafeMoney(r.subtotal).toLocaleString()}</strong></span>
       </div>
-    `).join('');
+    `
+      )
+      .join('');
     $('#rentalDetail').html(rentalRowsHTML);
   }
 
@@ -81,11 +93,11 @@ function renderCheckoutPage(cart) {
   let breakdownHTML = `
     <div class="cost-row">
       <span>住宿費</span>
-      <span>NT$${summary.zone_total.toLocaleString()}</span>
+      <span>NT$${toSafeMoney(summary.zone_total).toLocaleString()}</span>
     </div>
     <div class="cost-row">
       <span>裝備租借費</span>
-      <span>NT$${summary.rental_total.toLocaleString()}</span>
+      <span>NT$${toSafeMoney(summary.rental_total).toLocaleString()}</span>
     </div>
   `;
 
@@ -93,13 +105,13 @@ function renderCheckoutPage(cart) {
     breakdownHTML += `
       <div class="cost-row cost-row--discount">
         <span><i class="bi bi-tag"></i> 租借折扣優惠</span>
-        <span>-NT$${summary.applied_discount.toLocaleString()}</span>
+        <span>-NT$${toSafeMoney(summary.applied_discount).toLocaleString()}</span>
       </div>
     `;
   }
 
   $('#costBreakdown').html(breakdownHTML);
-  $('#finalAmount').text(`NT$${summary.final_amount.toLocaleString()}`);
+  $('#finalAmount').text(`NT$${toSafeMoney(summary.final_amount).toLocaleString()}`);
 }
 
 // ============================================================
@@ -111,16 +123,21 @@ window.onBookingHeaderReady = function () {
 };
 
 function initLoginGuard() {
-
   function isLoggedIn() {
     try {
       var user = JSON.parse(localStorage.getItem('yuruiUser'));
       return !!(user && user.name);
-    } catch (e) { return false; }
+    } catch (e) {
+      return false;
+    }
   }
 
-  function showNotice() { $('#loginNotice').slideDown(250); }
-  function hideNotice() { $('#loginNotice').slideUp(250); }
+  function showNotice() {
+    $('#loginNotice').addClass('isVisible');
+  }
+  function hideNotice() {
+    $('#loginNotice').removeClass('isVisible');
+  }
 
   if (!isLoggedIn()) {
     setTimeout(function () {
@@ -151,7 +168,7 @@ function initLoginGuard() {
 function initAccordionPanels() {
   $('.bk-panel__header').on('click', function () {
     const $panel = $(this).closest('.bk-panel');
-    const $body  = $panel.find('> .bk-panel__body');
+    const $body = $panel.find('> .bk-panel__body');
     const isOpen = $panel.hasClass('is-open');
 
     if (isOpen) {
@@ -169,12 +186,11 @@ function initAccordionPanels() {
 // ============================================================
 
 function initPaymentMethod() {
-
   $('input[name="paymentMethod"]').on('change', function () {
     const val = $(this).val();
 
     $('#payOptCredit').toggleClass('is-selected', val === 'credit');
-    $('#payOptLine').toggleClass('is-selected',   val === 'linepay');
+    $('#payOptLine').toggleClass('is-selected', val === 'linepay');
 
     if (val === 'credit') {
       $('#creditCardSection').slideDown(200);
@@ -205,7 +221,6 @@ function initPaymentMethod() {
 // ============================================================
 
 function handleCheckout(cart) {
-
   try {
     var u = JSON.parse(localStorage.getItem('yuruiUser'));
     if (!u || !u.name) {
@@ -217,7 +232,7 @@ function handleCheckout(cart) {
     return;
   }
 
-  const name  = $('#contactName').val().trim();
+  const name = $('#contactName').val().trim();
   const phone = $('#contactPhone').val().trim();
   const email = $('#contactEmail').val().trim();
 
@@ -236,9 +251,9 @@ function handleCheckout(cart) {
 
   const paymentMethod = $('input[name="paymentMethod"]:checked').val();
   if (paymentMethod === 'credit') {
-    const cardNum    = $('#cardNumber').val().replace(/\s/g, '');
+    const cardNum = $('#cardNumber').val().replace(/\s/g, '');
     const cardExpiry = $('#cardExpiry').val().trim();
-    const cardCvv    = $('#cardCvv').val().trim();
+    const cardCvv = $('#cardCvv').val().trim();
     if (cardNum.length < 16) {
       highlightError('#cardNumber', '請填寫完整的信用卡卡號（16 位）');
       return;
@@ -255,14 +270,12 @@ function handleCheckout(cart) {
 
   const payload = {
     ...cart,
-    contact:        { name, phone, email },
+    contact: { name, phone, email },
     payment_method: paymentMethod,
-    submitted_at:   new Date().toISOString()
+    submitted_at: new Date().toISOString(),
   };
 
-  $('#confirmPayBtn')
-    .prop('disabled', true)
-    .html('<i class="bi bi-hourglass-split"></i> 送出中...');
+  $('#confirmPayBtn').prop('disabled', true).html('<i class="bi bi-hourglass-split"></i> 送出中...');
 
   // TODO: 未來替換為 fetch Java 後端 API
   // POST /api/bookings → { success: true, booking_id: 'BK202606110001' }
@@ -278,8 +291,8 @@ function handleCheckout(cart) {
 // ============================================================
 
 function onCheckoutSuccess() {
-
-  localStorage.removeItem('bookingCart');
+  localStorage.removeItem(BOOKING_CART_STORAGE_KEY);
+  window.dispatchEvent(new CustomEvent(BOOKING_CART_UPDATED_EVENT));
   console.log('[booking-checkout] bookingCart 已清除');
 
   $('#confirmPayBtn')
@@ -287,7 +300,7 @@ function onCheckoutSuccess() {
     .addClass('btn--outline')
     .html('<i class="bi bi-check-circle-fill"></i> ✓ 預約已成功送出')
     .prop('disabled', true)
-    .css({ 'color': 'var(--bk-success)', 'border-color': 'var(--bk-success)' });
+    .css({ color: 'var(--bk-success)', 'border-color': 'var(--bk-success)' });
 
   $('#backToCartLink').hide();
   $('#upsellBanner').slideDown(400);
@@ -306,4 +319,68 @@ function highlightError(selector, message) {
   $input.focus();
   setTimeout(() => $input.css('border-color', ''), 2000);
   showToast(message, 'warning');
+}
+
+function isPlainObject(value) {
+  return !!value && Object.prototype.toString.call(value) === '[object Object]';
+}
+
+function toSafeFiniteNumber(value, fallback) {
+  var num = Number(value);
+  return isFinite(num) ? num : fallback;
+}
+
+function toSafeMoney(value) {
+  var amount = Math.floor(toSafeFiniteNumber(value, 0));
+  return amount >= 0 ? amount : 0;
+}
+
+function toSafeCount(value) {
+  var qty = Math.floor(toSafeFiniteNumber(value, 0));
+  return qty > 0 ? qty : 0;
+}
+
+function normalizeSummary(summary) {
+  var source = isPlainObject(summary) ? summary : {};
+  return {
+    zone_total: toSafeMoney(source.zone_total),
+    rental_total: toSafeMoney(source.rental_total),
+    applied_discount: toSafeMoney(source.applied_discount),
+    final_amount: toSafeMoney(source.final_amount)
+  };
+}
+
+function normalizeBookingCart(raw) {
+  if (!isPlainObject(raw)) return null;
+  return {
+    booking_info: isPlainObject(raw.booking_info) ? raw.booking_info : {},
+    selected_zones: Array.isArray(raw.selected_zones) ? raw.selected_zones : [],
+    selected_rentals: Array.isArray(raw.selected_rentals) ? raw.selected_rentals : [],
+    summary: normalizeSummary(raw.summary)
+  };
+}
+
+function readBookingCartState() {
+  var raw = localStorage.getItem(BOOKING_CART_STORAGE_KEY);
+  var parsed = null;
+  var normalized = null;
+
+  if (raw === null) {
+    return { status: 'missing', cart: null };
+  }
+
+  try {
+    parsed = JSON.parse(raw);
+  } catch (error) {
+    console.error('Unable to read bookingCart: invalid JSON.');
+    return { status: 'invalid', cart: null };
+  }
+
+  normalized = normalizeBookingCart(parsed);
+  if (!normalized) {
+    console.error('Unable to read bookingCart: invalid top-level schema.');
+    return { status: 'invalid', cart: null };
+  }
+
+  return { status: 'valid', cart: normalized };
 }

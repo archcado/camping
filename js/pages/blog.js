@@ -15,6 +15,41 @@ let _allArticles = [];        // 全部文章 All articles
 let _currentCategory = 'all'; // 目前選中的分類 Current selected category
 let _featuredArticle = null;  // 精選文章 Featured article
 
+function _findCategoryTab(category) {
+  const buttons = document.querySelectorAll('#categoryTabs .filter-btn');
+  return Array.from(buttons).find(btn => btn.dataset.cat === category) || null;
+}
+
+function _syncThemeCards(category) {
+  const cards = document.querySelectorAll('.yr-blog-theme-card');
+  cards.forEach(card => {
+    const isActive = category !== 'all' && card.dataset.blogCategory === category;
+    card.classList.toggle('is-active', isActive);
+    card.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
+function _scrollToCategoryTabs() {
+  const categoryTabs = document.getElementById('categoryTabs');
+  if (!categoryTabs) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  categoryTabs.scrollIntoView({
+    behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    block: 'start',
+  });
+}
+
+function _activateThemeCategory(category) {
+  if (!category) return;
+
+  const tab = _findCategoryTab(category);
+  if (!tab) return;
+
+  tab.click();
+  _scrollToCategoryTabs();
+}
+
 // ========================================
 // 工具函數 Utility Functions
 // ========================================
@@ -168,6 +203,7 @@ function _filterByCategory(category) {
       btn.classList.remove('active');
     }
   });
+  _syncThemeCards(category);
 
   // 過濾文章（排除精選文章，精選文章已顯示在上方）
   // Filter articles (excluding featured article, which is shown above)
@@ -249,7 +285,7 @@ window.initBlogPage = async function () {
   // 綁定分類篩選按鈕點擊事件
   // Bind category filter button click events
   const categoryTabs = document.getElementById('categoryTabs');
-  if (categoryTabs) {
+  if (categoryTabs && categoryTabs.dataset.blogBound !== 'true') {
     categoryTabs.addEventListener('click', function (e) {
       // 找到被點擊的 filter-btn
       // Find the clicked filter button
@@ -259,7 +295,21 @@ window.initBlogPage = async function () {
       const cat = btn.dataset.cat; // 取得分類值 Get category value
       _filterByCategory(cat);
     });
+    categoryTabs.dataset.blogBound = 'true';
   }
+
+  const blogThemesRail = document.getElementById('blogThemesRail');
+  if (blogThemesRail && blogThemesRail.dataset.blogBound !== 'true') {
+    blogThemesRail.addEventListener('click', function (e) {
+      const card = e.target.closest('.yr-blog-theme-card');
+      if (!card || !blogThemesRail.contains(card)) return;
+
+      _activateThemeCategory(card.dataset.blogCategory);
+    });
+    blogThemesRail.dataset.blogBound = 'true';
+  }
+
+  _filterByCategory(_currentCategory);
 
   console.log('✓ 部落格頁初始化完成 Blog page init done');
 };

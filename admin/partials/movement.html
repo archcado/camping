@@ -7,12 +7,38 @@
 <section class="yr-admin-movement-module">
 <div class="card shadow-sm border-0">
 
-  <!-- 卡片頂部：標題 -->
-  <div class="card-header bg-white border-0
-              d-flex justify-content-between align-items-center py-3">
-    <h6 class="fw-semibold mb-0">
-      <i class="fas fa-right-left me-2 text-muted"></i>庫存異動紀錄
-    </h6>
+  <!-- 卡片頂部：標題 + 篩選工具列 -->
+  <div class="card-header bg-white border-0 py-3">
+    <div class="d-flex flex-column gap-3">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h6 class="fw-semibold mb-0">
+          <i class="fas fa-right-left me-2 text-muted"></i>庫存異動紀錄
+        </h6>
+        <p class="mb-0 small text-muted" id="movementResultCount" aria-live="polite">顯示 0 筆異動</p>
+      </div>
+
+      <div class="d-flex justify-content-start align-items-center flex-wrap gap-2">
+        <div class="d-flex align-items-center flex-nowrap gap-2">
+          <div class="btn-group btn-group-sm" id="movementPeriodBtns" role="group" aria-label="異動期間篩選">
+            <button type="button" class="btn btn-outline-secondary" data-days="7">近 7 天</button>
+            <button type="button" class="btn btn-outline-secondary active" data-days="30">近 30 天</button>
+            <button type="button" class="btn btn-outline-secondary" data-days="month">本月</button>
+            <button type="button" class="btn btn-outline-secondary" data-days="90">近 3 個月</button>
+            <button type="button" class="btn btn-outline-secondary" data-days="custom">
+              <i class="fas fa-calendar-alt me-1"></i>自定義
+            </button>
+          </div>
+          <input type="text" id="movementDateRangePicker"
+                 class="form-control form-control-sm flex-shrink-0"
+                 style="width: 176px; display: none; white-space: nowrap;"
+                 placeholder="開始日期 ~ 結束日期" readonly>
+          <span class="text-muted small" id="movementPeriodLabel"></span>
+        </div>
+        <button id="btnClearMovementSort" class="btn btn-sm btn-outline-secondary d-none">
+          <i class="fas fa-rotate-left me-1"></i>清除條件
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- 表格容器 -->
@@ -21,11 +47,30 @@
       <table class="table table-hover mb-0" id="movementTable">
         <thead class="table-light">
           <tr>
-            <th>連結</th>
-            <th>異動日期</th>
-            <th>負責員工 ID</th>
+            <th>異動編號</th>
+            <th class="sortable-th" data-sort-key="date">
+              異動日期 <i class="fas fa-sort sort-icon ms-1"></i>
+            </th>
+            <th class="filter-th" data-filter-key="employeeId">
+              負責員工 ID
+              <i class="fas fa-filter filter-icon ms-1"></i>
+              <span class="filter-dot d-none"></span>
+              <div class="filter-dropdown d-none"></div>
+            </th>
             <th>明細筆數</th>
-            <th>異動性質</th>
+            <th class="filter-th" data-filter-key="movementType">
+              異動性質
+              <i class="fas fa-filter filter-icon ms-1"></i>
+              <span class="filter-dot d-none"></span>
+              <div class="filter-dropdown d-none">
+                <label><input type="checkbox" value="進貨"> 進貨</label>
+                <label><input type="checkbox" value="移轉"> 移轉</label>
+                <label><input type="checkbox" value="調撥"> 調撥</label>
+                <label><input type="checkbox" value="營地互轉"> 營地互轉</label>
+                <label><input type="checkbox" value="損耗"> 損耗</label>
+                <label><input type="checkbox" value="—"> 未分類</label>
+              </div>
+            </th>
           </tr>
         </thead>
         <!-- tbody 由 movement.js 的 renderMovementTable() 動態填入 -->

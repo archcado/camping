@@ -10,6 +10,19 @@
  */
 
 var PRODUCT_IMAGE_PLACEHOLDER = 'https://placehold.co/48x48/cccccc/555555?text=No+Image';
+var PRODUCT_REQUIRED_SELECTORS = [
+  '#productsSearchInput',
+  '#productsCategoryFilter',
+  '#productsStatusFilter',
+  '#productsStockFilter',
+  '#productsSortSelect',
+  '#productsClearFilters',
+  '#productsResultCount',
+  '#productsTable',
+  '#productsTableBody',
+  '#rentalProductsTable',
+  '#rentalProductsTableBody',
+];
 
 // 商店主倉固定 ID 與顯示名稱
 // Store main warehouse ID and display label
@@ -79,6 +92,14 @@ var PRODUCT_MIN_STOCK_DEFAULT = 5;
 // 租借待處理的庫存異動明細（與商店的 pendingMovementItems 分開追蹤）
 // Pending rental movement items, tracked separately from store items
 var pendingRentalMovementItems = [];
+var productViewState = {
+  activeView: 'store',
+  searchQuery: '',
+  category: '',
+  status: '',
+  stock: '',
+  sortBy: 'default',
+};
 
 /**
  * 取得指定商品、指定分店 / 營地的最低庫存閾值。
@@ -218,8 +239,21 @@ window.initProducts = function () {
   // 切換到商品頁時，最低庫存模式重置為正常模式，避免狀態殘留
   // Reset min-stock mode when navigating back to products page
   isMinStockMode = false;
+  productViewState.activeView = 'store';
+  productViewState.searchQuery = '';
+  productViewState.category = '';
+  productViewState.status = '';
+  productViewState.stock = '';
+  productViewState.sortBy = 'default';
+
+  if (!validateProductsDom()) {
+    return;
+  }
+
+  resetProductsFilterInputs();
 
   bindProductViewTabs();
+  bindProductsFilters();
 
   // ── 讀取並消費 pendingNavFilter（從 KPI 卡片「低庫存商品」跳來時） ──
   var _showLowStock = false;
@@ -1027,8 +1061,46 @@ function bindProductViewTabs() {
   });
 }
 
+function bindProductsFilters() {
+  $(document).on('input.products', '#productsSearchInput', function () {
+    productViewState.searchQuery = String($(this).val() || '').trim().toLowerCase();
+    renderActiveProductView();
+  });
+
+  $(document).on('change.products', '#productsCategoryFilter', function () {
+    productViewState.category = String($(this).val() || '').trim();
+    renderActiveProductView();
+  });
+
+  $(document).on('change.products', '#productsStatusFilter', function () {
+    productViewState.status = String($(this).val() || '').trim();
+    renderActiveProductView();
+  });
+
+  $(document).on('change.products', '#productsStockFilter', function () {
+    productViewState.stock = String($(this).val() || '').trim();
+    renderActiveProductView();
+  });
+
+  $(document).on('change.products', '#productsSortSelect', function () {
+    productViewState.sortBy = String($(this).val() || 'default').trim() || 'default';
+    renderActiveProductView();
+  });
+
+  $(document).on('click.products', '#productsClearFilters', function () {
+    productViewState.searchQuery = '';
+    productViewState.category = '';
+    productViewState.status = '';
+    productViewState.stock = '';
+    productViewState.sortBy = 'default';
+    resetProductsFilterInputs();
+    renderActiveProductView();
+  });
+}
+
 function switchProductView(view) {
   var nextView = view === 'rental' ? 'rental' : 'store';
+  productViewState.activeView = nextView;
 
   $('.admin-product-tab').removeClass('active').attr('aria-selected', 'false');
 
@@ -1043,6 +1115,8 @@ function switchProductView(view) {
 
   if (nextView === 'rental') {
     loadRentalProducts();
+  } else {
+    renderProductsTable(adminProductsCache);
   }
 }
 
@@ -3614,10 +3688,13 @@ function escapeHtml(value) {
  * @param {Array} products - products.json 的資料陣列
  */
 function renderProductsTable(products) {
-  if (!products || products.length === 0) {
+  var visibleProducts = prepareVisibleStoreProducts(products);
+
+  if (!visibleProducts || visibleProducts.length === 0) {
     $('#productsTableBody').html(
       '<tr><td colspan="10" class="text-center text-muted py-4">目前沒有商品</td></tr>'
     );
+    syncProductsToolbarUi('store', products || [], 0);
     updateMovementGenerateButtonState();
     if (typeof window.applyEditPermission === 'function') {
       window.applyEditPermission('products', $('#contentArea'));
@@ -3625,13 +3702,14 @@ function renderProductsTable(products) {
     return;
   }
 
-  var html = products
+  var html = visibleProducts
     .map(function (p) {
       return buildProductRow(p);
     })
     .join('');
 
   $('#productsTableBody').html(html);
+  syncProductsToolbarUi('store', products || [], visibleProducts.length);
   updateMovementGenerateButtonState();
 
   if (typeof window.applyEditPermission === 'function') {
@@ -3642,12 +3720,13 @@ function renderProductsTable(products) {
 // 將租借商品快取渲染到租借表格，只顯示已啟用租借的商品。
 // Render rental table; only show rentals whose store product has rentalEnabled.
 function renderRentalProductsTable(rentals) {
-  var visibleRentals = filterEnabledRentals(rentals);
+  var visibleRentals = prepareVisibleRentals(rentals);
 
   if (!visibleRentals || visibleRentals.length === 0) {
     $('#rentalProductsTableBody').html(
       '<tr><td colspan="12" class="text-center text-muted py-4">目前沒有租借商品</td></tr>'
     );
+    syncProductsToolbarUi('rental', rentals || [], 0);
     return;
   }
 
@@ -3658,8 +3737,255 @@ function renderRentalProductsTable(rentals) {
     .join('');
 
   $('#rentalProductsTableBody').html(html);
+  syncProductsToolbarUi('rental', rentals || [], visibleRentals.length);
 
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('products', $('#contentArea'));
   }
+}
+
+function renderActiveProductView() {
+  if (productViewState.activeView === 'rental') {
+    renderRentalProductsTable(adminRentalsCache);
+    return;
+  }
+  renderProductsTable(adminProductsCache);
+}
+
+function prepareVisibleStoreProducts(products) {
+  return sortProductsForView(filterProductsForView(products || [], 'store'), 'store');
+}
+
+function prepareVisibleRentals(rentals) {
+  return sortProductsForView(filterProductsForView(filterEnabledRentals(rentals || []), 'rental'), 'rental');
+}
+
+function filterProductsForView(items, view) {
+  return (items || []).filter(function (item) {
+    return matchesProductSearch(item, view) && matchesProductCategory(item) && matchesProductStatus(item, view) && matchesProductStock(item, view);
+  });
+}
+
+function sortProductsForView(items, view) {
+  var sortBy = productViewState.sortBy || 'default';
+  if (sortBy === 'default') {
+    return (items || []).slice();
+  }
+
+  var list = (items || []).slice();
+  list.sort(function (a, b) {
+    if (sortBy === 'name-asc') {
+      return normalizeProductSortText(getProductDisplayName(a)).localeCompare(normalizeProductSortText(getProductDisplayName(b)), 'zh-Hant');
+    }
+    if (sortBy === 'price-asc' || sortBy === 'price-desc') {
+      var priceA = getComparableProductPrice(a, view);
+      var priceB = getComparableProductPrice(b, view);
+      return sortBy === 'price-asc' ? priceA - priceB : priceB - priceA;
+    }
+    if (sortBy === 'stock-asc' || sortBy === 'stock-desc') {
+      var stockA = getComparableProductStock(a, view);
+      var stockB = getComparableProductStock(b, view);
+      return sortBy === 'stock-asc' ? stockA - stockB : stockB - stockA;
+    }
+    if (sortBy === 'updated-desc' || sortBy === 'updated-asc') {
+      var updatedA = getComparableProductUpdatedAt(a, view);
+      var updatedB = getComparableProductUpdatedAt(b, view);
+      return sortBy === 'updated-asc' ? updatedA - updatedB : updatedB - updatedA;
+    }
+    return 0;
+  });
+
+  return list;
+}
+
+function matchesProductSearch(item, view) {
+  if (!productViewState.searchQuery) {
+    return true;
+  }
+
+  var linkedStore = view === 'rental' ? findStoreProductByRentalId(item.id) : item;
+  var haystack = [
+    item.id,
+    item.sku,
+    item.productCode,
+    item.code,
+    item.name,
+    item.category,
+    item.spec,
+    linkedStore && linkedStore.id,
+    linkedStore && linkedStore.sku,
+    linkedStore && linkedStore.productCode,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return haystack.indexOf(productViewState.searchQuery) !== -1;
+}
+
+function matchesProductCategory(item) {
+  if (!productViewState.category) {
+    return true;
+  }
+  return String(item.category || '').trim() === productViewState.category;
+}
+
+function matchesProductStatus(item, view) {
+  if (!productViewState.status) {
+    return true;
+  }
+  return getComparableProductStatus(item, view) === productViewState.status;
+}
+
+function matchesProductStock(item, view) {
+  if (!productViewState.stock) {
+    return true;
+  }
+
+  var totalStock = getComparableProductStock(item, view);
+  var isLow = view === 'rental' ? isRentalProductLowStock(item) : isStoreProductLowStock(item);
+
+  if (productViewState.stock === 'out') {
+    return totalStock <= 0;
+  }
+  if (productViewState.stock === 'low') {
+    return totalStock > 0 && isLow;
+  }
+  if (productViewState.stock === 'normal') {
+    return totalStock > 0 && !isLow;
+  }
+  return true;
+}
+
+function syncProductsToolbarUi(view, items, visibleCount) {
+  if (productViewState.activeView !== view) {
+    return;
+  }
+
+  populateProductsCategoryFilter(items, view);
+  $('#productsResultCount').text(
+    view === 'rental' ? '顯示 ' + visibleCount + ' 筆租借商品' : '顯示 ' + visibleCount + ' 筆商品'
+  );
+
+  var hasFilters =
+    productViewState.searchQuery !== '' ||
+    productViewState.category !== '' ||
+    productViewState.status !== '' ||
+    productViewState.stock !== '' ||
+    productViewState.sortBy !== 'default';
+
+  $('#productsClearFilters').toggleClass('d-none', !hasFilters);
+}
+
+function populateProductsCategoryFilter(items, view) {
+  var categories = (items || [])
+    .map(function (item) {
+      return String(item.category || '').trim();
+    })
+    .filter(Boolean)
+    .sort(function (a, b) {
+      return a.localeCompare(b, 'zh-Hant');
+    });
+
+  var uniqueCategories = [];
+  categories.forEach(function (category) {
+    if (uniqueCategories.indexOf(category) === -1) {
+      uniqueCategories.push(category);
+    }
+  });
+
+  var $filter = $('#productsCategoryFilter');
+  if (!$filter.length) {
+    return;
+  }
+
+  var currentValue = productViewState.category;
+  var options = ['<option value="">全部分類</option>'].concat(
+    uniqueCategories.map(function (category) {
+      return '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>';
+    })
+  );
+  $filter.html(options.join(''));
+
+  if (currentValue && uniqueCategories.indexOf(currentValue) === -1) {
+    productViewState.category = '';
+    currentValue = '';
+  }
+
+  $filter.val(currentValue);
+  $('#productsStatusFilter').val(productViewState.status);
+  $('#productsStockFilter').val(productViewState.stock);
+  $('#productsSortSelect').val(productViewState.sortBy);
+}
+
+function getComparableProductPrice(item, view) {
+  if (view === 'rental') {
+    var linkedStore = findStoreProductByRentalId(item.id);
+    return normalizeProductNumericValue(linkedStore && linkedStore.price);
+  }
+  return normalizeProductNumericValue(item.price);
+}
+
+function getComparableProductStock(item, view) {
+  return view === 'rental' ? getRentalTotalStock(item) : getProductTotalStock(item);
+}
+
+function getComparableProductStatus(item, view) {
+  var source = view === 'rental' ? findStoreProductByRentalId(item.id) || item : item;
+  return normalizeProductStatus(source && source.status);
+}
+
+function getComparableProductUpdatedAt(item, view) {
+  var source = view === 'rental' ? findStoreProductByRentalId(item.id) || item : item;
+  var raw = source && (source.updatedAt || source.createdAt);
+  if (!raw) {
+    return 0;
+  }
+  var parsed = new Date(raw);
+  return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime();
+}
+
+function getProductDisplayName(item) {
+  return String((item && item.name) || '').trim();
+}
+
+function normalizeProductSortText(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function normalizeProductNumericValue(value) {
+  var parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function normalizeProductStatus(value) {
+  return String(value || 'active').trim().toLowerCase() === 'disabled' ? 'disabled' : 'active';
+}
+
+function resetProductsFilterInputs() {
+  $('#productsSearchInput').val('');
+  $('#productsCategoryFilter').val('');
+  $('#productsStatusFilter').val('');
+  $('#productsStockFilter').val('');
+  $('#productsSortSelect').val('default');
+  $('#productsResultCount').text(productViewState.activeView === 'rental' ? '顯示 0 筆租借商品' : '顯示 0 筆商品');
+  $('#productsClearFilters').addClass('d-none');
+}
+
+function validateProductsDom() {
+  var missing = PRODUCT_REQUIRED_SELECTORS.filter(function (selector) {
+    return document.querySelector(selector) === null;
+  });
+
+  if (missing.length === 0) {
+    return true;
+  }
+
+  $('#contentArea').html(
+    '<div class="alert alert-danger d-flex align-items-center gap-2">' +
+      '<i class="fas fa-exclamation-triangle"></i>' +
+      '<span>商品模組載入失敗，缺少必要介面元素：' + escapeHtml(missing.join(', ')) + '</span>' +
+      '</div>'
+  );
+  return false;
 }

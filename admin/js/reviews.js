@@ -324,7 +324,9 @@ function renderStars(rating) {
   var html = '';
   var r = Number(rating) || 0;
   for (var i = 1; i <= 5; i++) {
-    html += i <= r ? '<i class="fas fa-star text-warning"></i>' : '<i class="far fa-star text-muted"></i>';
+    html += i <= r
+      ? '<i class="fas fa-star yr-admin-review-star yr-admin-review-star--filled"></i>'
+      : '<i class="far fa-star yr-admin-review-star yr-admin-review-star--empty"></i>';
   }
   return html;
 }
@@ -412,12 +414,12 @@ function renderReviewCards(reviews) {
         var avatarSrc = r.buyerAvatar || 'https://placehold.co/44x44/cccccc/555555?text=U';
 
         var actionBtn = isReplied
-          ? '<button type="button" class="btn btn-sm btn-outline-secondary btn-open-reply-modal"' +
+          ? '<button type="button" class="btn btn-sm yr-admin-review-action-btn btn-open-reply-modal"' +
             ' data-review-id="' +
             escapeHtml(r.id) +
             '" data-mode="edit">' +
             '<i class="fas fa-pen me-1"></i>編輯回覆</button>'
-          : '<button type="button" class="btn btn-sm btn-outline-success btn-open-reply-modal"' +
+          : '<button type="button" class="btn btn-sm yr-admin-review-action-btn btn-open-reply-modal"' +
             ' data-review-id="' +
             escapeHtml(r.id) +
             '" data-mode="create">' +

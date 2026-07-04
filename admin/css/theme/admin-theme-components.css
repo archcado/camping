@@ -938,9 +938,53 @@
 }
 
 .yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-code {
-  color: var(--yr-admin-primary-hover);
+  color: var(--yr-admin-primary-hover) !important;
+  background: var(--yr-admin-neutral-bg);
+  border: 1px solid var(--yr-admin-neutral-border);
+  border-radius: 6px;
+  padding: 0.16rem 0.45rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--active {
+  background: var(--yr-admin-state-sage-bg);
+  color: var(--yr-admin-state-sage-text);
+  border-color: var(--yr-admin-state-sage-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--expiring {
+  background: var(--yr-admin-state-warm-bg);
+  color: var(--yr-admin-state-warm-text);
+  border-color: var(--yr-admin-state-warm-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--disabled {
+  background: var(--yr-admin-state-neutral-bg);
+  color: var(--yr-admin-state-neutral-text);
+  border-color: var(--yr-admin-state-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--expired {
+  background: var(--yr-admin-state-danger-bg);
+  color: var(--yr-admin-state-danger-text);
+  border-color: var(--yr-admin-state-danger-border);
 }
 
 .yr-admin-dashboard-page .yr-admin-discounts-module .status-badge.bg-secondary {

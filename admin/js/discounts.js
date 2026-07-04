@@ -26,6 +26,65 @@ function formatDateDisplay(val) {
   return datePart + ' ' + (parts[1] || ''); // "2026/08/31 23:59"
 }
 
+function parseCouponDate(val) {
+  if (!val) return null;
+  var parsed = new Date(val);
+  if (!isNaN(parsed.getTime())) {
+    return parsed;
+  }
+
+  var normalized = String(val).replace(/\//g, '-');
+  parsed = new Date(normalized);
+  return isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function getCouponStatusMeta(coupon) {
+  var status = String((coupon && coupon.status) || '').toLowerCase();
+  var endDate = parseCouponDate(coupon && coupon.endDate);
+  var now = new Date();
+
+  if (status === 'disabled') {
+    return {
+      label: '已停用',
+      badgeClass: 'yr-admin-discount-status--disabled',
+    };
+  }
+
+  if (endDate && endDate.getTime() < now.getTime()) {
+    return {
+      label: '已失效',
+      badgeClass: 'yr-admin-discount-status--expired',
+    };
+  }
+
+  if (endDate) {
+    var msPerDay = 24 * 60 * 60 * 1000;
+    var daysToExpire = Math.ceil((endDate.getTime() - now.getTime()) / msPerDay);
+    if (daysToExpire <= 7) {
+      return {
+        label: '即將到期',
+        badgeClass: 'yr-admin-discount-status--expiring',
+      };
+    }
+  }
+
+  return {
+    label: '啟用中',
+    badgeClass: 'yr-admin-discount-status--active',
+  };
+}
+
+function renderCouponStatusBadge(coupon) {
+  var meta = getCouponStatusMeta(coupon);
+  return (
+    '<span class="status-badge yr-admin-discount-status ' +
+    meta.badgeClass +
+    '">' +
+    meta.label +
+    '</span>'
+  );
+}
+
 window.initDiscounts = function () {
   $(document).off('.discounts');
 
@@ -93,15 +152,19 @@ window.initDiscounts = function () {
     var $row = $btn.closest('tr');
     var code = $row.data('coupon-code');
     var isActive = $row.data('coupon-status') === 'active';
+    var couponStatus = isActive ? 'disabled' : 'active';
+
+    $row.data('coupon-status', couponStatus);
+    var badgeHtml = renderCouponStatusBadge({
+      status: couponStatus,
+      endDate: $row.data('coupon-end-date'),
+    });
+    $row.find('.status-badge').replaceWith(badgeHtml);
 
     if (isActive) {
-      $row.data('coupon-status', 'disabled');
-      $row.find('.status-badge').text('已停用').removeClass('bg-success').addClass('bg-secondary');
       $btn.text('啟用').removeClass('btn-outline-warning').addClass('btn-outline-success');
       window.showAdminToast('優惠券 ' + code + ' 已停用');
     } else {
-      $row.data('coupon-status', 'active');
-      $row.find('.status-badge').text('啟用中').removeClass('bg-secondary').addClass('bg-success');
       $btn.text('停用').removeClass('btn-outline-success').addClass('btn-outline-warning');
       window.showAdminToast('優惠券 ' + code + ' 已啟用');
     }
@@ -160,8 +223,10 @@ window.initDiscounts = function () {
     var newRow =
       '<tr data-coupon-code="' +
       code +
-      '" data-coupon-status="active">' +
-      '<td><code class="fw-bold">' +
+      '" data-coupon-status="active" data-coupon-end-date="' +
+      (endVal || '') +
+      '">' +
+      '<td><code class="fw-bold yr-admin-discount-code">' +
       code +
       '</code></td>' +
       '<td' +
@@ -182,7 +247,12 @@ window.initDiscounts = function () {
       '<td>' +
       formatDateDisplay(endVal) +
       '</td>' +
-      '<td><span class="badge bg-success status-badge">啟用中</span></td>' +
+      '<td>' +
+      renderCouponStatusBadge({
+        status: 'active',
+        endDate: endVal,
+      }) +
+      '</td>' +
       '<td>' +
       '<button class="btn btn-sm btn-outline-warning btn-toggle-coupon me-1">停用</button>' +
       '<button class="btn btn-sm btn-outline-danger btn-delete-coupon">刪除</button>' +
@@ -223,9 +293,7 @@ function renderCouponsTable(coupons) {
       var remainDisplay =
         remaining <= 5 ? '<span class="text-danger fw-bold">' + remaining + '</span>' : remaining;
 
-      var statusBadge = isActive
-        ? '<span class="badge bg-success status-badge">啟用中</span>'
-        : '<span class="badge bg-secondary status-badge">已停用</span>';
+      var statusBadge = renderCouponStatusBadge(coupon);
 
       var toggleBtn = isActive
         ? '<button class="btn btn-sm btn-outline-warning btn-toggle-coupon me-1">停用</button>'
@@ -236,8 +304,10 @@ function renderCouponsTable(coupons) {
         coupon.code +
         '" data-coupon-status="' +
         coupon.status +
+        '" data-coupon-end-date="' +
+        (coupon.endDate || '') +
         '">' +
-        '<td><code class="fw-bold">' +
+        '<td><code class="fw-bold yr-admin-discount-code">' +
         coupon.code +
         '</code></td>' +
         '<td class="admin-cell-amount">NT$ ' +

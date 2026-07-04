@@ -25,6 +25,10 @@ button, input, select, textarea {
   --container-wide:     min(1180px, 90%);
   --transition-slow:    1.7s ease;
   --transition-normal:  0.45s ease;
+  --yui-scrollbar-size: 8px;
+  --yui-scrollbar-track: transparent;
+  --yui-scrollbar-thumb: #aaa9a4;
+  --yui-scrollbar-thumb-hover: #8f8e89;
 }
 
 html {
@@ -36,6 +40,34 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.8;
+}
+
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--yui-scrollbar-thumb) var(--yui-scrollbar-track);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: var(--yui-scrollbar-size);
+  height: var(--yui-scrollbar-size);
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: var(--yui-scrollbar-track);
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: var(--yui-scrollbar-thumb);
+  border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--yui-scrollbar-thumb-hover);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -173,4 +205,3 @@ main {
   align-items: center;
   justify-content: center;
 }
-

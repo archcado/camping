@@ -66,77 +66,115 @@
        =================================================== -->
   <main class="yr-products-main" style="padding: 0 0 4rem 0;">
     <div class="container">
-      <div class="yr-products-shell" style="display:flex; gap:1.5rem; align-items:flex-start;">
+      <div class="yr-products-shell">
 
         <!-- =============================================
              步驟 5.1：PC 版篩選側邊欄
              在手機版會被隱藏（CSS .hidden-mobile for sidebar）
              ============================================= -->
-        <aside class="filter-sidebar yr-filter-sidebar" style="width:240px; flex-shrink:0;" id="filterSidebar">
+        <aside class="filter-sidebar yr-filter-sidebar" id="filterSidebar">
 
           <!-- 側邊欄標題 + 重置按鈕 -->
-          <div class="filter-sidebar-title">
-            篩選商品
-            <button class="filter-reset-btn" id="resetFiltersBtn" title="清除所有篩選">清除</button>
-          </div>
-
-          <!-- 篩選：分類 -->
-          <div class="filter-group">
-            <p class="filter-group-title">商品分類</p>
-            <ul class="filter-category-list" id="categoryFilterList">
-              <!-- 由 JS 動態生成 -->
-              <li>
-                <button class="filter-category-btn active" data-category="">全部</button>
-              </li>
-            </ul>
-          </div>
-
-          <!-- 篩選：價格範圍 -->
-          <div class="filter-group">
-            <p class="filter-group-title">價格範圍 (NT$)</p>
-            <div class="filter-price-range">
-              <div class="filter-price-inputs">
-                <input
-                  type="number"
-                  id="priceMin"
-                  placeholder="最低"
-                  min="0"
-                  aria-label="最低價格"
-                >
-                <span class="filter-price-sep">—</span>
-                <input
-                  type="number"
-                  id="priceMax"
-                  placeholder="最高"
-                  min="0"
-                  aria-label="最高價格"
-                >
-              </div>
-              <button
-                class="btn btn-outline btn-sm yr-btn yr-btn--secondary"
-                id="applyPriceBtn"
-                style="margin-top:0.5rem;"
+          <div class="filter-sidebar-title yr-product-filter-header">
+            <div class="yr-product-filter-heading">
+              <h2 class="yr-product-filter-title">篩選商品</h2>
+              <span
+                id="productFilterSummary"
+                class="yr-product-filter-summary"
+                aria-live="polite"
               >
-                套用
+                尚未選擇條件
+              </span>
+            </div>
+
+            <div class="yr-product-filter-actions">
+              <button
+                class="filter-reset-btn yr-product-filter-reset"
+                id="resetFiltersBtn"
+                type="button"
+                title="清除所有篩選"
+                disabled
+              >
+                清除
+              </button>
+
+              <button
+                id="productFilterToggle"
+                class="yr-product-filter-toggle"
+                type="button"
+                aria-expanded="true"
+                aria-controls="productFilterPanelBody"
+              >
+                <span class="yr-product-filter-toggle-label">收合篩選</span>
+                <i class="bi bi-chevron-up" aria-hidden="true"></i>
               </button>
             </div>
           </div>
 
-          <!-- 篩選：品牌（Checkbox 清單） -->
-          <div class="filter-group">
-            <p class="filter-group-title">品牌</p>
-            <ul class="filter-brand-list" id="brandFilterList">
-              <!-- 由 JS 動態生成 -->
-            </ul>
-          </div>
+          <div id="productFilterPanelBody" class="yr-product-filter-body">
+            <div class="yr-filter-panel-grid">
+              <!-- 篩選：分類 -->
+              <div class="filter-group yr-filter-panel-section yr-filter-group--category">
+                <p class="filter-group-title">商品分類</p>
+                <ul class="filter-category-list" id="categoryFilterList">
+                  <!-- 由 JS 動態生成 -->
+                  <li>
+                    <button class="filter-category-btn active" data-category="">全部</button>
+                  </li>
+                </ul>
+              </div>
 
-          <!-- 篩選：標籤快選 -->
-          <div class="filter-group">
-            <p class="filter-group-title">快選</p>
-            <ul class="filter-category-list">
-              <button class="filter-category-btn" data-tag="new" id="filterNewBtn"><i class="bi bi-stars" aria-hidden="true"></i> 最新商品</button>
-              <button class="filter-category-btn" data-tag="bestseller" id="filterBestBtn"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> 熱銷商品</button>
-            </ul>
+              <!-- 篩選：品牌（Checkbox 清單） -->
+              <div class="filter-group yr-filter-panel-section yr-filter-group--brand">
+                <p class="filter-group-title">品牌</p>
+                <ul class="filter-brand-list" id="brandFilterList">
+                  <!-- 由 JS 動態生成 -->
+                </ul>
+              </div>
+
+              <!-- 篩選：價格範圍 + 快選 -->
+              <div class="filter-group yr-filter-panel-section yr-filter-group--price">
+                <p class="filter-group-title">價格範圍 (NT$)</p>
+                <div class="filter-price-range">
+                  <div class="filter-price-inputs">
+                    <input
+                      type="number"
+                      id="priceMin"
+                      placeholder="最低"
+                      min="0"
+                      aria-label="最低價格"
+                    >
+                    <span class="filter-price-sep">—</span>
+                    <input
+                      type="number"
+                      id="priceMax"
+                      placeholder="最高"
+                      min="0"
+                      aria-label="最高價格"
+                    >
+                  </div>
+                  <button
+                    class="btn btn-outline btn-sm yr-btn yr-btn--secondary"
+                    id="applyPriceBtn"
+                    type="button"
+                  >
+                    套用
+                  </button>
+                </div>
+
+                <div class="yr-filter-subgroup">
+                  <p class="filter-group-title yr-filter-subtitle">快選</p>
+                  <ul class="filter-category-list">
+                    <li>
+                      <button class="filter-category-btn" data-tag="new" id="filterNewBtn"><i class="bi bi-stars" aria-hidden="true"></i> 最新商品</button>
+                    </li>
+                    <li>
+                      <button class="filter-category-btn" data-tag="bestseller" id="filterBestBtn"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> 熱銷商品</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
 
         </aside>
@@ -144,7 +182,7 @@
         <!-- =============================================
              步驟 5.2：商品主區域（工具列 + 網格）
              ============================================= -->
-        <div class="yr-products-content" style="flex:1; min-width:0;">
+        <div class="yr-products-content">
 
           <!-- 工具列：商品數量 + 排序下拉 -->
           <div class="product-list-toolbar yr-products-toolbar">

@@ -564,10 +564,12 @@ function validateMovementDom() {
   }
 
   $('#contentArea').html(
-    '<div class="alert alert-danger d-flex align-items-center gap-2">' +
-      '<i class="fas fa-exclamation-triangle"></i>' +
-      '<span>庫存異動模組載入失敗，缺少必要介面元素：' + escapeMovementHtml(missing.join(', ')) + '</span>' +
-      '</div>'
+    '<div class="alert yr-admin-alert yr-admin-alert--danger d-flex align-items-center gap-2" role="alert">' +
+      '<i class="fas fa-exclamation-triangle yr-admin-alert__icon" aria-hidden="true"></i>' +
+      '<span class="yr-admin-alert__content">' +
+        '<span class="yr-admin-alert__message">庫存異動模組載入失敗，缺少必要介面元素：' + escapeMovementHtml(missing.join(', ')) + '</span>' +
+      '</span>' +
+    '</div>'
   );
   return false;
 }

@@ -307,9 +307,11 @@ function loadSection(sectionName) {
     // 載入失敗時顯示錯誤訊息
     if (status === 'error') {
       $('#contentArea').html(`
-        <div class="alert alert-danger d-flex align-items-center gap-2">
-          <i class="fas fa-exclamation-triangle"></i>
-          <span>載入 <strong>${sectionName}</strong> 模組失敗，請重新整理頁面。</span>
+        <div class="alert yr-admin-alert yr-admin-alert--danger d-flex align-items-center gap-2" role="alert">
+          <i class="fas fa-exclamation-triangle yr-admin-alert__icon" aria-hidden="true"></i>
+          <span class="yr-admin-alert__content">
+            <span class="yr-admin-alert__message">載入 <strong>${sectionName}</strong> 模組失敗，請重新整理頁面。</span>
+          </span>
         </div>
       `);
       return;
@@ -362,32 +364,34 @@ function loadSection(sectionName) {
 window.showAdminToast = function (message, type = 'success') {
 
   // 顏色與圖示的對照表
-  const colorMap = {
-    success: 'bg-success',
-    error:   'bg-danger',
-    danger:  'bg-danger',
-    info:    'bg-info',
+  const toneMap = {
+    success: 'yr-admin-alert--success',
+    warning: 'yr-admin-alert--warning',
+    error:   'yr-admin-alert--danger',
+    danger:  'yr-admin-alert--danger',
+    info:    'yr-admin-alert--info',
   };
   const iconMap = {
     success: 'fa-check-circle',
+    warning: 'fa-circle-exclamation',
     error:   'fa-times-circle',
     danger:  'fa-times-circle',
     info:    'fa-info-circle',
   };
 
-  const bgClass  = colorMap[type] || colorMap.success;
+  const toneClass = toneMap[type] || toneMap.success;
   const iconClass = iconMap[type] || iconMap.success;
 
   // Toast HTML 結構（Bootstrap 5 原生 Toast 元件）
   const toastHtml = `
-    <div class="toast align-items-center text-white border-0 ${bgClass}"
+    <div class="toast align-items-center yr-admin-alert ${toneClass} yr-admin-toast"
          role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
-        <div class="toast-body d-flex align-items-center gap-2">
-          <i class="fas ${iconClass}"></i>
-          <span>${message}</span>
+        <div class="toast-body d-flex align-items-center gap-2 yr-admin-alert__content">
+          <i class="fas ${iconClass} yr-admin-alert__icon" aria-hidden="true"></i>
+          <span class="yr-admin-alert__message">${message}</span>
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+        <button type="button" class="btn-close me-2 m-auto yr-admin-alert__close"
                 data-bs-dismiss="toast" aria-label="關閉"></button>
       </div>
     </div>`;
@@ -402,6 +406,10 @@ window.showAdminToast = function (message, type = 'success') {
   }
 
   // 建立 Toast 並加到容器，然後顯示
+  const $container = $('#toastContainer');
+  if ($container.children('.toast').length >= 3) {
+    $container.children('.toast').first().remove();
+  }
   const $toast = $(toastHtml).appendTo('#toastContainer');
   const bsToast = new bootstrap.Toast($toast[0], {
     delay: 3000,    // 3 秒後自動消失

@@ -136,6 +136,119 @@
   color: var(--yr-admin-danger);
 }
 
+.yr-admin-login-page .yr-admin-alert,
+.yr-admin-dashboard-page .yr-admin-alert,
+#toastContainer .yr-admin-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border: 1px solid var(--yr-admin-border);
+  border-inline-start: 4px solid var(--yr-admin-border-strong);
+  border-radius: var(--yr-admin-radius-md);
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text);
+  padding: 0.625rem 0.75rem;
+  box-shadow: none;
+}
+
+.yr-admin-login-page .yr-admin-alert__icon,
+.yr-admin-dashboard-page .yr-admin-alert__icon,
+#toastContainer .yr-admin-alert__icon {
+  flex: 0 0 auto;
+  margin-top: 0.125rem;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.yr-admin-login-page .yr-admin-alert__content,
+.yr-admin-dashboard-page .yr-admin-alert__content,
+#toastContainer .yr-admin-alert__content {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: flex-start;
+}
+
+.yr-admin-login-page .yr-admin-alert__title,
+.yr-admin-dashboard-page .yr-admin-alert__title,
+#toastContainer .yr-admin-alert__title {
+  display: block;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.yr-admin-login-page .yr-admin-alert__message,
+.yr-admin-dashboard-page .yr-admin-alert__message,
+#toastContainer .yr-admin-alert__message {
+  display: block;
+  line-height: 1.45;
+}
+
+.yr-admin-login-page .yr-admin-alert__close,
+.yr-admin-dashboard-page .yr-admin-alert__close,
+#toastContainer .yr-admin-alert__close {
+  flex: 0 0 auto;
+  opacity: 0.6;
+}
+
+.yr-admin-login-page .yr-admin-alert__close:hover,
+.yr-admin-dashboard-page .yr-admin-alert__close:hover,
+#toastContainer .yr-admin-alert__close:hover {
+  opacity: 0.82;
+}
+
+.yr-admin-login-page .yr-admin-alert__close:focus-visible,
+.yr-admin-dashboard-page .yr-admin-alert__close:focus-visible,
+#toastContainer .yr-admin-alert__close:focus-visible {
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+  border-radius: 8px;
+}
+
+.yr-admin-login-page .yr-admin-alert--success,
+.yr-admin-dashboard-page .yr-admin-alert--success,
+#toastContainer .yr-admin-alert--success {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  border-inline-start-color: var(--yr-admin-success);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-login-page .yr-admin-alert--warning,
+.yr-admin-dashboard-page .yr-admin-alert--warning,
+#toastContainer .yr-admin-alert--warning {
+  background: var(--yr-admin-warning-bg);
+  border-color: var(--yr-admin-warning-border);
+  border-inline-start-color: var(--yr-admin-warning);
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-login-page .yr-admin-alert--danger,
+.yr-admin-dashboard-page .yr-admin-alert--danger,
+#toastContainer .yr-admin-alert--danger {
+  background: var(--yr-admin-danger-bg);
+  border-color: var(--yr-admin-danger-border);
+  border-inline-start-color: var(--yr-admin-danger);
+  color: var(--yr-admin-danger-text);
+}
+
+.yr-admin-login-page .yr-admin-alert--info,
+.yr-admin-dashboard-page .yr-admin-alert--info,
+#toastContainer .yr-admin-alert--info {
+  background: var(--yr-admin-info-bg);
+  border-color: var(--yr-admin-info-border);
+  border-inline-start-color: var(--yr-admin-info);
+  color: var(--yr-admin-info-text);
+}
+
+#toastContainer .yr-admin-toast {
+  width: min(380px, calc(100vw - 1.5rem));
+  max-width: 100%;
+}
+
+#toastContainer .yr-admin-toast .toast-body {
+  padding: 0;
+}
+
 .yr-admin-login-page .modal-content,
 .yr-admin-dashboard-page .modal-content {
   background: var(--yr-admin-surface);
@@ -836,36 +949,52 @@
   border-color: #b98379 !important;
 }
 
-.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-warning {
-  background: var(--yr-admin-surface) !important;
-  color: var(--yr-admin-state-warm-text) !important;
-  border: 1px solid #c8b38f !important;
-  border-radius: 9px !important;
-  min-height: 38px;
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 34px;
+  border-radius: 9px;
   font-weight: 600;
   box-shadow: none;
 }
 
-.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-warning:hover {
-  background: var(--yr-admin-state-warm-bg) !important;
-  color: #745a39 !important;
-  border-color: #a98a5d !important;
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action__icon {
+  font-size: 0.86rem;
+  opacity: 0.9;
 }
 
-.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-success {
-  background: var(--yr-admin-surface) !important;
-  color: var(--yr-admin-state-sage-text) !important;
-  border: 1px solid #8ea087 !important;
-  border-radius: 9px !important;
-  min-height: 38px;
-  font-weight: 600;
-  box-shadow: none;
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action--activate {
+  background: var(--yr-admin-action-activate-bg);
+  color: var(--yr-admin-action-activate);
+  border: 1px solid var(--yr-admin-primary);
 }
 
-.yr-admin-dashboard-page .btn-toggle-coupon.btn-outline-success:hover {
-  background: var(--yr-admin-state-sage-bg) !important;
-  color: #4f604b !important;
-  border-color: #6f8069 !important;
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action--activate:hover {
+  background: var(--yr-admin-primary-soft);
+  color: var(--yr-admin-action-activate-hover);
+  border-color: var(--yr-admin-action-activate-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action--deactivate {
+  background: var(--yr-admin-action-deactivate-bg);
+  color: var(--yr-admin-action-deactivate);
+  border: 1px solid var(--yr-admin-action-deactivate-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action--deactivate:hover {
+  background: var(--yr-admin-warning-bg);
+  color: var(--yr-admin-action-deactivate-hover);
+  border-color: var(--yr-admin-warning-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action:focus-visible {
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-action:disabled {
+  opacity: 0.66;
+  cursor: not-allowed;
 }
 
 .yr-admin-dashboard-page :is(
@@ -953,7 +1082,8 @@
 .yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 0.34rem;
   border-radius: 7px;
   border: 1px solid transparent;
   padding: 4px 8px;
@@ -963,25 +1093,30 @@
   white-space: nowrap;
 }
 
-.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--active {
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-status__icon {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-status--active {
   background: var(--yr-admin-state-sage-bg);
   color: var(--yr-admin-state-sage-text);
   border-color: var(--yr-admin-state-sage-border);
 }
 
-.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--expiring {
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-status--expiring {
   background: var(--yr-admin-state-warm-bg);
   color: var(--yr-admin-state-warm-text);
   border-color: var(--yr-admin-state-warm-border);
 }
 
-.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--disabled {
-  background: var(--yr-admin-state-neutral-bg);
-  color: var(--yr-admin-state-neutral-text);
-  border-color: var(--yr-admin-state-neutral-border);
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-status--inactive {
+  background: var(--yr-admin-status-inactive-bg);
+  color: var(--yr-admin-status-inactive-text);
+  border-color: var(--yr-admin-status-inactive-border);
 }
 
-.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-discount-status--expired {
+.yr-admin-dashboard-page .yr-admin-discounts-module .yr-admin-coupon-status--expired {
   background: var(--yr-admin-state-danger-bg);
   color: var(--yr-admin-state-danger-text);
   border-color: var(--yr-admin-state-danger-border);

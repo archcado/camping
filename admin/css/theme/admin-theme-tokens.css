@@ -60,6 +60,7 @@
   --yr-admin-primary-active: #596653;
   --yr-admin-primary-text: var(--yr-admin-foundation-text-on-brand);
   --yr-admin-primary-soft: var(--yr-admin-foundation-brand-pale);
+  --yr-admin-brand-soft: var(--yr-admin-foundation-brand-soft);
   /* note: primary text contrast may still be below 4.5:1 in some combinations (p2 a11y tune). */
 
   /* status base */
@@ -82,6 +83,16 @@
   --yr-admin-neutral-bg: #ece9e3;
   --yr-admin-neutral-border: #d3cec5;
   --yr-admin-neutral-text: #5f5c56;
+  --yr-admin-status-inactive-bg: var(--yr-admin-surface-subtle);
+  --yr-admin-status-inactive-text: var(--yr-admin-text-muted);
+  --yr-admin-status-inactive-border: var(--yr-admin-border);
+  --yr-admin-action-activate: var(--yr-admin-primary);
+  --yr-admin-action-activate-bg: var(--yr-admin-brand-soft);
+  --yr-admin-action-activate-hover: var(--yr-admin-primary-hover);
+  --yr-admin-action-deactivate: var(--yr-admin-text-muted);
+  --yr-admin-action-deactivate-bg: var(--yr-admin-surface-subtle);
+  --yr-admin-action-deactivate-hover: var(--yr-admin-warning-text);
+  --yr-admin-action-deactivate-border: var(--yr-admin-border-strong);
 
   /* shell */
   --yr-admin-sidebar-bg: #3f4640;

@@ -46,14 +46,16 @@ function getCouponStatusMeta(coupon) {
   if (status === 'disabled') {
     return {
       label: '已停用',
-      badgeClass: 'yr-admin-discount-status--disabled',
+      badgeClass: 'yr-admin-coupon-status--inactive',
+      iconClass: 'fa-circle-pause',
     };
   }
 
   if (endDate && endDate.getTime() < now.getTime()) {
     return {
       label: '已失效',
-      badgeClass: 'yr-admin-discount-status--expired',
+      badgeClass: 'yr-admin-coupon-status--expired',
+      iconClass: 'fa-circle-xmark',
     };
   }
 
@@ -63,25 +65,82 @@ function getCouponStatusMeta(coupon) {
     if (daysToExpire <= 7) {
       return {
         label: '即將到期',
-        badgeClass: 'yr-admin-discount-status--expiring',
+        badgeClass: 'yr-admin-coupon-status--expiring',
+        iconClass: 'fa-hourglass-half',
       };
     }
   }
 
   return {
-    label: '啟用中',
-    badgeClass: 'yr-admin-discount-status--active',
+    label: '已啟用',
+    badgeClass: 'yr-admin-coupon-status--active',
+    iconClass: 'fa-circle-check',
   };
 }
 
 function renderCouponStatusBadge(coupon) {
   var meta = getCouponStatusMeta(coupon);
+  var statusLabel = meta.label;
   return (
-    '<span class="status-badge yr-admin-discount-status ' +
+    '<span class="status-badge yr-admin-discount-status yr-admin-coupon-status ' +
     meta.badgeClass +
+    '" title="目前狀態：' +
+    statusLabel +
+    '" aria-label="目前狀態：' +
+    statusLabel +
     '">' +
-    meta.label +
+    '<i class="fas ' +
+    meta.iconClass +
+    ' yr-admin-coupon-status__icon" aria-hidden="true"></i>' +
+    '<span class="yr-admin-coupon-status__text">' +
+    statusLabel +
+    '</span>' +
     '</span>'
+  );
+}
+
+function getCouponActionMeta(couponStatus) {
+  if (String(couponStatus || '').toLowerCase() === 'active') {
+    return {
+      label: '停用',
+      actionClass: 'yr-admin-coupon-action--deactivate',
+      iconClass: 'fa-toggle-off',
+      title: '停用此優惠券',
+      ariaLabel: '停用此優惠券',
+    };
+  }
+
+  return {
+    label: '啟用',
+    actionClass: 'yr-admin-coupon-action--activate',
+    iconClass: 'fa-toggle-on',
+    title: '啟用此優惠券',
+    ariaLabel: '啟用此優惠券',
+  };
+}
+
+function renderCouponActionButton(couponStatus, code) {
+  var actionMeta = getCouponActionMeta(couponStatus);
+  var targetCode = String(code || '');
+  return (
+    '<button type="button" class="btn btn-sm btn-toggle-coupon yr-admin-coupon-action ' +
+    actionMeta.actionClass +
+    ' me-1" title="' +
+    actionMeta.title +
+    '：' +
+    targetCode +
+    '" aria-label="' +
+    actionMeta.ariaLabel +
+    '：' +
+    targetCode +
+    '">' +
+    '<i class="fas ' +
+    actionMeta.iconClass +
+    ' yr-admin-coupon-action__icon" aria-hidden="true"></i>' +
+    '<span class="yr-admin-coupon-action__text">' +
+    actionMeta.label +
+    '</span>' +
+    '</button>'
   );
 }
 
@@ -160,12 +219,11 @@ window.initDiscounts = function () {
       endDate: $row.data('coupon-end-date'),
     });
     $row.find('.status-badge').replaceWith(badgeHtml);
+    $btn.replaceWith(renderCouponActionButton(couponStatus, code));
 
     if (isActive) {
-      $btn.text('啟用').removeClass('btn-outline-warning').addClass('btn-outline-success');
       window.showAdminToast('優惠券 ' + code + ' 已停用');
     } else {
-      $btn.text('停用').removeClass('btn-outline-success').addClass('btn-outline-warning');
       window.showAdminToast('優惠券 ' + code + ' 已啟用');
     }
   });
@@ -254,7 +312,7 @@ window.initDiscounts = function () {
       }) +
       '</td>' +
       '<td>' +
-      '<button class="btn btn-sm btn-outline-warning btn-toggle-coupon me-1">停用</button>' +
+      renderCouponActionButton('active', code) +
       '<button class="btn btn-sm btn-outline-danger btn-delete-coupon">刪除</button>' +
       '</td></tr>';
 
@@ -295,9 +353,7 @@ function renderCouponsTable(coupons) {
 
       var statusBadge = renderCouponStatusBadge(coupon);
 
-      var toggleBtn = isActive
-        ? '<button class="btn btn-sm btn-outline-warning btn-toggle-coupon me-1">停用</button>'
-        : '<button class="btn btn-sm btn-outline-success btn-toggle-coupon me-1">啟用</button>';
+      var toggleBtn = renderCouponActionButton(coupon.status, coupon.code);
 
       return (
         '<tr data-coupon-code="' +

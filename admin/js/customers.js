@@ -50,8 +50,9 @@ function renderCustomersRuntimeAlert(message) {
 
   $root.find('.customers-runtime-alert').remove();
   var html =
-    '<div class="alert alert-danger customers-runtime-alert mt-3 mb-0" role="alert">' +
-    message +
+    '<div class="alert yr-admin-alert yr-admin-alert--danger customers-runtime-alert mt-3 mb-0" role="alert">' +
+    '<i class="fas fa-exclamation-triangle yr-admin-alert__icon me-1" aria-hidden="true"></i>' +
+    '<span class="yr-admin-alert__content"><span class="yr-admin-alert__message">' + message + '</span></span>' +
     '</div>';
   var $titleRow = $root.children().first();
   if ($titleRow.length) {
@@ -66,13 +67,18 @@ function clearCustomersRuntimeAlert() {
 }
 
 function renderCustomersLoadError(message) {
-  var errorHtml = '<i class="fas fa-exclamation-triangle me-2"></i>' + message;
+  var errorHtml = message;
   clearCustomersRuntimeAlert();
   renderCustomersRuntimeAlert(errorHtml);
   $('#customersTableBody').html(
-    '<tr><td colspan="8" class="text-center py-4 text-danger">' + errorHtml + '</td></tr>'
+    '<tr><td colspan="8" class="text-center py-4 text-danger"><i class="fas fa-exclamation-triangle me-2"></i>' + errorHtml + '</td></tr>'
   );
-  $('#customersCardList').html('<div class="alert alert-danger m-3 mb-0">' + errorHtml + '</div>');
+  $('#customersCardList').html(
+    '<div class="alert yr-admin-alert yr-admin-alert--danger m-3 mb-0" role="alert">' +
+      '<i class="fas fa-exclamation-triangle yr-admin-alert__icon me-1" aria-hidden="true"></i>' +
+      '<span class="yr-admin-alert__content"><span class="yr-admin-alert__message">' + errorHtml + '</span></span>' +
+    '</div>'
+  );
 }
 
 function validateCustomersDom() {
@@ -85,7 +91,7 @@ function validateCustomersDom() {
   }
 
   renderCustomersRuntimeAlert(
-    '<i class="fas fa-exclamation-triangle me-2"></i>會員列表介面結構不完整，缺少：' +
+    '會員列表介面結構不完整，缺少：' +
       missingSelectors.join(', ')
   );
   return false;

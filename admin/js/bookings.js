@@ -62,6 +62,7 @@ var bookingViewState = {
 var bookingCalendarState = {
   currentMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
 };
+var BOOKING_CALENDAR_MAX_EVENTS_PER_DAY = 3;
 var BOOKING_REQUIRED_SELECTORS = [
   '#bookingsTable',
   '#bookingsTableBody',
@@ -1249,7 +1250,7 @@ function renderRentalBookingsTable(rentalRecords) {
         ? '<button class="btn btn-sm btn-outline-danger btn-cancel-booking yr-admin-bookings-action-btn yr-admin-bookings-action-btn--danger" title="取消預約"><i class="fas fa-times me-1"></i>取消</button>'
         : '<span class="text-muted small">—</span>';
     return '<tr data-booking-id="' + escapeHtml(record.booking_id) + '">' +
-      '<td><a href="#" class="rental-booking-link text-decoration-underline" data-booking-id="' + escapeHtml(record.booking_id) + '">' + escapeHtml(record.rental_id) + '</a></td>' +
+      '<td class="yr-admin-rental-id-col"><a href="#" class="rental-booking-link yr-admin-rental-id-link" data-booking-id="' + escapeHtml(record.booking_id) + '" title="' + escapeHtml(record.rental_id) + '" aria-label="查看租借單號 ' + escapeHtml(record.rental_id) + ' 詳情"><span class="yr-admin-rental-id-link__code">' + escapeHtml(record.rental_id) + '</span></a></td>' +
       '<td>' + escapeHtml(record.rental_start) + '</td>' +
       '<td>' + escapeHtml(record.rental_end) + '</td>' +
       '<td><a href="#" class="booking-customer-link text-decoration-underline" data-customer-id="' + escapeHtml(record.customer_id) + '">' + escapeHtml(record.customer_name) + '</a></td>' +
@@ -1276,6 +1277,7 @@ function renderBookingCalendar(bookings) {
   var nextMonth = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 1);
   var firstGridDate = new Date(monthStart);
   firstGridDate.setDate(monthStart.getDate() - monthStart.getDay());
+  var todayIso = fmtBookingDateISO(new Date());
   var itemsByDate = {};
   bookings.forEach(function (booking) {
     var checkIn = (booking.booking_info && booking.booking_info.check_in) || '';
@@ -1295,24 +1297,62 @@ function renderBookingCalendar(bookings) {
     cellDate.setDate(firstGridDate.getDate() + i);
     var isoDate = fmtBookingDateISO(cellDate);
     var isOtherMonth = cellDate < monthStart || cellDate >= nextMonth;
+    var isToday = isoDate === todayIso;
     var bookingsForDay = itemsByDate[isoDate] || [];
-    var itemsHtml = bookingsForDay.map(function (booking) {
+    var visibleBookings = bookingsForDay.slice(0, BOOKING_CALENDAR_MAX_EVENTS_PER_DAY);
+    var overflowCount = Math.max(bookingsForDay.length - visibleBookings.length, 0);
+
+    var itemsHtml = visibleBookings.map(function (booking) {
       var customerName = getCustomerName(booking.customer_id);
-      return '<button type="button" class="booking-calendar-item" data-booking-id="' + escapeHtml(booking.id) + '">' +
-        '<span class="fw-semibold">' + escapeHtml(booking.id) + '</span>' +
-        '<span>' + escapeHtml(customerName) + '</span>' +
+      var statusClass = getCalendarEventStatusClass(booking.status);
+      var itemTitle = booking.id + '｜' + customerName;
+      return '<button type="button" class="booking-calendar-item yr-admin-booking-calendar__event ' +
+        statusClass +
+        '" data-booking-id="' +
+        escapeHtml(booking.id) +
+        '" title="' +
+        escapeHtml(itemTitle) +
+        '">' +
+        '<span class="yr-admin-booking-calendar__event-id">' + escapeHtml(booking.id) + '</span>' +
+        '<span class="yr-admin-booking-calendar__event-name">' + escapeHtml(customerName) + '</span>' +
         '</button>';
     }).join('');
+
+    if (overflowCount > 0) {
+      itemsHtml += '<span class="yr-admin-booking-calendar__more" title="' +
+        escapeHtml(isoDate + ' 尚有 ' + overflowCount + ' 筆預約') +
+        '">+' +
+        overflowCount +
+        ' 筆</span>';
+    }
+
+    var emptyHtml = isOtherMonth
+      ? ''
+      : '<span class="yr-admin-booking-calendar__empty">無預約</span>';
     cells.push(
-      '<div class="yr-admin-bookings-calendar-day' + (isOtherMonth ? ' is-outside' : '') + '">' +
-      '<div class="yr-admin-bookings-calendar-day__header">' + escapeHtml(isoDate.slice(8, 10)) + '</div>' +
-      '<div class="yr-admin-bookings-calendar-day__items">' + (itemsHtml || '<span class="text-muted small">—</span>') + '</div>' +
+      '<div class="yr-admin-bookings-calendar-day yr-admin-booking-calendar__day' +
+      (isOtherMonth ? ' yr-admin-booking-calendar__day--outside is-outside' : '') +
+      (isToday ? ' yr-admin-booking-calendar__day--today is-today' : '') +
+      '">' +
+      '<div class="yr-admin-bookings-calendar-day__header yr-admin-booking-calendar__date">' + escapeHtml(isoDate.slice(8, 10)) + '</div>' +
+      '<div class="yr-admin-bookings-calendar-day__items yr-admin-booking-calendar__events">' + (itemsHtml || emptyHtml) + '</div>' +
       '</div>'
     );
   }
 
   $('#bookingCalendarGrid').html(cells.join(''));
   updateBookingResultCount(bookings.length, bookings.length ? 'normal' : 'empty');
+}
+
+function getCalendarEventStatusClass(status) {
+  var map = {
+    pending: 'yr-admin-booking-calendar__event--pending',
+    confirmed: 'yr-admin-booking-calendar__event--confirmed',
+    completed: 'yr-admin-booking-calendar__event--completed',
+    'checked-out': 'yr-admin-booking-calendar__event--completed',
+    cancelled: 'yr-admin-booking-calendar__event--cancelled'
+  };
+  return map[status] || 'yr-admin-booking-calendar__event--unknown';
 }
 
 function escapeHtml(value) {

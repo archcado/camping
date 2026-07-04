@@ -198,7 +198,7 @@
       </div>
     </div>
 
-    <div class="admin-bookings-panel yr-admin-bookings-panel d-none" data-bookings-panel="calendar">
+    <div class="admin-bookings-panel yr-admin-bookings-panel yr-admin-booking-calendar d-none" data-bookings-panel="calendar">
       <div class="px-3 py-3 border-top yr-admin-bookings-calendar-toolbar">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
           <div class="btn-group btn-group-sm" role="group" aria-label="月份切換">
@@ -213,9 +213,9 @@
           <strong id="bookingCalendarLabel" class="yr-admin-bookings-calendar-label"></strong>
         </div>
       </div>
-      <div class="px-3 pb-3">
-        <div class="yr-admin-bookings-calendar-grid" id="bookingCalendarGrid">
-          <div class="yr-admin-bookings-calendar-loading text-center py-4 text-muted">
+      <div class="px-3 pb-3 yr-admin-booking-calendar__viewport">
+        <div class="yr-admin-bookings-calendar-grid yr-admin-booking-calendar__grid" id="bookingCalendarGrid">
+          <div class="yr-admin-bookings-calendar-loading yr-admin-booking-calendar__loading text-center py-4 text-muted">
             <div class="spinner-border spinner-border-sm me-2"
                  style="color: var(--admin-brand-accent);"></div>
             載入日曆中...

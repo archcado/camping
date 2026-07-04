@@ -44,6 +44,11 @@
   background: var(--yr-admin-surface-muted);
 }
 
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-search,
+.yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-type-filter {
+  min-width: min(220px, 100%);
+}
+
 .yr-admin-dashboard-page .yr-admin-orders-module .yr-admin-orders-period-label {
   color: var(--yr-admin-text-muted);
   font-weight: 500;

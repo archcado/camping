@@ -1,0 +1,390 @@
+[
+  {
+    "id": "#0001",
+    "createdAt": "2026-05-27 15:44:18",
+    "buyerName": "李建明",
+    "total": 4560,
+    "paymentStatus": "paid",
+    "orderStatus": "shipped",
+    "items": [
+      {
+        "name": "折疊桌椅組",
+        "qty": 1,
+        "price": 2800,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      },
+      {
+        "name": "保溫壺 1L",
+        "qty": 2,
+        "price": 880,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      }
+    ],
+    "address": "桃園市中壢區中山路300號",
+    "customerNote": "請用環保紙箱包裝，謝謝！",
+    "history": [
+      {
+        "time": "2026-05-27 15:44:18",
+        "action": "訂單產生"
+      },
+      {
+        "time": "2026-05-27 15:44:18",
+        "action": "待付款"
+      },
+      {
+        "time": "2026-05-27 15:46:05",
+        "action": "已付款"
+      },
+      {
+        "time": "2026-05-27 15:46:05",
+        "action": "待出貨"
+      },
+      {
+        "time": "2026-05-29 10:00:00",
+        "action": "已出貨"
+      }
+    ],
+    "orderId": "#0001",
+    "orderNumber": "#0001",
+    "buyerEmail": "",
+    "buyerPhone": "",
+    "customerId": "",
+    "updatedAt": "",
+    "shippingFee": 0,
+    "tax": 0,
+    "discount": 0,
+    "orderType": "product"
+  },
+  {
+    "id": "#0002",
+    "createdAt": "2026-05-28 09:05:33",
+    "buyerName": "黃淑芬",
+    "total": 2400,
+    "paymentStatus": "paid",
+    "orderStatus": "returned",
+    "items": [
+      {
+        "name": "LED 露營燈",
+        "qty": 3,
+        "price": 800,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      }
+    ],
+    "address": "台南市東區長榮路二段200號",
+    "customerNote": "商品易碎，煩請小心包裝。\n另外麻煩避免在下午時段配送，謝謝。",
+    "history": [
+      {
+        "time": "2026-05-28 09:05:33",
+        "action": "訂單產生"
+      },
+      {
+        "time": "2026-05-28 09:05:33",
+        "action": "待付款"
+      },
+      {
+        "time": "2026-05-28 09:08:10",
+        "action": "已付款"
+      },
+      {
+        "time": "2026-05-28 09:08:10",
+        "action": "待出貨"
+      },
+      {
+        "time": "2026-05-29 14:00:00",
+        "action": "已出貨"
+      },
+      {
+        "time": "2026-06-01 10:30:00",
+        "action": "已退貨"
+      }
+    ],
+    "orderId": "#0002",
+    "orderNumber": "#0002",
+    "buyerEmail": "",
+    "buyerPhone": "",
+    "customerId": "",
+    "updatedAt": "",
+    "shippingFee": 0,
+    "tax": 0,
+    "discount": 0,
+    "orderType": "product"
+  },
+  {
+    "id": "#0003",
+    "createdAt": "2026-05-30 11:20:44",
+    "buyerName": "張志偉",
+    "total": 12600,
+    "paymentStatus": "paid",
+    "orderStatus": "shipped",
+    "items": [
+      {
+        "name": "MSR 超輕量帳篷",
+        "qty": 1,
+        "price": 9800,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      },
+      {
+        "name": "羽絨睡袋 -10°C",
+        "qty": 1,
+        "price": 2800,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      }
+    ],
+    "address": "高雄市左營區高鐵路100號",
+    "customerNote": "<b>加急訂單</b>，請優先處理！",
+    "history": [
+      {
+        "time": "2026-05-30 11:20:44",
+        "action": "訂單產生"
+      },
+      {
+        "time": "2026-05-30 11:20:44",
+        "action": "待付款"
+      },
+      {
+        "time": "2026-05-30 11:23:18",
+        "action": "已付款"
+      },
+      {
+        "time": "2026-05-30 11:23:18",
+        "action": "待出貨"
+      },
+      {
+        "time": "2026-06-01 09:00:00",
+        "action": "已出貨"
+      }
+    ],
+    "orderId": "#0003",
+    "orderNumber": "#0003",
+    "buyerEmail": "",
+    "buyerPhone": "",
+    "customerId": "",
+    "updatedAt": "",
+    "shippingFee": 0,
+    "tax": 0,
+    "discount": 0,
+    "orderType": "product"
+  },
+  {
+    "id": "#0004",
+    "createdAt": "2026-06-02 16:48:05",
+    "buyerName": "林美惠",
+    "total": 7400,
+    "paymentStatus": "unpaid",
+    "orderStatus": "unshipped",
+    "items": [
+      {
+        "name": "充氣式睡墊 L號",
+        "qty": 2,
+        "price": 1200,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      },
+      {
+        "name": "Coleman 氣化爐",
+        "qty": 1,
+        "price": 5000,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      }
+    ],
+    "address": "台中市西屯區台灣大道三段500號",
+    "customerNote": "",
+    "history": [
+      {
+        "time": "2026-06-02 16:48:05",
+        "action": "訂單產生"
+      },
+      {
+        "time": "2026-06-02 16:48:05",
+        "action": "待付款"
+      }
+    ],
+    "orderId": "#0004",
+    "orderNumber": "#0004",
+    "buyerEmail": "",
+    "buyerPhone": "",
+    "customerId": "",
+    "updatedAt": "",
+    "shippingFee": 0,
+    "tax": 0,
+    "discount": 0,
+    "orderType": "product"
+  },
+  {
+    "id": "#0005",
+    "createdAt": "2026-06-04 09:15:22",
+    "buyerName": "陳大華",
+    "total": 5200,
+    "paymentStatus": "paid",
+    "orderStatus": "unshipped",
+    "items": [
+      {
+        "name": "Snow Peak 鈦合金杯組",
+        "qty": 2,
+        "price": 1800,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      },
+      {
+        "name": "防水登山背包 45L",
+        "qty": 1,
+        "price": 1600,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      }
+    ],
+    "address": "新北市板橋區文化路二段100號",
+    "history": [
+      {
+        "time": "2026-06-04 09:15:22",
+        "action": "訂單產生"
+      },
+      {
+        "time": "2026-06-04 09:15:22",
+        "action": "待付款"
+      },
+      {
+        "time": "2026-06-04 09:18:44",
+        "action": "已付款"
+      },
+      {
+        "time": "2026-06-04 09:18:44",
+        "action": "待出貨"
+      }
+    ],
+    "orderId": "#0005",
+    "orderNumber": "#0005",
+    "buyerEmail": "",
+    "buyerPhone": "",
+    "customerId": "",
+    "updatedAt": "",
+    "customerNote": "",
+    "shippingFee": 0,
+    "tax": 0,
+    "discount": 0,
+    "orderType": "product"
+  },
+  {
+    "id": "#0006",
+    "createdAt": "2026-06-04 14:32:10",
+    "buyerName": "王小明",
+    "total": 3850,
+    "paymentStatus": "cod",
+    "orderStatus": "unshipped",
+    "items": [
+      {
+        "name": "Coleman 六人帳篷",
+        "qty": 1,
+        "price": 3200,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      },
+      {
+        "name": "充氣睡墊",
+        "qty": 2,
+        "price": 325,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      }
+    ],
+    "address": "台北市信義區松仁路100號",
+    "customerNote": "門口有電梯，直接放門口即可，不需按門鈴。",
+    "history": [
+      {
+        "time": "2026-06-04 14:32:10",
+        "action": "訂單產生"
+      },
+      {
+        "time": "2026-06-04 14:32:10",
+        "action": "貨到付款"
+      },
+      {
+        "time": "2026-06-04 14:32:10",
+        "action": "待出貨"
+      }
+    ],
+    "orderId": "#0006",
+    "orderNumber": "#0006",
+    "buyerEmail": "",
+    "buyerPhone": "",
+    "customerId": "",
+    "updatedAt": "",
+    "shippingFee": 0,
+    "tax": 0,
+    "discount": 0,
+    "orderType": "product"
+  },
+  {
+    "id": "#0007",
+    "createdAt": "2026-06-10 11:30:00",
+    "buyerName": "吳雅婷",
+    "total": 3200,
+    "paymentStatus": "paid",
+    "orderStatus": "completed",
+    "items": [
+      {
+        "name": "Coleman 六人帳篷",
+        "qty": 1,
+        "price": 3200,
+        "productId": "",
+        "sku": "",
+        "productCode": ""
+      }
+    ],
+    "address": "新竹市東區光復路一段100號",
+    "customerNote": "",
+    "history": [
+      {
+        "time": "2026-06-10 11:30:00",
+        "action": "訂單產生"
+      },
+      {
+        "time": "2026-06-10 11:30:00",
+        "action": "待付款"
+      },
+      {
+        "time": "2026-06-10 11:32:00",
+        "action": "已付款"
+      },
+      {
+        "time": "2026-06-10 11:32:00",
+        "action": "待出貨"
+      },
+      {
+        "time": "2026-06-11 09:00:00",
+        "action": "已出貨"
+      },
+      {
+        "time": "2026-06-13 14:20:00",
+        "action": "已完成"
+      }
+    ],
+    "orderId": "#0007",
+    "orderNumber": "#0007",
+    "buyerEmail": "",
+    "buyerPhone": "",
+    "customerId": "",
+    "updatedAt": "",
+    "shippingFee": 0,
+    "tax": 0,
+    "discount": 0,
+    "orderType": "product"
+  }
+]

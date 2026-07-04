@@ -1,17 +1,69 @@
 .yr-admin-dashboard-page .yr-admin-analytics-module {
-  --yr-admin-chart-1: #697763;
-  --yr-admin-chart-2: #6f8a87;
-  --yr-admin-chart-3: #9a8067;
-  --yr-admin-chart-4: #a46f62;
-  --yr-admin-chart-5: #81758d;
-  --yr-admin-chart-grid: rgb(69 73 65 / 10%);
-  --yr-admin-chart-label: var(--yr-admin-text-muted);
-  --yr-admin-chart-tooltip-bg: #fffdf8;
-  --yr-admin-chart-tooltip-text: #454941;
-  --yr-admin-chart-tooltip-border: #d9d3c8;
+  --yr-admin-chart-1: var(--yr-admin-chart-categorical-1);
+  --yr-admin-chart-2: var(--yr-admin-chart-categorical-2);
+  --yr-admin-chart-3: var(--yr-admin-chart-categorical-3);
+  --yr-admin-chart-4: var(--yr-admin-chart-categorical-4);
+  --yr-admin-chart-5: var(--yr-admin-chart-categorical-5);
+  --yr-admin-chart-6: var(--yr-admin-chart-categorical-6);
   --yr-admin-analytics-positive: #4f604b;
   --yr-admin-analytics-negative: #95665e;
   --yr-admin-analytics-neutral: #66645d;
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-title-icon {
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-total-badge {
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon-wrap {
+  background: var(--yr-admin-kpi-info-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon {
+  color: var(--yr-admin-kpi-info-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon-wrap--warm {
+  background: var(--yr-admin-kpi-warm-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon--warm {
+  color: var(--yr-admin-kpi-warm-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon-wrap--danger {
+  background: var(--yr-admin-kpi-danger-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon--danger {
+  color: var(--yr-admin-kpi-danger-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon-wrap--sage {
+  background: var(--yr-admin-kpi-sage-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon--sage {
+  color: var(--yr-admin-kpi-sage-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon-wrap--clay {
+  background: var(--yr-admin-kpi-clay-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon--clay {
+  color: var(--yr-admin-kpi-clay-icon);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon-wrap--violet {
+  background: var(--yr-admin-kpi-violet-bg);
+}
+
+.yr-admin-dashboard-page .yr-admin-analytics-module .yr-admin-analytics-kpi-icon--violet {
+  color: var(--yr-admin-kpi-violet-icon);
 }
 
 .yr-admin-dashboard-page .yr-admin-analytics-content {

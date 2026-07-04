@@ -18,8 +18,21 @@
     <p class="mb-0 small text-muted yr-admin-orders-description">依期間、付款狀態、訂單狀態快速檢視訂單作業清單</p>
     </div>
 
-    <!-- 右側工具列：日期篩選 + 清除排序按鈕 -->
+    <!-- 右側工具列：搜尋 + 類型 + 日期篩選 + 清除排序按鈕 -->
     <div class="d-flex align-items-center flex-wrap gap-2 yr-admin-orders-toolbar__filters">
+
+      <input type="search"
+             id="ordersSearchInput"
+             class="form-control form-control-sm yr-admin-orders-search"
+             placeholder="搜尋訂單編號、會員、Email、商品名稱"
+             aria-label="搜尋訂單編號、會員、Email、商品名稱">
+
+      <select id="ordersTypeFilter"
+              class="form-select form-select-sm yr-admin-orders-type-filter"
+              aria-label="訂單類型篩選">
+        <option value="">全部類型</option>
+        <option value="product">商品訂單</option>
+      </select>
 
       <!-- 日期篩選器：快速選鈕 + flatpickr 自定義 + 期間文字 -->
       <!-- 與分析報表頁風格一致；由 orders.js setupOrderPeriodFilter / initOrderFlatpickr 驅動 -->
@@ -52,7 +65,9 @@
 
   <!-- 表格容器 -->
   <div class="card-body p-0 yr-admin-orders-table-container">
-    <div class="px-3 py-2 small text-muted yr-admin-orders-result-count" id="ordersResultCount">目前結果：載入中</div>
+    <div class="px-3 py-2 small text-muted yr-admin-orders-result-count"
+         id="ordersResultCount"
+         aria-live="polite">目前結果：載入中</div>
     <div class="table-responsive">
       <table class="table table-hover mb-0 yr-admin-orders-table" id="ordersTable">
         <thead class="table-light">

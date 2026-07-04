@@ -1,0 +1,4740 @@
+{
+  "newCount": 7,
+  "oldCount": 200,
+  "mergedCount": 207,
+  "overlapCount": 7,
+  "onlyNewCount": 0,
+  "onlyOldCount": 193,
+  "sameIdDifferentContentCount": 7,
+  "onlyNewIds": [],
+  "onlyOldIds": [
+    "#0124",
+    "#0009",
+    "#0104",
+    "#0106",
+    "#0182",
+    "#0138",
+    "#0131",
+    "#0095",
+    "#0085",
+    "#0111",
+    "#0090",
+    "#0190",
+    "#0147",
+    "#0196",
+    "#0154",
+    "#0148",
+    "#0045",
+    "#0016",
+    "#0129",
+    "#0199",
+    "#0034",
+    "#0183",
+    "#0091",
+    "#0024",
+    "#0133",
+    "#0053",
+    "#0128",
+    "#0018",
+    "#0067",
+    "#0074",
+    "#0048",
+    "#0116",
+    "#0046",
+    "#0200",
+    "#0080",
+    "#0038",
+    "#0054",
+    "#0011",
+    "#0181",
+    "#0057",
+    "#0169",
+    "#0179",
+    "#0087",
+    "#0092",
+    "#0101",
+    "#0029",
+    "#0076",
+    "#0031",
+    "#0026",
+    "#0145",
+    "#0171",
+    "#0032",
+    "#0198",
+    "#0192",
+    "#0061",
+    "#0065",
+    "#0114",
+    "#0108",
+    "#0070",
+    "#0144",
+    "#0175",
+    "#0151",
+    "#0176",
+    "#0100",
+    "#0156",
+    "#0109",
+    "#0132",
+    "#0140",
+    "#0184",
+    "#0152",
+    "#0008",
+    "#0142",
+    "#0137",
+    "#0010",
+    "#0180",
+    "#0036",
+    "#0041",
+    "#0168",
+    "#0123",
+    "#0161",
+    "#0030",
+    "#0102",
+    "#0139",
+    "#0019",
+    "#0051",
+    "#0157",
+    "#0069",
+    "#0063",
+    "#0077",
+    "#0086",
+    "#0088",
+    "#0082",
+    "#0136",
+    "#0172",
+    "#0094",
+    "#0146",
+    "#0173",
+    "#0194",
+    "#0062",
+    "#0113",
+    "#0075",
+    "#0150",
+    "#0037",
+    "#0153",
+    "#0050",
+    "#0042",
+    "#0083",
+    "#0081",
+    "#0117",
+    "#0015",
+    "#0012",
+    "#0191",
+    "#0197",
+    "#0165",
+    "#0159",
+    "#0098",
+    "#0149",
+    "#0044",
+    "#0162",
+    "#0025",
+    "#0071",
+    "#0105",
+    "#0110",
+    "#0060",
+    "#0188",
+    "#0049",
+    "#0103",
+    "#0126",
+    "#0096",
+    "#0013",
+    "#0115",
+    "#0163",
+    "#0014",
+    "#0028",
+    "#0174",
+    "#0079",
+    "#0058",
+    "#0022",
+    "#0040",
+    "#0043",
+    "#0120",
+    "#0020",
+    "#0035",
+    "#0072",
+    "#0130",
+    "#0170",
+    "#0127",
+    "#0112",
+    "#0125",
+    "#0135",
+    "#0066",
+    "#0185",
+    "#0158",
+    "#0186",
+    "#0167",
+    "#0056",
+    "#0027",
+    "#0064",
+    "#0078",
+    "#0122",
+    "#0143",
+    "#0118",
+    "#0017",
+    "#0177",
+    "#0195",
+    "#0039",
+    "#0055",
+    "#0178",
+    "#0099",
+    "#0033",
+    "#0193",
+    "#0164",
+    "#0107",
+    "#0097",
+    "#0059",
+    "#0141",
+    "#0189",
+    "#0121",
+    "#0021",
+    "#0073",
+    "#0084",
+    "#0068",
+    "#0155",
+    "#0052",
+    "#0023",
+    "#0119",
+    "#0134",
+    "#0187",
+    "#0160",
+    "#0089",
+    "#0047",
+    "#0166",
+    "#0093"
+  ],
+  "overlapIds": [
+    "#0007",
+    "#0002",
+    "#0006",
+    "#0003",
+    "#0001",
+    "#0004",
+    "#0005"
+  ],
+  "sameIdDifferentContent": [
+    "#0007",
+    "#0002",
+    "#0006",
+    "#0003",
+    "#0001",
+    "#0004",
+    "#0005"
+  ],
+  "preservedLegacyConflictIds": [
+    "#0007-legacy",
+    "#0002-legacy",
+    "#0006-legacy",
+    "#0003-legacy",
+    "#0001-legacy",
+    "#0004-legacy",
+    "#0005-legacy"
+  ],
+  "duplicateOrderIds": [],
+  "duplicateOrderNumbers": [],
+  "amountConflicts": [],
+  "invalidCustomerReferences": [
+    {
+      "orderId": "#0007",
+      "customerId": "",
+      "buyerName": "吳雅婷"
+    }
+  ],
+  "invalidProductReferences": [
+    {
+      "orderId": "#0006",
+      "productId": "",
+      "productName": "充氣睡墊"
+    }
+  ],
+  "unknownStatusValues": [],
+  "unresolvedHistoricalCustomer": [
+    {
+      "orderId": "#0007",
+      "buyerName": "吳雅婷",
+      "customerId": "",
+      "reason": "no-unique-customer-match",
+      "candidates": [
+        {
+          "id": "U007",
+          "name": "蔡佳玲",
+          "email": "tsai@example.com",
+          "phone": "0978-901-234",
+          "hasOrderOwnership": true
+        },
+        {
+          "id": "U009",
+          "name": "劉雅婷",
+          "email": "liu@example.com",
+          "phone": "0990-123-456",
+          "hasOrderOwnership": false
+        },
+        {
+          "id": "U044",
+          "name": "戴雅婷",
+          "email": "user044@example.com",
+          "phone": "0928-572-124",
+          "hasOrderOwnership": false
+        }
+      ]
+    }
+  ],
+  "unresolvedHistoricalProduct": [
+    {
+      "orderId": "#0006",
+      "productName": "充氣睡墊",
+      "productId": "",
+      "reason": "no-strong-product-evidence",
+      "candidates": [
+        {
+          "id": "P003",
+          "name": "充氣式睡墊 L號",
+          "spec": "藍灰色",
+          "price": 1200
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "type": "unresolvedHistoricalProduct",
+      "orderId": "#0006",
+      "productName": "充氣睡墊",
+      "reason": "no-strong-product-evidence"
+    },
+    {
+      "type": "productSnapshotOnly",
+      "orderId": "#0006"
+    },
+    {
+      "type": "unresolvedHistoricalCustomer",
+      "orderId": "#0007",
+      "reason": "no-unique-customer-match"
+    },
+    {
+      "type": "buyerSnapshotOnly",
+      "orderId": "#0007",
+      "buyerName": "吳雅婷"
+    }
+  ],
+  "fatalErrors": [],
+  "aliasMappings": [],
+  "suspectedDuplicateOrders": [],
+  "resolutionDetails": {
+    "customers": [
+      {
+        "orderId": "#0124",
+        "buyerName": "莊淑惠",
+        "matchedCustomerId": "U024",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0007-legacy",
+        "buyerName": "蔡佳玲",
+        "matchedCustomerId": "U007",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0009",
+        "buyerName": "劉雅婷",
+        "matchedCustomerId": "U009",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0104",
+        "buyerName": "黃淑芬",
+        "matchedCustomerId": "U004",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0106",
+        "buyerName": "陳大華",
+        "matchedCustomerId": "U006",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0182",
+        "buyerName": "鍾怡君",
+        "matchedCustomerId": "U032",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0138",
+        "buyerName": "唐美玲",
+        "matchedCustomerId": "U038",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0131",
+        "buyerName": "馬冠廷",
+        "matchedCustomerId": "U031",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0095",
+        "buyerName": "段家銘",
+        "matchedCustomerId": "U045",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0085",
+        "buyerName": "方建志",
+        "matchedCustomerId": "U035",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0111",
+        "buyerName": "鄭文豪",
+        "matchedCustomerId": "U011",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0090",
+        "buyerName": "董佳蓉",
+        "matchedCustomerId": "U040",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0190",
+        "buyerName": "董佳蓉",
+        "matchedCustomerId": "U040",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0147",
+        "buyerName": "袁宇翔",
+        "matchedCustomerId": "U047",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0196",
+        "buyerName": "曹佩珊",
+        "matchedCustomerId": "U046",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0154",
+        "buyerName": "黃淑芬",
+        "matchedCustomerId": "U004",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0148",
+        "buyerName": "鄧欣妤",
+        "matchedCustomerId": "U048",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0045",
+        "buyerName": "段家銘",
+        "matchedCustomerId": "U045",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0016",
+        "buyerName": "郭欣怡",
+        "matchedCustomerId": "U016",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0129",
+        "buyerName": "潘宇軒",
+        "matchedCustomerId": "U029",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0199",
+        "buyerName": "許柏均",
+        "matchedCustomerId": "U049",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0034",
+        "buyerName": "石雅琪",
+        "matchedCustomerId": "U034",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0183",
+        "buyerName": "游承恩",
+        "matchedCustomerId": "U033",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0091",
+        "buyerName": "程俊賢",
+        "matchedCustomerId": "U041",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0024",
+        "buyerName": "莊淑惠",
+        "matchedCustomerId": "U024",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0133",
+        "buyerName": "游承恩",
+        "matchedCustomerId": "U033",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0053",
+        "buyerName": "張志偉",
+        "matchedCustomerId": "U003",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0128",
+        "buyerName": "高詩涵",
+        "matchedCustomerId": "U028",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0018",
+        "buyerName": "曾雅雯",
+        "matchedCustomerId": "U018",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0067",
+        "buyerName": "邱冠宇",
+        "matchedCustomerId": "U017",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0074",
+        "buyerName": "莊淑惠",
+        "matchedCustomerId": "U024",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0048",
+        "buyerName": "鄧欣妤",
+        "matchedCustomerId": "U048",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0116",
+        "buyerName": "郭欣怡",
+        "matchedCustomerId": "U016",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0046",
+        "buyerName": "曹佩珊",
+        "matchedCustomerId": "U046",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0200",
+        "buyerName": "丁惠珍",
+        "matchedCustomerId": "U050",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0080",
+        "buyerName": "簡惠如",
+        "matchedCustomerId": "U030",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0038",
+        "buyerName": "唐美玲",
+        "matchedCustomerId": "U038",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0054",
+        "buyerName": "黃淑芬",
+        "matchedCustomerId": "U004",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0011",
+        "buyerName": "鄭文豪",
+        "matchedCustomerId": "U011",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0181",
+        "buyerName": "馬冠廷",
+        "matchedCustomerId": "U031",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0057",
+        "buyerName": "蔡佳玲",
+        "matchedCustomerId": "U007",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0169",
+        "buyerName": "廖俊傑",
+        "matchedCustomerId": "U019",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0179",
+        "buyerName": "潘宇軒",
+        "matchedCustomerId": "U029",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0087",
+        "buyerName": "韓宗翰",
+        "matchedCustomerId": "U037",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0092",
+        "buyerName": "傅淑芬",
+        "matchedCustomerId": "U042",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0101",
+        "buyerName": "王小明",
+        "matchedCustomerId": "U001",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0029",
+        "buyerName": "潘宇軒",
+        "matchedCustomerId": "U029",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0076",
+        "buyerName": "何佳穎",
+        "matchedCustomerId": "U026",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0031",
+        "buyerName": "馬冠廷",
+        "matchedCustomerId": "U031",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0026",
+        "buyerName": "何佳穎",
+        "matchedCustomerId": "U026",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0145",
+        "buyerName": "段家銘",
+        "matchedCustomerId": "U045",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0171",
+        "buyerName": "徐柏翰",
+        "matchedCustomerId": "U021",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0032",
+        "buyerName": "鍾怡君",
+        "matchedCustomerId": "U032",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0198",
+        "buyerName": "鄧欣妤",
+        "matchedCustomerId": "U048",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0192",
+        "buyerName": "傅淑芬",
+        "matchedCustomerId": "U042",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0061",
+        "buyerName": "鄭文豪",
+        "matchedCustomerId": "U011",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0065",
+        "buyerName": "洪偉傑",
+        "matchedCustomerId": "U015",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0114",
+        "buyerName": "謝宜蓁",
+        "matchedCustomerId": "U014",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0108",
+        "buyerName": "吳建宏",
+        "matchedCustomerId": "U008",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0070",
+        "buyerName": "賴思妤",
+        "matchedCustomerId": "U020",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0144",
+        "buyerName": "戴雅婷",
+        "matchedCustomerId": "U044",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0175",
+        "buyerName": "江志豪",
+        "matchedCustomerId": "U025",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0151",
+        "buyerName": "王小明",
+        "matchedCustomerId": "U001",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0176",
+        "buyerName": "何佳穎",
+        "matchedCustomerId": "U026",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0100",
+        "buyerName": "丁惠珍",
+        "matchedCustomerId": "U050",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0156",
+        "buyerName": "陳大華",
+        "matchedCustomerId": "U006",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0002-legacy",
+        "buyerName": "林美惠",
+        "matchedCustomerId": "U002",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0109",
+        "buyerName": "劉雅婷",
+        "matchedCustomerId": "U009",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0132",
+        "buyerName": "鍾怡君",
+        "matchedCustomerId": "U032",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0006-legacy",
+        "buyerName": "陳大華",
+        "matchedCustomerId": "U006",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0140",
+        "buyerName": "董佳蓉",
+        "matchedCustomerId": "U040",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0184",
+        "buyerName": "石雅琪",
+        "matchedCustomerId": "U034",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0003-legacy",
+        "buyerName": "張志偉",
+        "matchedCustomerId": "U003",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0152",
+        "buyerName": "林美惠",
+        "matchedCustomerId": "U002",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0008",
+        "buyerName": "吳建宏",
+        "matchedCustomerId": "U008",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0142",
+        "buyerName": "傅淑芬",
+        "matchedCustomerId": "U042",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0137",
+        "buyerName": "韓宗翰",
+        "matchedCustomerId": "U037",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0010",
+        "buyerName": "許志明",
+        "matchedCustomerId": "U010",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0180",
+        "buyerName": "簡惠如",
+        "matchedCustomerId": "U030",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0036",
+        "buyerName": "彭心怡",
+        "matchedCustomerId": "U036",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0041",
+        "buyerName": "程俊賢",
+        "matchedCustomerId": "U041",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0168",
+        "buyerName": "曾雅雯",
+        "matchedCustomerId": "U018",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0123",
+        "buyerName": "葉家豪",
+        "matchedCustomerId": "U023",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0161",
+        "buyerName": "鄭文豪",
+        "matchedCustomerId": "U011",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0030",
+        "buyerName": "簡惠如",
+        "matchedCustomerId": "U030",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0102",
+        "buyerName": "林美惠",
+        "matchedCustomerId": "U002",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0139",
+        "buyerName": "馮志偉",
+        "matchedCustomerId": "U039",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0019",
+        "buyerName": "廖俊傑",
+        "matchedCustomerId": "U019",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0051",
+        "buyerName": "王小明",
+        "matchedCustomerId": "U001",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0157",
+        "buyerName": "蔡佳玲",
+        "matchedCustomerId": "U007",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0069",
+        "buyerName": "廖俊傑",
+        "matchedCustomerId": "U019",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0063",
+        "buyerName": "楊承翰",
+        "matchedCustomerId": "U013",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0077",
+        "buyerName": "羅俊宏",
+        "matchedCustomerId": "U027",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0086",
+        "buyerName": "彭心怡",
+        "matchedCustomerId": "U036",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0001-legacy",
+        "buyerName": "王小明",
+        "matchedCustomerId": "U001",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0088",
+        "buyerName": "唐美玲",
+        "matchedCustomerId": "U038",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0082",
+        "buyerName": "鍾怡君",
+        "matchedCustomerId": "U032",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0136",
+        "buyerName": "彭心怡",
+        "matchedCustomerId": "U036",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0172",
+        "buyerName": "蘇品妍",
+        "matchedCustomerId": "U022",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0094",
+        "buyerName": "戴雅婷",
+        "matchedCustomerId": "U044",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0146",
+        "buyerName": "曹佩珊",
+        "matchedCustomerId": "U046",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0173",
+        "buyerName": "葉家豪",
+        "matchedCustomerId": "U023",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0194",
+        "buyerName": "戴雅婷",
+        "matchedCustomerId": "U044",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0062",
+        "buyerName": "周佩君",
+        "matchedCustomerId": "U012",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0113",
+        "buyerName": "楊承翰",
+        "matchedCustomerId": "U013",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0075",
+        "buyerName": "江志豪",
+        "matchedCustomerId": "U025",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0150",
+        "buyerName": "丁惠珍",
+        "matchedCustomerId": "U050",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0037",
+        "buyerName": "韓宗翰",
+        "matchedCustomerId": "U037",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0153",
+        "buyerName": "張志偉",
+        "matchedCustomerId": "U003",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0050",
+        "buyerName": "丁惠珍",
+        "matchedCustomerId": "U050",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0042",
+        "buyerName": "傅淑芬",
+        "matchedCustomerId": "U042",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0083",
+        "buyerName": "游承恩",
+        "matchedCustomerId": "U033",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0081",
+        "buyerName": "馬冠廷",
+        "matchedCustomerId": "U031",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0117",
+        "buyerName": "邱冠宇",
+        "matchedCustomerId": "U017",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0015",
+        "buyerName": "洪偉傑",
+        "matchedCustomerId": "U015",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0012",
+        "buyerName": "周佩君",
+        "matchedCustomerId": "U012",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0191",
+        "buyerName": "程俊賢",
+        "matchedCustomerId": "U041",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0197",
+        "buyerName": "袁宇翔",
+        "matchedCustomerId": "U047",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0165",
+        "buyerName": "洪偉傑",
+        "matchedCustomerId": "U015",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0159",
+        "buyerName": "劉雅婷",
+        "matchedCustomerId": "U009",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0098",
+        "buyerName": "鄧欣妤",
+        "matchedCustomerId": "U048",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0149",
+        "buyerName": "許柏均",
+        "matchedCustomerId": "U049",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0044",
+        "buyerName": "戴雅婷",
+        "matchedCustomerId": "U044",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0004-legacy",
+        "buyerName": "黃淑芬",
+        "matchedCustomerId": "U004",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0162",
+        "buyerName": "周佩君",
+        "matchedCustomerId": "U012",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0025",
+        "buyerName": "江志豪",
+        "matchedCustomerId": "U025",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0071",
+        "buyerName": "徐柏翰",
+        "matchedCustomerId": "U021",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0005-legacy",
+        "buyerName": "李建明",
+        "matchedCustomerId": "U005",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0105",
+        "buyerName": "李建明",
+        "matchedCustomerId": "U005",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0110",
+        "buyerName": "許志明",
+        "matchedCustomerId": "U010",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0060",
+        "buyerName": "許志明",
+        "matchedCustomerId": "U010",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0188",
+        "buyerName": "唐美玲",
+        "matchedCustomerId": "U038",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0049",
+        "buyerName": "許柏均",
+        "matchedCustomerId": "U049",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0103",
+        "buyerName": "張志偉",
+        "matchedCustomerId": "U003",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0126",
+        "buyerName": "何佳穎",
+        "matchedCustomerId": "U026",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0096",
+        "buyerName": "曹佩珊",
+        "matchedCustomerId": "U046",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0013",
+        "buyerName": "楊承翰",
+        "matchedCustomerId": "U013",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0115",
+        "buyerName": "洪偉傑",
+        "matchedCustomerId": "U015",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0163",
+        "buyerName": "楊承翰",
+        "matchedCustomerId": "U013",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0001",
+        "buyerName": "李建明",
+        "matchedCustomerId": "U005",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0014",
+        "buyerName": "謝宜蓁",
+        "matchedCustomerId": "U014",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0002",
+        "buyerName": "黃淑芬",
+        "matchedCustomerId": "U004",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0028",
+        "buyerName": "高詩涵",
+        "matchedCustomerId": "U028",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0174",
+        "buyerName": "莊淑惠",
+        "matchedCustomerId": "U024",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0079",
+        "buyerName": "潘宇軒",
+        "matchedCustomerId": "U029",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0003",
+        "buyerName": "張志偉",
+        "matchedCustomerId": "U003",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0058",
+        "buyerName": "吳建宏",
+        "matchedCustomerId": "U008",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0022",
+        "buyerName": "蘇品妍",
+        "matchedCustomerId": "U022",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0040",
+        "buyerName": "董佳蓉",
+        "matchedCustomerId": "U040",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0043",
+        "buyerName": "范冠霖",
+        "matchedCustomerId": "U043",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0120",
+        "buyerName": "賴思妤",
+        "matchedCustomerId": "U020",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0020",
+        "buyerName": "賴思妤",
+        "matchedCustomerId": "U020",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0004",
+        "buyerName": "林美惠",
+        "matchedCustomerId": "U002",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0035",
+        "buyerName": "方建志",
+        "matchedCustomerId": "U035",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0072",
+        "buyerName": "蘇品妍",
+        "matchedCustomerId": "U022",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0130",
+        "buyerName": "簡惠如",
+        "matchedCustomerId": "U030",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0170",
+        "buyerName": "賴思妤",
+        "matchedCustomerId": "U020",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0127",
+        "buyerName": "羅俊宏",
+        "matchedCustomerId": "U027",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0112",
+        "buyerName": "周佩君",
+        "matchedCustomerId": "U012",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0005",
+        "buyerName": "陳大華",
+        "matchedCustomerId": "U006",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0006",
+        "buyerName": "王小明",
+        "matchedCustomerId": "U001",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0125",
+        "buyerName": "江志豪",
+        "matchedCustomerId": "U025",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0135",
+        "buyerName": "方建志",
+        "matchedCustomerId": "U035",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0066",
+        "buyerName": "郭欣怡",
+        "matchedCustomerId": "U016",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0185",
+        "buyerName": "方建志",
+        "matchedCustomerId": "U035",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0158",
+        "buyerName": "吳建宏",
+        "matchedCustomerId": "U008",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0186",
+        "buyerName": "彭心怡",
+        "matchedCustomerId": "U036",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0167",
+        "buyerName": "邱冠宇",
+        "matchedCustomerId": "U017",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0007",
+        "buyerName": "吳雅婷",
+        "matchedCustomerId": "",
+        "method": "unresolved",
+        "evidence": ""
+      },
+      {
+        "orderId": "#0056",
+        "buyerName": "陳大華",
+        "matchedCustomerId": "U006",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0027",
+        "buyerName": "羅俊宏",
+        "matchedCustomerId": "U027",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0064",
+        "buyerName": "謝宜蓁",
+        "matchedCustomerId": "U014",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0078",
+        "buyerName": "高詩涵",
+        "matchedCustomerId": "U028",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0122",
+        "buyerName": "蘇品妍",
+        "matchedCustomerId": "U022",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0143",
+        "buyerName": "范冠霖",
+        "matchedCustomerId": "U043",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0118",
+        "buyerName": "曾雅雯",
+        "matchedCustomerId": "U018",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0017",
+        "buyerName": "邱冠宇",
+        "matchedCustomerId": "U017",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0177",
+        "buyerName": "羅俊宏",
+        "matchedCustomerId": "U027",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0195",
+        "buyerName": "段家銘",
+        "matchedCustomerId": "U045",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0039",
+        "buyerName": "馮志偉",
+        "matchedCustomerId": "U039",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0055",
+        "buyerName": "李建明",
+        "matchedCustomerId": "U005",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0178",
+        "buyerName": "高詩涵",
+        "matchedCustomerId": "U028",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0099",
+        "buyerName": "許柏均",
+        "matchedCustomerId": "U049",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0033",
+        "buyerName": "游承恩",
+        "matchedCustomerId": "U033",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0193",
+        "buyerName": "范冠霖",
+        "matchedCustomerId": "U043",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0164",
+        "buyerName": "謝宜蓁",
+        "matchedCustomerId": "U014",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0107",
+        "buyerName": "蔡佳玲",
+        "matchedCustomerId": "U007",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0097",
+        "buyerName": "袁宇翔",
+        "matchedCustomerId": "U047",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0059",
+        "buyerName": "劉雅婷",
+        "matchedCustomerId": "U009",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0141",
+        "buyerName": "程俊賢",
+        "matchedCustomerId": "U041",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0189",
+        "buyerName": "馮志偉",
+        "matchedCustomerId": "U039",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0121",
+        "buyerName": "徐柏翰",
+        "matchedCustomerId": "U021",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0021",
+        "buyerName": "徐柏翰",
+        "matchedCustomerId": "U021",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0073",
+        "buyerName": "葉家豪",
+        "matchedCustomerId": "U023",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0084",
+        "buyerName": "石雅琪",
+        "matchedCustomerId": "U034",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0068",
+        "buyerName": "曾雅雯",
+        "matchedCustomerId": "U018",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0155",
+        "buyerName": "李建明",
+        "matchedCustomerId": "U005",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0052",
+        "buyerName": "林美惠",
+        "matchedCustomerId": "U002",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0023",
+        "buyerName": "葉家豪",
+        "matchedCustomerId": "U023",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0119",
+        "buyerName": "廖俊傑",
+        "matchedCustomerId": "U019",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0134",
+        "buyerName": "石雅琪",
+        "matchedCustomerId": "U034",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0187",
+        "buyerName": "韓宗翰",
+        "matchedCustomerId": "U037",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0160",
+        "buyerName": "許志明",
+        "matchedCustomerId": "U010",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0089",
+        "buyerName": "馮志偉",
+        "matchedCustomerId": "U039",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0047",
+        "buyerName": "袁宇翔",
+        "matchedCustomerId": "U047",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0166",
+        "buyerName": "郭欣怡",
+        "matchedCustomerId": "U016",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      },
+      {
+        "orderId": "#0093",
+        "buyerName": "范冠霖",
+        "matchedCustomerId": "U043",
+        "method": "customerId",
+        "evidence": "existing-customerId"
+      }
+    ],
+    "products": [
+      {
+        "orderId": "#0124",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0124",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0124",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0007-legacy",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0007-legacy",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0007-legacy",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0009",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0009",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0104",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0104",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0106",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0182",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0182",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0182",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0138",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0138",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0131",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0095",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0095",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0085",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0085",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0111",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0111",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0111",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0090",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0090",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0090",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0190",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0190",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0190",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0147",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0196",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0196",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0154",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0154",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0148",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0148",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0045",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0016",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0129",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0129",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0199",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0199",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0199",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0034",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0034",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0183",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0091",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0091",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0024",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0024",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0024",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0133",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0133",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0133",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0053",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0053",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0053",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0128",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0128",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0128",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0018",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0018",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0018",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0067",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0067",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0074",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0074",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0048",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0048",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0116",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0046",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0046",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0200",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0200",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0080",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0038",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0038",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0054",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0011",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0011",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0011",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0181",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0057",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0169",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0169",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0179",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0179",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0087",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0087",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0092",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0092",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0101",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0029",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0076",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0076",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0031",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0031",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0031",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0026",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0026",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0145",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0145",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0171",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0032",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0198",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0198",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0192",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0192",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0192",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0061",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0065",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0065",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0065",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0114",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0114",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0108",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0070",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0070",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0070",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0144",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0144",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0175",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0175",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0175",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0151",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0151",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0151",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0176",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0100",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0156",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0156",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0002-legacy",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0109",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0109",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0132",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0006-legacy",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0006-legacy",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0140",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0184",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0184",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0003-legacy",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0152",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0152",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0008",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0008",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0142",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0137",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0137",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0137",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0010",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0010",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0010",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0180",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0180",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0180",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0036",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0041",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0168",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0168",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0123",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0161",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0161",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0030",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0030",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0030",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0102",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0139",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0139",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0139",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0019",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0019",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0051",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0157",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0069",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0063",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0063",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0077",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0086",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0086",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0001-legacy",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0001-legacy",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0001-legacy",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0088",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0088",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0088",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0082",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0082",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0082",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0136",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0136",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0136",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0172",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0172",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0094",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0094",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0094",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0146",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0173",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0194",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0194",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0194",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0062",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0062",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0062",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0113",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0075",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0075",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0150",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0150",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0150",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0037",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0037",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0037",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0153",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0153",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0153",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0050",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0050",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0042",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0042",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0042",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0083",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0083",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0083",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0081",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0117",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0117",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0117",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0015",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0012",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0012",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0012",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0191",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0197",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0197",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0165",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0165",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0165",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0159",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0159",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0098",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0098",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0098",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0149",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0149",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0044",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0044",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0044",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0004-legacy",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0004-legacy",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0004-legacy",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0162",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0025",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0025",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0025",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0071",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0071",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0071",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0005-legacy",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0105",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0110",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0110",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0060",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0188",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0188",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0049",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0049",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0049",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0103",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0103",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0103",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0126",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0096",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0096",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0013",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0013",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0013",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0115",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0115",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0115",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0163",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0163",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0001",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0001",
+        "productName": "保溫壺 1L",
+        "matchedProductId": "P010",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0014",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0002",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0028",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0174",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0079",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0079",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0003",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0003",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0058",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0022",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0022",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0040",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0043",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0120",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0120",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0120",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0020",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0004",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0004",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0035",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0035",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0035",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0072",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0072",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0130",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0130",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0170",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0127",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0112",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0112",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0005",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0005",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0006",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0006",
+        "productName": "充氣睡墊",
+        "matchedProductId": "",
+        "method": "unresolved",
+        "evidence": ""
+      },
+      {
+        "orderId": "#0125",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0125",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0125",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0135",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0135",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0135",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0066",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0066",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0066",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0185",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0185",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0185",
+        "productName": "雙層防風外套",
+        "matchedProductId": "P022",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0158",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0158",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0158",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0186",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0186",
+        "productName": "MSR 超輕量帳篷",
+        "matchedProductId": "P002",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0186",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0167",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0167",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0007",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0056",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0056",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0027",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0027",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0027",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0064",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0064",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0078",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0078",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0078",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0122",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0122",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0122",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0143",
+        "productName": "大型天幕",
+        "matchedProductId": "P018",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0118",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0017",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0177",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0177",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0177",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0195",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0195",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0039",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0055",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0178",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0178",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0099",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0099",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0033",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0033",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0033",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0193",
+        "productName": "戶外淋浴袋",
+        "matchedProductId": "P027",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0193",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0193",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0164",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0164",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0164",
+        "productName": "充電式頭燈",
+        "matchedProductId": "P015",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0107",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0097",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0097",
+        "productName": "高背月亮椅",
+        "matchedProductId": "P014",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0097",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0059",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0059",
+        "productName": "充氣式睡墊 L號",
+        "matchedProductId": "P003",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0059",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0141",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0141",
+        "productName": "快煮鍋 1.5L",
+        "matchedProductId": "P023",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0189",
+        "productName": "折疊桌椅組",
+        "matchedProductId": "P009",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0189",
+        "productName": "LED 露營燈",
+        "matchedProductId": "P007",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0189",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0121",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0121",
+        "productName": "保冷冰桶 45L",
+        "matchedProductId": "P021",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0021",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0073",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0073",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0073",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0084",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0084",
+        "productName": "防蚊帳篷內帳",
+        "matchedProductId": "P029",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0084",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0068",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0068",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0155",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0155",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0155",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0052",
+        "productName": "Coleman 氣化爐",
+        "matchedProductId": "P005",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0052",
+        "productName": "營柱與營繩組",
+        "matchedProductId": "P019",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0052",
+        "productName": "折疊蛋捲桌",
+        "matchedProductId": "P013",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0023",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0119",
+        "productName": "折疊式焚火台",
+        "matchedProductId": "P028",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0134",
+        "productName": "Snow Peak 鈦合金杯組",
+        "matchedProductId": "P006",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0187",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0187",
+        "productName": "防水戶外手錶",
+        "matchedProductId": "P025",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0160",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0160",
+        "productName": "羽絨睡袋 -10°C",
+        "matchedProductId": "P004",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0160",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0089",
+        "productName": "Coleman 六人帳篷",
+        "matchedProductId": "P001",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0089",
+        "productName": "輕量吊床",
+        "matchedProductId": "P026",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0089",
+        "productName": "四季保暖睡袋",
+        "matchedProductId": "P012",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0047",
+        "productName": "行動電源站",
+        "matchedProductId": "P020",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0047",
+        "productName": "65L 重裝背包",
+        "matchedProductId": "P016",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0166",
+        "productName": "防水登山背包 45L",
+        "matchedProductId": "P008",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0166",
+        "productName": "露營拖車",
+        "matchedProductId": "P017",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0093",
+        "productName": "Snow Peak 客廳帳",
+        "matchedProductId": "P011",
+        "method": "productId",
+        "evidence": "existing-productId"
+      },
+      {
+        "orderId": "#0093",
+        "productName": "碳纖維登山杖",
+        "matchedProductId": "P024",
+        "method": "productId",
+        "evidence": "existing-productId"
+      }
+    ]
+  },
+  "validation": {
+    "parseSuccess": true,
+    "duplicateOrderIdCount": 0,
+    "duplicateOrderNumberCount": 0,
+    "amountConflictCount": 0,
+    "warningCount": 4,
+    "fatalErrorCount": 0,
+    "encodingSuspiciousCount": 0
+  }
+}

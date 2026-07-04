@@ -3,9 +3,9 @@
 // ========================================
 // 此文件負責：
 // 1. 從 API 或 JSON 檔案取得文章資料
-// 2. 渲染精選文章（Featured Article）
-// 3. 渲染文章卡片網格（Articles Grid）
-// 4. 分類篩選功能（Category Filter）
+// 2. 渲染文章卡片網格（Articles Grid）
+// 3. 分類篩選功能（Category Filter）
+// 4. 輪播探索文章按鈕的篩選
 
 /**
  * 全局狀態：存放所有文章資料
@@ -13,7 +13,34 @@
  */
 let _allArticles = [];        // 全部文章 All articles
 let _currentCategory = 'all'; // 目前選中的分類 Current selected category
-let _featuredArticle = null;  // 精選文章 Featured article
+
+function _findCategoryTab(category) {
+  const buttons = document.querySelectorAll('#categoryTabs .filter-btn');
+  return Array.from(buttons).find(btn => btn.dataset.cat === category) || null;
+}
+
+function _scrollToCategoryTabs() {
+  const categoryTabs = document.getElementById('categoryTabs');
+  if (!categoryTabs) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  categoryTabs.scrollIntoView({
+    behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    block: 'start',
+  });
+}
+
+function _activateThemeCategory(category) {
+  if (!category) return;
+
+  const tab = _findCategoryTab(category);
+  if (!tab) {
+    console.warn(`[Blog] 找不到分類 Tab: "${category}"，仍套用文章篩選`);
+  }
+
+  _filterByCategory(category);
+  _scrollToCategoryTabs();
+}
 
 // ========================================
 // 工具函數 Utility Functions
@@ -77,54 +104,6 @@ function _buildArticleCard(article) {
 }
 
 /**
- * 渲染精選文章（大幅橫幅樣式）
- * Render the featured article as a large banner
- * @param {Object} article - 精選文章資料
- */
-function _renderFeaturedArticle(article) {
-  const container = document.getElementById('featuredArticle');
-  if (!container || !article) return;
-
-  // 格式化日期
-  const dateStr = _formatDateCompact(article.publishedDate);
-  const excerpt = article.description || article.excerpt || article.summary || '';
-
-  // 建立精選文章的 HTML 結構
-  container.innerHTML = `
-    <div class="blog-featured-img"
-         onclick="window.location='blog-detail.html?id=${article.id}'">
-      <img 
-        src="${article.image}" 
-        alt="${article.title}" 
-        loading="eager"
-      >
-      <div class="blog-featured-content">
-        <div class="blog-featured-eyebrow">
-          <span class="blog-featured-kicker">Featured Story</span>
-          <span class="blog-featured-tag">${article.category}</span>
-        </div>
-
-        <h2 class="blog-featured-title">${article.title}</h2>
-
-        <p class="blog-featured-excerpt">${excerpt}</p>
-
-        <div class="blog-featured-meta">
-          <div class="blog-featured-author-wrap">
-            <img src="${article.authorAvatar}" alt="${article.author}" class="blog-featured-author-img">
-            <span class="blog-featured-author">${article.author}</span>
-          </div>
-          <div class="blog-featured-submeta">
-            <span>${dateStr}</span>
-            <span class="blog-featured-separator">·</span>
-            <span>閱讀 ${article.readTime} 分鐘</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-/**
  * 渲染文章卡片網格
  * Render the articles grid based on current category filter
  * @param {Array} articles - 要渲染的文章陣列
@@ -169,9 +148,9 @@ function _filterByCategory(category) {
     }
   });
 
-  // 過濾文章（排除精選文章，精選文章已顯示在上方）
-  // Filter articles (excluding featured article, which is shown above)
-  let filtered = _allArticles.filter(a => a.id !== (_featuredArticle ? _featuredArticle.id : null));
+  // 過濾文章
+  // Filter articles
+  let filtered = _allArticles;
 
   if (category !== 'all') {
     filtered = filtered.filter(a => a.category === category);
@@ -231,25 +210,13 @@ window.initBlogPage = async function () {
   console.log(`✓ 載入 ${_allArticles.length} 篇文章 Loaded ${_allArticles.length} articles`);
 
   if (_allArticles.length === 0) {
-    document.getElementById('featuredArticle').innerHTML =
-      '<div style="text-align:center;padding:3rem;color:#999;">暫無文章資料</div>';
     return;
   }
-
-  // 找出精選文章（isFeatured === true 的第一篇）
-  // Find the featured article (first one with isFeatured === true)
-  _featuredArticle = _allArticles.find(a => a.isFeatured === true) || _allArticles[0];
-  _renderFeaturedArticle(_featuredArticle);
-
-  // 渲染文章網格（初始顯示全部，排除精選文章）
-  // Render articles grid (show all initially, exclude featured)
-  const nonFeatured = _allArticles.filter(a => a.id !== _featuredArticle.id);
-  _renderArticlesGrid(nonFeatured);
 
   // 綁定分類篩選按鈕點擊事件
   // Bind category filter button click events
   const categoryTabs = document.getElementById('categoryTabs');
-  if (categoryTabs) {
+  if (categoryTabs && categoryTabs.dataset.blogBound !== 'true') {
     categoryTabs.addEventListener('click', function (e) {
       // 找到被點擊的 filter-btn
       // Find the clicked filter button
@@ -259,7 +226,24 @@ window.initBlogPage = async function () {
       const cat = btn.dataset.cat; // 取得分類值 Get category value
       _filterByCategory(cat);
     });
+    categoryTabs.dataset.blogBound = 'true';
   }
+
+  // 綁定輪播 CTA 按鈕點擊事件
+  // Bind carousel CTA button click events
+  const blogThemeCarousel = document.getElementById('blogThemeCarousel');
+  if (blogThemeCarousel && blogThemeCarousel.dataset.ctaBound !== 'true') {
+    blogThemeCarousel.addEventListener('click', function (e) {
+      const ctaBtn = e.target.closest('.yr-blog-carousel__cta');
+      if (!ctaBtn) return;
+
+      const category = ctaBtn.dataset.ctaCategory;
+      _activateThemeCategory(category);
+    });
+    blogThemeCarousel.dataset.ctaBound = 'true';
+  }
+
+  _filterByCategory(_currentCategory);
 
   console.log('✓ 部落格頁初始化完成 Blog page init done');
 };

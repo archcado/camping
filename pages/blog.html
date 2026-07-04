@@ -31,12 +31,19 @@
   <main>
 
     <!-- -----------------------------------------------
-         頁面 Banner：深綠漸層背景
+         頁首導言區
          ----------------------------------------------- -->
-    <section class="page-banner yr-blog-hero">
+    <section class="yr-blog-hero">
       <div class="container">
-        <h1 class="page-banner-title yr-blog-hero__title"><i class="bi bi-journal-richtext" aria-hidden="true"></i> 露營生活誌</h1>
-        <p class="page-banner-subtitle yr-blog-hero__description">探索戶外的每一步，都是故事</p>
+        <nav class="yr-blog-breadcrumb" aria-label="麵包屑">
+          <a href="home.html">首頁</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">部落格</span>
+        </nav>
+        <p class="yr-blog-hero__eyebrow">YURUICAMP JOURNAL</p>
+        <h1 class="yr-blog-hero__title">露營生活誌</h1>
+        <span class="yr-blog-hero__divider" aria-hidden="true"></span>
+        <p class="yr-blog-hero__description">探索戶外的每一步，都是故事</p>
       </div>
     </section>
 
@@ -45,9 +52,255 @@
          ----------------------------------------------- -->
     <div class="container yr-blog-content">
 
-      <!-- 精選文章（Featured Article）- 由 JS 動態渲染 -->
-      <section id="featuredArticle" class="blog-featured yr-blog-featured">
-        <!-- JS 會把精選文章渲染到這裡 -->
+      <section class="yr-blog-themes" aria-labelledby="blogThemesTitle">
+        <header class="yr-blog-themes__header">
+          <p class="yr-blog-themes__eyebrow">Yuruicamp Journal</p>
+          <h2 id="blogThemesTitle" class="yr-blog-themes__title">從日常走進自然</h2>
+          <p class="yr-blog-themes__description">在風景、旅程、器物與火光之間，閱讀屬於戶外生活的片刻。</p>
+        </header>
+
+        <!-- 分類主題輪播 -->
+        <section
+          class="yr-blog-theme-carousel"
+          aria-roledescription="carousel"
+          aria-label="Blog 主題分類"
+          id="blogThemeCarousel"
+        >
+          <!-- 輪播容器 -->
+          <div class="yr-blog-carousel__viewport">
+            <div class="yr-blog-carousel__slides" id="blogCarouselSlides">
+              
+              <!-- Slide 1: STAY -->
+              <div
+                class="yr-blog-carousel__slide"
+                data-theme="stay"
+                data-blog-category="景點推薦"
+                aria-hidden="false"
+              >
+                <div class="yr-blog-carousel__content">
+                  <div class="yr-blog-carousel__text">
+                    <h3 class="yr-blog-carousel__label">
+                      <span class="yr-blog-carousel__han">住</span>
+                      <span class="yr-blog-carousel__en">/ STAY</span>
+                    </h3>
+                    <div class="yr-blog-carousel__copy">
+                      <p>住進樹影與晨霧之間</p>
+                      <p>讓日常拾起風景，</p>
+                      <p>在風裡輕輕搖曳</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="yr-blog-carousel__cta"
+                      data-cta-category="景點推薦"
+                      aria-label="探索景點推薦文章"
+                    >
+                      <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                      <span>探索文章</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="yr-blog-carousel__media">
+                  <img
+                    class="yr-blog-carousel__image"
+                    src="../assets/images/blog/categories/blog-category-stay.webp"
+                    alt="晨霧森林中的亞麻色露營帳篷與木質家具"
+                    width="1122"
+                    height="1402"
+                    decoding="async"
+                  >
+                </div>
+              </div>
+
+              <!-- Slide 2: JOURNEY -->
+              <div
+                class="yr-blog-carousel__slide"
+                data-theme="journey"
+                data-blog-category="景點推薦"
+                aria-hidden="true"
+              >
+                <div class="yr-blog-carousel__content">
+                  <div class="yr-blog-carousel__text">
+                    <h3 class="yr-blog-carousel__label">
+                      <span class="yr-blog-carousel__han">行</span>
+                      <span class="yr-blog-carousel__en">/ JOURNEY</span>
+                    </h3>
+                    <div class="yr-blog-carousel__copy">
+                      <p>由山海出發，</p>
+                      <p>循著腳步走遠</p>
+                      <p>海風吹動每一段旅程</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="yr-blog-carousel__cta"
+                      data-cta-category="景點推薦"
+                      aria-label="探索景點推薦文章"
+                    >
+                      <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                      <span>探索文章</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="yr-blog-carousel__media">
+                  <img
+                    class="yr-blog-carousel__image"
+                    src="../assets/images/blog/categories/blog-category-journey.webp"
+                    alt="沿著台灣山海延伸的無人海岸步道"
+                    width="1122"
+                    height="1402"
+                    decoding="async"
+                  >
+                </div>
+              </div>
+
+              <!-- Slide 3: CAMP -->
+              <div
+                class="yr-blog-carousel__slide"
+                data-theme="camp"
+                data-blog-category="新手教學"
+                aria-hidden="true"
+              >
+                <div class="yr-blog-carousel__content">
+                  <div class="yr-blog-carousel__text">
+                    <h3 class="yr-blog-carousel__label">
+                      <span class="yr-blog-carousel__han">遊</span>
+                      <span class="yr-blog-carousel__en">/ CAMP</span>
+                    </h3>
+                    <div class="yr-blog-carousel__copy">
+                      <p>在草木與天際線之間逗留</p>
+                      <p>感受季節流動，</p>
+                      <p>帷幕隨風輕晃</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="yr-blog-carousel__cta"
+                      data-cta-category="新手教學"
+                      aria-label="探索新手教學文章"
+                    >
+                      <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                      <span>探索文章</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="yr-blog-carousel__media">
+                  <img
+                    class="yr-blog-carousel__image"
+                    src="../assets/images/blog/categories/blog-category-camp.webp"
+                    alt="山林草地上隨風展開的亞麻色露營天幕"
+                    width="1122"
+                    height="1402"
+                    decoding="async"
+                  >
+                </div>
+              </div>
+
+              <!-- Slide 4: GEAR -->
+              <div
+                class="yr-blog-carousel__slide"
+                data-theme="gear"
+                data-blog-category="裝備評測"
+                aria-hidden="true"
+              >
+                <div class="yr-blog-carousel__content">
+                  <div class="yr-blog-carousel__text">
+                    <h3 class="yr-blog-carousel__label">
+                      <span class="yr-blog-carousel__han">裝</span>
+                      <span class="yr-blog-carousel__en">/ GEAR</span>
+                    </h3>
+                    <div class="yr-blog-carousel__copy">
+                      <p>選擇陪你走進自然的器物</p>
+                      <p>讓行囊在旅程裡，</p>
+                      <p>找到家的位置</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="yr-blog-carousel__cta"
+                      data-cta-category="裝備評測"
+                      aria-label="探索裝備評測文章"
+                    >
+                      <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                      <span>探索文章</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="yr-blog-carousel__media">
+                  <img
+                    class="yr-blog-carousel__image"
+                    src="../assets/images/blog/categories/blog-category-gear.webp"
+                    alt="山林晨霧中的登山背包與露營器物"
+                    width="1122"
+                    height="1402"
+                    decoding="async"
+                  >
+                </div>
+              </div>
+
+              <!-- Slide 5: FOOD -->
+              <div
+                class="yr-blog-carousel__slide"
+                data-theme="food"
+                data-blog-category="生活技巧"
+                aria-hidden="true"
+              >
+                <div class="yr-blog-carousel__content">
+                  <div class="yr-blog-carousel__text">
+                    <h3 class="yr-blog-carousel__label">
+                      <span class="yr-blog-carousel__han">食</span>
+                      <span class="yr-blog-carousel__en">/ FOOD</span>
+                    </h3>
+                    <div class="yr-blog-carousel__copy">
+                      <p>圍著火光坐下</p>
+                      <p>香氣圍著暮色繚繞，</p>
+                      <p>炊煙緩緩升起</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="yr-blog-carousel__cta"
+                      data-cta-category="生活技巧"
+                      aria-label="探索生活技巧文章"
+                    >
+                      <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                      <span>探索文章</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="yr-blog-carousel__media">
+                  <img
+                    class="yr-blog-carousel__image"
+                    src="../assets/images/blog/categories/blog-category-food.webp"
+                    alt="暮色山林中的戶外料理、火光與升起的炊煙"
+                    width="1122"
+                    height="1402"
+                    decoding="async"
+                  >
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 左右控制按鈕 -->
+            <button
+              type="button"
+              class="yr-blog-carousel__btn yr-blog-carousel__btn--prev"
+              aria-label="上一個主題"
+              id="blogCarouselPrev"
+            >
+              <i class="bi bi-chevron-left" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              class="yr-blog-carousel__btn yr-blog-carousel__btn--next"
+              aria-label="下一個主題"
+              id="blogCarouselNext"
+            >
+              <i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- 底部圓點指示器 -->
+          <div class="yr-blog-carousel__dots" id="blogCarouselDots">
+            <!-- 由 JS 動態生成 -->
+          </div>
+        </section>
       </section>
 
       <!-- 分類篩選 Tab -->
@@ -82,8 +335,9 @@
        4. modal.js    → openModal 函數
        5. header.js   → 導航欄功能
        6. cart.js     → 購物車功能
-       7. blog.js     → 部落格頁邏輯（本頁主要邏輯）
-       8. main.js     → 應用初始化
+       7. blog-carousel.js → 部落格輪播
+       8. blog.js     → 部落格頁邏輯（本頁主要邏輯）
+       9. main.js     → 應用初始化
        =================================================== -->
   <script src="../js/config.js" defer></script>
   <script src="../js/storage.js" defer></script>
@@ -96,6 +350,7 @@
   <script src="../js/components/modal.js" defer></script>
   <script src="../js/components/header.js" defer></script>
   <script src="../js/components/cart.js" defer></script>
+  <script src="../js/pages/blog-carousel.js" defer></script>
   <script src="../js/pages/blog.js" defer></script>
   <script src="../js/main.js" defer></script>
 

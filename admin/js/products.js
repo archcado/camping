@@ -5,7 +5,8 @@
  *
  * products.json 欄位對應：thumbnail（非 image）、status:"active"/"disabled"（非 active:bool）
  * 分店庫存由 branch.branch-001 / branch-002 / branch-003 保存，總庫存由 total-stock 保存。
- * 低庫存的 <tr> 加上 table-danger class，整列顯示淡紅色背景；單格低於最低值加橘色標示
+ * 商品列使用模組狀態 class（normal / low / out）呈現庫存狀態；
+ * 單格低於最低值時仍加上 stock-cell-below-min 進行局部提示。
  * 低庫存閾值由各商品各分店在 min_stock.json 獨立設定（預設 5）
  */
 
@@ -100,6 +101,94 @@ var productViewState = {
   stock: '',
   sortBy: 'default',
 };
+var PRODUCT_ROW_BASE_CLASS = 'yr-admin-products-row';
+var PRODUCT_ROW_STATE_CLASSES = [
+  'yr-admin-products-row--normal',
+  'yr-admin-products-row--low',
+  'yr-admin-products-row--out',
+];
+
+function getStockStateByTotal(totalStock, isLow) {
+  if (normalizeStockValue(totalStock) <= 0) {
+    return 'out';
+  }
+
+  return isLow ? 'low' : 'normal';
+}
+
+function getStockStatusLabel(stockState) {
+  if (stockState === 'out') {
+    return '缺貨';
+  }
+
+  if (stockState === 'low') {
+    return '低庫存';
+  }
+
+  return '正常';
+}
+
+function getStockStatusBadgeClass(stockState) {
+  if (stockState === 'out') {
+    return 'yr-admin-stock-status yr-admin-stock-status--out';
+  }
+
+  if (stockState === 'low') {
+    return 'yr-admin-stock-status yr-admin-stock-status--low';
+  }
+
+  return 'yr-admin-stock-status yr-admin-stock-status--normal';
+}
+
+function getStockValueClass(stockState) {
+  if (stockState === 'out') {
+    return 'yr-admin-product-stock-value yr-admin-product-stock-value--out';
+  }
+
+  if (stockState === 'low') {
+    return 'yr-admin-product-stock-value yr-admin-product-stock-value--low';
+  }
+
+  return 'yr-admin-product-stock-value yr-admin-product-stock-value--normal';
+}
+
+function getStockRowStateClass(stockState) {
+  return PRODUCT_ROW_BASE_CLASS + '--' + stockState;
+}
+
+function applyRowStockState($row, totalStock, isLow) {
+  if (!$row || !$row.length) {
+    return;
+  }
+
+  var stockState = getStockStateByTotal(totalStock, isLow);
+  $row.removeClass(PRODUCT_ROW_STATE_CLASSES.join(' '));
+  $row.addClass(getStockRowStateClass(stockState)).attr('data-stock-state', stockState);
+
+  var $totalCell = $row.find('[data-total-stock-display]').first();
+  if (!$totalCell.length) {
+    return;
+  }
+
+  $totalCell.attr('data-stock-state', stockState);
+
+  var $stockValue = $totalCell.find('.total-stock-value').first();
+  if ($stockValue.length) {
+    $stockValue
+      .removeClass(
+        'yr-admin-product-stock-value--normal yr-admin-product-stock-value--low yr-admin-product-stock-value--out'
+      )
+      .addClass(getStockValueClass(stockState));
+  }
+
+  var $statusBadge = $totalCell.find('.yr-admin-stock-status').first();
+  if ($statusBadge.length) {
+    $statusBadge
+      .removeClass('yr-admin-stock-status--normal yr-admin-stock-status--low yr-admin-stock-status--out')
+      .addClass(getStockStatusBadgeClass(stockState))
+      .text(getStockStatusLabel(stockState));
+  }
+}
 
 /**
  * 取得指定商品、指定分店 / 營地的最低庫存閾值。
@@ -284,11 +373,11 @@ window.initProducts = function () {
       adminProductsCache = (products || []).map(normalizeProductBranch);
       renderProductsTable(adminProductsCache);
 
-      // 低庫存導航：渲染完成後，捲動到第一列紅色（低庫存）商品並顯示提示
+      // 低庫存導航：渲染完成後，捲動到第一列低庫存商品並顯示提示
       if (_showLowStock) {
         // 稍微延遲確保 DOM 已完整插入
         setTimeout(function () {
-          var $firstLowStock = $('#productsTableBody tr.table-danger').first();
+          var $firstLowStock = $('#productsTableBody tr.yr-admin-products-row--low, #productsTableBody tr.yr-admin-products-row--out').first();
           if ($firstLowStock.length) {
             // 滾動到低庫存列（目標列上方保留 64px 間距，避免被 topbar 遮住）
             $('html, body').animate(
@@ -297,7 +386,7 @@ window.initProducts = function () {
               },
               300
             );
-            window.showAdminToast('已標示庫存不足的商品（紅色列）', 'info');
+            window.showAdminToast('已標示庫存不足商品', 'info');
           } else {
             window.showAdminToast('目前所有商品庫存充足', 'info');
           }
@@ -1292,8 +1381,9 @@ function confirmRentalStockChangeWithReason($row, rental, rentalId, nextCampByKe
 
   // 更新唯讀 total 欄位的靜態顯示數字
   // Refresh the read-only rental-total display cell
+  var isLowStock = isRentalProductLowStock(rental);
   $row.find('.total-stock-value').text(totalStock);
-  $row.toggleClass('table-danger', isRentalProductLowStock(rental));
+  applyRowStockState($row, totalStock, isLowStock);
   refreshRowLowStockCells($row, getLowCampKeys(rental));
   setRowOriginalStockValues($row);
   syncStockConfirmState($row);
@@ -1608,8 +1698,9 @@ function confirmStoreStockChange($row, product, branchStock, totalStock) {
   product.branch = branchStock;
   delete product.stock;
 
+  var isLowStock = isStoreProductLowStock(product);
   $row.find('.total-stock-value').text(totalStock);
-  $row.toggleClass('table-danger', isStoreProductLowStock(product));
+  applyRowStockState($row, totalStock, isLowStock);
   refreshRowLowStockCells($row, getLowBranchIds(product));
   setRowOriginalStockValues($row);
   syncStockConfirmState($row);
@@ -2438,7 +2529,7 @@ function refreshRowLowStockCells($row, lowFieldIds) {
  */
 function buildStockCellContent(fieldName, qty, label, isLowCell) {
   var safeQty = normalizeStockValue(qty);
-  var displayClass = isLowCell ? ' text-danger' : '';
+  var displayClass = isLowCell ? ' yr-admin-product-stock-value yr-admin-product-stock-value--low' : ' yr-admin-product-stock-value yr-admin-product-stock-value--normal';
 
   return (
     '<span class="stock-display-value' +
@@ -2487,15 +2578,15 @@ function buildStockEditColumnCell() {
     cellClass +
     '">' +
     '<div class="stock-edit-actions-wrap">' +
-    '<button type="button" class="btn btn-link btn-sm p-0 stock-edit-btn" title="修改庫存數量">' +
-    '<i class="fas fa-pencil-alt text-primary"></i>' +
+    '<button type="button" class="btn btn-link btn-sm p-0 stock-edit-btn yr-admin-product-edit-btn" title="修改庫存數量">' +
+    '<i class="fas fa-pencil-alt yr-admin-product-action-icon"></i>' +
     '</button>' +
     '<div class="stock-edit-actions d-none">' +
-    '<button type="button" class="btn btn-link btn-sm p-0 stock-confirm-btn" title="儲存" disabled>' +
-    '<i class="fas fa-check text-primary"></i>' +
+    '<button type="button" class="btn btn-link btn-sm p-0 stock-confirm-btn yr-admin-product-confirm-btn" title="儲存" disabled>' +
+    '<i class="fas fa-check yr-admin-product-action-icon"></i>' +
     '</button>' +
-    '<button type="button" class="btn btn-link btn-sm p-0 stock-cancel-btn" title="取消">' +
-    '<i class="fas fa-times text-danger"></i>' +
+    '<button type="button" class="btn btn-link btn-sm p-0 stock-cancel-btn yr-admin-product-cancel-btn" title="取消">' +
+    '<i class="fas fa-times yr-admin-product-action-icon yr-admin-product-action-icon--danger"></i>' +
     '</button>' +
     '</div>' +
     '</div>' +
@@ -2807,7 +2898,8 @@ function upsertAdminProductCache(product) {
 function buildProductRow(p) {
   var stock = getProductTotalStock(p);
   var isLow = !isMinStockMode && isStoreProductLowStock(p);
-  var rowClass = isLow ? ' class="table-danger"' : '';
+  var stockState = getStockStateByTotal(stock, isLow);
+  var rowClass = ' class="' + PRODUCT_ROW_BASE_CLASS + ' ' + getStockRowStateClass(stockState) + '" data-stock-state="' + stockState + '"';
   var imgSrc = p.thumbnail || PRODUCT_IMAGE_PLACEHOLDER;
   // 在正常模式下，取得庫存不足的分店 ID 清單，用於橘色格子標示
   // In normal mode, get low-branch IDs for orange cell highlighting
@@ -2870,7 +2962,7 @@ function buildProductRow(p) {
         return (
           '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold text-warning" ' +
           'data-total-stock-display>' +
-          '<span class="total-stock-value">' +
+          '<span class="total-stock-value yr-admin-product-stock-value yr-admin-product-stock-value--low">' +
           totalMin +
           '</span>' +
           '<br><small class="text-muted fw-normal" style="font-size:0.65rem;">閾值合計</small>' +
@@ -2879,10 +2971,20 @@ function buildProductRow(p) {
       }
       return (
         '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold" ' +
+        'data-stock-state="' +
+        stockState +
+        '" ' +
         'data-total-stock-display>' +
-        '<span class="total-stock-value">' +
+        '<span class="total-stock-value ' +
+        getStockValueClass(stockState) +
+        '">' +
         stock +
         '</span>' +
+        '<div class="mt-1"><span class="' +
+        getStockStatusBadgeClass(stockState) +
+        '">' +
+        getStockStatusLabel(stockState) +
+        '</span></div>' +
         '</td>'
       );
     })() +
@@ -2902,7 +3004,8 @@ function buildRentalRow(item) {
   var rental = normalizeRentalItem(item);
   var stock = getRentalTotalStock(rental);
   var isLow = !isMinStockMode && isRentalProductLowStock(rental);
-  var rowClass = isLow ? ' class="table-danger"' : '';
+  var stockState = getStockStateByTotal(stock, isLow);
+  var rowClass = ' class="' + PRODUCT_ROW_BASE_CLASS + ' ' + getStockRowStateClass(stockState) + '" data-stock-state="' + stockState + '"';
   var campByKey = rental.campByKey || {};
   // 在正常模式下，取得庫存不足的營地 key 清單，用於橘色格子標示
   // In normal mode, get low-camp keys for orange cell highlighting
@@ -2995,7 +3098,7 @@ function buildRentalRow(item) {
         return (
           '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold text-warning" ' +
           'data-total-stock-display>' +
-          '<span class="total-stock-value">' +
+          '<span class="total-stock-value yr-admin-product-stock-value yr-admin-product-stock-value--low">' +
           totalMin +
           '</span>' +
           '<br><small class="text-muted fw-normal" style="font-size:0.65rem;">閾值合計</small>' +
@@ -3004,10 +3107,20 @@ function buildRentalRow(item) {
       }
       return (
         '<td class="sticky-col sticky-col-total-stock stock-cell text-center fw-semibold" ' +
+        'data-stock-state="' +
+        stockState +
+        '" ' +
         'data-total-stock-display>' +
-        '<span class="total-stock-value">' +
+        '<span class="total-stock-value ' +
+        getStockValueClass(stockState) +
+        '">' +
         stock +
         '</span>' +
+        '<div class="mt-1"><span class="' +
+        getStockStatusBadgeClass(stockState) +
+        '">' +
+        getStockStatusLabel(stockState) +
+        '</span></div>' +
         '</td>'
       );
     })() +
@@ -3444,8 +3557,9 @@ function submitBranchToCampTransfer() {
   // ── 更新商店表格列畫面 ─────────────────────────
   var $storeRow = $('#productsTableBody tr[data-product-id="' + escapeSelector(productId) + '"]');
   if ($storeRow.length) {
+    var isStoreLow = !isMinStockMode && isStoreProductLowStock(product);
     $storeRow.find('.total-stock-value').text(product['total-stock']);
-    $storeRow.toggleClass('table-danger', !isMinStockMode && isStoreProductLowStock(product));
+    applyRowStockState($storeRow, product['total-stock'], isStoreLow);
     refreshRowLowStockCells($storeRow, getLowBranchIds(product));
     var $branchInput = $storeRow.find('.stock-input[data-stock-field="' + branchId + '"]');
     $branchInput
@@ -3591,8 +3705,9 @@ function _updateRentalTableRow(rentalId, rental, distributions) {
   var rentalTotal = Object.keys(rental.campByKey).reduce(function (sum, key) {
     return sum + normalizeStockValue(rental.campByKey[key]);
   }, 0);
+  var isRentalLow = !isMinStockMode && isRentalProductLowStock(rental);
   $rentalRow.find('.total-stock-value').text(rentalTotal);
-  $rentalRow.toggleClass('table-danger', !isMinStockMode && isRentalProductLowStock(rental));
+  applyRowStockState($rentalRow, rentalTotal, isRentalLow);
   refreshRowLowStockCells($rentalRow, getLowCampKeys(rental));
 
   distributions.forEach(function (d) {

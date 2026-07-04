@@ -168,10 +168,13 @@
   position: absolute;
   inset: 0;
   display: flex;
+  justify-content: space-between;
   align-items: stretch;
+  gap: clamp(2.5rem, 4vw, 4rem);
   width: 100%;
   height: 100%;
-  padding: clamp(2.5rem, 5vw, 4rem) clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  padding-inline: clamp(6.75rem, 9vw, 7.75rem);
   border: 1px solid #e2d8ca;
   border-radius: 24px;
   background: linear-gradient(135deg, #f3ebdd 0%, #e7ece2 100%);
@@ -193,56 +196,59 @@
 
 /* ===== 輪播內容佈局 ===== */
 .yr-blog-page .yr-blog-carousel__content {
-  flex: 1;
+  flex: 1 1 46%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-self: stretch;
-  max-width: 58%;
+  max-width: 48%;
   min-width: 0;
 }
 
 .yr-blog-page .yr-blog-carousel__text {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0;
 }
 
 .yr-blog-page .yr-blog-carousel__label {
   display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  align-items: flex-end;
+  gap: 0.75rem;
   margin: 0;
   color: #3f463d;
 }
 
 .yr-blog-page .yr-blog-carousel__han {
   font-family: 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'PMingLiU', serif;
-  font-size: clamp(2.8rem, 5vw, 3.75rem);
-  font-weight: 600;
-  line-height: 0.9;
-  letter-spacing: 0.02em;
+  font-size: clamp(4.5rem, 6vw, 7rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
 }
 
 .yr-blog-page .yr-blog-carousel__en {
   font-family: inherit;
-  font-size: clamp(0.82rem, 1.1vw, 1rem);
-  font-weight: 500;
-  line-height: 1;
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #6d6a62;
+  padding-bottom: 0.5rem;
 }
 
 .yr-blog-page .yr-blog-carousel__copy {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
+  max-width: clamp(420px, 36vw, 480px);
+  margin-top: clamp(1.5rem, 2.5vw, 2rem);
+  margin-left: clamp(2rem, 3vw, 3rem);
   color: #3f463d;
   font-size: clamp(0.95rem, 1.2vw, 1.05rem);
   font-weight: 500;
-  line-height: 1.7;
-  margin: 0;
+  line-height: 1.82;
 }
 
 .yr-blog-page .yr-blog-carousel__copy p {
@@ -254,6 +260,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  margin-top: clamp(1.5rem, 2.5vw, 2rem);
+  margin-left: clamp(2rem, 3vw, 3rem);
   padding: 0.65rem 1.2rem;
   border: 1px solid #dcc9b8;
   border-radius: 8px;
@@ -283,13 +291,12 @@
 
 /* ===== 輪播圖片 ===== */
 .yr-blog-page .yr-blog-carousel__media {
-  flex: 0 0 38%;
-  max-width: 45%;
+  flex: 0 0 36%;
+  max-width: 38%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: clamp(1.5rem, 3vw, 2.5rem);
-  margin-left: auto;
+  padding-left: clamp(1.5rem, 2.5vw, 2.25rem);
 }
 
 .yr-blog-page .yr-blog-carousel__image {
@@ -309,14 +316,16 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   padding: 0;
+  aspect-ratio: 1;
   border: 1px solid rgba(226, 216, 202, 0.7);
-  border-radius: 999px;
+  border-radius: 50%;
   background: rgba(250, 247, 237, 0.92);
   color: #74846f;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -339,11 +348,11 @@
 }
 
 .yr-blog-page .yr-blog-carousel__btn--prev {
-  left: clamp(1rem, 2vw, 1.5rem);
+  left: clamp(1.5rem, 2.5vw, 2.25rem);
 }
 
 .yr-blog-page .yr-blog-carousel__btn--next {
-  right: clamp(1rem, 2vw, 1.5rem);
+  right: clamp(1.5rem, 2.5vw, 2.25rem);
 }
 
 /* ===== 輪播圓點指示器 ===== */
@@ -561,16 +570,47 @@
 
 @media (max-width: 1024px) {
   .yr-blog-page .yr-blog-carousel__slide {
-    padding: clamp(2rem, 4vw, 3.5rem);
+    gap: clamp(2rem, 3.2vw, 2.8rem);
+    padding-block: clamp(2rem, 4vw, 3.2rem);
+    padding-inline: clamp(5.75rem, 7.5vw, 6.5rem);
   }
 
   .yr-blog-page .yr-blog-carousel__content {
-    max-width: 55%;
+    flex-basis: 48%;
+    max-width: 50%;
+  }
+
+  .yr-blog-page .yr-blog-carousel__han {
+    font-size: clamp(3.9rem, 6.2vw, 5.6rem);
+  }
+
+  .yr-blog-page .yr-blog-carousel__en {
+    font-size: clamp(0.95rem, 1.45vw, 1.15rem);
+  }
+
+  .yr-blog-page .yr-blog-carousel__copy,
+  .yr-blog-page .yr-blog-carousel__cta {
+    margin-left: clamp(1.25rem, 2.2vw, 1.75rem);
   }
 
   .yr-blog-page .yr-blog-carousel__media {
-    max-width: 42%;
-    padding-left: clamp(1.25rem, 2.5vw, 2rem);
+    flex-basis: 36%;
+    max-width: 38%;
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .yr-blog-page .yr-blog-carousel__btn {
+    width: 46px;
+    height: 46px;
+    font-size: 1.05rem;
+  }
+
+  .yr-blog-page .yr-blog-carousel__btn--prev {
+    left: clamp(1rem, 1.8vw, 1.5rem);
+  }
+
+  .yr-blog-page .yr-blog-carousel__btn--next {
+    right: clamp(1rem, 1.8vw, 1.5rem);
   }
 
   .yr-blog-page .yr-blog-grid {
@@ -597,7 +637,9 @@
 
   .yr-blog-page .yr-blog-carousel__slide {
     flex-direction: column;
-    padding: clamp(2rem, 4vw, 3rem);
+    gap: 1.25rem;
+    padding-block: clamp(2rem, 4vw, 2.8rem);
+    padding-inline: clamp(4.5rem, 8vw, 5.25rem);
   }
 
   .yr-blog-page .yr-blog-carousel__content {
@@ -621,32 +663,38 @@
   }
 
   .yr-blog-page .yr-blog-carousel__btn {
-    width: 38px;
-    height: 38px;
-    font-size: 1.1rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
   }
 
   .yr-blog-page .yr-blog-carousel__btn--prev {
-    left: clamp(0.75rem, 1.5vw, 1rem);
+    left: clamp(0.85rem, 1.8vw, 1.15rem);
   }
 
   .yr-blog-page .yr-blog-carousel__btn--next {
-    right: clamp(0.75rem, 1.5vw, 1rem);
+    right: clamp(0.85rem, 1.8vw, 1.15rem);
   }
 
   .yr-blog-page .yr-blog-carousel__han {
-    font-size: clamp(2.4rem, 4vw, 3rem);
+    font-size: clamp(3.6rem, 10vw, 4.9rem);
   }
 
   .yr-blog-page .yr-blog-carousel__en {
-    font-size: clamp(0.75rem, 1vw, 0.9rem);
+    font-size: clamp(0.9rem, 2.2vw, 1.05rem);
   }
 
   .yr-blog-page .yr-blog-carousel__copy {
+    max-width: min(100%, 480px);
+    margin-top: clamp(1rem, 2.5vw, 1.3rem);
+    margin-left: clamp(1.25rem, 3.2vw, 1.75rem);
     font-size: clamp(0.9rem, 1.1vw, 1rem);
+    line-height: 1.78;
   }
 
   .yr-blog-page .yr-blog-carousel__cta {
+    margin-top: clamp(1rem, 2.6vw, 1.4rem);
+    margin-left: clamp(1.25rem, 3.2vw, 1.75rem);
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
@@ -689,7 +737,8 @@
   .yr-blog-page .yr-blog-carousel__slide {
     position: absolute;
     flex-direction: column;
-    padding: 1.5rem 1.25rem;
+    gap: 1rem;
+    padding: 1.5rem clamp(3.2rem, 10vw, 3.8rem);
     width: calc(100% - 2.5rem);
     height: auto;
     min-height: 600px;
@@ -716,19 +765,19 @@
   }
 
   .yr-blog-page .yr-blog-carousel__btn {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
+    width: 40px;
+    height: 40px;
+    font-size: 0.95rem;
   }
 
   .yr-blog-page .yr-blog-carousel__btn--prev {
-    left: 0.5rem;
-    top: 10px;
+    left: 0.65rem;
+    top: 0.9rem;
   }
 
   .yr-blog-page .yr-blog-carousel__btn--next {
-    right: 0.5rem;
-    top: 10px;
+    right: 0.65rem;
+    top: 0.9rem;
   }
 
   .yr-blog-page .yr-blog-themes__title {
@@ -736,19 +785,25 @@
   }
 
   .yr-blog-page .yr-blog-carousel__han {
-    font-size: clamp(2rem, 12vw, 2.8rem);
+    font-size: clamp(3.2rem, 16vw, 4.5rem);
   }
 
   .yr-blog-page .yr-blog-carousel__en {
-    font-size: 0.78rem;
+    font-size: clamp(0.82rem, 3.2vw, 0.98rem);
   }
 
   .yr-blog-page .yr-blog-carousel__copy {
+    margin-top: 0.95rem;
+    margin-left: clamp(0.75rem, 4vw, 1rem);
+    max-width: min(100%, 440px);
     font-size: 0.95rem;
-    gap: 0.15rem;
+    gap: 0.2rem;
+    line-height: 1.75;
   }
 
   .yr-blog-page .yr-blog-carousel__cta {
+    margin-top: 1rem;
+    margin-left: clamp(0.75rem, 4vw, 1rem);
     padding: 0.55rem 0.95rem;
     font-size: 0.85rem;
     gap: 0.4rem;

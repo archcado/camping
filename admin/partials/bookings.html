@@ -7,11 +7,11 @@
 <section class="yr-admin-bookings-module">
 <div class="card shadow-sm border-0 yr-admin-bookings-card">
 
-  <!-- 卡片頂部：標題 + 日期快速選鈕 + 清除排序按鈕 -->
+  <!-- 卡片頂部：標題 + 視圖切換 + 搜尋/篩選 -->
   <!-- 舊的 #bookingStatusFilter / #paymentStatusFilter select 已移除，
        篩選功能改由欄位標頭的漏斗 icon 負責 -->
   <div class="card-header bg-white border-0
-              d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">
+              d-flex justify-content-between align-items-start flex-wrap gap-3 py-3">
     <div>
       <h6 class="fw-semibold mb-0 yr-admin-bookings-title">
       <i class="fas fa-calendar-check me-2 text-muted"></i>預約列表
@@ -19,10 +19,71 @@
       <p class="mb-0 small text-muted yr-admin-bookings-description">
         預約篩選、付款狀態與租借歸還管理
       </p>
+      <div class="nav nav-pills admin-booking-tabs yr-admin-bookings-tabs mt-3"
+           role="tablist"
+           aria-label="預約與租借管理視圖切換">
+        <button type="button"
+                class="nav-link active"
+                data-bookings-view="stays"
+                role="tab"
+                aria-selected="true">
+          <i class="fas fa-list-ul me-1"></i>營地預約
+        </button>
+        <button type="button"
+                class="nav-link"
+                data-bookings-view="calendar"
+                role="tab"
+                aria-selected="false">
+          <i class="fas fa-calendar-days me-1"></i>入住日曆
+        </button>
+        <button type="button"
+                class="nav-link"
+                data-bookings-view="rentals"
+                role="tab"
+                aria-selected="false">
+          <i class="fas fa-toolbox me-1"></i>裝備租借
+        </button>
+      </div>
     </div>
 
-    <!-- 右側工具列：日期篩選 + 清除排序按鈕 -->
-    <div class="d-flex align-items-center flex-wrap gap-2 yr-admin-bookings-toolbar">
+    <!-- 右側工具列：搜尋 + 日期篩選 + 清除按鈕 -->
+    <div class="d-flex flex-column align-items-stretch gap-2 yr-admin-bookings-toolbar">
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <input type="search"
+               id="bookingsSearchInput"
+               class="form-control form-control-sm yr-admin-bookings-search"
+               placeholder="搜尋預約編號、會員、營區或租借商品"
+               aria-label="搜尋預約編號、會員、營區或租借商品">
+
+        <div id="rentalToolbarFilters" class="d-none d-flex align-items-center flex-wrap gap-2">
+          <select id="rentalStatusFilter"
+                  class="form-select form-select-sm yr-admin-bookings-filter"
+                  aria-label="租借狀態篩選">
+            <option value="">全部租借狀態</option>
+            <option value="pending">待確認</option>
+            <option value="confirmed">已確認</option>
+            <option value="completed">已完成</option>
+            <option value="cancelled">已取消</option>
+          </select>
+          <select id="rentalPaymentFilter"
+                  class="form-select form-select-sm yr-admin-bookings-filter"
+                  aria-label="租借付款狀態篩選">
+            <option value="">全部付款狀態</option>
+            <option value="paid">已付款</option>
+            <option value="refunded">已退款</option>
+            <option value="unpaid">未付款</option>
+            <option value="failed">付款失敗</option>
+          </select>
+          <select id="rentalOverdueFilter"
+                  class="form-select form-select-sm yr-admin-bookings-filter"
+                  aria-label="租借逾期篩選">
+            <option value="">全部逾期狀態</option>
+            <option value="overdue">僅顯示逾期</option>
+            <option value="active">未逾期</option>
+            <option value="returned">已歸還</option>
+          </select>
+        </div>
+      </div>
 
       <!-- 日期篩選器：快速選鈕 + flatpickr 自定義 + 期間文字 -->
       <!-- 與訂單管理頁風格一致；由 bookings.js setupBookingPeriodFilter / initBookingFlatpickr 驅動 -->
@@ -36,126 +97,172 @@
             <i class="fas fa-calendar-alt me-1"></i>自定義
           </button>
         </div>
-        <!-- flatpickr input：預設 hidden，點「自定義」才顯示 -->
         <input type="text" id="bookingDateRangePicker"
                class="form-control form-control-sm yr-admin-bookings-date-input"
                style="max-width: 230px; display: none;"
                placeholder="開始日期 ~ 結束日期" readonly>
-        <!-- 期間文字：由 updateBookingPeriodLabel() 動態更新 -->
         <span class="text-muted small yr-admin-bookings-period-label" id="bookingPeriodLabel"></span>
-      </div>
 
-      <div class="d-flex align-items-center flex-wrap gap-2 yr-admin-bookings-toolbar__filters">
-        <!-- 清除篩選按鈕：有篩選條件時顯示 -->
-        <button id="btnClearBookingFilters" class="btn btn-sm btn-outline-secondary d-none">
-          <i class="fas fa-filter-circle-xmark me-1"></i>清除篩選
-        </button>
-
-        <!-- 清除排序按鈕：只有在排序堆疊不為預設時才顯示，由 updateBookingSortUI() 控制 d-none -->
-        <button id="btnClearBookingSort" class="btn btn-sm btn-outline-secondary d-none">
-          <i class="fas fa-rotate-left me-1"></i>清除排序
-        </button>
+        <div class="d-flex align-items-center flex-wrap gap-2 yr-admin-bookings-toolbar__filters ms-auto">
+          <button id="btnClearBookingFilters" class="btn btn-sm btn-outline-secondary d-none">
+            <i class="fas fa-filter-circle-xmark me-1"></i>清除篩選
+          </button>
+          <button id="btnClearBookingSort" class="btn btn-sm btn-outline-secondary d-none">
+            <i class="fas fa-rotate-left me-1"></i>清除排序
+          </button>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- 表格容器 -->
+  <!-- 表格/日曆容器 -->
   <div class="card-body p-0">
     <div class="px-3 pt-2 pb-1 yr-admin-bookings-result-count" id="bookingResultCount" aria-live="polite"></div>
-    <div class="table-responsive yr-admin-bookings-table-wrap">
-      <table class="table table-hover mb-0 yr-admin-bookings-table" id="bookingsTable">
-        <thead class="table-light">
-          <tr>
-            <!-- 預約單號：字串排序（字典序） -->
-            <th class="sortable-th yr-admin-bookings-th" data-sort-key="id" scope="col">
-              預約單號 <i class="fas fa-sort sort-icon ms-1"></i>
-            </th>
 
-            <!-- 下單日期：字串排序（ISO 格式 YYYY-MM-DD 可直接比大小） -->
-            <th class="sortable-th yr-admin-bookings-th" data-sort-key="submitted_at" scope="col">
-              下單日期 <i class="fas fa-sort sort-icon ms-1"></i>
-            </th>
+    <div class="admin-bookings-panel yr-admin-bookings-panel" data-bookings-panel="stays">
+      <div class="table-responsive yr-admin-bookings-table-wrap">
+        <table class="table table-hover mb-0 yr-admin-bookings-table" id="bookingsTable">
+          <thead class="table-light">
+            <tr>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="id" scope="col">
+                預約單號 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="submitted_at" scope="col">
+                下單日期 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="check_in" scope="col">
+                入住日 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="check_out" scope="col">
+                退房日 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="yr-admin-bookings-th" scope="col">顧客姓名</th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="final_amount" scope="col">
+                訂單金額 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="yr-admin-bookings-th" scope="col">營區 / 營位</th>
+              <th class="filter-th yr-admin-bookings-th" data-filter-key="hasRental" scope="col">
+                含租借
+                <i class="fas fa-filter filter-icon ms-1"></i>
+                <span class="filter-dot d-none"></span>
+                <div class="filter-dropdown d-none">
+                  <label><input type="checkbox" value="true"> 有租借</label>
+                  <label><input type="checkbox" value="false"> 無</label>
+                </div>
+              </th>
+              <th class="filter-th yr-admin-bookings-th" data-filter-key="paymentStatus" scope="col">
+                付款狀態
+                <i class="fas fa-filter filter-icon ms-1"></i>
+                <span class="filter-dot d-none"></span>
+                <div class="filter-dropdown d-none">
+                  <label><input type="checkbox" value="paid"> 已付款</label>
+                  <label><input type="checkbox" value="refunded"> 已退款</label>
+                </div>
+              </th>
+              <th class="filter-th yr-admin-bookings-th" data-filter-key="bookingStatus" scope="col">
+                預約狀態
+                <i class="fas fa-filter filter-icon ms-1"></i>
+                <span class="filter-dot d-none"></span>
+                <div class="filter-dropdown d-none">
+                  <label><input type="checkbox" value="pending"> 待確認</label>
+                  <label><input type="checkbox" value="confirmed"> 已確認</label>
+                  <label><input type="checkbox" value="completed"> 已完成</label>
+                  <label><input type="checkbox" value="cancelled"> 已取消</label>
+                </div>
+              </th>
+              <th class="filter-th yr-admin-bookings-th" data-filter-key="region" scope="col">
+                地區
+                <i class="fas fa-filter filter-icon ms-1"></i>
+                <span class="filter-dot d-none"></span>
+                <div class="filter-dropdown d-none">
+                  <label><input type="checkbox" value="北部"> 北部</label>
+                  <label><input type="checkbox" value="中部"> 中部</label>
+                  <label><input type="checkbox" value="南部"> 南部</label>
+                  <label><input type="checkbox" value="東部"> 東部</label>
+                </div>
+              </th>
+              <th class="yr-admin-bookings-th yr-admin-bookings-actions-col" scope="col">操作</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <tr>
+              <td colspan="11" class="text-center py-4 yr-admin-bookings-loading">
+                <div class="spinner-border spinner-border-sm me-2"
+                     style="color: var(--admin-brand-accent);"></div>
+                <span class="text-muted">載入預約資料中...</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-            <!-- 顧客姓名：不排序，不加 icon -->
-            <th class="yr-admin-bookings-th" scope="col">顧客姓名</th>
+    <div class="admin-bookings-panel yr-admin-bookings-panel yr-admin-booking-calendar d-none" data-bookings-panel="calendar">
+      <div class="px-3 py-3 border-top yr-admin-bookings-calendar-toolbar">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div class="btn-group btn-group-sm" role="group" aria-label="月份切換">
+            <button type="button" class="btn btn-outline-secondary" id="bookingCalendarPrevMonth">
+              <i class="fas fa-chevron-left me-1"></i>上月
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="bookingCalendarToday">本月</button>
+            <button type="button" class="btn btn-outline-secondary" id="bookingCalendarNextMonth">
+              下月<i class="fas fa-chevron-right ms-1"></i>
+            </button>
+          </div>
+          <strong id="bookingCalendarLabel" class="yr-admin-bookings-calendar-label"></strong>
+        </div>
+      </div>
+      <div class="px-3 pb-3 yr-admin-booking-calendar__viewport">
+        <div class="yr-admin-bookings-calendar-grid yr-admin-booking-calendar__grid" id="bookingCalendarGrid">
+          <div class="yr-admin-bookings-calendar-loading yr-admin-booking-calendar__loading text-center py-4 text-muted">
+            <div class="spinner-border spinner-border-sm me-2"
+                 style="color: var(--admin-brand-accent);"></div>
+            載入日曆中...
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <!-- 訂單金額：數值排序 -->
-            <th class="sortable-th yr-admin-bookings-th" data-sort-key="final_amount" scope="col">
-              訂單金額 <i class="fas fa-sort sort-icon ms-1"></i>
-            </th>
-
-            <!-- 營區：不排序 -->
-            <th class="yr-admin-bookings-th" scope="col">營區</th>
-
-            <!-- 含租借：多選篩選欄位
-                 .filter-th = 相對定位基準（供 Dropdown 絕對定位）
-                 data-filter-key = 對應篩選邏輯的欄位名稱
-                 .filter-icon = 漏斗 icon，啟用時加 .active 變色
-                 .filter-dot = 紅點，有篩選條件時移除 d-none
-                 .filter-dropdown = checkbox 選單，預設 d-none -->
-            <th class="filter-th yr-admin-bookings-th" data-filter-key="hasRental" scope="col">
-              含租借
-              <i class="fas fa-filter filter-icon ms-1"></i>
-              <span class="filter-dot d-none"></span>
-              <div class="filter-dropdown d-none">
-                <label><input type="checkbox" value="true"> 有租借</label>
-                <label><input type="checkbox" value="false"> 無</label>
-              </div>
-            </th>
-
-            <!-- 付款狀態：多選篩選欄位（同上） -->
-            <th class="filter-th yr-admin-bookings-th" data-filter-key="paymentStatus" scope="col">
-              付款狀態
-              <i class="fas fa-filter filter-icon ms-1"></i>
-              <span class="filter-dot d-none"></span>
-              <div class="filter-dropdown d-none">
-                <label><input type="checkbox" value="paid"> 已付款</label>
-                <label><input type="checkbox" value="refunded"> 已退款</label>
-              </div>
-            </th>
-
-            <!-- 訂單狀態：多選篩選欄位（同上） -->
-            <th class="filter-th yr-admin-bookings-th" data-filter-key="bookingStatus" scope="col">
-              訂單狀態
-              <i class="fas fa-filter filter-icon ms-1"></i>
-              <span class="filter-dot d-none"></span>
-              <div class="filter-dropdown d-none">
-                <label><input type="checkbox" value="pending"> 待確認</label>
-                <label><input type="checkbox" value="confirmed"> 已確認</label>
-                <label><input type="checkbox" value="completed"> 已完成</label>
-                <label><input type="checkbox" value="cancelled"> 已取消</label>
-              </div>
-            </th>
-
-            <!-- 地區：多選篩選欄位（同上） -->
-            <th class="filter-th yr-admin-bookings-th" data-filter-key="region" scope="col">
-              地區
-              <i class="fas fa-filter filter-icon ms-1"></i>
-              <span class="filter-dot d-none"></span>
-              <div class="filter-dropdown d-none">
-                <label><input type="checkbox" value="北部"> 北部</label>
-                <label><input type="checkbox" value="中部"> 中部</label>
-                <label><input type="checkbox" value="南部"> 南部</label>
-                <label><input type="checkbox" value="東部"> 東部</label>
-              </div>
-            </th>
-
-            <th class="yr-admin-bookings-th yr-admin-bookings-actions-col" scope="col">操作</th>
-          </tr>
-        </thead>
-        <!-- tbody 由 bookings.js 的 renderBookingsTable() 動態填入 -->
-        <tbody id="bookingsTableBody">
-          <!-- 初始顯示 Loading 提示 -->
-          <tr>
-            <td colspan="10" class="text-center py-4 yr-admin-bookings-loading">
-              <div class="spinner-border spinner-border-sm me-2"
-                   style="color: var(--admin-brand-accent);"></div>
-              <span class="text-muted">載入預約資料中...</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="admin-bookings-panel yr-admin-bookings-panel d-none" data-bookings-panel="rentals">
+      <div class="table-responsive yr-admin-bookings-table-wrap">
+        <table class="table table-hover mb-0 yr-admin-bookings-table" id="rentalBookingsTable">
+          <thead class="table-light">
+            <tr>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="rental_id" scope="col">
+                租借單號 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="rental_start" scope="col">
+                取件日 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="rental_end" scope="col">
+                歸還日 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="yr-admin-bookings-th" scope="col">顧客姓名</th>
+              <th class="yr-admin-bookings-th" scope="col">租借商品</th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="rental_quantity" scope="col">
+                數量 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="sortable-th yr-admin-bookings-th" data-sort-key="rental_amount" scope="col">
+                租借金額 <i class="fas fa-sort sort-icon ms-1"></i>
+              </th>
+              <th class="yr-admin-bookings-th" scope="col">付款狀態</th>
+              <th class="yr-admin-bookings-th" scope="col">租借狀態</th>
+              <th class="yr-admin-bookings-th" scope="col">逾期 / 歸還</th>
+              <th class="yr-admin-bookings-th yr-admin-bookings-actions-col" scope="col">操作</th>
+            </tr>
+          </thead>
+          <tbody id="rentalBookingsTableBody">
+            <tr>
+              <td colspan="11" class="text-center py-4 yr-admin-bookings-loading">
+                <div class="spinner-border spinner-border-sm me-2"
+                     style="color: var(--admin-brand-accent);"></div>
+                <span class="text-muted">切換至裝備租借頁籤後載入資料</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div><!-- end card-body -->
 

@@ -52,6 +52,38 @@ var bookingFilterState = {
  * startDate / endDate 為 Date 物件，供 updateBookingPeriodLabel 格式化文字使用
  */
 var bookingDateState = { days: 30, startDate: null, endDate: null };
+var bookingViewState = {
+  activeView: 'stays',
+  searchTerm: '',
+  rentalStatus: '',
+  rentalPayment: '',
+  rentalOverdue: '',
+};
+var bookingCalendarState = {
+  currentMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+};
+var BOOKING_CALENDAR_MAX_EVENTS_PER_DAY = 3;
+var BOOKING_REQUIRED_SELECTORS = [
+  '#bookingsTable',
+  '#bookingsTableBody',
+  '#bookingPeriodBtns',
+  '#bookingDateRangePicker',
+  '#bookingPeriodLabel',
+  '#btnClearBookingSort',
+  '#btnClearBookingFilters',
+  '#bookingResultCount',
+  '#bookingsSearchInput',
+  '#bookingCalendarGrid',
+  '#bookingCalendarLabel',
+  '#rentalBookingsTableBody',
+  '#rentalStatusFilter',
+  '#rentalPaymentFilter',
+  '#rentalOverdueFilter',
+  '#bookingDetailModal',
+  '#bookingCancelModal',
+];
+var DEFAULT_BOOKING_SORT = [{ key: 'submitted_at', dir: 'desc' }];
+var DEFAULT_RENTAL_SORT = [{ key: 'rental_start', dir: 'desc' }];
 
 // ─────────────────────────────────────────────
 // 初始化
@@ -64,10 +96,16 @@ window.initBookings = function () {
   $(document).off('.orders');
   $(document).off('.bookings');
 
-  // ── 每次進入預約頁重置排序與篩選狀態（還原預設：日期降冪） ──
-  bookingSortStack   = [{ key: 'submitted_at', dir: 'desc' }];
+  // ── 每次進入預約頁重置排序與篩選狀態 ──
+  bookingSortStack = [];
   bookingFilterState = { paymentStatus: [], bookingStatus: [], hasRental: [], region: [], dateStart: null, dateEnd: null };
-  bookingDateState   = { days: 30, startDate: null, endDate: null };
+  bookingDateState = { days: 30, startDate: null, endDate: null };
+  bookingViewState = { activeView: 'stays', searchTerm: '', rentalStatus: '', rentalPayment: '', rentalOverdue: '' };
+  bookingCalendarState = { currentMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1) };
+
+  if (!validateBookingsDom()) {
+    return;
+  }
 
   // ── 初始化日期篩選器 UI ─────────────────────────
   setupBookingPeriodFilter(); // 綁定快速選鈕點擊事件
@@ -168,7 +206,7 @@ window.initBookings = function () {
 
   // ── 清除排序按鈕 ───────────────────────────────────
   $(document).on('click.bookings', '#btnClearBookingSort', function () {
-    bookingSortStack = [{ key: 'submitted_at', dir: 'desc' }]; // 還原預設：日期降冪
+    bookingSortStack = [];
     applyBookingFiltersAndSort();
   });
 
@@ -178,6 +216,10 @@ window.initBookings = function () {
     bookingFilterState.bookingStatus = [];
     bookingFilterState.hasRental = [];
     bookingFilterState.region = [];
+    bookingViewState.searchTerm = '';
+    bookingViewState.rentalStatus = '';
+    bookingViewState.rentalPayment = '';
+    bookingViewState.rentalOverdue = '';
     if (bookingDateState.days === 'custom') {
       $('#bookingDateRangePicker').hide().val('');
       applyBookingDayRange('all');
@@ -186,8 +228,70 @@ window.initBookings = function () {
     }
   });
 
+  $(document).on('input.bookings', '#bookingsSearchInput', function () {
+    bookingViewState.searchTerm = String($(this).val() || '').trim().toLowerCase();
+    applyBookingFiltersAndSort();
+  });
+
+  $(document).on('change.bookings', '#rentalStatusFilter, #rentalPaymentFilter, #rentalOverdueFilter', function () {
+    bookingViewState.rentalStatus = $('#rentalStatusFilter').val() || '';
+    bookingViewState.rentalPayment = $('#rentalPaymentFilter').val() || '';
+    bookingViewState.rentalOverdue = $('#rentalOverdueFilter').val() || '';
+    applyBookingFiltersAndSort();
+  });
+
+  $(document).on('click.bookings', '[data-bookings-view]', function () {
+    var view = $(this).data('bookings-view');
+    if (!view || bookingViewState.activeView === view) {
+      return;
+    }
+    bookingViewState.activeView = view;
+    bookingSortStack = [];
+    syncBookingViewPanels();
+    applyBookingFiltersAndSort();
+  });
+
+  $(document).on('click.bookings', '#bookingCalendarPrevMonth', function () {
+    bookingCalendarState.currentMonth = new Date(
+      bookingCalendarState.currentMonth.getFullYear(),
+      bookingCalendarState.currentMonth.getMonth() - 1,
+      1
+    );
+    if (bookingViewState.activeView === 'calendar') {
+      applyBookingFiltersAndSort();
+    }
+  });
+
+  $(document).on('click.bookings', '#bookingCalendarNextMonth', function () {
+    bookingCalendarState.currentMonth = new Date(
+      bookingCalendarState.currentMonth.getFullYear(),
+      bookingCalendarState.currentMonth.getMonth() + 1,
+      1
+    );
+    if (bookingViewState.activeView === 'calendar') {
+      applyBookingFiltersAndSort();
+    }
+  });
+
+  $(document).on('click.bookings', '#bookingCalendarToday', function () {
+    bookingCalendarState.currentMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    if (bookingViewState.activeView === 'calendar') {
+      applyBookingFiltersAndSort();
+    }
+  });
+
   // ── 點擊預約單號 → 開啟明細 Modal ────────────────────────────
   $(document).on('click.bookings', '.booking-id-link', function () {
+    var bookingId = $(this).data('booking-id');
+    var booking = (window.bookingsCache || []).find(function (b) {
+      return b.id === bookingId;
+    });
+    if (!booking) return;
+    showBookingModal(booking);
+  });
+
+  $(document).on('click.bookings', '.booking-calendar-item, .rental-booking-link', function (e) {
+    e.preventDefault();
     var bookingId = $(this).data('booking-id');
     var booking = (window.bookingsCache || []).find(function (b) {
       return b.id === bookingId;
@@ -222,6 +326,7 @@ window.initBookings = function () {
     // 確認後操作欄改為只顯示「取消」
     $row.find('.btn-confirm-booking').remove();
 
+    applyBookingFiltersAndSort();
     window.showAdminToast('預約 ' + bookingId + ' 已確認');
   });
 
@@ -272,6 +377,7 @@ window.initBookings = function () {
     bootstrap.Modal.getInstance(document.getElementById('bookingCancelModal')).hide();
     window._cancelTargetId = null;
 
+    applyBookingFiltersAndSort();
     window.showAdminToast('預約 ' + bookingId + ' 已取消', 'info');
   });
 
@@ -311,12 +417,14 @@ window.initBookings = function () {
     // 關閉 Modal
     bootstrap.Modal.getInstance(document.getElementById('bookingDetailModal')).hide();
 
+    applyBookingFiltersAndSort();
     window.showAdminToast('預約 ' + bookingId + ' 已標記為完成');
   });
 
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('bookings', $('#contentArea'));
   }
+  syncBookingViewPanels();
 };
 
 // ─────────────────────────────────────────────
@@ -329,26 +437,23 @@ window.initBookings = function () {
  */
 function loadBookingsData() {
   if (window.bookingsCache && window.bookingsCache.length > 0) {
+    window.bookingsCache = window.bookingsCache.map(normalizeBookingRecord);
     applyBookingFiltersAndSort();
   } else {
     $.getJSON('data/bookings.json', function (bookings) {
       if (!Array.isArray(bookings)) {
-        $('#bookingsTableBody').html(
-          '<tr><td colspan="10" class="text-center py-4 yr-admin-bookings-error">' +
-          '<i class="fas fa-circle-exclamation me-2"></i>預約資料格式錯誤' +
-          '</td></tr>'
-        );
+        renderBookingsMessage('預約資料格式錯誤');
+        renderRentalBookingsMessage('租借資料格式錯誤');
+        renderBookingCalendarMessage('預約資料格式錯誤');
         updateBookingResultCount(0, 'error', '資料格式錯誤');
         return;
       }
-      window.bookingsCache = bookings;
+      window.bookingsCache = bookings.map(normalizeBookingRecord);
       applyBookingFiltersAndSort();
     }).fail(function () {
-      $('#bookingsTableBody').html(
-        '<tr><td colspan="10" class="text-center py-4 yr-admin-bookings-error">' +
-        '<i class="fas fa-exclamation-triangle me-2"></i>載入預約數據失敗' +
-        '</td></tr>'
-      );
+      renderBookingsMessage('載入預約數據失敗');
+      renderRentalBookingsMessage('載入租借資料失敗');
+      renderBookingCalendarMessage('載入預約資料失敗');
       updateBookingResultCount(0, 'error', '載入失敗');
     });
   }
@@ -583,26 +688,45 @@ function applyBookingFiltersAndSort() {
     });
   }
 
+  if (bookingViewState.searchTerm) {
+    data = data.filter(function (b) {
+      return getBookingSearchText(b).indexOf(bookingViewState.searchTerm) !== -1;
+    });
+  }
+
   // ── Step 2：排序 ──────────────────────────────────
   // 依 bookingSortStack 的優先順序逐層比較（多鍵穩定排序）
-  if (bookingSortStack.length > 0) {
-    data.sort(function (a, b) {
-      for (var i = 0; i < bookingSortStack.length; i++) {
-        var key = bookingSortStack[i].key;
-        var dir = bookingSortStack[i].dir === 'asc' ? 1 : -1;
+  var activeSortStack = getActiveBookingSortStack();
+  if (bookingViewState.activeView === 'rentals') {
+    var rentalRecords = buildFilteredRentalRecords(data);
+    if (activeSortStack.length > 0) {
+      rentalRecords.sort(function (a, b) {
+        for (var i = 0; i < activeSortStack.length; i++) {
+          var rentalKey = activeSortStack[i].key;
+          var rentalDir = activeSortStack[i].dir === 'asc' ? 1 : -1;
+          var rentalValA = getBookingSortValue(a, rentalKey);
+          var rentalValB = getBookingSortValue(b, rentalKey);
 
-        // 依欄位取值（final_amount 從 summary 取得）
-        var valA, valB;
-        if (key === 'final_amount') {
-          valA = (a.summary && a.summary.final_amount) || 0;
-          valB = (b.summary && b.summary.final_amount) || 0;
-        } else if (key === 'submitted_at') {
-          valA = (a.submitted_at || '').slice(0, 10);
-          valB = (b.submitted_at || '').slice(0, 10);
-        } else {
-          valA = a[key] || '';
-          valB = b[key] || '';
+          if (rentalValA < rentalValB) return -1 * rentalDir;
+          if (rentalValA > rentalValB) return 1 * rentalDir;
         }
+        return 0;
+      });
+    }
+    syncBookingViewPanels();
+    renderRentalBookingsTable(rentalRecords);
+    updateBookingSortUI();
+    updateBookingFilterUI();
+    return;
+  }
+
+  if (activeSortStack.length > 0) {
+    data.sort(function (a, b) {
+      for (var i = 0; i < activeSortStack.length; i++) {
+        var key = activeSortStack[i].key;
+        var dir = activeSortStack[i].dir === 'asc' ? 1 : -1;
+        var valA = getBookingSortValue(a, key);
+        var valB = getBookingSortValue(b, key);
 
         if (valA < valB) return -1 * dir;
         if (valA > valB) return  1 * dir;
@@ -613,7 +737,12 @@ function applyBookingFiltersAndSort() {
   }
 
   // ── Step 3：渲染 + 更新 UI ────────────────────────
-  renderBookingsTable(data);
+  syncBookingViewPanels();
+  if (bookingViewState.activeView === 'calendar') {
+    renderBookingCalendar(data);
+  } else {
+    renderBookingsTable(data);
+  }
   updateBookingSortUI();
   updateBookingFilterUI();
 }
@@ -642,12 +771,7 @@ function updateBookingSortUI() {
 
   // 有排序條件時顯示「清除排序」按鈕；否則隱藏
   // bookingSortStack 長度 > 1 或第一層不是預設的日期降冪 → 視為「有排序」
-  var isDefault = (
-    bookingSortStack.length === 1 &&
-    bookingSortStack[0].key === 'submitted_at' &&
-    bookingSortStack[0].dir === 'desc'
-  );
-  if (isDefault || bookingSortStack.length === 0) {
+  if (bookingSortStack.length === 0) {
     $('#btnClearBookingSort').addClass('d-none');
   } else {
     $('#btnClearBookingSort').removeClass('d-none');
@@ -689,7 +813,15 @@ function updateBookingFilterUI() {
     bookingFilterState.paymentStatus.length > 0 ||
     bookingFilterState.bookingStatus.length > 0 ||
     bookingFilterState.hasRental.length > 0 ||
-    bookingFilterState.region.length > 0;
+    bookingFilterState.region.length > 0 ||
+    Boolean(bookingViewState.searchTerm) ||
+    Boolean(bookingViewState.rentalStatus) ||
+    Boolean(bookingViewState.rentalPayment) ||
+    Boolean(bookingViewState.rentalOverdue);
+  $('#bookingsSearchInput').val(bookingViewState.searchTerm);
+  $('#rentalStatusFilter').val(bookingViewState.rentalStatus);
+  $('#rentalPaymentFilter').val(bookingViewState.rentalPayment);
+  $('#rentalOverdueFilter').val(bookingViewState.rentalOverdue);
   $('#btnClearBookingFilters').toggleClass('d-none', !hasFilter);
 }
 
@@ -702,10 +834,7 @@ function updateBookingFilterUI() {
  */
 function renderBookingsTable(bookings) {
   if (!bookings || bookings.length === 0) {
-    $('#bookingsTableBody').html(
-      '<tr><td colspan="10" class="text-center py-4 yr-admin-bookings-empty">' +
-      '<i class="fas fa-inbox me-2"></i>沒有符合條件的預約</td></tr>'
-    );
+    renderBookingsMessage('沒有符合條件的預約');
     updateBookingResultCount(0, 'empty');
     return;
   }
@@ -741,15 +870,14 @@ function renderBookingsTable(bookings) {
       actionBtns = '<span class="text-muted small">—</span>';
     }
 
-    // ── 下單日期：只取 YYYY-MM-DD ──
-    var dateStr = (booking.submitted_at || '').split(' ')[0] || '';
-
     // ── 訂單金額 ──
     var finalAmount = (booking.summary && booking.summary.final_amount) || 0;
     var amountStr = 'NT$ ' + finalAmount.toLocaleString();
 
-    // ── 營區（僅顯示名稱，地區移至獨立欄位）──
     var campStr = info.campground_name;
+    var zoneSummary = (booking.selected_zones || []).map(function (zone) {
+      return zone.zone_type + ' x' + zone.quantity;
+    }).join('<br>');
 
     // ── 預約單號連結 ──
     var idLink =
@@ -775,14 +903,15 @@ function renderBookingsTable(bookings) {
            ' data-region="' + info.region + '"' +
            ' data-has-rental="' + (hasRental ? 'true' : 'false') + '">' +
            '<td class="yr-admin-booking-id">' + idLink + '</td>' +
-           '<td class="yr-admin-booking-date">' + dateStr + '</td>' +
+           '<td>' + escapeHtml(info.check_in || '') + '</td>' +
+           '<td>' + escapeHtml(info.check_out || '') + '</td>' +
            '<td>' + customerLink + '</td>' +
            '<td class="text-end yr-admin-booking-amount">' + amountStr + '</td>' +
-           '<td>' + campStr + '</td>' +
+           '<td><div class="fw-semibold">' + escapeHtml(campStr) + '</div><div class="text-muted small">' + (zoneSummary || '—') + '</div></td>' +
            '<td class="text-center"><div class="yr-admin-booking-rental-stack">' + rentalBadge + equipmentBadge + '</div></td>' +
            '<td class="yr-admin-bookings-status-col">' + payBadge + '</td>' +
            '<td class="yr-admin-bookings-status-col">' + statusBadge + '</td>' +
-           '<td>' + info.region + '</td>' +
+           '<td>' + escapeHtml(info.region || '') + '</td>' +
            '<td class="yr-admin-bookings-actions">' + actionBtns + '</td>' +
            '</tr>';
   }).join('');
@@ -941,6 +1070,298 @@ function showBookingModal(booking) {
   if (typeof window.applyEditPermission === 'function') {
     window.applyEditPermission('bookings', $('#contentArea'));
   }
+}
+
+function validateBookingsDom() {
+  var missing = BOOKING_REQUIRED_SELECTORS.filter(function (selector) {
+    return !$(selector).length;
+  });
+  if (missing.length === 0) {
+    return true;
+  }
+  renderBookingsMessage('預約管理初始化失敗：缺少必要元件');
+  renderRentalBookingsMessage('租借管理初始化失敗：缺少必要元件');
+  renderBookingCalendarMessage('行事曆初始化失敗：缺少必要元件');
+  updateBookingResultCount(0, 'error', '缺少必要元件');
+  return false;
+}
+
+function normalizeBookingRecord(booking) {
+  var normalized = booking || {};
+  normalized.booking_info = normalized.booking_info || {};
+  normalized.selected_zones = Array.isArray(normalized.selected_zones) ? normalized.selected_zones : [];
+  normalized.selected_rentals = Array.isArray(normalized.selected_rentals) ? normalized.selected_rentals : [];
+  normalized.summary = normalized.summary || {};
+  normalized.history = Array.isArray(normalized.history) ? normalized.history : [];
+  normalized.id = String(normalized.id || '');
+  normalized.customer_id = String(normalized.customer_id || '');
+  return normalized;
+}
+
+function syncBookingViewPanels() {
+  var activeView = bookingViewState.activeView || 'stays';
+  $('[data-bookings-view]').removeClass('active').attr('aria-pressed', 'false');
+  $('[data-bookings-view="' + activeView + '"]').addClass('active').attr('aria-pressed', 'true');
+  $('[data-bookings-panel]').addClass('d-none');
+  $('[data-bookings-panel="' + activeView + '"]').removeClass('d-none');
+  $('#rentalToolbarFilters').toggleClass('d-none', activeView !== 'rentals');
+}
+
+function getActiveBookingSortStack() {
+  if (bookingSortStack.length > 0) {
+    return bookingSortStack;
+  }
+  return bookingViewState.activeView === 'rentals' ? DEFAULT_RENTAL_SORT : DEFAULT_BOOKING_SORT;
+}
+
+function getBookingSortValue(record, key) {
+  if (!record) return '';
+  if (key === 'final_amount' || key === 'rental_amount') {
+    return Number((record.summary && record.summary.final_amount) || record.rental_amount || 0);
+  }
+  if (key === 'submitted_at' || key === 'check_in' || key === 'check_out' || key === 'rental_start' || key === 'rental_end') {
+    return String(record[key] || (record.booking_info && record.booking_info[key]) || '').slice(0, 10);
+  }
+  if (key === 'rental_quantity') {
+    return Number(record.rental_quantity || 0);
+  }
+  if (key === 'rental_id') {
+    return String(record.rental_id || '');
+  }
+  return String(record[key] || '');
+}
+
+function getBookingSearchText(booking) {
+  var info = booking.booking_info || {};
+  var rentals = (booking.selected_rentals || []).map(function (item) {
+    return item.name || '';
+  }).join(' ');
+  var customerName = getCustomerName(booking.customer_id);
+  var customerEmail = getCustomerField(booking.customer_id, 'email');
+  return [
+    booking.id,
+    booking.customer_id,
+    customerName,
+    customerEmail,
+    info.campground_name,
+    info.region,
+    rentals
+  ].join(' ').toLowerCase();
+}
+
+function buildFilteredRentalRecords(bookings) {
+  var today = fmtBookingDateISO(new Date());
+  var records = [];
+  bookings.forEach(function (booking) {
+    (booking.selected_rentals || []).forEach(function (rental, index) {
+      var record = {
+        booking_id: booking.id,
+        rental_id: booking.id + '-R' + String(index + 1).padStart(2, '0'),
+        customer_id: booking.customer_id,
+        customer_name: getCustomerName(booking.customer_id),
+        product_name: rental.name || '',
+        rental_product_id: String(rental.equipment_id || ''),
+        rental_quantity: Number(rental.quantity || 0),
+        rental_amount: Number(rental.subtotal || 0),
+        rental_start: (booking.booking_info && booking.booking_info.check_in) || '',
+        rental_end: (booking.booking_info && booking.booking_info.check_out) || '',
+        payment_status: booking.payment_status || '',
+        status: booking.status || '',
+        equipment_returned: Boolean(booking.equipment_returned),
+        overdue_state: 'active'
+      };
+      if (record.equipment_returned || record.status === 'completed') {
+        record.overdue_state = 'returned';
+      } else if (record.status !== 'cancelled' && record.rental_end && record.rental_end < today) {
+        record.overdue_state = 'overdue';
+      }
+      records.push(record);
+    });
+  });
+
+  return records.filter(function (record) {
+    if (bookingViewState.rentalStatus && record.status !== bookingViewState.rentalStatus) {
+      return false;
+    }
+    if (bookingViewState.rentalPayment && record.payment_status !== bookingViewState.rentalPayment) {
+      return false;
+    }
+    if (bookingViewState.rentalOverdue && record.overdue_state !== bookingViewState.rentalOverdue) {
+      return false;
+    }
+    if (bookingViewState.searchTerm) {
+      var rentalSearchText = [
+        record.rental_id,
+        record.booking_id,
+        record.customer_name,
+        getCustomerField(record.customer_id, 'email'),
+        record.product_name
+      ].join(' ').toLowerCase();
+      return rentalSearchText.indexOf(bookingViewState.searchTerm) !== -1;
+    }
+    return true;
+  });
+}
+
+function renderBookingsMessage(message) {
+  $('#bookingsTableBody').html(
+    '<tr><td colspan="11" class="text-center py-4 yr-admin-bookings-empty">' +
+    '<i class="fas fa-inbox me-2"></i>' + escapeHtml(message) +
+    '</td></tr>'
+  );
+}
+
+function renderRentalBookingsMessage(message) {
+  $('#rentalBookingsTableBody').html(
+    '<tr><td colspan="11" class="text-center py-4 yr-admin-bookings-empty">' +
+    '<i class="fas fa-inbox me-2"></i>' + escapeHtml(message) +
+    '</td></tr>'
+  );
+}
+
+function renderBookingCalendarMessage(message) {
+  $('#bookingCalendarLabel').text('預約行事曆');
+  $('#bookingCalendarGrid').html(
+    '<div class="yr-admin-bookings-calendar-empty"><i class="fas fa-calendar-times me-2"></i>' +
+    escapeHtml(message) +
+    '</div>'
+  );
+}
+
+function renderRentalBookingsTable(rentalRecords) {
+  if (!rentalRecords || rentalRecords.length === 0) {
+    renderRentalBookingsMessage('沒有符合條件的租借資料');
+    updateBookingResultCount(0, 'empty');
+    return;
+  }
+
+  var html = rentalRecords.map(function (record) {
+    var payBadge = getPayBadgeHtml(record.payment_status);
+    var bookingBadge = renderBookingStatusTag(record.status);
+    var overdueLabel = record.overdue_state === 'returned'
+      ? '<span class="yr-admin-equipment-return yr-admin-equipment-return--returned">已歸還</span>'
+      : record.overdue_state === 'overdue'
+        ? '<span class="yr-admin-equipment-return yr-admin-equipment-return--pending">逾期中</span>'
+        : '<span class="yr-admin-equipment-return yr-admin-equipment-return--pending">未逾期</span>';
+    var actionBtns = record.status === 'pending'
+      ? '<button class="btn btn-sm btn-outline-primary btn-confirm-booking yr-admin-bookings-action-btn yr-admin-bookings-action-btn--primary me-1" title="確認預約"><i class="fas fa-check me-1"></i>確認預約</button>' +
+        '<button class="btn btn-sm btn-outline-danger btn-cancel-booking yr-admin-bookings-action-btn yr-admin-bookings-action-btn--danger" title="取消預約"><i class="fas fa-times me-1"></i>取消</button>'
+      : record.status === 'confirmed'
+        ? '<button class="btn btn-sm btn-outline-danger btn-cancel-booking yr-admin-bookings-action-btn yr-admin-bookings-action-btn--danger" title="取消預約"><i class="fas fa-times me-1"></i>取消</button>'
+        : '<span class="text-muted small">—</span>';
+    return '<tr data-booking-id="' + escapeHtml(record.booking_id) + '">' +
+      '<td class="yr-admin-rental-id-col"><a href="#" class="rental-booking-link yr-admin-rental-id-link" data-booking-id="' + escapeHtml(record.booking_id) + '" title="' + escapeHtml(record.rental_id) + '" aria-label="查看租借單號 ' + escapeHtml(record.rental_id) + ' 詳情"><span class="yr-admin-rental-id-link__code">' + escapeHtml(record.rental_id) + '</span></a></td>' +
+      '<td>' + escapeHtml(record.rental_start) + '</td>' +
+      '<td>' + escapeHtml(record.rental_end) + '</td>' +
+      '<td><a href="#" class="booking-customer-link text-decoration-underline" data-customer-id="' + escapeHtml(record.customer_id) + '">' + escapeHtml(record.customer_name) + '</a></td>' +
+      '<td>' + escapeHtml(record.product_name) + '</td>' +
+      '<td class="text-center">' + record.rental_quantity + '</td>' +
+      '<td class="text-end">NT$ ' + record.rental_amount.toLocaleString() + '</td>' +
+      '<td>' + payBadge + '</td>' +
+      '<td>' + bookingBadge + '</td>' +
+      '<td>' + overdueLabel + '</td>' +
+      '<td class="yr-admin-bookings-actions">' + actionBtns + '</td>' +
+      '</tr>';
+  }).join('');
+
+  $('#rentalBookingsTableBody').html(html);
+  updateBookingResultCount(rentalRecords.length, 'normal');
+  if (typeof window.applyEditPermission === 'function') {
+    window.applyEditPermission('bookings', $('#contentArea'));
+  }
+}
+
+function renderBookingCalendar(bookings) {
+  var monthStart = bookingCalendarState.currentMonth || new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  monthStart = new Date(monthStart.getFullYear(), monthStart.getMonth(), 1);
+  var nextMonth = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 1);
+  var firstGridDate = new Date(monthStart);
+  firstGridDate.setDate(monthStart.getDate() - monthStart.getDay());
+  var todayIso = fmtBookingDateISO(new Date());
+  var itemsByDate = {};
+  bookings.forEach(function (booking) {
+    var checkIn = (booking.booking_info && booking.booking_info.check_in) || '';
+    if (!checkIn) return;
+    if (!itemsByDate[checkIn]) {
+      itemsByDate[checkIn] = [];
+    }
+    itemsByDate[checkIn].push(booking);
+  });
+
+  var label = monthStart.getFullYear() + ' 年 ' + String(monthStart.getMonth() + 1).padStart(2, '0') + ' 月';
+  $('#bookingCalendarLabel').text(label);
+
+  var cells = [];
+  for (var i = 0; i < 42; i++) {
+    var cellDate = new Date(firstGridDate);
+    cellDate.setDate(firstGridDate.getDate() + i);
+    var isoDate = fmtBookingDateISO(cellDate);
+    var isOtherMonth = cellDate < monthStart || cellDate >= nextMonth;
+    var isToday = isoDate === todayIso;
+    var bookingsForDay = itemsByDate[isoDate] || [];
+    var visibleBookings = bookingsForDay.slice(0, BOOKING_CALENDAR_MAX_EVENTS_PER_DAY);
+    var overflowCount = Math.max(bookingsForDay.length - visibleBookings.length, 0);
+
+    var itemsHtml = visibleBookings.map(function (booking) {
+      var customerName = getCustomerName(booking.customer_id);
+      var statusClass = getCalendarEventStatusClass(booking.status);
+      var itemTitle = booking.id + '｜' + customerName;
+      return '<button type="button" class="booking-calendar-item yr-admin-booking-calendar__event ' +
+        statusClass +
+        '" data-booking-id="' +
+        escapeHtml(booking.id) +
+        '" title="' +
+        escapeHtml(itemTitle) +
+        '">' +
+        '<span class="yr-admin-booking-calendar__event-id">' + escapeHtml(booking.id) + '</span>' +
+        '<span class="yr-admin-booking-calendar__event-name">' + escapeHtml(customerName) + '</span>' +
+        '</button>';
+    }).join('');
+
+    if (overflowCount > 0) {
+      itemsHtml += '<span class="yr-admin-booking-calendar__more" title="' +
+        escapeHtml(isoDate + ' 尚有 ' + overflowCount + ' 筆預約') +
+        '">+' +
+        overflowCount +
+        ' 筆</span>';
+    }
+
+    var emptyHtml = isOtherMonth
+      ? ''
+      : '<span class="yr-admin-booking-calendar__empty">無預約</span>';
+    cells.push(
+      '<div class="yr-admin-bookings-calendar-day yr-admin-booking-calendar__day' +
+      (isOtherMonth ? ' yr-admin-booking-calendar__day--outside is-outside' : '') +
+      (isToday ? ' yr-admin-booking-calendar__day--today is-today' : '') +
+      '">' +
+      '<div class="yr-admin-bookings-calendar-day__header yr-admin-booking-calendar__date">' + escapeHtml(isoDate.slice(8, 10)) + '</div>' +
+      '<div class="yr-admin-bookings-calendar-day__items yr-admin-booking-calendar__events">' + (itemsHtml || emptyHtml) + '</div>' +
+      '</div>'
+    );
+  }
+
+  $('#bookingCalendarGrid').html(cells.join(''));
+  updateBookingResultCount(bookings.length, bookings.length ? 'normal' : 'empty');
+}
+
+function getCalendarEventStatusClass(status) {
+  var map = {
+    pending: 'yr-admin-booking-calendar__event--pending',
+    confirmed: 'yr-admin-booking-calendar__event--confirmed',
+    completed: 'yr-admin-booking-calendar__event--completed',
+    'checked-out': 'yr-admin-booking-calendar__event--completed',
+    cancelled: 'yr-admin-booking-calendar__event--cancelled'
+  };
+  return map[status] || 'yr-admin-booking-calendar__event--unknown';
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 // ═══════════════════════════════════════════════════════════════

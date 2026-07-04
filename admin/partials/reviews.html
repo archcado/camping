@@ -1,34 +1,129 @@
 <!-- partials/reviews.html
      評論管理頁面
      由 core.js 的 $.load() 注入到 #contentArea
-     評論卡片由 reviews.js 的 $.getJSON() 動態產生
+     新版主題外觀 + 舊版搜尋/篩選/回覆 Modal 相容結構
 -->
 
 <section class="yr-admin-reviews-module">
-  <!-- ===== 篩選按鈕（全部 / 未回覆 / 已回覆）===== -->
-  <div class="yr-admin-reviews-toolbar d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
-    <div class="yr-admin-reviews-tabs d-flex align-items-center gap-2" role="tablist" aria-label="評論篩選">
-      <button class="btn btn-outline-secondary yr-admin-reviews-tab active filter-btn" type="button" data-filter="all">
-        全部 <span class="yr-admin-review-status yr-admin-review-status--unknown ms-1" id="tabCountAll">0</span>
-      </button>
-      <button class="btn btn-outline-secondary yr-admin-reviews-tab filter-btn" type="button" data-filter="unreplied">
-        待回覆 <span class="yr-admin-review-status yr-admin-review-status--pending ms-1" id="tabCountUnreplied">0</span>
-      </button>
-      <button class="btn btn-outline-secondary yr-admin-reviews-tab filter-btn" type="button" data-filter="replied">
-        已回覆 <span class="yr-admin-review-status yr-admin-review-status--answered ms-1" id="tabCountReplied">0</span>
-      </button>
+  <div class="card shadow-sm border-0" id="reviewsModuleCard">
+    <div class="card-header bg-white border-0 py-3">
+      <div class="yr-admin-reviews-toolbar d-flex flex-column gap-3">
+        <div class="reviews-toolbar-row d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div class="yr-admin-reviews-tabs d-flex align-items-center gap-2" role="tablist" aria-label="評論篩選">
+            <button class="btn btn-outline-secondary yr-admin-reviews-tab active filter-btn" type="button" data-filter="all">
+              全部 <span class="yr-admin-review-status yr-admin-review-status--unknown ms-1" id="tabCountAll">0</span>
+            </button>
+            <button class="btn btn-outline-secondary yr-admin-reviews-tab filter-btn" type="button" data-filter="unreplied">
+              待回覆 <span class="yr-admin-review-status yr-admin-review-status--pending ms-1" id="tabCountUnreplied">0</span>
+            </button>
+            <button class="btn btn-outline-secondary yr-admin-reviews-tab filter-btn" type="button" data-filter="replied">
+              已回覆 <span class="yr-admin-review-status yr-admin-review-status--answered ms-1" id="tabCountReplied">0</span>
+            </button>
+          </div>
+          <p class="yr-admin-reviews-result-count mb-0" id="reviewsResultCount" aria-live="polite">顯示 0 筆評論</p>
+        </div>
+
+        <div class="reviews-toolbar-row d-flex flex-wrap align-items-center gap-2">
+          <input
+            type="search"
+            id="reviewSearchInput"
+            class="form-control form-control-sm reviews-search-input"
+            placeholder="搜尋評論編號、商品、買家、內容"
+            autocomplete="off"
+          >
+          <select id="reviewRatingFilter" class="form-select form-select-sm reviews-filter-select">
+            <option value="">全部評分</option>
+            <option value="1-2">1-2 星（需關注）</option>
+            <option value="3">3 星</option>
+            <option value="4-5">4-5 星</option>
+          </select>
+          <select id="reviewSortSelect" class="form-select form-select-sm reviews-filter-select">
+            <option value="unreplied-first">待回覆優先</option>
+            <option value="date-desc">最新優先</option>
+            <option value="rating-asc">評分由低到高</option>
+            <option value="rating-desc">評分由高到低</option>
+          </select>
+          <button type="button" id="btnClearReviewFilters" class="btn btn-sm btn-outline-secondary d-none">
+            <i class="fas fa-rotate-left me-1"></i>清除條件
+          </button>
+        </div>
+      </div>
     </div>
-    <p class="yr-admin-reviews-result-count mb-0" id="reviewsResultCount" aria-live="polite">顯示 0 筆評論</p>
+
+    <div class="card-body">
+      <div id="reviewsContainer">
+        <div class="yr-admin-reviews-loading text-center py-5" role="status" aria-live="polite">
+          <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div>
+          <span>載入評論中...</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- ===== 評論卡片容器
-       由 reviews.js 的 renderReviewCards() 動態填入
-  -->
-  <div id="reviewsContainer">
-    <!-- 初始載入提示 -->
-    <div class="yr-admin-reviews-loading text-center py-5" role="status" aria-live="polite">
-      <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div>
-      <span>載入評論中...</span>
+  <div
+    class="modal fade yr-admin-review-modal"
+    id="reviewReplyModal"
+    tabindex="-1"
+    aria-labelledby="reviewReplyModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reviewReplyModalLabel">
+            <i class="fas fa-reply me-2"></i><span id="reviewReplyModalTitle">回覆評論</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="reviewReplyModalId" value="">
+
+          <div class="review-modal-summary p-3 rounded mb-3">
+            <div class="d-flex align-items-start gap-3">
+              <img
+                id="reviewModalAvatar"
+                src=""
+                width="44"
+                height="44"
+                class="rounded-circle border object-fit-cover flex-shrink-0"
+                alt="買家頭像"
+              >
+              <div class="flex-grow-1">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                  <span class="fw-semibold" id="reviewModalBuyerName"></span>
+                  <span class="badge bg-secondary" id="reviewModalReviewId"></span>
+                  <span id="reviewModalStars"></span>
+                </div>
+                <div class="small text-muted mb-2" id="reviewModalMeta"></div>
+                <div class="small text-muted mb-1">買家評論</div>
+                <p class="mb-0" id="reviewModalComment"></p>
+              </div>
+            </div>
+          </div>
+
+          <label for="reviewReplyTextarea" class="form-label fw-semibold">
+            <i class="fas fa-store me-1"></i>賣家回覆
+          </label>
+          <textarea
+            id="reviewReplyTextarea"
+            class="form-control"
+            rows="5"
+            placeholder="輸入回覆內容..."
+          ></textarea>
+          <div class="form-text">回覆將顯示在商品評論頁，請使用友善、專業的語氣。</div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" id="btnDeleteReviewReply" class="btn btn-outline-danger d-none">
+            <i class="fas fa-trash-alt me-1"></i>刪除回覆
+          </button>
+          <div class="ms-auto d-flex gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button type="button" id="btnSubmitReviewReply" class="btn yr-admin-review-action-btn yr-admin-review-action-btn--solid">
+              <i class="fas fa-paper-plane me-1"></i>送出回覆
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

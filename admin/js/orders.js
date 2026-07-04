@@ -35,9 +35,24 @@ var DEFAULT_ORDER_SORT = [{ key: 'createdAt', dir: 'desc' }];
 var filterState = {
   paymentStatus: [], // e.g. ['paid', 'unpaid']
   orderStatus: [], // e.g. ['unshipped']
+  searchTerm: '',
+  orderType: '',
   dateStart: null, // e.g. '2026-05-23'
   dateEnd: null, // e.g. '2026-06-22'
 };
+
+var ORDER_REQUIRED_SELECTORS = [
+  '#ordersTable',
+  '#ordersTableBody',
+  '#orderPeriodBtns',
+  '#orderDateRangePicker',
+  '#orderPeriodLabel',
+  '#btnClearSort',
+  '#ordersResultCount',
+  '#ordersSearchInput',
+  '#ordersTypeFilter',
+  '#orderDetailModal',
+];
 
 /**
  * 日期快速選鈕狀態（獨立追蹤 UI 狀態，與 filterState 的字串欄位分開）
@@ -63,9 +78,13 @@ window.initOrders = function () {
 
   // ── 每次進入訂單頁重置排序與篩選狀態（排序回到隱含預設：日期降冪） ──
   sortStack = [];
-  filterState = { paymentStatus: [], orderStatus: [], dateStart: null, dateEnd: null };
+  filterState = { paymentStatus: [], orderStatus: [], searchTerm: '', orderType: '', dateStart: null, dateEnd: null };
   // 日期選鈕狀態也同步重置（預設「近 30 天」）
   orderDateState = { days: 30, startDate: null, endDate: null };
+
+  if (!validateOrdersDom()) {
+    return;
+  }
 
   // ── 初始化日期篩選器 UI ─────────────────────────
   setupOrderPeriodFilter(); // 綁定快速選鈕點擊事件
@@ -76,6 +95,7 @@ window.initOrders = function () {
     var nav = window.pendingNavFilter;
     filterState.orderStatus = nav.orderStatus || [];
     filterState.paymentStatus = nav.paymentStatus || [];
+    filterState.orderType = nav.orderType || '';
     window.pendingNavFilter = null; // 消費後立即清除，避免切換回來時重複套用
 
     if (nav.dateStart && nav.dateEnd) {
@@ -95,18 +115,25 @@ window.initOrders = function () {
   // ── 載入訂單資料（若快取已存在則不重新 fetch） ──────
   if (!window.ordersCache || !window.ordersCache.length) {
     $.getJSON('data/orders.json', function (orders) {
-      window.ordersCache = orders; // 存入全域快取，供 modal 讀取
+      window.ordersCache = normalizeOrdersCache(orders); // 存入全域快取，供 modal 讀取
       applyFiltersAndSort();
     }).fail(function () {
-      $('#ordersTableBody').html(
-        '<tr><td colspan="7" class="text-center text-danger py-4">' +
-          '<i class="fas fa-exclamation-triangle me-2"></i>載入訂單數據失敗' +
-          '</td></tr>'
-      );
+      renderOrdersMessage('error', '載入訂單數據失敗');
     });
   } else {
+    window.ordersCache = normalizeOrdersCache(window.ordersCache);
     applyFiltersAndSort();
   }
+
+  $(document).on('input.orders', '#ordersSearchInput', function () {
+    filterState.searchTerm = String($(this).val() || '').trim().toLowerCase();
+    applyFiltersAndSort();
+  });
+
+  $(document).on('change.orders', '#ordersTypeFilter', function () {
+    filterState.orderType = $(this).val() || '';
+    applyFiltersAndSort();
+  });
 
   // ── 排序：點擊 .sortable-th 標頭（限定 #ordersTable，避免跨頁衝突）──
   // 三段式：asc ↑ → desc ↓ → 移除；sortStack 空時用隱含 createdAt desc
@@ -170,6 +197,8 @@ window.initOrders = function () {
     sortStack = [];
     filterState.paymentStatus = [];
     filterState.orderStatus = [];
+    filterState.searchTerm = '';
+    filterState.orderType = '';
     // applyOrderDayRange 內部會呼叫 applyFiltersAndSort()
     applyOrderDayRange(30);
   });
@@ -534,6 +563,18 @@ function applyFiltersAndSort() {
   // 複製陣列，確保不改動 window.ordersCache 原始資料
   var data = (window.ordersCache || []).slice();
 
+  if (filterState.searchTerm) {
+    data = data.filter(function (o) {
+      return getOrderSearchText(o).indexOf(filterState.searchTerm) !== -1;
+    });
+  }
+
+  if (filterState.orderType) {
+    data = data.filter(function (o) {
+      return (o.orderType || 'product') === filterState.orderType;
+    });
+  }
+
   // ── Step 1：篩選 ──────────────────────────────────
   // 付款狀態篩選（OR）：有勾選時才篩；空陣列 = 顯示全部
   if (filterState.paymentStatus.length > 0) {
@@ -606,12 +647,14 @@ function updateSortUI() {
 
   // 欄位篩選：付款狀態 / 訂單狀態任一有勾選
   var hasColumnFilter = filterState.paymentStatus.length > 0 || filterState.orderStatus.length > 0;
+  var hasSearch = !!filterState.searchTerm;
+  var hasTypeFilter = !!filterState.orderType;
 
   // 日期篩選：預設為「近 30 天」
   var isDefaultDate = orderDateState.days === 30;
 
   // 任一條件成立 → 顯示「清除條件」
-  if (!isDefaultSort || hasColumnFilter || !isDefaultDate) {
+  if (!isDefaultSort || hasColumnFilter || hasSearch || hasTypeFilter || !isDefaultDate) {
     $('#btnClearSort').removeClass('d-none');
   } else {
     $('#btnClearSort').addClass('d-none');
@@ -649,6 +692,8 @@ function updateFilterUI() {
   // 同步日期篩選器按鈕 active 狀態與期間文字標籤
   // 由 updateOrderPeriodLabel() 統一管理，確保 pendingNavFilter 套用後 UI 也正確反映
   updateOrderPeriodLabel();
+  $('#ordersSearchInput').val(filterState.searchTerm || '');
+  $('#ordersTypeFilter').val(filterState.orderType || '');
 }
 
 // ─────────────────────────────────────────────
@@ -661,11 +706,7 @@ function updateFilterUI() {
  */
 function renderOrdersTable(orders) {
   if (!orders || orders.length === 0) {
-    $('#ordersTableBody').html(
-      '<tr><td colspan="7" class="text-center text-muted py-4">' +
-        '<i class="fas fa-inbox me-2"></i>沒有符合條件的訂單' +
-        '</td></tr>'
-    );
+    renderOrdersMessage('empty', '沒有符合條件的訂單');
     return;
   }
 
@@ -716,7 +757,7 @@ function renderOrdersTable(orders) {
         order.id +
         '" ' +
         'title="點擊查看訂單明細">' +
-        order.id +
+        (order.orderNumber || order.id) +
         '</span>';
 
       return (
@@ -753,6 +794,7 @@ function renderOrdersTable(orders) {
     .join('');
 
   $('#ordersTableBody').html(html);
+  updateOrdersResultCount(orders.length, 'normal');
 
   // 依編輯權限停用出貨按鈕
   if (typeof window.applyEditPermission === 'function') {
@@ -840,3 +882,99 @@ window.showOrderModal = function (order) {
   // 開啟 modal
   new bootstrap.Modal('#orderDetailModal').show();
 };
+
+function normalizeOrdersCache(orders) {
+  return (Array.isArray(orders) ? orders : []).map(function (order) {
+    var items = Array.isArray(order.items)
+      ? order.items.map(function (item) {
+          return {
+            name: item && item.name ? item.name : '未命名商品',
+            qty: Number(item && item.qty) || 0,
+            price: Number(item && item.price) || 0,
+            productId: item && item.productId ? item.productId : '',
+          };
+        })
+      : [];
+
+    return Object.assign({}, order, {
+      id: order && order.id ? order.id : '—',
+      orderNumber: order && order.orderNumber ? order.orderNumber : order && order.id ? order.id : '—',
+      orderType: order && order.orderType ? order.orderType : 'product',
+      buyerName: order && order.buyerName ? order.buyerName : '—',
+      buyerEmail: order && order.buyerEmail ? order.buyerEmail : '',
+      total: Number(order && order.total) || 0,
+      paymentStatus: order && order.paymentStatus ? order.paymentStatus : 'unknown',
+      orderStatus: order && order.orderStatus ? order.orderStatus : 'unknown',
+      items: items,
+      history: Array.isArray(order && order.history) ? order.history : [],
+      address: order && order.address ? order.address : '',
+      customerNote: order && order.customerNote ? order.customerNote : '',
+      customerId: order && order.customerId ? order.customerId : '',
+    });
+  });
+}
+
+function getOrderSearchText(order) {
+  var itemText = (order.items || [])
+    .map(function (item) {
+      return [item.productId || '', item.name || ''].join(' ');
+    })
+    .join(' ');
+  return [
+    order.id || '',
+    order.orderNumber || '',
+    order.buyerName || '',
+    order.buyerEmail || '',
+    order.customerId || '',
+    itemText,
+  ]
+    .join(' ')
+    .toLowerCase();
+}
+
+function updateOrdersResultCount(count, mode) {
+  var $node = $('#ordersResultCount');
+  if (!$node.length) return;
+  $node.toggleClass('yr-admin-orders-result-count--error', mode === 'error');
+  if (mode === 'error') {
+    $node.text('目前結果：資料載入失敗');
+  } else if (mode === 'empty') {
+    $node.text('目前結果：0 筆訂單');
+  } else {
+    $node.text('目前結果：' + count + ' 筆訂單');
+  }
+}
+
+function renderOrdersMessage(type, message) {
+  var className =
+    type === 'error'
+      ? 'yr-admin-orders-error text-danger'
+      : type === 'empty'
+        ? 'yr-admin-orders-empty text-muted'
+        : 'yr-admin-orders-loading text-muted';
+  $('#ordersTableBody').html(
+    '<tr><td colspan="7" class="text-center py-4 ' + className + '">' +
+      (type === 'error' ? '<i class="fas fa-exclamation-triangle me-2"></i>' : type === 'empty' ? '<i class="fas fa-inbox me-2"></i>' : '') +
+      message +
+      '</td></tr>'
+  );
+  updateOrdersResultCount(type === 'error' ? 0 : 0, type);
+}
+
+function validateOrdersDom() {
+  var missing = ORDER_REQUIRED_SELECTORS.filter(function (selector) {
+    return document.querySelector(selector) === null;
+  });
+  if (missing.length === 0) {
+    return true;
+  }
+  $('#contentArea').html(
+    '<div class="alert yr-admin-alert yr-admin-alert--danger d-flex align-items-center gap-2" role="alert">' +
+      '<i class="fas fa-exclamation-triangle yr-admin-alert__icon" aria-hidden="true"></i>' +
+      '<span class="yr-admin-alert__content">' +
+        '<span class="yr-admin-alert__message">訂單模組載入失敗，缺少必要介面元素：' + missing.join(', ') + '</span>' +
+      '</span>' +
+    '</div>'
+  );
+  return false;
+}

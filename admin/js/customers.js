@@ -25,6 +25,96 @@ var customerFilterState = {
   tags: [],
 };
 
+var CUSTOMER_DATA_URL = 'data/customers.json';
+var CUSTOMER_REQUIRED_SELECTORS = [
+  '#customersTable',
+  '#customersTableBody',
+  '#customersCardList',
+  '#customerClearHeader',
+  '#btnClearCustomerConditions',
+  '#btnClearCustomerConditionsMobile',
+  '#customerTagsFilterDropdown',
+  '#mobileTagsFilters',
+  '#mobileCustomerSort',
+];
+
+function getCustomersModuleRoot() {
+  return $('.yr-admin-customers-module').first();
+}
+
+function renderCustomersRuntimeAlert(message) {
+  var $root = getCustomersModuleRoot();
+  if (!$root.length) {
+    return;
+  }
+
+  $root.find('.customers-runtime-alert').remove();
+  var html =
+    '<div class="alert yr-admin-alert yr-admin-alert--danger customers-runtime-alert mt-3 mb-0" role="alert">' +
+    '<i class="fas fa-exclamation-triangle yr-admin-alert__icon me-1" aria-hidden="true"></i>' +
+    '<span class="yr-admin-alert__content"><span class="yr-admin-alert__message">' + message + '</span></span>' +
+    '</div>';
+  var $titleRow = $root.children().first();
+  if ($titleRow.length) {
+    $titleRow.after(html);
+  } else {
+    $root.prepend(html);
+  }
+}
+
+function clearCustomersRuntimeAlert() {
+  getCustomersModuleRoot().find('.customers-runtime-alert').remove();
+}
+
+function renderCustomersLoadError(message) {
+  var errorHtml = message;
+  clearCustomersRuntimeAlert();
+  renderCustomersRuntimeAlert(errorHtml);
+  $('#customersTableBody').html(
+    '<tr><td colspan="8" class="text-center py-4 text-danger"><i class="fas fa-exclamation-triangle me-2"></i>' + errorHtml + '</td></tr>'
+  );
+  $('#customersCardList').html(
+    '<div class="alert yr-admin-alert yr-admin-alert--danger m-3 mb-0" role="alert">' +
+      '<i class="fas fa-exclamation-triangle yr-admin-alert__icon me-1" aria-hidden="true"></i>' +
+      '<span class="yr-admin-alert__content"><span class="yr-admin-alert__message">' + errorHtml + '</span></span>' +
+    '</div>'
+  );
+}
+
+function validateCustomersDom() {
+  var missingSelectors = CUSTOMER_REQUIRED_SELECTORS.filter(function (selector) {
+    return $(selector).length === 0;
+  });
+  if (missingSelectors.length === 0) {
+    clearCustomersRuntimeAlert();
+    return true;
+  }
+
+  renderCustomersRuntimeAlert(
+    '會員列表介面結構不完整，缺少：' +
+      missingSelectors.join(', ')
+  );
+  return false;
+}
+
+function normalizeCustomerRecord(customer) {
+  var normalized = $.extend({}, customer);
+  normalized.id = normalized.id || '';
+  normalized.avatar = normalized.avatar || '';
+  normalized.name = normalized.name || '未命名會員';
+  normalized.phone = normalized.phone || '';
+  normalized.email = normalized.email || '';
+  normalized.birthday = normalized.birthday || '';
+  normalized.registeredAt = normalized.registeredAt || '';
+  normalized.totalSpent = Number(normalized.totalSpent) || 0;
+  normalized.tier = normalized.tier || '一般';
+  normalized.points = Number(normalized.points) || 0;
+  normalized.coupons = Number(normalized.coupons) || 0;
+  normalized.tags = Array.isArray(normalized.tags) ? normalized.tags.slice() : [];
+  normalized.orders = Array.isArray(normalized.orders) ? normalized.orders.slice() : [];
+  return normalized;
+}
+
 // ==========================================================================
 // Step 1 — 全域標籤顏色對應表
 //   改掛在 window 上，讓新增 / 刪除標籤時全頁共用同一份資料
@@ -857,18 +947,34 @@ window.initCustomers = function () {
   customerSortStack = [];
   customerFilterState = { tier: [], tags: [] };
 
+  if (!validateCustomersDom()) {
+    window.customersCache = [];
+    return;
+  }
+
   buildCustomerTagsFilterOptions();
 
   // 載入客戶資料並渲染列表
-  $.getJSON('data/customers.json', function (customers) {
-    window.customersCache = customers;
+  $.getJSON(CUSTOMER_DATA_URL, function (customers) {
+    if (!Array.isArray(customers)) {
+      window.customersCache = [];
+      renderCustomersLoadError('會員資料格式錯誤，無法顯示列表');
+      return;
+    }
+    clearCustomersRuntimeAlert();
+    window.customersCache = customers.map(normalizeCustomerRecord);
     applyCustomerFiltersAndSort();
-  }).fail(function () {
-    var errHtml = '<i class="fas fa-exclamation-triangle me-2"></i>載入客戶數據失敗';
-    $('#customersTableBody').html(
-      '<tr><td colspan="8" class="text-center py-4 text-danger">' + errHtml + '</td></tr>'
-    );
-    $('#customersCardList').html('<div class="alert alert-danger m-3">' + errHtml + '</div>');
+  }).fail(function (jqXHR, textStatus, errorThrown) {
+    var detailParts = [CUSTOMER_DATA_URL];
+    if (jqXHR && jqXHR.status) {
+      detailParts.push('HTTP ' + jqXHR.status);
+    }
+    if (errorThrown) {
+      detailParts.push(errorThrown);
+    } else if (textStatus) {
+      detailParts.push(textStatus);
+    }
+    renderCustomersLoadError('載入會員資料失敗（' + detailParts.join(' / ') + '）');
   });
 
   // ── 排序：點擊消費總額表頭（三段式 asc → desc → 取消）──

@@ -8,6 +8,23 @@
  */
 
 var REVIEWS_STORAGE_KEY = 'adminReviews';
+var REVIEWS_DATA_URL = 'data/reviews.json';
+var REVIEW_REQUIRED_SELECTORS = [
+  '#reviewsContainer',
+  '#tabCountAll',
+  '#tabCountUnreplied',
+  '#tabCountReplied',
+  '#reviewsResultCount',
+  '#reviewSearchInput',
+  '#reviewRatingFilter',
+  '#reviewSortSelect',
+  '#btnClearReviewFilters',
+  '#reviewReplyModal',
+  '#reviewReplyModalId',
+  '#reviewReplyTextarea',
+  '#btnSubmitReviewReply',
+  '#btnDeleteReviewReply',
+];
 
 /** @type {{ allReviews: Array, statusFilter: string, searchQuery: string, ratingFilter: string, sortBy: string }} */
 var reviewsState = {
@@ -20,7 +37,18 @@ var reviewsState = {
 
 window.initReviews = function () {
   $(document).off('.reviews');
+  reviewsState.statusFilter = 'all';
+  reviewsState.searchQuery = '';
+  reviewsState.ratingFilter = '';
+  reviewsState.sortBy = 'unreplied-first';
+
+  if (!validateReviewsDom()) {
+    reviewsState.allReviews = [];
+    return;
+  }
+
   bindReviewEvents();
+  resetReviewFiltersUi();
 
   loadReviews(function (reviews) {
     reviewsState.allReviews = reviews;
@@ -38,23 +66,44 @@ window.initReviews = function () {
  * Load reviews from localStorage override or JSON seed
  */
 function loadReviews(callback) {
-  var cached = localStorage.getItem(REVIEWS_STORAGE_KEY);
-  if (cached) {
+  var cached = null;
+  var cachedRaw = localStorage.getItem(REVIEWS_STORAGE_KEY);
+  if (cachedRaw) {
     try {
-      callback(JSON.parse(cached));
-      return;
+      cached = JSON.parse(cachedRaw);
     } catch (e) {
       localStorage.removeItem(REVIEWS_STORAGE_KEY);
     }
   }
 
-  $.getJSON('data/reviews.json', function (reviews) {
-    callback(reviews || []);
-  }).fail(function () {
-    $('#reviewsContainer').html(
-      '<div class="alert alert-danger mb-0">' +
-        '<i class="fas fa-exclamation-triangle me-2"></i>載入評論數據失敗' +
-        '</div>'
+  $.getJSON(REVIEWS_DATA_URL, function (reviews) {
+    var seedReviews = normalizeReviewsArray(reviews);
+    if (cached && Array.isArray(cached)) {
+      callback(mergeSeedWithCachedReviews(seedReviews, normalizeReviewsArray(cached)));
+      return;
+    }
+    callback(seedReviews);
+  }).fail(function (jqXHR, textStatus, errorThrown) {
+    if (cached && Array.isArray(cached)) {
+      callback(normalizeReviewsArray(cached));
+      renderReviewsMessage(
+        'warning',
+        '評論種子資料載入失敗，已改用暫存資料（' +
+          [REVIEWS_DATA_URL, jqXHR && jqXHR.status ? 'HTTP ' + jqXHR.status : textStatus || errorThrown]
+            .filter(Boolean)
+            .join(' / ') +
+          '）'
+      );
+      return;
+    }
+
+    renderReviewsMessage(
+      'error',
+      '載入評論資料失敗（' +
+        [REVIEWS_DATA_URL, jqXHR && jqXHR.status ? 'HTTP ' + jqXHR.status : textStatus || errorThrown]
+          .filter(Boolean)
+          .join(' / ') +
+        '）'
     );
   });
 }
@@ -64,8 +113,9 @@ function loadReviews(callback) {
  * Persist reviews to localStorage
  */
 function saveReviews(reviews) {
-  localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
-  reviewsState.allReviews = reviews;
+  var normalizedReviews = normalizeReviewsArray(reviews);
+  localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(normalizedReviews));
+  reviewsState.allReviews = normalizedReviews;
 }
 
 /** 取得目前登入的管理員資訊 / Current admin from sessionStorage */
@@ -110,8 +160,8 @@ function bindReviewEvents() {
   // 狀態 Tab：全部 / 未回覆 / 已回覆
   $(document).on('click.reviews', '.filter-btn', function () {
     reviewsState.statusFilter = $(this).data('filter');
-    $('.filter-btn').removeClass('active btn-dark').addClass('btn-outline-secondary');
-    $(this).removeClass('btn-outline-secondary').addClass('active btn-dark');
+    $('.filter-btn').removeClass('active');
+    $(this).addClass('active');
     applyFiltersAndRender();
   });
 
@@ -140,12 +190,7 @@ function bindReviewEvents() {
     reviewsState.ratingFilter = '';
     reviewsState.sortBy = 'unreplied-first';
 
-    $('#reviewSearchInput').val('');
-    $('#reviewRatingFilter').val('');
-    $('#reviewSortSelect').val('unreplied-first');
-    $('.filter-btn').removeClass('active btn-dark').addClass('btn-outline-secondary');
-    $('.filter-btn[data-filter="all"]').removeClass('btn-outline-secondary').addClass('active btn-dark');
-
+    resetReviewFiltersUi();
     applyFiltersAndRender();
   });
 
@@ -176,6 +221,7 @@ function applyFiltersAndRender() {
   filtered = sortReviews(filtered);
   renderReviewCards(filtered);
   updateClearButtonVisibility();
+  updateReviewsResultCount(filtered.length);
 }
 
 /** 依狀態、搜尋、評分篩選 / Apply status, search, rating filters */
@@ -252,6 +298,10 @@ function updateClearButtonVisibility() {
   $('#btnClearReviewFilters').toggleClass('d-none', !hasExtra);
 }
 
+function updateReviewsResultCount(count) {
+  $('#reviewsResultCount').text('顯示 ' + count + ' 筆評論');
+}
+
 /** 依目前 Tab 回傳空狀態文案 / Empty state message per filter */
 function getReviewEmptyMessage() {
   if (reviewsState.searchQuery || reviewsState.ratingFilter) {
@@ -274,7 +324,9 @@ function renderStars(rating) {
   var html = '';
   var r = Number(rating) || 0;
   for (var i = 1; i <= 5; i++) {
-    html += i <= r ? '<i class="fas fa-star text-warning"></i>' : '<i class="far fa-star text-muted"></i>';
+    html += i <= r
+      ? '<i class="fas fa-star yr-admin-review-star yr-admin-review-star--filled"></i>'
+      : '<i class="far fa-star yr-admin-review-star yr-admin-review-star--empty"></i>';
   }
   return html;
 }
@@ -283,8 +335,8 @@ function renderStars(rating) {
 function getReviewCardBorderClass(review) {
   if (review.replied === true) return '';
   var rating = Number(review.rating) || 0;
-  if (rating <= 2) return ' review-card-urgent';
-  return ' review-card-pending';
+  if (rating <= 2) return ' yr-admin-review-card--urgent review-card-urgent';
+  return ' yr-admin-review-card--pending review-card-pending';
 }
 
 /** 渲染買家附圖縮圖 / Render buyer photo thumbnails */
@@ -296,7 +348,7 @@ function renderReviewPhotos(photos) {
       return (
         '<a href="' +
         escapeHtml(url) +
-        '" target="_blank" rel="noopener" class="review-photo-thumb">' +
+        '" target="_blank" rel="noopener" class="review-photo-thumb yr-admin-review-photo-thumb">' +
         '<img src="' +
         escapeHtml(url) +
         '" alt="評論附圖"' +
@@ -319,9 +371,9 @@ function renderReplyBlock(review) {
   if (review.replyUpdatedAt) metaParts.push('（已編輯 ' + escapeHtml(review.replyUpdatedAt) + '）');
 
   return (
-    '<div class="reply-display mt-3 p-3 bg-light border-start border-3 border-success rounded-end">' +
-    '<div class="small text-muted mb-1"><i class="fas fa-store me-1"></i>賣家回覆</div>' +
-    '<p class="mb-1 review-reply-text">' +
+    '<div class="yr-admin-review-reply reply-display">' +
+    '<div class="yr-admin-review-reply__header"><i class="fas fa-store me-1"></i>賣家回覆</div>' +
+    '<p class="mb-1 yr-admin-review-reply__content review-reply-text">' +
     escapeHtml(review.replyText) +
     '</p>' +
     (metaParts.length ? '<div class="small text-muted">' + metaParts.join(' · ') + '</div>' : '') +
@@ -336,7 +388,7 @@ function renderReplyBlock(review) {
 function renderReviewCards(reviews) {
   if (!reviews || reviews.length === 0) {
     $('#reviewsContainer').html(
-      '<div class="text-center text-muted py-5">' +
+      '<div class="yr-admin-reviews-empty text-center">' +
         '<i class="far fa-comment-dots fa-2x mb-2 d-block opacity-50"></i>' +
         escapeHtml(getReviewEmptyMessage()) +
         '</div>'
@@ -350,21 +402,24 @@ function renderReviewCards(reviews) {
       .map(function (r) {
         var isReplied = r.replied === true;
         var rating = Number(r.rating) || 0;
-        var urgentBadge = !isReplied && rating <= 2 ? '<span class="badge bg-danger ms-1">需優先</span>' : '';
+        var urgentBadge =
+          !isReplied && rating <= 2
+            ? '<span class="yr-admin-review-status yr-admin-review-status--pending ms-1">需優先</span>'
+            : '';
 
         var repliedBadge = isReplied
-          ? '<span class="badge bg-success">已回覆</span>'
-          : '<span class="badge bg-warning text-dark">待回覆</span>';
+          ? '<span class="yr-admin-review-status yr-admin-review-status--answered">已回覆</span>'
+          : '<span class="yr-admin-review-status yr-admin-review-status--pending">待回覆</span>';
 
         var avatarSrc = r.buyerAvatar || 'https://placehold.co/44x44/cccccc/555555?text=U';
 
         var actionBtn = isReplied
-          ? '<button type="button" class="btn btn-sm btn-outline-secondary btn-open-reply-modal"' +
+          ? '<button type="button" class="btn btn-sm yr-admin-review-action-btn btn-open-reply-modal"' +
             ' data-review-id="' +
             escapeHtml(r.id) +
             '" data-mode="edit">' +
             '<i class="fas fa-pen me-1"></i>編輯回覆</button>'
-          : '<button type="button" class="btn btn-sm btn-outline-success btn-open-reply-modal"' +
+          : '<button type="button" class="btn btn-sm yr-admin-review-action-btn btn-open-reply-modal"' +
             ' data-review-id="' +
             escapeHtml(r.id) +
             '" data-mode="create">' +
@@ -372,7 +427,7 @@ function renderReviewCards(reviews) {
 
         return (
           '<div class="col-12">' +
-          '<div class="card shadow-sm review-card' +
+          '<div class="card shadow-sm review-card yr-admin-review-card' +
           getReviewCardBorderClass(r) +
           '"' +
           ' data-review-id="' +
@@ -385,11 +440,11 @@ function renderReviewCards(reviews) {
           rating +
           '">' +
           '<div class="card-body">' +
-          '<div class="d-flex align-items-start gap-3">' +
+          '<div class="yr-admin-review-card__header">' +
           '<img src="' +
           escapeHtml(avatarSrc) +
           '" width="44" height="44"' +
-          ' class="rounded-circle border object-fit-cover flex-shrink-0"' +
+          ' class="yr-admin-review-avatar rounded-circle border object-fit-cover flex-shrink-0"' +
           ' alt="' +
           escapeHtml(r.buyerName) +
           ' 頭像"' +
@@ -406,16 +461,19 @@ function renderReviewCards(reviews) {
           repliedBadge +
           urgentBadge +
           '</div>' +
-          '<div class="review-card-stars">' +
+          '<div class="yr-admin-review-rating review-card-stars">' +
           renderStars(rating) +
+          '<span class="yr-admin-review-rating-text">' +
+          rating +
+          '/5</span>' +
           '</div>' +
           '</div>' +
-          '<div class="small text-muted mb-2">' +
+          '<div class="yr-admin-review-card__meta mb-2">' +
           escapeHtml(r.createdAt) +
           ' · ' +
           escapeHtml(r.productName) +
           '</div>' +
-          '<div class="review-buyer-comment">' +
+          '<div class="yr-admin-review-card__content review-buyer-comment">' +
           '<div class="small text-muted mb-1">買家評論</div>' +
           '<p class="mb-0">' +
           escapeHtml(r.comment) +
@@ -423,7 +481,7 @@ function renderReviewCards(reviews) {
           renderReviewPhotos(r.photos) +
           '</div>' +
           renderReplyBlock(r) +
-          '<div class="d-flex justify-content-end mt-3">' +
+          '<div class="yr-admin-review-card__actions d-flex justify-content-end mt-3">' +
           actionBtn +
           '</div>' +
           '</div></div>' +
@@ -473,7 +531,10 @@ function openReviewReplyModal(reviewId, mode) {
     isEdit ? '<i class="fas fa-save me-1"></i>儲存修改' : '<i class="fas fa-paper-plane me-1"></i>送出回覆'
   );
 
-  var modalEl = document.getElementById('reviewReplyModal');
+  var modalEl = getReviewReplyModalElement();
+  if (!modalEl) {
+    return;
+  }
   var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
   modal.show();
 
@@ -522,8 +583,7 @@ function submitReviewReply() {
   updateReviewTabCounts();
   applyFiltersAndRender();
 
-  var modalEl = document.getElementById('reviewReplyModal');
-  bootstrap.Modal.getInstance(modalEl).hide();
+  hideReviewReplyModal();
 
   window.showAdminToast(wasReplied ? '評論 ' + reviewId + ' 回覆已更新' : '評論 ' + reviewId + ' 已送出回覆');
 }
@@ -549,8 +609,165 @@ function deleteReviewReply() {
   updateReviewTabCounts();
   applyFiltersAndRender();
 
-  var modalEl = document.getElementById('reviewReplyModal');
-  bootstrap.Modal.getInstance(modalEl).hide();
+  hideReviewReplyModal();
 
   window.showAdminToast('評論 ' + reviewId + ' 回覆已刪除', 'warning');
+}
+
+function resetReviewFiltersUi() {
+  $('#reviewSearchInput').val('');
+  $('#reviewRatingFilter').val('');
+  $('#reviewSortSelect').val('unreplied-first');
+  $('.filter-btn').removeClass('active');
+  $('.filter-btn[data-filter="all"]').addClass('active');
+}
+
+function validateReviewsDom() {
+  var missingSelectors = REVIEW_REQUIRED_SELECTORS.filter(function (selector) {
+    return $(selector).length === 0;
+  });
+
+  if (missingSelectors.length === 0) {
+    return true;
+  }
+
+  renderReviewsMessage('error', '評論頁面缺少必要結構：' + missingSelectors.join(', '));
+  return false;
+}
+
+function renderReviewsMessage(type, message) {
+  var className = type === 'error' ? 'yr-admin-reviews-error' : 'yr-admin-reviews-empty';
+  $('#reviewsContainer').html(
+    '<div class="' +
+      className +
+      ' text-center">' +
+      '<i class="fas fa-' +
+      (type === 'error' ? 'exclamation-triangle' : 'circle-info') +
+      ' me-2"></i>' +
+      escapeHtml(message) +
+      '</div>'
+  );
+}
+
+function normalizeReviewDate(value) {
+  var text = String(value || '').trim();
+  if (!text) {
+    return '';
+  }
+
+  var normalized = text.replace('T', ' ').replace(/\//g, '-');
+  if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(normalized)) {
+    return normalized;
+  }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
+    return normalized + ' 00:00';
+  }
+
+  var parsed = new Date(text);
+  if (Number.isNaN(parsed.getTime())) {
+    return text;
+  }
+
+  var pad = function (n) {
+    return String(n).padStart(2, '0');
+  };
+  return (
+    parsed.getFullYear() +
+    '-' +
+    pad(parsed.getMonth() + 1) +
+    '-' +
+    pad(parsed.getDate()) +
+    ' ' +
+    pad(parsed.getHours()) +
+    ':' +
+    pad(parsed.getMinutes())
+  );
+}
+
+function normalizeReviewAvatar(value) {
+  var avatar = String(value || '').trim();
+  if (!avatar) {
+    return 'https://placehold.co/44x44/cccccc/555555?text=U';
+  }
+  if (/^https?:\/\//i.test(avatar) || avatar.indexOf('data:') === 0) {
+    return avatar;
+  }
+  return 'https://placehold.co/44x44/cccccc/555555?text=U';
+}
+
+function normalizeReviewRecord(review) {
+  var normalized = Object.assign({}, review);
+  normalized.id = String(normalized.id || normalized.reviewId || '').trim();
+  normalized.buyerName = String(normalized.buyerName || '').trim();
+  normalized.buyerAvatar = normalizeReviewAvatar(normalized.buyerAvatar);
+  normalized.productName = String(normalized.productName || '').trim();
+  normalized.comment = String(normalized.comment || normalized.content || '').trim();
+  normalized.rating = Math.min(5, Math.max(1, Number(normalized.rating) || 0)) || 1;
+  normalized.photos = Array.isArray(normalized.photos) ? normalized.photos.filter(Boolean) : [];
+  normalized.createdAt = normalizeReviewDate(normalized.createdAt);
+  normalized.replyText = String(normalized.replyText || '').trim();
+  normalized.replyAt = normalized.replyAt ? normalizeReviewDate(normalized.replyAt) : null;
+  normalized.replyUpdatedAt = normalized.replyUpdatedAt
+    ? normalizeReviewDate(normalized.replyUpdatedAt)
+    : null;
+  normalized.repliedBy = normalized.repliedBy ? String(normalized.repliedBy).trim() : null;
+  normalized.repliedByName = normalized.repliedByName ? String(normalized.repliedByName).trim() : null;
+  normalized.replied = normalized.replied === true || normalized.replyText !== '';
+  return normalized;
+}
+
+function normalizeReviewsArray(reviews) {
+  if (!Array.isArray(reviews)) {
+    return [];
+  }
+  return reviews
+    .map(normalizeReviewRecord)
+    .filter(function (review) {
+      return review.id;
+    });
+}
+
+function mergeSeedWithCachedReviews(seedReviews, cachedReviews) {
+  var cachedById = new Map(
+    cachedReviews.map(function (review) {
+      return [review.id, review];
+    })
+  );
+  var merged = seedReviews.map(function (review) {
+    return cachedById.has(review.id) ? Object.assign({}, review, cachedById.get(review.id)) : review;
+  });
+
+  cachedReviews.forEach(function (review) {
+    var exists = merged.some(function (seedReview) {
+      return seedReview.id === review.id;
+    });
+    if (!exists) {
+      merged.push(review);
+    }
+  });
+
+  return normalizeReviewsArray(merged);
+}
+
+function getReviewReplyModalElement() {
+  var modalEl = document.getElementById('reviewReplyModal');
+  if (!modalEl) {
+    renderReviewsMessage('error', '回覆對話框載入失敗，請重新整理頁面。');
+    if (typeof window.showAdminToast === 'function') {
+      window.showAdminToast('評論回覆介面未正確載入', 'error');
+    }
+    return null;
+  }
+  return modalEl;
+}
+
+function hideReviewReplyModal() {
+  var modalEl = getReviewReplyModalElement();
+  if (!modalEl) {
+    return;
+  }
+  var modal = bootstrap.Modal.getInstance(modalEl);
+  if (modal) {
+    modal.hide();
+  }
 }

@@ -36,6 +36,23 @@
   background: var(--yr-admin-surface-muted);
 }
 
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-tabs .nav-link {
+  color: var(--yr-admin-text-muted);
+  border: 1px solid var(--yr-admin-border);
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-tabs .nav-link.active {
+  color: var(--yr-admin-primary-hover);
+  border-color: var(--yr-admin-primary-hover);
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-search,
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-filter {
+  min-width: min(220px, 100%);
+}
+
 .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-period-label {
   color: var(--yr-admin-text-muted);
   font-weight: 500;
@@ -56,6 +73,10 @@
   --bs-table-color: var(--yr-admin-text);
   --bs-table-border-color: var(--yr-admin-table-border);
   --bs-table-hover-bg: var(--yr-admin-table-row-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-panel {
+  background: var(--yr-admin-surface);
 }
 
 .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-th {
@@ -95,6 +116,65 @@
 .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-actions {
   min-width: 134px;
   white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-rental-summary {
+  min-width: 200px;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module #rentalBookingsTable :is(th:first-child, td.yr-admin-rental-id-col) {
+  min-width: 190px;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-id-col {
+  max-width: 260px;
+  white-space: nowrap;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-id-link {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.1rem 0.2rem;
+  border-radius: 7px;
+  color: var(--yr-admin-link);
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.3;
+  transition:
+    color var(--yr-admin-transition-fast),
+    background-color var(--yr-admin-transition-fast),
+    box-shadow var(--yr-admin-transition-fast);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-id-link:visited {
+  color: var(--yr-admin-link);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-id-link:hover {
+  color: var(--yr-admin-link-hover);
+  text-decoration: underline;
+  text-decoration-color: var(--yr-admin-divider);
+  text-underline-offset: 2px;
+  background: var(--yr-admin-surface-selected);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-id-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-id-link:active {
+  color: var(--yr-admin-primary-hover);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-id-link__code {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
 }
 
 .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-action-btn {
@@ -147,6 +227,266 @@
 .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-error {
   background: var(--yr-admin-surface-muted);
   color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-toolbar {
+  border-top: 1px solid var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-label {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar {
+  min-width: 980px;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__viewport {
+  overflow-x: auto;
+  padding-bottom: 0.375rem;
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  :is(.yr-admin-bookings-calendar-grid, .yr-admin-booking-calendar__grid) {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.75rem;
+  min-width: 980px;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-weekday,
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-day {
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 12px;
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-weekday {
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  color: var(--yr-admin-text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-day {
+  min-height: 152px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  .yr-admin-bookings-calendar-day:is(.is-outside-month, .is-outside, .yr-admin-booking-calendar__day--outside) {
+  background: var(--yr-admin-surface-muted);
+  border-color: var(--yr-admin-divider);
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  .yr-admin-bookings-calendar-day:is(.is-today, .yr-admin-booking-calendar__day--today) {
+  border-color: var(--yr-admin-primary);
+  background: var(--yr-admin-primary-soft);
+  box-shadow: inset 0 0 0 1px rgb(105 119 99 / 18%);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-dayhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-daynum {
+  font-weight: 700;
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  .yr-admin-bookings-calendar-day:is(.is-outside-month, .is-outside, .yr-admin-booking-calendar__day--outside)
+  .yr-admin-bookings-calendar-day__header,
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  .yr-admin-bookings-calendar-day:is(.is-outside-month, .is-outside, .yr-admin-booking-calendar__day--outside)
+  .yr-admin-booking-calendar__date {
+  color: var(--yr-admin-text-subtle);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-count {
+  color: var(--yr-admin-text-muted);
+  font-size: 0.75rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  :is(.yr-admin-bookings-calendar-item, .booking-calendar-item, .yr-admin-booking-calendar__event) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.34rem 0.5rem;
+  background: var(--yr-admin-surface-muted);
+  color: var(--yr-admin-text);
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition:
+    background-color var(--yr-admin-transition-fast),
+    border-color var(--yr-admin-transition-fast),
+    color var(--yr-admin-transition-fast),
+    box-shadow var(--yr-admin-transition-fast);
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  :is(.yr-admin-bookings-calendar-item, .booking-calendar-item, .yr-admin-booking-calendar__event):hover {
+  background: var(--yr-admin-surface-selected);
+  border-color: var(--yr-admin-primary-soft);
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page
+  .yr-admin-bookings-module
+  :is(.yr-admin-bookings-calendar-item, .booking-calendar-item, .yr-admin-booking-calendar__event):focus-visible {
+  outline: none;
+  border-color: var(--yr-admin-primary);
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__events {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-height: 0;
+  max-height: 104px;
+  overflow: hidden;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__date {
+  color: var(--yr-admin-text);
+  font-weight: 700;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.46rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event-id {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 48%;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--yr-admin-text-subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event--pending {
+  background: var(--yr-admin-warning-bg);
+  border-color: var(--yr-admin-warning-border);
+  color: var(--yr-admin-warning-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event--confirmed {
+  background: var(--yr-admin-primary-soft);
+  border-color: var(--yr-admin-info-border);
+  color: var(--yr-admin-info-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event--completed {
+  background: var(--yr-admin-success-bg);
+  border-color: var(--yr-admin-success-border);
+  color: var(--yr-admin-success-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event--cancelled {
+  background: var(--yr-admin-neutral-bg);
+  border-color: var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__event--unknown {
+  background: var(--yr-admin-surface-muted);
+  border-color: var(--yr-admin-border);
+  color: var(--yr-admin-text-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__empty,
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__more {
+  display: inline-block;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  color: var(--yr-admin-text-subtle);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__empty {
+  opacity: 0.8;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar__more {
+  margin-top: 0.12rem;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-empty {
+  grid-column: 1 / -1;
+  border: 1px dashed var(--yr-admin-border);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  color: var(--yr-admin-text-muted);
+  background: var(--yr-admin-surface-muted);
+}
+
+.yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-rental-overdue {
+  color: var(--yr-admin-danger-text);
+  font-weight: 600;
+}
+
+@media (max-width: 991.98px) {
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar {
+    min-width: 860px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-booking-calendar {
+    min-width: 760px;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-calendar-day {
+    min-height: 142px;
+  }
 }
 
 .yr-admin-dashboard-page .yr-admin-bookings-module .yr-admin-bookings-error {

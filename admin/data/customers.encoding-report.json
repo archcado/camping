@@ -1,0 +1,185 @@
+{
+  "files": [
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\customers.json",
+      "label": "live",
+      "count": 10,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": [],
+      "tierValues": [
+        "SVIP",
+        "VIP",
+        "一般"
+      ],
+      "tagValues": [
+        "新會員",
+        "高消費",
+        "高退貨率"
+      ]
+    },
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\customers.before-merge.json",
+      "label": "beforeMerge",
+      "count": 10,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": [],
+      "tierValues": [
+        "SVIP",
+        "VIP",
+        "一般"
+      ],
+      "tagValues": [
+        "新會員",
+        "高消費",
+        "高退貨率"
+      ]
+    },
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\customers.old-source.json",
+      "label": "oldSourceCopy",
+      "count": 50,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": [],
+      "tierValues": [
+        "SVIP",
+        "VIP",
+        "一般"
+      ],
+      "tagValues": [
+        "新會員",
+        "高消費",
+        "高退貨率"
+      ]
+    },
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\customers.merged.json",
+      "label": "merged",
+      "count": 50,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": [],
+      "tierValues": [
+        "SVIP",
+        "VIP",
+        "一般"
+      ],
+      "tagValues": [
+        "新會員",
+        "高消費",
+        "高退貨率"
+      ]
+    },
+    {
+      "file": "C:\\Users\\i125g\\Downloads\\Yuruicamp-main\\admin\\data\\customers.json",
+      "label": "legacyExternal",
+      "count": 50,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": [],
+      "tierValues": [
+        "SVIP",
+        "VIP",
+        "一般"
+      ],
+      "tagValues": [
+        "新會員",
+        "高消費",
+        "高退貨率"
+      ]
+    }
+  ],
+  "decision": "replace",
+  "reason": "merged file passed encoding and integrity checks",
+  "replaced": true,
+  "finalValidation": {
+    "count": 50,
+    "suspiciousCount": 0,
+    "suspiciousSamples": [],
+    "duplicateIds": [],
+    "duplicateEmails": [],
+    "duplicatePhones": [],
+    "duplicateOrders": [],
+    "samples": [
+      {
+        "id": "U001",
+        "found": true,
+        "name": "王小明",
+        "tier": "VIP",
+        "tags": [
+          "高消費"
+        ],
+        "orders": [
+          "#0006",
+          "#0101",
+          "#0151",
+          "#0051"
+        ]
+      },
+      {
+        "id": "U006",
+        "found": true,
+        "name": "陳大華",
+        "tier": "一般",
+        "tags": [
+          "新會員",
+          "高消費"
+        ],
+        "orders": [
+          "#0005",
+          "#0106",
+          "#0156",
+          "#0056"
+        ]
+      },
+      {
+        "id": "U011",
+        "found": true,
+        "name": "鄭文豪",
+        "tier": "SVIP",
+        "tags": [
+          "高消費"
+        ],
+        "orders": [
+          "#0111",
+          "#0011",
+          "#0061",
+          "#0161"
+        ]
+      },
+      {
+        "id": "U020",
+        "found": true,
+        "name": "賴思妤",
+        "tier": "VIP",
+        "tags": [
+          "新會員",
+          "高消費"
+        ],
+        "orders": [
+          "#0070",
+          "#0120",
+          "#0020",
+          "#0170"
+        ]
+      },
+      {
+        "id": "U050",
+        "found": true,
+        "name": "丁惠珍",
+        "tier": "SVIP",
+        "tags": [
+          "高消費"
+        ],
+        "orders": [
+          "#0200",
+          "#0100",
+          "#0150",
+          "#0050"
+        ]
+      }
+    ]
+  }
+}

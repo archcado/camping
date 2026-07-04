@@ -51,14 +51,17 @@ function getAdminChartPalette() {
   var scope = document.querySelector('.yr-admin-analytics-module') || document.body || document.documentElement;
   var styles = getComputedStyle(scope);
   return {
-    primary: getCssVar(styles, '--yr-admin-chart-1', '#697763'),
-    secondary: getCssVar(styles, '--yr-admin-chart-2', '#6f8a87'),
-    accent: getCssVar(styles, '--yr-admin-chart-3', '#9a8067'),
-    success: getCssVar(styles, '--yr-admin-chart-4', '#a46f62'),
-    warning: getCssVar(styles, '--yr-admin-chart-5', '#81758d'),
-    danger: getCssVar(styles, '--yr-admin-danger', '#95665e'),
-    neutral: getCssVar(styles, '--yr-admin-text-muted', '#66645d'),
-    grid: getCssVar(styles, '--yr-admin-chart-grid', 'rgba(69,73,65,0.1)'),
+    lineShop: getCssVar(styles, '--yr-admin-chart-categorical-1', '#697763'),
+    lineBooking: getCssVar(styles, '--yr-admin-kpi-info-icon', '#6f8a87'),
+    categorical: [
+      getCssVar(styles, '--yr-admin-chart-categorical-1', '#697763'),
+      getCssVar(styles, '--yr-admin-chart-categorical-2', '#8a9b84'),
+      getCssVar(styles, '--yr-admin-chart-categorical-3', '#9a8067'),
+      getCssVar(styles, '--yr-admin-chart-categorical-4', '#b1aaa1'),
+      getCssVar(styles, '--yr-admin-chart-categorical-5', '#9b7568'),
+      getCssVar(styles, '--yr-admin-chart-categorical-6', '#81758d'),
+    ],
+    grid: getCssVar(styles, '--yr-admin-chart-grid', 'rgba(69,73,65,0.08)'),
     text: getCssVar(styles, '--yr-admin-chart-label', '#66645d'),
     tooltipBg: getCssVar(styles, '--yr-admin-chart-tooltip-bg', '#fffdf8'),
     tooltipText: getCssVar(styles, '--yr-admin-chart-tooltip-text', '#454941'),
@@ -68,7 +71,7 @@ function getAdminChartPalette() {
 
 function chartSeriesColors() {
   var p = getAdminChartPalette();
-  return [p.primary, p.secondary, p.accent, p.success, p.warning];
+  return p.categorical;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -659,10 +662,10 @@ function renderShopLineChart() {
       datasets: [{
         label: '銷售額 (NT$)',
         data: data,
-        borderColor: palette.primary,
-        backgroundColor: toRgba(palette.primary, 0.12),
+        borderColor: palette.lineShop,
+        backgroundColor: toRgba(palette.lineShop, 0.12),
         borderWidth: 2.5,
-        pointBackgroundColor: palette.primary,
+        pointBackgroundColor: palette.lineShop,
         pointRadius: 4,
         pointHoverRadius: 6,
         tension: 0.4,
@@ -983,10 +986,10 @@ function renderBookingLineChart() {
       datasets: [{
         label: '預約收入 (NT$)',
         data: data,
-        borderColor: palette.secondary,
-        backgroundColor: toRgba(palette.secondary, 0.12),
+        borderColor: palette.lineBooking,
+        backgroundColor: toRgba(palette.lineBooking, 0.12),
         borderWidth: 2.5,
-        pointBackgroundColor: palette.secondary,
+        pointBackgroundColor: palette.lineBooking,
         pointRadius: 4,
         pointHoverRadius: 6,
         tension: 0.4,
@@ -1184,8 +1187,8 @@ function renderCampgroundBar() {
       datasets: [{
         label: '預約筆數',
         data: data,
-        backgroundColor: toRgba(palette.primary, 0.75),
-        borderColor: palette.primary,
+        backgroundColor: toRgba(palette.categorical[0], 0.75),
+        borderColor: palette.categorical[0],
         borderWidth: 1,
         borderRadius: 4
       }]
@@ -1272,7 +1275,7 @@ function renderRegionBar() {
       datasets: [{
         label: '預約收入 (NT$)',
         data: data,
-        backgroundColor: [palette.primary, palette.secondary, palette.accent, palette.warning],
+        backgroundColor: [palette.categorical[0], palette.categorical[1], palette.categorical[2], palette.categorical[3]],
         borderWidth: 0,
         borderRadius: 4
       }]

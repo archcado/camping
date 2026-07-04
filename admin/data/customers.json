@@ -5,12 +5,21 @@
     "name": "王小明",
     "phone": "0912-345-678",
     "email": "wang@example.com",
-    "totalSpent": 12500,
+    "birthday": "1992-03-18",
+    "registeredAt": "2023-08-15",
     "tier": "VIP",
-    "points": 1250,
-    "coupons": 3,
-    "tags": ["高消費"],
-    "orders": ["#0006"]
+    "orders": [
+      "#0006",
+      "#0101",
+      "#0151",
+      "#0051"
+    ],
+    "tags": [
+      "高消費"
+    ],
+    "totalSpent": 42400,
+    "points": 4240,
+    "coupons": 3
   },
   {
     "id": "U002",
@@ -18,12 +27,22 @@
     "name": "林美惠",
     "phone": "0923-456-789",
     "email": "lin@example.com",
-    "totalSpent": 7400,
+    "birthday": "1998-07-22",
+    "registeredAt": "2025-01-20",
     "tier": "一般",
-    "points": 740,
-    "coupons": 1,
-    "tags": ["新會員"],
-    "orders": ["#0004"]
+    "orders": [
+      "#0004",
+      "#0152",
+      "#0102",
+      "#0052"
+    ],
+    "tags": [
+      "新會員",
+      "高消費"
+    ],
+    "totalSpent": 24850,
+    "points": 2485,
+    "coupons": 1
   },
   {
     "id": "U003",
@@ -31,12 +50,21 @@
     "name": "張志偉",
     "phone": "0934-567-890",
     "email": "chang@example.com",
-    "totalSpent": 22400,
+    "birthday": "1988-11-05",
+    "registeredAt": "2022-11-03",
     "tier": "VIP",
-    "points": 2240,
-    "coupons": 5,
-    "tags": ["高消費"],
-    "orders": ["#0003"]
+    "orders": [
+      "#0003",
+      "#0053",
+      "#0153",
+      "#0103"
+    ],
+    "tags": [
+      "高消費"
+    ],
+    "totalSpent": 23830,
+    "points": 2383,
+    "coupons": 5
   },
   {
     "id": "U004",
@@ -44,12 +72,22 @@
     "name": "黃淑芬",
     "phone": "0945-678-901",
     "email": "huang@example.com",
-    "totalSpent": 2400,
+    "birthday": "1995-01-30",
+    "registeredAt": "2024-06-10",
     "tier": "一般",
-    "points": 240,
-    "coupons": 0,
-    "tags": ["高退貨率"],
-    "orders": ["#0002"]
+    "orders": [
+      "#0002",
+      "#0104",
+      "#0154",
+      "#0054"
+    ],
+    "tags": [
+      "高退貨率",
+      "高消費"
+    ],
+    "totalSpent": 55960,
+    "points": 5596,
+    "coupons": 0
   },
   {
     "id": "U005",
@@ -57,12 +95,19 @@
     "name": "李建明",
     "phone": "0956-789-012",
     "email": "lee@example.com",
-    "totalSpent": 9120,
+    "birthday": "1990-09-12",
+    "registeredAt": "2023-03-28",
     "tier": "一般",
-    "points": 912,
-    "coupons": 2,
+    "orders": [
+      "#0001",
+      "#0105",
+      "#0055",
+      "#0155"
+    ],
     "tags": [],
-    "orders": ["#0001"]
+    "totalSpent": 9980,
+    "points": 998,
+    "coupons": 2
   },
   {
     "id": "U006",
@@ -70,12 +115,22 @@
     "name": "陳大華",
     "phone": "0967-890-123",
     "email": "chen@example.com",
-    "totalSpent": 5200,
+    "birthday": "1985-04-08",
+    "registeredAt": "2025-02-14",
     "tier": "一般",
-    "points": 520,
-    "coupons": 1,
-    "tags": ["新會員"],
-    "orders": ["#0005"]
+    "orders": [
+      "#0005",
+      "#0106",
+      "#0156",
+      "#0056"
+    ],
+    "tags": [
+      "新會員",
+      "高消費"
+    ],
+    "totalSpent": 24300,
+    "points": 2430,
+    "coupons": 1
   },
   {
     "id": "U007",
@@ -83,12 +138,22 @@
     "name": "蔡佳玲",
     "phone": "0978-901-234",
     "email": "tsai@example.com",
-    "totalSpent": 0,
+    "birthday": "2000-12-25",
+    "registeredAt": "2025-05-01",
     "tier": "一般",
-    "points": 0,
-    "coupons": 0,
-    "tags": ["新會員"],
-    "orders": []
+    "orders": [
+      "#0007",
+      "#0057",
+      "#0157",
+      "#0107"
+    ],
+    "tags": [
+      "新會員",
+      "高退貨率"
+    ],
+    "totalSpent": 13200,
+    "points": 1320,
+    "coupons": 0
   },
   {
     "id": "U008",
@@ -96,12 +161,21 @@
     "name": "吳建宏",
     "phone": "0989-012-345",
     "email": "wu@example.com",
-    "totalSpent": 18600,
+    "birthday": "1987-06-17",
+    "registeredAt": "2021-09-22",
     "tier": "VIP",
-    "points": 1860,
-    "coupons": 4,
-    "tags": ["高消費"],
-    "orders": []
+    "orders": [
+      "#0108",
+      "#0008",
+      "#0058",
+      "#0158"
+    ],
+    "tags": [
+      "高消費"
+    ],
+    "totalSpent": 31730,
+    "points": 3173,
+    "coupons": 4
   },
   {
     "id": "U009",
@@ -109,12 +183,22 @@
     "name": "劉雅婷",
     "phone": "0990-123-456",
     "email": "liu@example.com",
-    "totalSpent": 0,
+    "birthday": "1999-02-14",
+    "registeredAt": "2025-06-18",
     "tier": "一般",
-    "points": 0,
-    "coupons": 0,
-    "tags": ["新會員"],
-    "orders": []
+    "orders": [
+      "#0009",
+      "#0109",
+      "#0159",
+      "#0059"
+    ],
+    "tags": [
+      "新會員",
+      "高消費"
+    ],
+    "totalSpent": 33250,
+    "points": 3325,
+    "coupons": 0
   },
   {
     "id": "U010",
@@ -122,11 +206,905 @@
     "name": "許志明",
     "phone": "0901-234-567",
     "email": "hsu@example.com",
-    "totalSpent": 35800,
+    "birthday": "1978-10-03",
+    "registeredAt": "2020-12-05",
     "tier": "SVIP",
-    "points": 3580,
+    "orders": [
+      "#0010",
+      "#0110",
+      "#0060",
+      "#0160"
+    ],
+    "tags": [
+      "高消費",
+      "高退貨率"
+    ],
+    "totalSpent": 45100,
+    "points": 4510,
+    "coupons": 8
+  },
+  {
+    "id": "U011",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "鄭文豪",
+    "phone": "0907-143-781",
+    "email": "user011@example.com",
+    "birthday": "1986-12-12",
+    "registeredAt": "2023-12-12",
+    "totalSpent": 48660,
+    "tier": "SVIP",
+    "points": 4866,
+    "coupons": 9,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0111",
+      "#0011",
+      "#0061",
+      "#0161"
+    ]
+  },
+  {
+    "id": "U012",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "周佩君",
+    "phone": "0944-156-852",
+    "email": "user012@example.com",
+    "birthday": "1987-01-13",
+    "registeredAt": "2024-01-13",
+    "totalSpent": 32650,
+    "tier": "SVIP",
+    "points": 3265,
+    "coupons": 7,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0062",
+      "#0012",
+      "#0162",
+      "#0112"
+    ]
+  },
+  {
+    "id": "U013",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "楊承翰",
+    "phone": "0981-169-923",
+    "email": "user013@example.com",
+    "birthday": "1988-02-14",
+    "registeredAt": "2025-02-14",
+    "totalSpent": 33160,
+    "tier": "SVIP",
+    "points": 3316,
+    "coupons": 6,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0063",
+      "#0113",
+      "#0013",
+      "#0163"
+    ]
+  },
+  {
+    "id": "U014",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "謝宜蓁",
+    "phone": "0918-182-994",
+    "email": "user014@example.com",
+    "birthday": "1989-03-15",
+    "registeredAt": "2019-03-15",
+    "totalSpent": 42080,
+    "tier": "SVIP",
+    "points": 4208,
+    "coupons": 9,
+    "tags": [
+      "高消費",
+      "高退貨率"
+    ],
+    "orders": [
+      "#0114",
+      "#0014",
+      "#0064",
+      "#0164"
+    ]
+  },
+  {
+    "id": "U015",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "洪偉傑",
+    "phone": "0955-195-065",
+    "email": "user015@example.com",
+    "birthday": "1990-04-16",
+    "registeredAt": "2020-04-16",
+    "totalSpent": 56560,
+    "tier": "SVIP",
+    "points": 5656,
+    "coupons": 10,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0065",
+      "#0015",
+      "#0165",
+      "#0115"
+    ]
+  },
+  {
+    "id": "U016",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "郭欣怡",
+    "phone": "0992-208-136",
+    "email": "user016@example.com",
+    "birthday": "1991-05-17",
+    "registeredAt": "2021-05-17",
+    "totalSpent": 22200,
+    "tier": "VIP",
+    "points": 2220,
+    "coupons": 5,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0016",
+      "#0116",
+      "#0066",
+      "#0166"
+    ]
+  },
+  {
+    "id": "U017",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "邱冠宇",
+    "phone": "0929-221-207",
+    "email": "user017@example.com",
+    "birthday": "1992-06-18",
+    "registeredAt": "2022-06-18",
+    "totalSpent": 18960,
+    "tier": "VIP",
+    "points": 1896,
+    "coupons": 3,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0067",
+      "#0117",
+      "#0167",
+      "#0017"
+    ]
+  },
+  {
+    "id": "U018",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "曾雅雯",
+    "phone": "0966-234-278",
+    "email": "user018@example.com",
+    "birthday": "1993-07-19",
+    "registeredAt": "2023-07-19",
+    "totalSpent": 30750,
+    "tier": "SVIP",
+    "points": 3075,
+    "coupons": 6,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0018",
+      "#0168",
+      "#0118",
+      "#0068"
+    ]
+  },
+  {
+    "id": "U019",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "廖俊傑",
+    "phone": "0903-247-349",
+    "email": "user019@example.com",
+    "birthday": "1994-08-20",
+    "registeredAt": "2024-08-20",
+    "totalSpent": 29900,
+    "tier": "VIP",
+    "points": 2990,
+    "coupons": 5,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0169",
+      "#0019",
+      "#0069",
+      "#0119"
+    ]
+  },
+  {
+    "id": "U020",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "賴思妤",
+    "phone": "0940-260-420",
+    "email": "user020@example.com",
+    "birthday": "1995-09-21",
+    "registeredAt": "2025-09-21",
+    "totalSpent": 19680,
+    "tier": "VIP",
+    "points": 1968,
+    "coupons": 3,
+    "tags": [
+      "新會員",
+      "高消費"
+    ],
+    "orders": [
+      "#0070",
+      "#0120",
+      "#0020",
+      "#0170"
+    ]
+  },
+  {
+    "id": "U021",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "徐柏翰",
+    "phone": "0977-273-491",
+    "email": "user021@example.com",
+    "birthday": "1996-10-22",
+    "registeredAt": "2019-10-22",
+    "totalSpent": 12250,
+    "tier": "VIP",
+    "points": 1225,
+    "coupons": 3,
+    "tags": [],
+    "orders": [
+      "#0171",
+      "#0071",
+      "#0121",
+      "#0021"
+    ]
+  },
+  {
+    "id": "U022",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "蘇品妍",
+    "phone": "0914-286-562",
+    "email": "user022@example.com",
+    "birthday": "1997-11-23",
+    "registeredAt": "2020-11-23",
+    "totalSpent": 32300,
+    "tier": "SVIP",
+    "points": 3230,
+    "coupons": 7,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0172",
+      "#0022",
+      "#0072",
+      "#0122"
+    ]
+  },
+  {
+    "id": "U023",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "葉家豪",
+    "phone": "0951-299-633",
+    "email": "user023@example.com",
+    "birthday": "1998-12-24",
+    "registeredAt": "2021-12-24",
+    "totalSpent": 31680,
+    "tier": "SVIP",
+    "points": 3168,
+    "coupons": 7,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0123",
+      "#0173",
+      "#0073",
+      "#0023"
+    ]
+  },
+  {
+    "id": "U024",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "莊淑惠",
+    "phone": "0988-312-704",
+    "email": "user024@example.com",
+    "birthday": "1999-01-25",
+    "registeredAt": "2022-01-25",
+    "totalSpent": 37990,
+    "tier": "SVIP",
+    "points": 3799,
     "coupons": 8,
-    "tags": ["高消費"],
-    "orders": []
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0124",
+      "#0024",
+      "#0074",
+      "#0174"
+    ]
+  },
+  {
+    "id": "U025",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "江志豪",
+    "phone": "0925-325-775",
+    "email": "user025@example.com",
+    "birthday": "1975-02-26",
+    "registeredAt": "2023-02-26",
+    "totalSpent": 33390,
+    "tier": "SVIP",
+    "points": 3339,
+    "coupons": 6,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0175",
+      "#0075",
+      "#0025",
+      "#0125"
+    ]
+  },
+  {
+    "id": "U026",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "何佳穎",
+    "phone": "0962-338-846",
+    "email": "user026@example.com",
+    "birthday": "1976-03-27",
+    "registeredAt": "2024-03-27",
+    "totalSpent": 22900,
+    "tier": "VIP",
+    "points": 2290,
+    "coupons": 4,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0076",
+      "#0026",
+      "#0176",
+      "#0126"
+    ]
+  },
+  {
+    "id": "U027",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "羅俊宏",
+    "phone": "0999-351-917",
+    "email": "user027@example.com",
+    "birthday": "1977-04-28",
+    "registeredAt": "2025-04-28",
+    "totalSpent": 31500,
+    "tier": "SVIP",
+    "points": 3150,
+    "coupons": 6,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0077",
+      "#0127",
+      "#0027",
+      "#0177"
+    ]
+  },
+  {
+    "id": "U028",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "高詩涵",
+    "phone": "0936-364-988",
+    "email": "user028@example.com",
+    "birthday": "1978-05-01",
+    "registeredAt": "2019-05-01",
+    "totalSpent": 22780,
+    "tier": "VIP",
+    "points": 2278,
+    "coupons": 5,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0128",
+      "#0028",
+      "#0078",
+      "#0178"
+    ]
+  },
+  {
+    "id": "U029",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "潘宇軒",
+    "phone": "0973-377-059",
+    "email": "user029@example.com",
+    "birthday": "1979-06-02",
+    "registeredAt": "2020-06-02",
+    "totalSpent": 27200,
+    "tier": "VIP",
+    "points": 2720,
+    "coupons": 5,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0129",
+      "#0179",
+      "#0029",
+      "#0079"
+    ]
+  },
+  {
+    "id": "U030",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "簡惠如",
+    "phone": "0910-390-130",
+    "email": "user030@example.com",
+    "birthday": "1980-07-03",
+    "registeredAt": "2021-07-03",
+    "totalSpent": 32250,
+    "tier": "SVIP",
+    "points": 3225,
+    "coupons": 7,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0080",
+      "#0180",
+      "#0030",
+      "#0130"
+    ]
+  },
+  {
+    "id": "U031",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "馬冠廷",
+    "phone": "0947-403-201",
+    "email": "user031@example.com",
+    "birthday": "1981-08-04",
+    "registeredAt": "2022-08-04",
+    "totalSpent": 47200,
+    "tier": "SVIP",
+    "points": 4720,
+    "coupons": 10,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0131",
+      "#0181",
+      "#0031",
+      "#0081"
+    ]
+  },
+  {
+    "id": "U032",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "鍾怡君",
+    "phone": "0984-416-272",
+    "email": "user032@example.com",
+    "birthday": "1982-09-05",
+    "registeredAt": "2023-09-05",
+    "totalSpent": 19880,
+    "tier": "VIP",
+    "points": 1988,
+    "coupons": 4,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0182",
+      "#0032",
+      "#0132",
+      "#0082"
+    ]
+  },
+  {
+    "id": "U033",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "游承恩",
+    "phone": "0921-429-343",
+    "email": "user033@example.com",
+    "birthday": "1983-10-06",
+    "registeredAt": "2024-10-06",
+    "totalSpent": 10550,
+    "tier": "VIP",
+    "points": 1055,
+    "coupons": 2,
+    "tags": [],
+    "orders": [
+      "#0183",
+      "#0133",
+      "#0083",
+      "#0033"
+    ]
+  },
+  {
+    "id": "U034",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "石雅琪",
+    "phone": "0958-442-414",
+    "email": "user034@example.com",
+    "birthday": "1984-11-07",
+    "registeredAt": "2025-11-07",
+    "totalSpent": 26180,
+    "tier": "VIP",
+    "points": 2618,
+    "coupons": 6,
+    "tags": [
+      "新會員",
+      "高消費"
+    ],
+    "orders": [
+      "#0034",
+      "#0184",
+      "#0084",
+      "#0134"
+    ]
+  },
+  {
+    "id": "U035",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "方建志",
+    "phone": "0995-455-485",
+    "email": "user035@example.com",
+    "birthday": "1985-12-08",
+    "registeredAt": "2019-12-08",
+    "totalSpent": 42240,
+    "tier": "SVIP",
+    "points": 4224,
+    "coupons": 8,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0085",
+      "#0035",
+      "#0135",
+      "#0185"
+    ]
+  },
+  {
+    "id": "U036",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "彭心怡",
+    "phone": "0932-468-556",
+    "email": "user036@example.com",
+    "birthday": "1986-01-09",
+    "registeredAt": "2020-01-09",
+    "totalSpent": 52310,
+    "tier": "SVIP",
+    "points": 5231,
+    "coupons": 10,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0036",
+      "#0086",
+      "#0136",
+      "#0186"
+    ]
+  },
+  {
+    "id": "U037",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "韓宗翰",
+    "phone": "0969-481-627",
+    "email": "user037@example.com",
+    "birthday": "1987-02-10",
+    "registeredAt": "2021-02-10",
+    "totalSpent": 37280,
+    "tier": "SVIP",
+    "points": 3728,
+    "coupons": 7,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0087",
+      "#0137",
+      "#0037",
+      "#0187"
+    ]
+  },
+  {
+    "id": "U038",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "唐美玲",
+    "phone": "0906-494-698",
+    "email": "user038@example.com",
+    "birthday": "1988-03-11",
+    "registeredAt": "2022-03-11",
+    "totalSpent": 20940,
+    "tier": "VIP",
+    "points": 2094,
+    "coupons": 5,
+    "tags": [
+      "高消費",
+      "高退貨率"
+    ],
+    "orders": [
+      "#0138",
+      "#0038",
+      "#0088",
+      "#0188"
+    ]
+  },
+  {
+    "id": "U039",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "馮志偉",
+    "phone": "0943-507-769",
+    "email": "user039@example.com",
+    "birthday": "1989-04-12",
+    "registeredAt": "2023-04-12",
+    "totalSpent": 56490,
+    "tier": "SVIP",
+    "points": 5649,
+    "coupons": 10,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0139",
+      "#0039",
+      "#0189",
+      "#0089"
+    ]
+  },
+  {
+    "id": "U040",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "董佳蓉",
+    "phone": "0980-520-840",
+    "email": "user040@example.com",
+    "birthday": "1990-05-13",
+    "registeredAt": "2024-05-13",
+    "totalSpent": 45000,
+    "tier": "SVIP",
+    "points": 4500,
+    "coupons": 10,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0090",
+      "#0190",
+      "#0140",
+      "#0040"
+    ]
+  },
+  {
+    "id": "U041",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "程俊賢",
+    "phone": "0917-533-911",
+    "email": "user041@example.com",
+    "birthday": "1991-06-14",
+    "registeredAt": "2025-06-14",
+    "totalSpent": 22300,
+    "tier": "VIP",
+    "points": 2230,
+    "coupons": 5,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0091",
+      "#0041",
+      "#0191",
+      "#0141"
+    ]
+  },
+  {
+    "id": "U042",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "傅淑芬",
+    "phone": "0954-546-982",
+    "email": "user042@example.com",
+    "birthday": "1992-07-15",
+    "registeredAt": "2019-07-15",
+    "totalSpent": 40300,
+    "tier": "SVIP",
+    "points": 4030,
+    "coupons": 8,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0092",
+      "#0192",
+      "#0142",
+      "#0042"
+    ]
+  },
+  {
+    "id": "U043",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "范冠霖",
+    "phone": "0991-559-053",
+    "email": "user043@example.com",
+    "birthday": "1993-08-16",
+    "registeredAt": "2020-08-16",
+    "totalSpent": 27760,
+    "tier": "VIP",
+    "points": 2776,
+    "coupons": 5,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0043",
+      "#0143",
+      "#0193",
+      "#0093"
+    ]
+  },
+  {
+    "id": "U044",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "戴雅婷",
+    "phone": "0928-572-124",
+    "email": "user044@example.com",
+    "birthday": "1994-09-17",
+    "registeredAt": "2021-09-17",
+    "totalSpent": 61710,
+    "tier": "SVIP",
+    "points": 6171,
+    "coupons": 10,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0144",
+      "#0094",
+      "#0194",
+      "#0044"
+    ]
+  },
+  {
+    "id": "U045",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "段家銘",
+    "phone": "0965-585-195",
+    "email": "user045@example.com",
+    "birthday": "1995-10-18",
+    "registeredAt": "2022-10-18",
+    "totalSpent": 33850,
+    "tier": "SVIP",
+    "points": 3385,
+    "coupons": 7,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0095",
+      "#0045",
+      "#0145",
+      "#0195"
+    ]
+  },
+  {
+    "id": "U046",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "曹佩珊",
+    "phone": "0902-598-266",
+    "email": "user046@example.com",
+    "birthday": "1996-11-19",
+    "registeredAt": "2023-11-19",
+    "totalSpent": 19100,
+    "tier": "VIP",
+    "points": 1910,
+    "coupons": 4,
+    "tags": [
+      "高消費",
+      "高退貨率"
+    ],
+    "orders": [
+      "#0196",
+      "#0046",
+      "#0146",
+      "#0096"
+    ]
+  },
+  {
+    "id": "U047",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "袁宇翔",
+    "phone": "0939-611-337",
+    "email": "user047@example.com",
+    "birthday": "1997-12-20",
+    "registeredAt": "2024-12-20",
+    "totalSpent": 37840,
+    "tier": "SVIP",
+    "points": 3784,
+    "coupons": 7,
+    "tags": [
+      "高消費",
+      "高退貨率"
+    ],
+    "orders": [
+      "#0147",
+      "#0197",
+      "#0097",
+      "#0047"
+    ]
+  },
+  {
+    "id": "U048",
+    "avatar": "../assets/images/avatar-01.jpg",
+    "name": "鄧欣妤",
+    "phone": "0976-624-408",
+    "email": "user048@example.com",
+    "birthday": "1998-01-21",
+    "registeredAt": "2025-01-21",
+    "totalSpent": 27690,
+    "tier": "VIP",
+    "points": 2769,
+    "coupons": 5,
+    "tags": [
+      "高消費",
+      "高退貨率"
+    ],
+    "orders": [
+      "#0148",
+      "#0048",
+      "#0198",
+      "#0098"
+    ]
+  },
+  {
+    "id": "U049",
+    "avatar": "../assets/images/avatar-02.jpg",
+    "name": "許柏均",
+    "phone": "0913-637-479",
+    "email": "user049@example.com",
+    "birthday": "1999-02-22",
+    "registeredAt": "2019-02-22",
+    "totalSpent": 40600,
+    "tier": "SVIP",
+    "points": 4060,
+    "coupons": 8,
+    "tags": [
+      "高消費",
+      "高退貨率"
+    ],
+    "orders": [
+      "#0199",
+      "#0149",
+      "#0049",
+      "#0099"
+    ]
+  },
+  {
+    "id": "U050",
+    "avatar": "../assets/images/avatar-03.jpg",
+    "name": "丁惠珍",
+    "phone": "0950-650-550",
+    "email": "user050@example.com",
+    "birthday": "1975-03-23",
+    "registeredAt": "2020-03-23",
+    "totalSpent": 54200,
+    "tier": "SVIP",
+    "points": 5420,
+    "coupons": 10,
+    "tags": [
+      "高消費"
+    ],
+    "orders": [
+      "#0200",
+      "#0100",
+      "#0150",
+      "#0050"
+    ]
   }
 ]

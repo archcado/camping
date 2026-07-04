@@ -73,16 +73,31 @@
     <div class="mt-2 d-flex flex-wrap align-items-center gap-2 yr-admin-products-toolbar__filters">
       <input type="search" id="productsSearchInput"
              class="form-control form-control-sm yr-admin-products-search"
-             placeholder="搜尋商品名稱"
-             aria-label="搜尋商品名稱">
+             placeholder="搜尋商品 ID、SKU、名稱、分類"
+             aria-label="搜尋商品 ID、SKU、名稱、分類">
       <select id="productsCategoryFilter" class="form-select form-select-sm yr-admin-products-filter" aria-label="分類篩選">
         <option value="">全部分類</option>
+      </select>
+      <select id="productsStatusFilter" class="form-select form-select-sm yr-admin-products-filter" aria-label="狀態篩選">
+        <option value="">全部狀態</option>
+        <option value="active">上架中</option>
+        <option value="disabled">已停用</option>
       </select>
       <select id="productsStockFilter" class="form-select form-select-sm yr-admin-products-filter" aria-label="庫存篩選">
         <option value="">全部庫存</option>
         <option value="low">低庫存</option>
         <option value="out">缺貨</option>
         <option value="normal">正常庫存</option>
+      </select>
+      <select id="productsSortSelect" class="form-select form-select-sm yr-admin-products-filter" aria-label="排序方式">
+        <option value="default">預設排序</option>
+        <option value="name-asc">名稱 A-Z</option>
+        <option value="price-asc">售價低到高</option>
+        <option value="price-desc">售價高到低</option>
+        <option value="stock-asc">庫存少到多</option>
+        <option value="stock-desc">庫存多到少</option>
+        <option value="updated-desc">最近更新</option>
+        <option value="updated-asc">最早更新</option>
       </select>
       <button type="button" id="productsClearFilters" class="btn btn-sm btn-outline-secondary d-none">
         <i class="fas fa-filter-circle-xmark me-1"></i>清除篩選
@@ -109,14 +124,15 @@
             <th class="scrollable-stock-col yr-admin-products-th" scope="col">分店 A</th>
             <th class="scrollable-stock-col yr-admin-products-th" scope="col">分店 B</th>
             <th class="scrollable-stock-col yr-admin-products-th" scope="col">分店 C</th>
+            <th class="sticky-col sticky-col-right sticky-col-stock-edit yr-admin-products-th" scope="col">修改庫存數量</th>
           </tr>
         </thead>
         <!-- tbody 由 products.js 的 renderProductsTable() 動態填入 -->
         <!-- 總庫存量 < 5 的列：JS 會自動加上 table-danger class（淡紅底色） -->
-        <!-- colspan=9：圖片、名稱、分類、操作、總庫存(唯讀)、主倉、分店A、分店B、分店C -->
+        <!-- colspan=10：圖片、名稱、分類、操作、總庫存(唯讀)、主倉、分店A、分店B、分店C、修改庫存數量 -->
         <tbody id="productsTableBody">
           <tr>
-            <td colspan="9" class="text-center py-4 yr-admin-products__loading yr-admin-products-loading">
+            <td colspan="10" class="text-center py-4 yr-admin-products__loading yr-admin-products-loading">
               <div class="spinner-border spinner-border-sm me-2"
                    style="color: var(--admin-brand-accent);"></div>
               <span class="text-muted">載入商品中...</span>
@@ -147,12 +163,13 @@
             <th class="scrollable-stock-col yr-admin-products-th" scope="col">溪谷森林</th>
             <th class="scrollable-stock-col yr-admin-products-th" scope="col">雲海高原</th>
             <th class="scrollable-stock-col yr-admin-products-th" scope="col">海岸微風</th>
+            <th class="sticky-col sticky-col-right sticky-col-stock-edit yr-admin-products-th" scope="col">修改庫存數量</th>
           </tr>
         </thead>
-        <!-- colspan=11：圖片、名稱、分類、操作、總租借庫存(唯讀)、主倉、湖畔星空、松林野營、溪谷森林、雲海高原、海岸微風 -->
+        <!-- colspan=12：圖片、名稱、分類、操作、總租借庫存(唯讀)、主倉、湖畔星空、松林野營、溪谷森林、雲海高原、海岸微風、修改庫存數量 -->
         <tbody id="rentalProductsTableBody">
           <tr>
-            <td colspan="11" class="text-center py-4 yr-admin-products__loading yr-admin-products-loading">
+            <td colspan="12" class="text-center py-4 yr-admin-products__loading yr-admin-products-loading">
               <div class="spinner-border spinner-border-sm me-2"
                    style="color: var(--admin-brand-accent);"></div>
               <span class="text-muted">請切換至租借頁籤載入資料</span>

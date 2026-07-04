@@ -71,14 +71,13 @@
                        d-flex align-items-center">
             <!-- 左欄：圖表標題 -->
             <h6 class="fw-semibold mb-0 flex-fill">
-              <i class="fas fa-chart-line me-2" style="color: var(--admin-brand-accent);"></i>
+              <i class="fas fa-chart-line me-2 yr-admin-analytics-title-icon"></i>
               銷售額趨勢
             </h6>
             <!-- 中欄：期間銷售總額（由 analytics.js updateShopLineTotal() 動態更新） -->
             <div class="flex-fill text-center">
               <span id="shopLineTotalBadge"
-                    class="fw-bold fs-4"
-                    style="color: var(--admin-brand-accent);">NT$ 0</span>
+                    class="fw-bold fs-4 yr-admin-analytics-total-badge">NT$ 0</span>
             </div>
             <!-- 右欄：空白佔位，確保中欄金額視覺上真正置中 -->
             <div class="flex-fill"></div>
@@ -100,7 +99,7 @@
         <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
-              <i class="fas fa-chart-pie me-2" style="color: var(--admin-brand-accent);"></i>
+              <i class="fas fa-chart-pie me-2 yr-admin-analytics-title-icon"></i>
               商品類別營收佔比
             </h6>
           </div>
@@ -123,8 +122,8 @@
       <div class="col-md-6">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="shopKpiOrders">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(13,110,253,0.1);">
-              <i class="fas fa-shopping-cart fs-4 text-primary"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--info">
+              <i class="fas fa-shopping-cart fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--info"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">本期訂單數</p>
@@ -144,8 +143,8 @@
       <div class="col-md-6">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="shopKpiPending">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(255,193,7,0.15);">
-              <i class="fas fa-truck fs-4 text-warning"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--warm">
+              <i class="fas fa-truck fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--warm"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">待出貨訂單</p>
@@ -171,8 +170,8 @@
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="shopKpiRefund">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(220,53,69,0.1);">
-              <i class="fas fa-undo fs-4 text-danger"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--danger">
+              <i class="fas fa-undo fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--danger"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">退貨 / 退款</p>
@@ -192,8 +191,8 @@
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="shopKpiSoldQty">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(25,135,84,0.1);">
-              <i class="fas fa-box fs-4 text-success"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--sage">
+              <i class="fas fa-box fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--sage"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">已售商品件數</p>
@@ -213,8 +212,8 @@
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="shopKpiLowStock">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(255,107,53,0.1);">
-              <i class="fas fa-exclamation-triangle fs-4" style="color: #e8591a;"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--clay">
+              <i class="fas fa-exclamation-triangle fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--clay"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">低庫存商品</p>
@@ -270,14 +269,13 @@
                        d-flex align-items-center">
             <!-- 左欄：圖表標題 -->
             <h6 class="fw-semibold mb-0 flex-fill">
-              <i class="fas fa-chart-line me-2" style="color: var(--admin-brand-accent);"></i>
+              <i class="fas fa-chart-line me-2 yr-admin-analytics-title-icon"></i>
               預約收入趨勢
             </h6>
             <!-- 中欄：期間預約總額（由 analytics.js updateBookingLineTotal() 動態更新） -->
             <div class="flex-fill text-center">
               <span id="bookingLineTotalBadge"
-                    class="fw-bold fs-4"
-                    style="color: var(--admin-brand-accent);">NT$ 0</span>
+                    class="fw-bold fs-4 yr-admin-analytics-total-badge">NT$ 0</span>
             </div>
             <!-- 右欄：空白佔位，確保中欄金額視覺上真正置中 -->
             <div class="flex-fill"></div>
@@ -297,7 +295,7 @@
         <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
-              <i class="fas fa-chart-pie me-2" style="color: var(--admin-brand-accent);"></i>
+              <i class="fas fa-chart-pie me-2 yr-admin-analytics-title-icon"></i>
               租借裝備類別佔比
             </h6>
           </div>
@@ -320,8 +318,8 @@
       <div class="col-md-6">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="bookKpiPending">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(255,193,7,0.15);">
-              <i class="fas fa-clock fs-4 text-warning"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--warm">
+              <i class="fas fa-clock fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--warm"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">待確認預約</p>
@@ -341,8 +339,8 @@
       <div class="col-md-6">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="bookKpiCancelRate">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(220,53,69,0.1);">
-              <i class="fas fa-ban fs-4 text-danger"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--danger">
+              <i class="fas fa-ban fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--danger"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">取消率</p>
@@ -364,8 +362,8 @@
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="bookKpiCompleted">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(25,135,84,0.1);">
-              <i class="fas fa-check-circle fs-4 text-success"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--sage">
+              <i class="fas fa-check-circle fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--sage"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">已完成預約</p>
@@ -385,8 +383,8 @@
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="bookKpiRentalAmt">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(13,110,253,0.1);">
-              <i class="fas fa-hiking fs-4 text-primary"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--info">
+              <i class="fas fa-hiking fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--info"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">裝備租借費</p>
@@ -403,8 +401,8 @@
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100 kpi-clickable" data-kpi-id="bookKpiRentalRatio">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="kpi-icon-wrap" style="background: rgba(111,66,193,0.1);">
-              <i class="fas fa-percentage fs-4" style="color: #6f42c1;"></i>
+            <div class="kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap yr-admin-analytics-kpi-icon-wrap--violet">
+              <i class="fas fa-percentage fs-4 yr-admin-analytics-kpi-icon yr-admin-analytics-kpi-icon--violet"></i>
             </div>
             <div>
               <p class="text-muted small mb-1">租借費佔比</p>
@@ -427,7 +425,7 @@
         <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
-              <i class="fas fa-map-marker-alt me-2" style="color: var(--admin-brand-accent);"></i>
+              <i class="fas fa-map-marker-alt me-2 yr-admin-analytics-title-icon"></i>
               各營地預約筆數
             </h6>
           </div>
@@ -449,7 +447,7 @@
         <div class="card shadow-sm border-0 yr-admin-analytics-chart-card">
           <div class="card-header bg-white border-0 pt-3 pb-0">
             <h6 class="fw-semibold mb-0">
-              <i class="fas fa-map me-2" style="color: var(--admin-brand-accent);"></i>
+              <i class="fas fa-map me-2 yr-admin-analytics-title-icon"></i>
               各地區預約收入
             </h6>
           </div>

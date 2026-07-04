@@ -60,6 +60,7 @@
   --yr-admin-primary-active: #596653;
   --yr-admin-primary-text: var(--yr-admin-foundation-text-on-brand);
   --yr-admin-primary-soft: var(--yr-admin-foundation-brand-pale);
+  --yr-admin-brand-soft: var(--yr-admin-foundation-brand-soft);
   /* note: primary text contrast may still be below 4.5:1 in some combinations (p2 a11y tune). */
 
   /* status base */
@@ -82,6 +83,16 @@
   --yr-admin-neutral-bg: #ece9e3;
   --yr-admin-neutral-border: #d3cec5;
   --yr-admin-neutral-text: #5f5c56;
+  --yr-admin-status-inactive-bg: var(--yr-admin-surface-subtle);
+  --yr-admin-status-inactive-text: var(--yr-admin-text-muted);
+  --yr-admin-status-inactive-border: var(--yr-admin-border);
+  --yr-admin-action-activate: var(--yr-admin-primary);
+  --yr-admin-action-activate-bg: var(--yr-admin-brand-soft);
+  --yr-admin-action-activate-hover: var(--yr-admin-primary-hover);
+  --yr-admin-action-deactivate: var(--yr-admin-text-muted);
+  --yr-admin-action-deactivate-bg: var(--yr-admin-surface-subtle);
+  --yr-admin-action-deactivate-hover: var(--yr-admin-warning-text);
+  --yr-admin-action-deactivate-border: var(--yr-admin-border-strong);
 
   /* shell */
   --yr-admin-sidebar-bg: #3f4640;
@@ -117,8 +128,17 @@
   --yr-admin-modal-backdrop: var(--yr-admin-foundation-overlay);
   --yr-admin-dropdown-bg: var(--yr-admin-surface);
   --yr-admin-dropdown-border: var(--yr-admin-border);
+  --yr-admin-chart-categorical-1: #697763; /* sage green */
+  --yr-admin-chart-categorical-2: #8a9b84; /* light sage */
+  --yr-admin-chart-categorical-3: #9a8067; /* linen brown */
+  --yr-admin-chart-categorical-4: #b1aaa1; /* oat gray */
+  --yr-admin-chart-categorical-5: #9b7568; /* muted terracotta */
+  --yr-admin-chart-categorical-6: #81758d; /* gray violet */
   --yr-admin-chart-grid: rgb(69 73 65 / 8%);
   --yr-admin-chart-label: var(--yr-admin-text-muted);
+  --yr-admin-chart-tooltip-bg: var(--yr-admin-surface);
+  --yr-admin-chart-tooltip-text: var(--yr-admin-text);
+  --yr-admin-chart-tooltip-border: var(--yr-admin-border);
 
   /* ============================================================
      compatibility aliases: existing yr-admin token names
@@ -171,6 +191,8 @@
   --yr-admin-kpi-sage-bg: #e7ece2;
   --yr-admin-kpi-clay-icon: #a06e55;
   --yr-admin-kpi-clay-bg: #f2e6df;
+  --yr-admin-kpi-violet-icon: #7b6d88;
+  --yr-admin-kpi-violet-bg: #ece7f1;
   --yr-admin-sidebar-hover: var(--yr-admin-sidebar-bg-hover);
   --yr-admin-sidebar-active-soft: #e9ede5;
   --yr-admin-table-hover: #f4f6f1;

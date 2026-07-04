@@ -94,8 +94,17 @@
   background: var(--yr-admin-table-row-hover);
 }
 
-.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row.table-danger > td {
-  background: #f4ece9 !important;
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row.table-danger > td,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row.table-danger > .sticky-col {
+  background: var(--yr-admin-table-bg) !important;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row--low > td:first-child {
+  box-shadow: inset 3px 0 0 var(--yr-admin-warning-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-row--out > td:first-child {
+  box-shadow: inset 3px 0 0 var(--yr-admin-danger-border);
 }
 
 .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-products-table .sticky-col {
@@ -155,9 +164,9 @@
 }
 
 .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-status--normal {
-  background: var(--yr-admin-success-bg);
-  border-color: var(--yr-admin-success-border);
-  color: var(--yr-admin-success-text);
+  background: var(--yr-admin-neutral-bg);
+  border-color: var(--yr-admin-neutral-border);
+  color: var(--yr-admin-neutral-text);
 }
 
 .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-stock-status--low {
@@ -180,6 +189,24 @@
 
 .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-stock {
   font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-stock-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-stock-value--normal {
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-stock-value--low {
+  color: var(--yr-admin-warning-text);
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-stock-value--out {
+  color: var(--yr-admin-danger-text);
+  font-weight: 600;
 }
 
 .yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-threshold-sum {
@@ -212,6 +239,49 @@
   background: var(--yr-admin-surface);
   border-color: var(--yr-admin-info-border);
   color: var(--yr-admin-info-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-edit-btn,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-confirm-btn {
+  color: var(--yr-admin-primary-hover);
+  text-decoration: none;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-cancel-btn {
+  color: var(--yr-admin-danger-text);
+  text-decoration: none;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-edit-btn:hover,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-edit-btn:focus-visible,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-confirm-btn:hover,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-confirm-btn:focus-visible {
+  color: var(--yr-admin-primary-active);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-cancel-btn:hover,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-cancel-btn:focus-visible {
+  color: var(--yr-admin-danger);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-edit-btn:focus-visible,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-confirm-btn:focus-visible,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-cancel-btn:focus-visible {
+  outline: 2px solid var(--yr-admin-focus-ring);
+  outline-offset: 2px;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-edit-btn:active,
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-confirm-btn:active {
+  color: var(--yr-admin-primary-active);
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-action-icon {
+  color: currentColor;
+}
+
+.yr-admin-dashboard-page .yr-admin-products-module .yr-admin-product-action-icon--danger {
+  color: currentColor;
 }
 
 .yr-admin-dashboard-page .yr-admin-products-module .min-stock-confirm-btn {

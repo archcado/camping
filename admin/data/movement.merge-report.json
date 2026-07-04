@@ -1,0 +1,580 @@
+{
+  "newCount": 20,
+  "oldCount": 100,
+  "mergedCount": 100,
+  "overlapCount": 20,
+  "onlyNewCount": 0,
+  "onlyOldCount": 80,
+  "duplicateMovementsRemoved": 0,
+  "conflictCount": 50,
+  "conflicts": [
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV001",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "四季保暖睡袋",
+        "quantity": 3,
+        "fromStore": "進貨",
+        "toStore": "租借主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV001",
+      "newDate": "2026-06-01",
+      "oldDate": "2026-06-21",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "01"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV002",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "防水戶外手錶",
+        "quantity": 11,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV002",
+      "newDate": "2026-06-01",
+      "oldDate": "2026-06-24",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "02"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV003",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "防水登山背包 45L",
+        "quantity": 6,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV003",
+      "newDate": "2026-06-02",
+      "oldDate": "2026-03-20",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "03"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV004",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "折疊式焚火台",
+        "quantity": 5,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV004",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "充電式頭燈",
+        "quantity": 10,
+        "fromStore": "進貨",
+        "toStore": "租借主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV004",
+      "newDate": "2026-06-02",
+      "oldDate": "2026-05-26",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "01"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV005",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "折疊桌椅組",
+        "quantity": 5,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV005",
+      "newDate": "2026-06-03",
+      "oldDate": "2026-05-31",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "02"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV006",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "防水登山背包 45L",
+        "quantity": 7,
+        "fromStore": "進貨",
+        "toStore": "租借主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV006",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "LED 露營燈",
+        "quantity": 12,
+        "fromStore": "湖畔星空營地",
+        "toStore": "溪谷森林營地",
+        "type": "營地互轉",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV006",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "Snow Peak 客廳帳",
+        "quantity": 10,
+        "fromStore": "商店主倉",
+        "toStore": "分店 C",
+        "type": "移轉",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV006",
+      "newDate": "2026-06-03",
+      "oldDate": "2026-03-10",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "03"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV007",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "Snow Peak 客廳帳",
+        "quantity": 3,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV007",
+      "newDate": "2026-06-04",
+      "oldDate": "2026-04-27",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "01"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV008",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "防蚊帳篷內帳",
+        "quantity": 9,
+        "fromStore": "進貨",
+        "toStore": "租借主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV008",
+      "newDate": "2026-06-04",
+      "oldDate": "2026-03-22",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "02"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV009",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "防水登山背包 45L",
+        "quantity": 7,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV009",
+      "newDate": "2026-06-05",
+      "oldDate": "2026-05-26",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "03"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV010",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "羽絨睡袋 -10°C",
+        "quantity": 11,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV010",
+      "newDate": "2026-06-05",
+      "oldDate": "2026-06-05",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "01"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV011",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "防蚊帳篷內帳",
+        "quantity": 8,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV011",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "四季保暖睡袋",
+        "quantity": 5,
+        "fromStore": "商店主倉",
+        "toStore": "松林野營基地",
+        "type": "調撥",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV011",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "保冷冰桶 45L",
+        "quantity": 9,
+        "fromStore": "分店 A",
+        "toStore": "湖畔星空營地",
+        "type": "調撥",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV011",
+      "newDate": "2026-06-06",
+      "oldDate": "2026-06-03",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "02"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV012",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "快煮鍋 1.5L",
+        "quantity": 3,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV012",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "露營拖車",
+        "quantity": 11,
+        "fromStore": "分店 B",
+        "toStore": "分店 A",
+        "type": "移轉",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV012",
+      "newDate": "2026-06-06",
+      "oldDate": "2026-03-17",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "03"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV013",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "戶外淋浴袋",
+        "quantity": 10,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV013",
+      "newDate": "2026-06-07",
+      "oldDate": "2026-03-27",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "01"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV014",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "LED 露營燈",
+        "quantity": 6,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV014",
+      "newDate": "2026-06-07",
+      "oldDate": "2026-05-16",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "02"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV015",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "充電式頭燈",
+        "quantity": 8,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV015",
+      "newDate": "2026-06-08",
+      "oldDate": "2026-06-23",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "03"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV016",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "高背月亮椅",
+        "quantity": 12,
+        "fromStore": "進貨",
+        "toStore": "租借主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV016",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "羽絨睡袋 -10°C",
+        "quantity": 2,
+        "fromStore": "分店 B",
+        "toStore": "損耗",
+        "type": "損耗",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV016",
+      "newDate": "2026-06-08",
+      "oldDate": "2026-04-29",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "01"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV017",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "保冷冰桶 45L",
+        "quantity": 3,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV017",
+      "newDate": "2026-06-09",
+      "oldDate": "2026-06-22",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "02"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV018",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "LED 露營燈",
+        "quantity": 5,
+        "fromStore": "進貨",
+        "toStore": "商店主倉",
+        "type": "進貨",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV018",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "折疊桌椅組",
+        "quantity": 12,
+        "fromStore": "分店 C",
+        "toStore": "溪谷森林營地",
+        "type": "調撥",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV018",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "行動電源站",
+        "quantity": 8,
+        "fromStore": "雲海高原營地",
+        "toStore": "海岸微風營地",
+        "type": "營地互轉",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV018",
+      "newDate": "2026-06-09",
+      "oldDate": "2026-06-08",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "03"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV019",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "營柱與營繩組",
+        "quantity": 4,
+        "fromStore": "分店 C",
+        "toStore": "商店主倉",
+        "type": "移轉",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV019",
+      "newDate": "2026-06-10",
+      "oldDate": "2026-06-11",
+      "newEmployeeId": "01",
+      "oldEmployeeId": "01"
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV020",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "露營貼紙組",
+        "quantity": 11,
+        "fromStore": "分店 A",
+        "toStore": "分店 C",
+        "type": "移轉",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-different-items",
+      "movementId": "MV020",
+      "droppedLegacyItem": {
+        "productId": "",
+        "productName": "折疊式焚火台",
+        "quantity": 5,
+        "fromStore": "湖畔星空營地",
+        "toStore": "松林野營基地",
+        "type": "營地互轉",
+        "orderId": ""
+      }
+    },
+    {
+      "type": "same-id-metadata-different",
+      "movementId": "MV020",
+      "newDate": "2026-06-10",
+      "oldDate": "2026-03-15",
+      "newEmployeeId": "02",
+      "oldEmployeeId": "02"
+    }
+  ],
+  "invalidProductReferences": [],
+  "invalidOrderReferences": [],
+  "negativeStockProducts": [],
+  "validation": {
+    "duplicateMovementIds": [],
+    "sameContentDifferentIds": [],
+    "invalidDates": [],
+    "futureDates": [],
+    "zeroQuantities": [],
+    "invalidQuantities": [],
+    "movementTypes": [
+      "損耗",
+      "營地互轉",
+      "移轉",
+      "調撥",
+      "進貨"
+    ]
+  }
+}

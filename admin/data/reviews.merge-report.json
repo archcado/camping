@@ -1,0 +1,60 @@
+{
+  "oldCount": 50,
+  "newCount": 5,
+  "mergedCount": 55,
+  "onlyOldCount": 50,
+  "onlyNewCount": 5,
+  "mergedDuplicates": 0,
+  "overlapReviewCount": 5,
+  "duplicateReviewIdsRemoved": 0,
+  "conflictCount": 5,
+  "conflicts": [
+    {
+      "type": "id-collision-different-review",
+      "reviewId": "R001",
+      "newReviewFingerprint": "王小明|coleman 六人帳篷|2026-06-01 14:32|4|帳篷品質非常好，搭設方便，空間也很寬敞，非常滿意這次的購買！",
+      "oldReviewFingerprint": "莊淑惠|輕量吊床|2026-03-06 09:10|4|品質良好，物流稍慢但可理解。",
+      "remappedLegacyId": "R001-legacy-3f08e7ee1d"
+    },
+    {
+      "type": "id-collision-different-review",
+      "reviewId": "R003",
+      "newReviewFingerprint": "張志偉|msr 超輕量帳篷|2026-06-03 08:44|3|品質尚可，但包裝有些破損，希望改善物流包裝方式。",
+      "oldReviewFingerprint": "黃淑芬|msr 超輕量帳篷|2026-03-06 16:58|3|尚可，但與期待有些落差。",
+      "remappedLegacyId": "R003-legacy-cb93517890"
+    },
+    {
+      "type": "id-collision-different-review",
+      "reviewId": "R004",
+      "newReviewFingerprint": "李建明|折疊桌椅組|2026-05-29 18:22|5|折疊桌椅組非常實用，材質輕巧耐用，搬運方便，下次露營還會帶它！",
+      "oldReviewFingerprint": "鍾怡君|羽絨睡袋 -10°c|2026-03-12 12:47|5|露營必備，物超所值！",
+      "remappedLegacyId": "R004-legacy-97d0345671"
+    },
+    {
+      "type": "id-collision-different-review",
+      "reviewId": "R002",
+      "newReviewFingerprint": "林美惠|充氣式睡墊 l號|2026-06-02 10:15|5|睡墊很舒適，充氣快速，隔熱效果好，強烈推薦！",
+      "oldReviewFingerprint": "劉雅婷|雙層防風外套|2026-03-20 14:40|2|材質比想像中薄，不太耐用。",
+      "remappedLegacyId": "R002-legacy-e56e466f6f"
+    },
+    {
+      "type": "id-collision-different-review",
+      "reviewId": "R005",
+      "newReviewFingerprint": "陳大華|防水登山背包 45l|2026-06-03 11:05|2|收到的顏色和圖片不符，客服回應也比較慢，有點失望。",
+      "oldReviewFingerprint": "段家銘|折疊蛋捲桌|2026-03-26 11:26|2|顏色與圖片不符，有點失望。",
+      "remappedLegacyId": "R005-legacy-1a10cd232d"
+    }
+  ],
+  "invalidReferences": [],
+  "validation": {
+    "duplicateIds": [],
+    "duplicateFallbackKeys": [],
+    "invalidRatings": [],
+    "invalidDates": [],
+    "invalidStatuses": [],
+    "statusValues": [
+      "replied",
+      "unreplied"
+    ]
+  }
+}

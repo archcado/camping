@@ -1,0 +1,158 @@
+{
+  "newCount": 7,
+  "oldCount": 40,
+  "mergedCount": 47,
+  "overlapCount": 0,
+  "onlyNewCount": 7,
+  "onlyOldCount": 40,
+  "sameIdDifferentContentCount": 0,
+  "preservedLegacyConflictKeys": [],
+  "duplicateRentalIds": [],
+  "duplicateRentalNumbers": [],
+  "invalidCustomerReferences": [],
+  "invalidRentalProductReferences": [],
+  "invalidDateRanges": [],
+  "availabilityConflicts": [],
+  "amountConflicts": [],
+  "overdueStatusConflicts": [
+    {
+      "rentalKey": "BK-0029::E002::1",
+      "status": "pending",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0029::E004::2",
+      "status": "pending",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0027::E003::1",
+      "status": "completed",
+      "equipmentReturned": false
+    },
+    {
+      "rentalKey": "BK-0027::E003::1",
+      "status": "completed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0025::E007::1",
+      "status": "pending",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0011::E001::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0046::E001::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0034::E006::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0044::E001::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0036::E003::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0036::E008::2",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0005-legacy::E003::1",
+      "status": "pending",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0005-legacy::E004::2",
+      "status": "pending",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0049::E002::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0002-legacy::E007::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0008-legacy::E006::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0012::E002::1",
+      "status": "completed",
+      "equipmentReturned": false
+    },
+    {
+      "rentalKey": "BK-0012::E002::1",
+      "status": "completed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0003::E002::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0005::E006::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0009::E003::1",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    },
+    {
+      "rentalKey": "BK-0009::E004::2",
+      "status": "confirmed",
+      "equipmentReturned": false,
+      "overdue": true
+    }
+  ],
+  "validation": {
+    "parseSuccess": true,
+    "invalidCustomerReferenceCount": 0,
+    "invalidRentalProductReferenceCount": 0,
+    "invalidDateRangeCount": 0,
+    "availabilityConflictCount": 0,
+    "amountConflictCount": 0,
+    "overdueStatusConflictCount": 22
+  }
+}

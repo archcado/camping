@@ -1,0 +1,96 @@
+{
+  "files": [
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\reviews.json",
+      "label": "live",
+      "count": 5,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\reviews.before-merge.json",
+      "label": "beforeMerge",
+      "count": 5,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\reviews.old-source.json",
+      "label": "oldSource",
+      "count": 50,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "file": "C:\\Users\\i125g\\Downloads\\Yuruicamp-main\\admin\\data\\reviews.json",
+      "label": "legacyExternal",
+      "count": 50,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\reviews.merged.json",
+      "label": "merged",
+      "count": 55,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    }
+  ],
+  "decision": "applied",
+  "reason": "merged reviews passed validation and replaced live reviews.json",
+  "finalValidation": {
+    "count": 55,
+    "suspiciousCount": 0,
+    "samples": [
+      {
+        "id": "R001",
+        "legacyOriginalId": null,
+        "buyerName": "王小明",
+        "rating": 4,
+        "productName": "Coleman 六人帳篷",
+        "replied": false
+      },
+      {
+        "id": "R006",
+        "legacyOriginalId": null,
+        "buyerName": "鄭文豪",
+        "rating": 2,
+        "productName": "營柱與營繩組",
+        "replied": false
+      },
+      {
+        "id": "R020",
+        "legacyOriginalId": null,
+        "buyerName": "鄧欣妤",
+        "rating": 4,
+        "productName": "防水登山背包 45L",
+        "replied": false
+      },
+      {
+        "id": "R050",
+        "legacyOriginalId": null,
+        "buyerName": "張志偉",
+        "rating": 4,
+        "productName": "保冷冰桶 45L",
+        "replied": true
+      }
+    ],
+    "validation": {
+      "duplicateIds": [],
+      "duplicateFallbackKeys": [],
+      "invalidRatings": [],
+      "invalidDates": [],
+      "invalidStatuses": [],
+      "statusValues": [
+        "replied",
+        "unreplied"
+      ]
+    }
+  },
+  "applied": true
+}

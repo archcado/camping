@@ -1,0 +1,441 @@
+{
+  "oldCount": 50,
+  "newCount": 10,
+  "mergedCount": 50,
+  "addedFromOld": 40,
+  "keptFromNew": 10,
+  "mergedDuplicates": 10,
+  "duplicateOrdersRemoved": 6,
+  "duplicateBookingsRemoved": 0,
+  "identityKeysUsed": [
+    "id/customerId/memberId",
+    "email",
+    "phone",
+    "name+phone"
+  ],
+  "fieldSummary": {
+    "newFields": [
+      "avatar",
+      "birthday",
+      "coupons",
+      "email",
+      "id",
+      "name",
+      "orders",
+      "phone",
+      "points",
+      "registeredAt",
+      "tags",
+      "tier",
+      "totalSpent"
+    ],
+    "oldFields": [
+      "avatar",
+      "birthday",
+      "coupons",
+      "email",
+      "id",
+      "name",
+      "orders",
+      "phone",
+      "points",
+      "registeredAt",
+      "tags",
+      "tier",
+      "totalSpent"
+    ],
+    "newOnlyFields": [],
+    "oldOnlyFields": []
+  },
+  "conflicts": [
+    {
+      "customerId": "U001",
+      "field": "totalSpent",
+      "newValue": 12500,
+      "oldValue": 42400,
+      "chosenValue": 42400,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U001",
+      "field": "points",
+      "newValue": 1250,
+      "oldValue": 4240,
+      "chosenValue": 4240,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U001",
+      "field": "coupons",
+      "newValue": 3,
+      "oldValue": 9,
+      "chosenValue": 3,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U001",
+      "field": "tier",
+      "newValue": "VIP",
+      "oldValue": "SVIP",
+      "chosenValue": "VIP",
+      "resolution": "new_priority_for_membership_tier"
+    },
+    {
+      "customerId": "U002",
+      "field": "totalSpent",
+      "newValue": 7400,
+      "oldValue": 24850,
+      "chosenValue": 24850,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U002",
+      "field": "points",
+      "newValue": 740,
+      "oldValue": 2485,
+      "chosenValue": 2485,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U002",
+      "field": "coupons",
+      "newValue": 1,
+      "oldValue": 5,
+      "chosenValue": 1,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U002",
+      "field": "tier",
+      "newValue": "一般",
+      "oldValue": "VIP",
+      "chosenValue": "一般",
+      "resolution": "new_priority_for_membership_tier"
+    },
+    {
+      "customerId": "U003",
+      "field": "totalSpent",
+      "newValue": 22400,
+      "oldValue": 23830,
+      "chosenValue": 23830,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U003",
+      "field": "points",
+      "newValue": 2240,
+      "oldValue": 2383,
+      "chosenValue": 2383,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U004",
+      "field": "totalSpent",
+      "newValue": 2400,
+      "oldValue": 55960,
+      "chosenValue": 55960,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U004",
+      "field": "points",
+      "newValue": 240,
+      "oldValue": 5596,
+      "chosenValue": 5596,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U004",
+      "field": "coupons",
+      "newValue": 0,
+      "oldValue": 10,
+      "chosenValue": 0,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U004",
+      "field": "tier",
+      "newValue": "一般",
+      "oldValue": "SVIP",
+      "chosenValue": "一般",
+      "resolution": "new_priority_for_membership_tier"
+    },
+    {
+      "customerId": "U005",
+      "field": "totalSpent",
+      "newValue": 9120,
+      "oldValue": 9980,
+      "chosenValue": 9980,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U005",
+      "field": "points",
+      "newValue": 912,
+      "oldValue": 998,
+      "chosenValue": 998,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U005",
+      "field": "coupons",
+      "newValue": 2,
+      "oldValue": 1,
+      "chosenValue": 2,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U006",
+      "field": "totalSpent",
+      "newValue": 5200,
+      "oldValue": 24300,
+      "chosenValue": 24300,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U006",
+      "field": "points",
+      "newValue": 520,
+      "oldValue": 2430,
+      "chosenValue": 2430,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U006",
+      "field": "coupons",
+      "newValue": 1,
+      "oldValue": 4,
+      "chosenValue": 1,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U006",
+      "field": "tier",
+      "newValue": "一般",
+      "oldValue": "VIP",
+      "chosenValue": "一般",
+      "resolution": "new_priority_for_membership_tier"
+    },
+    {
+      "customerId": "U007",
+      "field": "totalSpent",
+      "newValue": 0,
+      "oldValue": 13200,
+      "chosenValue": 13200,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U007",
+      "field": "points",
+      "newValue": 0,
+      "oldValue": 1320,
+      "chosenValue": 1320,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U007",
+      "field": "coupons",
+      "newValue": 0,
+      "oldValue": 2,
+      "chosenValue": 0,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U007",
+      "field": "tier",
+      "newValue": "一般",
+      "oldValue": "VIP",
+      "chosenValue": "一般",
+      "resolution": "new_priority_for_membership_tier"
+    },
+    {
+      "customerId": "U008",
+      "field": "totalSpent",
+      "newValue": 18600,
+      "oldValue": 31730,
+      "chosenValue": 31730,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U008",
+      "field": "points",
+      "newValue": 1860,
+      "oldValue": 3173,
+      "chosenValue": 3173,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U008",
+      "field": "coupons",
+      "newValue": 4,
+      "oldValue": 6,
+      "chosenValue": 4,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U008",
+      "field": "tier",
+      "newValue": "VIP",
+      "oldValue": "SVIP",
+      "chosenValue": "VIP",
+      "resolution": "new_priority_for_membership_tier"
+    },
+    {
+      "customerId": "U009",
+      "field": "totalSpent",
+      "newValue": 0,
+      "oldValue": 33250,
+      "chosenValue": 33250,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U009",
+      "field": "points",
+      "newValue": 0,
+      "oldValue": 3325,
+      "chosenValue": 3325,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U009",
+      "field": "coupons",
+      "newValue": 0,
+      "oldValue": 6,
+      "chosenValue": 0,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U009",
+      "field": "tier",
+      "newValue": "一般",
+      "oldValue": "SVIP",
+      "chosenValue": "一般",
+      "resolution": "new_priority_for_membership_tier"
+    },
+    {
+      "customerId": "U010",
+      "field": "totalSpent",
+      "newValue": 35800,
+      "oldValue": 45100,
+      "chosenValue": 45100,
+      "resolution": "kept_higher_value_due_to_non_recomputable_totals"
+    },
+    {
+      "customerId": "U010",
+      "field": "points",
+      "newValue": 3580,
+      "oldValue": 4510,
+      "chosenValue": 4510,
+      "resolution": "kept_higher_value_to_match_more_complete_customer_snapshot"
+    },
+    {
+      "customerId": "U010",
+      "field": "coupons",
+      "newValue": 8,
+      "oldValue": 9,
+      "chosenValue": 8,
+      "resolution": "new_priority_for_current_coupon_state"
+    },
+    {
+      "customerId": "U001",
+      "field": "orders",
+      "newValue": "#0001",
+      "oldValue": "#0001",
+      "chosenValue": null,
+      "resolution": "removed_order_owned_by_U005"
+    },
+    {
+      "customerId": "U002",
+      "field": "orders",
+      "newValue": "#0002",
+      "oldValue": "#0002",
+      "chosenValue": null,
+      "resolution": "removed_order_owned_by_U004"
+    },
+    {
+      "customerId": "U004",
+      "field": "orders",
+      "newValue": "#0004",
+      "oldValue": "#0004",
+      "chosenValue": null,
+      "resolution": "removed_order_owned_by_U002"
+    },
+    {
+      "customerId": "U005",
+      "field": "orders",
+      "newValue": "#0005",
+      "oldValue": "#0005",
+      "chosenValue": null,
+      "resolution": "removed_order_owned_by_U006"
+    },
+    {
+      "customerId": "U006",
+      "field": "orders",
+      "newValue": "#0006",
+      "oldValue": "#0006",
+      "chosenValue": null,
+      "resolution": "removed_order_owned_by_U001"
+    }
+  ],
+  "validation": {
+    "duplicateIds": [],
+    "duplicateEmails": [],
+    "duplicatePhones": [],
+    "duplicateOrderAssignments": [],
+    "overlapIds": [
+      "U001",
+      "U002",
+      "U003",
+      "U004",
+      "U005",
+      "U006",
+      "U007",
+      "U008",
+      "U009",
+      "U010"
+    ],
+    "onlyInNew": [],
+    "onlyInOld": [
+      "U011",
+      "U012",
+      "U013",
+      "U014",
+      "U015",
+      "U016",
+      "U017",
+      "U018",
+      "U019",
+      "U020",
+      "U021",
+      "U022",
+      "U023",
+      "U024",
+      "U025",
+      "U026",
+      "U027",
+      "U028",
+      "U029",
+      "U030",
+      "U031",
+      "U032",
+      "U033",
+      "U034",
+      "U035",
+      "U036",
+      "U037",
+      "U038",
+      "U039",
+      "U040",
+      "U041",
+      "U042",
+      "U043",
+      "U044",
+      "U045",
+      "U046",
+      "U047",
+      "U048",
+      "U049",
+      "U050"
+    ]
+  }
+}

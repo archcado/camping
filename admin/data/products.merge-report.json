@@ -1,0 +1,1658 @@
+{
+  "newCount": 10,
+  "oldCount": 30,
+  "mergedCount": 30,
+  "overlapCount": 10,
+  "onlyNewCount": 0,
+  "onlyOldCount": 20,
+  "duplicateProductIds": [],
+  "duplicateSkus": [],
+  "conflictCount": 29,
+  "conflicts": [
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P001",
+      "newValue": {
+        "main": 1,
+        "branch-001": 1,
+        "branch-002": 1,
+        "branch-003": 1
+      },
+      "oldValue": {
+        "main": 2,
+        "branch-001": 2,
+        "branch-002": 0,
+        "branch-003": 1
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P002",
+      "newValue": {
+        "main": 1,
+        "branch-001": 2,
+        "branch-002": 1,
+        "branch-003": 1
+      },
+      "oldValue": {
+        "main": 2,
+        "branch-001": 7,
+        "branch-002": 4,
+        "branch-003": 1
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P003",
+      "newValue": {
+        "main": 1,
+        "branch-001": 5,
+        "branch-002": 5,
+        "branch-003": 5
+      },
+      "oldValue": {
+        "main": 2,
+        "branch-001": 8,
+        "branch-002": 2,
+        "branch-003": 3
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P004",
+      "newValue": {
+        "main": 1,
+        "branch-001": 1,
+        "branch-002": 1,
+        "branch-003": 0
+      },
+      "oldValue": {
+        "main": 2,
+        "branch-001": 6,
+        "branch-002": 3,
+        "branch-003": 0
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P005",
+      "newValue": {
+        "main": 1,
+        "branch-001": 4,
+        "branch-002": 4,
+        "branch-003": 4
+      },
+      "oldValue": {
+        "main": 3,
+        "branch-001": 0,
+        "branch-002": 2,
+        "branch-003": 6
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P006",
+      "newValue": {
+        "main": 1,
+        "branch-001": 7,
+        "branch-002": 7,
+        "branch-003": 6
+      },
+      "oldValue": {
+        "main": 2,
+        "branch-001": 1,
+        "branch-002": 2,
+        "branch-003": 5
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P007",
+      "newValue": {
+        "main": 1,
+        "branch-001": 2,
+        "branch-002": 1,
+        "branch-003": 1
+      },
+      "oldValue": {
+        "main": 2,
+        "branch-001": 4,
+        "branch-002": 4,
+        "branch-003": 4
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P008",
+      "newValue": {
+        "main": 1,
+        "branch-001": 3,
+        "branch-002": 2,
+        "branch-003": 2
+      },
+      "oldValue": {
+        "main": 2,
+        "branch-001": 4,
+        "branch-002": 5,
+        "branch-003": 6
+      }
+    },
+    {
+      "type": "stock-snapshot-different",
+      "productId": "P009",
+      "newValue": {
+        "main": 1,
+        "branch-001": 2,
+        "branch-002": 2,
+        "branch-003": 1
+      },
+      "oldValue": {
+        "main": 3,
+        "branch-001": 8,
+        "branch-002": 8,
+        "branch-003": 7
+      }
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R001",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 2
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 4
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 1
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R002",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 2
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 2
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 1
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 2
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 6
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R003",
+      "newValue": [
+        {
+          "name": "海岸微風營地",
+          "quantity": 1
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 1
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 2
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 6
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 2
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 1
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R004",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 4
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 3
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 5
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 1
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 1
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 5
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R005",
+      "newValue": [
+        {
+          "name": "海岸微風營地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 4
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 2
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R006",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 3
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 2
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 5
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 4
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 6
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R007",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 4
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 2
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 2
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 5
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 1
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R008",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 6
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 5
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 4
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 1
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 1
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 6
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 6
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R009",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 4
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 6
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 4
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 5
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R010",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 4
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 3
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 5
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 6
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 4
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 6
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 6
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 1
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R011",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 5
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 8
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 6
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 5
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 6
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 1
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 2
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R012",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 7
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 5
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 5
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 4
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 6
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R013",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 2
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 1
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 1
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 6
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R014",
+      "newValue": [
+        {
+          "name": "海岸微風營地",
+          "quantity": 2
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 1
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 2
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 2
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 3
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 6
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R015",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 2
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 2
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 6
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 5
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 1
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R016",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 3
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 2
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 6
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 5
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 2
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R017",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 6
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 5
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 5
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 4
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 3
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 2
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 6
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R018",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 4
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 5
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 4
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 1
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 5
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 6
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 6
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R019",
+      "newValue": [
+        {
+          "name": "海岸微風營地",
+          "quantity": 2
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 1
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 1
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 5
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 1
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 6
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 1
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "type": "rental-stock-snapshot-different",
+      "rentalId": "R020",
+      "newValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 4
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 3
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 3
+        }
+      ],
+      "oldValue": [
+        {
+          "name": "松林野營基地",
+          "quantity": 3
+        },
+        {
+          "name": "海岸微風營地",
+          "quantity": 1
+        },
+        {
+          "name": "租借主倉",
+          "quantity": 1
+        },
+        {
+          "name": "湖畔星空營地",
+          "quantity": 6
+        },
+        {
+          "name": "雲海高原營地",
+          "quantity": 4
+        },
+        {
+          "name": "溪谷森林營地",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "invalidImagePaths": [
+    {
+      "id": "P001",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P002",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P003",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P004",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P005",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P006",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P007",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P008",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P009",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P010",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P001",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P002",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P003",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P004",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P005",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P006",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P007",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P008",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P009",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P010",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P011",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P012",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P013",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P014",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P015",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P016",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P017",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P018",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P019",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P020",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P021",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P022",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P023",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P024",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P025",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P026",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P027",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P028",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P029",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "P030",
+      "field": "thumbnail",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R001",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R002",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R003",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R004",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R005",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R006",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R007",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R008",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R009",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R010",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R011",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R012",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R013",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R014",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R015",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R016",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R017",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R018",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R019",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R020",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R001",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R002",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R018",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R005",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R006",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R007",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R011",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R013",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R008",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R003",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R004",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R009",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R010",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R012",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R014",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R015",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R016",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R017",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R019",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R020",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R021",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R022",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R023",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R024",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R025",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R026",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R027",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    },
+    {
+      "id": "R028",
+      "field": "image",
+      "path": "../assets/images/tent-01.jpg"
+    }
+  ],
+  "invalidReferences": [],
+  "validation": {
+    "duplicateProductIds": [],
+    "duplicateSkus": [],
+    "invalidStatuses": [],
+    "invalidPrices": [],
+    "negativeStockProducts": [],
+    "minStockStoreKeys": 30,
+    "minStockRentalKeys": 28
+  },
+  "rental": {
+    "newCount": 20,
+    "oldCount": 28,
+    "mergedCount": 28,
+    "overlapCount": 20,
+    "onlyNewCount": 0,
+    "onlyOldCount": 8
+  },
+  "stockSource": "snapshot-and-history"
+}

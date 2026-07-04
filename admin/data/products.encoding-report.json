@@ -1,0 +1,54 @@
+{
+  "files": [
+    {
+      "label": "products-live",
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\products.json",
+      "count": 10,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "label": "products-old",
+      "file": "C:\\Users\\i125g\\Downloads\\Yuruicamp-main\\admin\\data\\products.json",
+      "count": 30,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "label": "products-merged",
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\products.merged.json",
+      "count": 30,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "label": "rentals-live",
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\reantal.json",
+      "count": 20,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "label": "rentals-old",
+      "file": "C:\\Users\\i125g\\Downloads\\Yuruicamp-main\\admin\\data\\reantal.json",
+      "count": 28,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "label": "rentals-merged",
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\reantal.merged.json",
+      "count": 28,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    }
+  ],
+  "decision": "applied",
+  "reason": "products, rentals, and min-stock snapshots passed encoding and structural validation"
+}

@@ -1,36 +1,410 @@
 {
   "store": {
-    "P001": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P002": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P003": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P004": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P005": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P006": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P007": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P008": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P009": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 },
-    "P010": { "main": 1, "branch-001": 1, "branch-002": 1, "branch-003": 1 }
+    "P001": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P002": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P003": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P004": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P005": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P006": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P007": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P008": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P009": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P010": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P011": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P012": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P013": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P014": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P015": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P016": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P017": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P018": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P019": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P020": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P021": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P022": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P023": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P024": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P025": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P026": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P027": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P028": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P029": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    },
+    "P030": {
+      "main": 1,
+      "branch-001": 1,
+      "branch-002": 1,
+      "branch-003": 1
+    }
   },
   "rental": {
-    "R001": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R002": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R003": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R004": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R005": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R006": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R007": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R008": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R009": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R010": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R011": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R012": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R013": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R014": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R015": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R016": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R017": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R018": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R019": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 },
-    "R020": { "rental-main": 1, "camp-001": 1, "camp-002": 1, "camp-003": 1, "camp-004": 1, "camp-005": 1 }
+    "R001": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R002": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R018": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R005": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R006": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R007": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R011": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R013": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R008": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R003": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R004": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R009": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R010": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R012": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R014": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R015": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R016": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R017": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R019": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R020": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R021": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R022": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R023": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R024": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R025": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R026": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R027": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    },
+    "R028": {
+      "rental-main": 1,
+      "camp-001": 1,
+      "camp-002": 1,
+      "camp-003": 1,
+      "camp-004": 1,
+      "camp-005": 1
+    }
   }
 }

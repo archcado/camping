@@ -1,0 +1,27 @@
+{
+  "files": [
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\movement.json",
+      "count": 20,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "file": "C:\\Users\\i125g\\Downloads\\Yuruicamp-main\\admin\\data\\movement.json",
+      "count": 100,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    },
+    {
+      "file": "C:\\Users\\i125g\\Desktop\\program\\camping\\admin\\data\\movement.merged.json",
+      "count": 100,
+      "jsonValid": true,
+      "suspiciousCount": 0,
+      "samples": []
+    }
+  ],
+  "decision": "applied",
+  "reason": "movement history passed encoding and structural validation"
+}

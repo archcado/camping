@@ -2,171 +2,601 @@
   {
     "id": "P001",
     "rentalId": "R001",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "Coleman 六人帳篷",
     "category": "帳篷",
     "spec": "深橄欖綠",
     "price": 3200,
-    "total-stock": 4,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 1,
       "branch-002": 1,
       "branch-003": 1
     },
-    "status": "active"
+    "total-stock": 4,
+    "createdAt": "2026-04-07",
+    "updatedAt": "2026-06-08"
   },
   {
     "id": "P002",
     "rentalId": "R002",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "MSR 超輕量帳篷",
     "category": "帳篷",
     "spec": "沙漠卡其",
     "price": 9800,
-    "total-stock": 5,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 2,
       "branch-002": 1,
       "branch-003": 1
     },
-    "status": "active"
+    "total-stock": 5,
+    "createdAt": "2026-04-26",
+    "updatedAt": "2026-06-18"
   },
   {
     "id": "P003",
     "rentalId": "R018",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "充氣式睡墊 L號",
     "category": "睡袋",
     "spec": "藍灰色",
     "price": 1200,
-    "total-stock": 16,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 5,
       "branch-002": 5,
       "branch-003": 5
     },
-    "status": "active"
+    "total-stock": 16,
+    "createdAt": "2026-03-10",
+    "updatedAt": "2026-06-05"
   },
   {
     "id": "P004",
     "rentalId": "R005",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "羽絨睡袋 -10°C",
     "category": "睡袋",
     "spec": "碳黑",
     "price": 2800,
-    "total-stock": 3,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 1,
       "branch-002": 1,
       "branch-003": 0
     },
-    "status": "active"
+    "total-stock": 3,
+    "createdAt": "2026-04-29",
+    "updatedAt": "2026-06-05"
   },
   {
     "id": "P005",
     "rentalId": "R006",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "Coleman 氣化爐",
     "category": "炊具",
     "spec": "標準版",
     "price": 5000,
-    "total-stock": 13,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 4,
       "branch-002": 4,
       "branch-003": 4
     },
-    "status": "active"
+    "total-stock": 13,
+    "createdAt": "2026-03-11",
+    "updatedAt": "2026-06-28"
   },
   {
     "id": "P006",
     "rentalId": "R007",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "Snow Peak 鈦合金杯組",
     "category": "炊具",
     "spec": "鈦金屬原色",
     "price": 1800,
-    "total-stock": 21,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 7,
       "branch-002": 7,
       "branch-003": 6
     },
-    "status": "active"
+    "total-stock": 21,
+    "createdAt": "2026-03-10",
+    "updatedAt": "2026-03-29"
   },
   {
     "id": "P007",
     "rentalId": "R011",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "LED 露營燈",
     "category": "燈具",
     "spec": "暖白光",
     "price": 800,
-    "total-stock": 5,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 2,
       "branch-002": 1,
       "branch-003": 1
     },
-    "status": "active"
+    "total-stock": 5,
+    "createdAt": "2026-03-10",
+    "updatedAt": "2026-06-08"
   },
   {
     "id": "P008",
     "rentalId": "R013",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "防水登山背包 45L",
     "category": "背包",
     "spec": "森林綠",
     "price": 1600,
-    "total-stock": 8,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 3,
       "branch-002": 2,
       "branch-003": 2
     },
-    "status": "active"
+    "total-stock": 8,
+    "createdAt": "2026-03-10",
+    "updatedAt": "2026-05-26"
   },
   {
     "id": "P009",
     "rentalId": "R008",
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "折疊桌椅組",
     "category": "其他",
     "spec": "鋁合金輕量版",
     "price": 2800,
-    "total-stock": 6,
+    "status": "active",
     "branch": {
       "main": 1,
       "branch-001": 2,
       "branch-002": 2,
       "branch-003": 1
     },
-    "status": "active"
+    "total-stock": 6,
+    "createdAt": "2026-03-16",
+    "updatedAt": "2026-06-08"
   },
   {
     "id": "P010",
     "rentalId": null,
-    "thumbnail": "../assets/images/tent-01.jpg",
+    "rentalEnabled": false,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
     "name": "保溫壺 1L",
     "category": "其他",
     "spec": "消光黑",
     "price": 880,
-    "total-stock": 1,
+    "status": "disabled",
     "branch": {
       "main": 1,
       "branch-001": 0,
       "branch-002": 0,
       "branch-003": 0
     },
-    "status": "disabled"
+    "total-stock": 1,
+    "createdAt": "2026-04-13",
+    "updatedAt": "2026-06-24"
+  },
+  {
+    "id": "P011",
+    "rentalId": "R003",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "Snow Peak 客廳帳",
+    "category": "帳篷",
+    "spec": "象牙白",
+    "price": 8500,
+    "status": "active",
+    "branch": {
+      "main": 1,
+      "branch-001": 7,
+      "branch-002": 2,
+      "branch-003": 0
+    },
+    "total-stock": 10,
+    "createdAt": "2026-03-10",
+    "updatedAt": "2026-06-16"
+  },
+  {
+    "id": "P012",
+    "rentalId": "R004",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "四季保暖睡袋",
+    "category": "睡袋",
+    "spec": "深藍",
+    "price": 2200,
+    "status": "active",
+    "branch": {
+      "main": 1,
+      "branch-001": 6,
+      "branch-002": 6,
+      "branch-003": 8
+    },
+    "total-stock": 21,
+    "createdAt": "2026-05-15",
+    "updatedAt": "2026-06-21"
+  },
+  {
+    "id": "P013",
+    "rentalId": "R009",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "折疊蛋捲桌",
+    "category": "其他",
+    "spec": "胡桃木紋",
+    "price": 1500,
+    "status": "active",
+    "branch": {
+      "main": 2,
+      "branch-001": 5,
+      "branch-002": 2,
+      "branch-003": 0
+    },
+    "total-stock": 9,
+    "createdAt": "2026-03-26",
+    "updatedAt": "2026-06-24"
+  },
+  {
+    "id": "P014",
+    "rentalId": "R010",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "高背月亮椅",
+    "category": "其他",
+    "spec": "軍綠",
+    "price": 980,
+    "status": "active",
+    "branch": {
+      "main": 2,
+      "branch-001": 4,
+      "branch-002": 4,
+      "branch-003": 5
+    },
+    "total-stock": 15,
+    "createdAt": "2026-04-04",
+    "updatedAt": "2026-06-28"
+  },
+  {
+    "id": "P015",
+    "rentalId": "R012",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "充電式頭燈",
+    "category": "燈具",
+    "spec": "USB-C",
+    "price": 650,
+    "status": "active",
+    "branch": {
+      "main": 1,
+      "branch-001": 8,
+      "branch-002": 0,
+      "branch-003": 3
+    },
+    "total-stock": 12,
+    "createdAt": "2026-03-10",
+    "updatedAt": "2026-06-28"
+  },
+  {
+    "id": "P016",
+    "rentalId": "R014",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "65L 重裝背包",
+    "category": "背包",
+    "spec": "岩石灰",
+    "price": 4200,
+    "status": "active",
+    "branch": {
+      "main": 3,
+      "branch-001": 1,
+      "branch-002": 8,
+      "branch-003": 0
+    },
+    "total-stock": 12,
+    "createdAt": "2026-03-14",
+    "updatedAt": "2026-06-09"
+  },
+  {
+    "id": "P017",
+    "rentalId": "R015",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "露營拖車",
+    "category": "其他",
+    "spec": "折疊式",
+    "price": 3600,
+    "status": "active",
+    "branch": {
+      "main": 3,
+      "branch-001": 3,
+      "branch-002": 1,
+      "branch-003": 4
+    },
+    "total-stock": 11,
+    "createdAt": "2026-03-10",
+    "updatedAt": "2026-06-07"
+  },
+  {
+    "id": "P018",
+    "rentalId": "R016",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "大型天幕",
+    "category": "帳篷",
+    "spec": "4x4m",
+    "price": 2400,
+    "status": "active",
+    "branch": {
+      "main": 3,
+      "branch-001": 5,
+      "branch-002": 6,
+      "branch-003": 4
+    },
+    "total-stock": 18,
+    "createdAt": "2026-04-07",
+    "updatedAt": "2026-06-24"
+  },
+  {
+    "id": "P019",
+    "rentalId": "R017",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "營柱與營繩組",
+    "category": "其他",
+    "spec": "標準套組",
+    "price": 450,
+    "status": "active",
+    "branch": {
+      "main": 2,
+      "branch-001": 1,
+      "branch-002": 3,
+      "branch-003": 4
+    },
+    "total-stock": 10,
+    "createdAt": "2026-03-09",
+    "updatedAt": "2026-06-11"
+  },
+  {
+    "id": "P020",
+    "rentalId": "R019",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "行動電源站",
+    "category": "其他",
+    "spec": "500Wh",
+    "price": 12800,
+    "status": "active",
+    "branch": {
+      "main": 3,
+      "branch-001": 0,
+      "branch-002": 8,
+      "branch-003": 5
+    },
+    "total-stock": 16,
+    "createdAt": "2026-03-27",
+    "updatedAt": "2026-06-15"
+  },
+  {
+    "id": "P021",
+    "rentalId": "R020",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "保冷冰桶 45L",
+    "category": "其他",
+    "spec": "深藍",
+    "price": 1900,
+    "status": "active",
+    "branch": {
+      "main": 1,
+      "branch-001": 3,
+      "branch-002": 5,
+      "branch-003": 3
+    },
+    "total-stock": 12,
+    "createdAt": "2026-04-11",
+    "updatedAt": "2026-06-22"
+  },
+  {
+    "id": "P022",
+    "rentalId": "R021",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "雙層防風外套",
+    "category": "其他",
+    "spec": "L號",
+    "price": 3200,
+    "status": "active",
+    "branch": {
+      "main": 1,
+      "branch-001": 5,
+      "branch-002": 6,
+      "branch-003": 3
+    },
+    "total-stock": 15,
+    "createdAt": "2026-03-29",
+    "updatedAt": "2026-06-14"
+  },
+  {
+    "id": "P023",
+    "rentalId": "R022",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "快煮鍋 1.5L",
+    "category": "炊具",
+    "spec": "不鏽鋼",
+    "price": 1100,
+    "status": "active",
+    "branch": {
+      "main": 1,
+      "branch-001": 8,
+      "branch-002": 8,
+      "branch-003": 8
+    },
+    "total-stock": 25,
+    "createdAt": "2026-03-17",
+    "updatedAt": "2026-05-29"
+  },
+  {
+    "id": "P024",
+    "rentalId": "R023",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "碳纖維登山杖",
+    "category": "其他",
+    "spec": "一對",
+    "price": 1400,
+    "status": "active",
+    "branch": {
+      "main": 3,
+      "branch-001": 0,
+      "branch-002": 8,
+      "branch-003": 4
+    },
+    "total-stock": 15,
+    "createdAt": "2026-04-28",
+    "updatedAt": "2026-04-28"
+  },
+  {
+    "id": "P025",
+    "rentalId": "R024",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "防水戶外手錶",
+    "category": "其他",
+    "spec": "GPS版",
+    "price": 5600,
+    "status": "active",
+    "branch": {
+      "main": 2,
+      "branch-001": 7,
+      "branch-002": 3,
+      "branch-003": 1
+    },
+    "total-stock": 13,
+    "createdAt": "2026-03-11",
+    "updatedAt": "2026-06-28"
+  },
+  {
+    "id": "P026",
+    "rentalId": "R025",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "輕量吊床",
+    "category": "其他",
+    "spec": "雙人",
+    "price": 890,
+    "status": "active",
+    "branch": {
+      "main": 2,
+      "branch-001": 1,
+      "branch-002": 2,
+      "branch-003": 4
+    },
+    "total-stock": 9,
+    "createdAt": "2026-04-16",
+    "updatedAt": "2026-04-18"
+  },
+  {
+    "id": "P027",
+    "rentalId": "R026",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "戶外淋浴袋",
+    "category": "其他",
+    "spec": "20L",
+    "price": 680,
+    "status": "active",
+    "branch": {
+      "main": 2,
+      "branch-001": 0,
+      "branch-002": 6,
+      "branch-003": 7
+    },
+    "total-stock": 15,
+    "createdAt": "2026-03-17",
+    "updatedAt": "2026-05-29"
+  },
+  {
+    "id": "P028",
+    "rentalId": "R027",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "折疊式焚火台",
+    "category": "炊具",
+    "spec": "不鏽鋼",
+    "price": 2100,
+    "status": "active",
+    "branch": {
+      "main": 3,
+      "branch-001": 6,
+      "branch-002": 8,
+      "branch-003": 7
+    },
+    "total-stock": 24,
+    "createdAt": "2026-03-05",
+    "updatedAt": "2026-06-05"
+  },
+  {
+    "id": "P029",
+    "rentalId": "R028",
+    "rentalEnabled": true,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "防蚊帳篷內帳",
+    "category": "帳篷",
+    "spec": "通用型",
+    "price": 750,
+    "status": "active",
+    "branch": {
+      "main": 2,
+      "branch-001": 5,
+      "branch-002": 6,
+      "branch-003": 1
+    },
+    "total-stock": 14,
+    "createdAt": "2026-03-22",
+    "updatedAt": "2026-06-27"
+  },
+  {
+    "id": "P030",
+    "rentalId": null,
+    "rentalEnabled": false,
+    "thumbnail": "https://placehold.co/48x48/cccccc/555555?text=No+Image",
+    "name": "露營貼紙組",
+    "category": "其他",
+    "spec": "50入",
+    "price": 199,
+    "status": "disabled",
+    "branch": {
+      "main": 1,
+      "branch-001": 0,
+      "branch-002": 0,
+      "branch-003": 0
+    },
+    "total-stock": 1,
+    "createdAt": "2026-03-15",
+    "updatedAt": "2026-05-10"
   }
 ]

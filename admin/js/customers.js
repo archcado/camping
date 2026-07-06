@@ -457,12 +457,87 @@ function closeTagsEditor($panel, tags, persistDraftTags) {
   $panel.find('.tags-editor').addClass('d-none');
   $panel.find('.tags-done-btn, .tags-cancel-btn').addClass('d-none');
   $panel.find('.tags-edit-btn').show();
+  $panel.find('.tags-wrap').removeClass('yr-admin-customers-tags-wrap--editing');
 
   if (persistDraftTags) {
     $panel.data('draftTags', tags.slice());
   } else {
     $panel.removeData('draftTags');
   }
+
+  closeNewTagColorMenu($panel.find('.tags-wrap').first());
+}
+
+var NEW_TAG_COLOR_OPTIONS = [
+  { value: 'bg-warning text-dark', label: '黃' },
+  { value: 'bg-success', label: '綠' },
+  { value: 'bg-danger', label: '紅' },
+  { value: 'bg-info text-dark', label: '藍' },
+  { value: 'bg-primary', label: '靛' },
+  { value: 'bg-secondary', label: '灰' },
+  { value: 'bg-dark', label: '深' },
+];
+
+var NEW_TAG_COLOR_CLASS_TOKENS =
+  'bg-warning text-dark bg-success bg-danger bg-info bg-primary bg-secondary bg-dark';
+
+function buildNewTagColorSelectOptionsHtml() {
+  return NEW_TAG_COLOR_OPTIONS.map(function (option) {
+    var selected = option.value === 'bg-secondary' ? ' selected' : '';
+    return '<option value="' + option.value + '"' + selected + '>' + option.label + '</option>';
+  }).join('');
+}
+
+function buildNewTagColorMenuOptionsHtml() {
+  return NEW_TAG_COLOR_OPTIONS.map(function (option) {
+    return (
+      '<button type="button" class="yr-admin-customers-new-tag-color-option" ' +
+      'role="option" aria-selected="false" data-color-value="' +
+      option.value +
+      '">' +
+      '<span class="badge ' +
+      option.value +
+      ' yr-admin-customers-new-tag-color-option-badge">範例</span>' +
+      '<span class="yr-admin-customers-new-tag-color-option-label">' +
+      option.label +
+      '</span>' +
+      '</button>'
+    );
+  }).join('');
+}
+
+function getNewTagPreviewText($wrap) {
+  var draftName = $wrap.find('.new-tag-input').val().trim();
+  return draftName || '新標籤';
+}
+
+function closeNewTagColorMenu($wrap) {
+  if (!$wrap || !$wrap.length) {
+    return;
+  }
+  $wrap.find('.yr-admin-customers-new-tag-color-menu').addClass('d-none');
+  $wrap.find('.yr-admin-customers-new-tag-preview').attr('aria-expanded', 'false');
+}
+
+function syncNewTagPreview($wrap) {
+  if (!$wrap || !$wrap.length) {
+    return;
+  }
+  var $preview = $wrap.find('.yr-admin-customers-new-tag-preview').first();
+  if (!$preview.length) {
+    return;
+  }
+  var $select = $wrap.find('.new-tag-color').first();
+  var selectedColor = String($select.val() || 'bg-secondary').trim();
+  var previewText = getNewTagPreviewText($wrap);
+
+  $preview.removeClass(NEW_TAG_COLOR_CLASS_TOKENS).addClass(selectedColor);
+  $preview.find('.yr-admin-customers-new-tag-preview-text').text(previewText);
+
+  $wrap.find('.yr-admin-customers-new-tag-color-option').each(function () {
+    var isSelected = String($(this).attr('data-color-value') || '').trim() === selectedColor;
+    $(this).attr('aria-selected', isSelected ? 'true' : 'false').toggleClass('is-selected', isSelected);
+  });
 }
 
 /**
@@ -1048,6 +1123,8 @@ window.initCustomers = function () {
   $(document).on('click.customers', function () {
     $('#customersTable .filter-dropdown').addClass('d-none');
     $('.tags-dropdown-menu').hide();
+    $('.yr-admin-customers-new-tag-color-menu').addClass('d-none');
+    $('.yr-admin-customers-new-tag-preview').attr('aria-expanded', 'false');
   });
 
   // 展開區點擊不冒泡（避免誤觸收合）
@@ -1204,13 +1281,16 @@ window.initCustomers = function () {
       return;
     }
 
+    var modalEl = document.getElementById('customerEditConfirmModal');
+    if (!modalEl) {
+      commitCustomerDraft(customerId, draft, changes);
+      window.pendingCustomerEdit = null;
+      return;
+    }
+
     window.pendingCustomerEdit = { customerId: customerId, draft: draft, changes: changes };
     $('#customerEditChangeSummary').html(buildCustomerChangeSummaryHtml(original, draft, changes));
-
-    var modalEl = document.getElementById('customerEditConfirmModal');
-    if (modalEl) {
-      bootstrap.Modal.getOrCreateInstance(modalEl).show();
-    }
+    bootstrap.Modal.getOrCreateInstance(modalEl).show();
   });
 
   // === Modal：確認儲存（一次提交）===
@@ -1250,15 +1330,24 @@ window.initCustomers = function () {
     $wrap.find('.tags-checkbox-list').html(buildTagsDropdown(currentTags));
     $wrap.find('.tags-display').hide();
     $(this).hide();
+    $wrap.addClass('yr-admin-customers-tags-wrap--editing');
     $wrap.find('.tags-editor').removeClass('d-none');
     $wrap.find('.tags-done-btn, .tags-cancel-btn').removeClass('d-none');
+    syncNewTagPreview($wrap);
   });
 
   // 點下拉觸發按鈕 → 切換（toggle）下拉選單
   $(document).on('click.customers', '.tags-dropdown-toggle', function (e) {
     e.stopPropagation();
+    var $wrap = $(this).closest('.tags-wrap');
     var $menu = $(this).closest('.tags-editor').find('.tags-dropdown-menu');
-    $menu.toggle();
+    if ($menu.is(':visible')) {
+      $menu.hide();
+      closeNewTagColorMenu($wrap);
+      return;
+    }
+    $menu.show();
+    syncNewTagPreview($wrap);
   });
 
   $(document).on('click.customers', '.tags-dropdown-menu', function (e) {
@@ -1267,6 +1356,51 @@ window.initCustomers = function () {
 
   $(document).on('click.customers', '.tags-editor', function (e) {
     e.stopPropagation();
+  });
+
+  $(document).on('input.customers', '.new-tag-input', function () {
+    syncNewTagPreview($(this).closest('.tags-wrap'));
+  });
+
+  $(document).on('change.customers', '.new-tag-color', function () {
+    syncNewTagPreview($(this).closest('.tags-wrap'));
+  });
+
+  $(document).on('click.customers', '.yr-admin-customers-new-tag-preview', function (e) {
+    e.stopPropagation();
+    var $wrap = $(this).closest('.tags-wrap');
+    var $menu = $wrap.find('.yr-admin-customers-new-tag-color-menu').first();
+    var isOpen = !$menu.hasClass('d-none');
+
+    $('.yr-admin-customers-new-tag-color-menu').addClass('d-none');
+    $('.yr-admin-customers-new-tag-preview').attr('aria-expanded', 'false');
+
+    if (isOpen) {
+      return;
+    }
+
+    syncNewTagPreview($wrap);
+    $menu.removeClass('d-none');
+    $(this).attr('aria-expanded', 'true');
+  });
+
+  $(document).on('click.customers', '.yr-admin-customers-new-tag-color-option', function (e) {
+    e.stopPropagation();
+    var $option = $(this);
+    var $wrap = $option.closest('.tags-wrap');
+    var colorValue = String($option.attr('data-color-value') || '').trim();
+    if (!colorValue) {
+      return;
+    }
+    $wrap.find('.new-tag-color').val(colorValue);
+    syncNewTagPreview($wrap);
+    closeNewTagColorMenu($wrap);
+  });
+
+  $(document).on('keydown.customers', '.yr-admin-customers-new-tag-color-menu', function (e) {
+    if (e.key === 'Escape') {
+      closeNewTagColorMenu($(this).closest('.tags-wrap'));
+    }
   });
 
   // 完成選擇：更新預覽，不寫 cache
@@ -1303,6 +1437,8 @@ window.initCustomers = function () {
   $(document).on('click.customers', '.tag-add-btn', function (e) {
     e.stopPropagation(); // 阻止冒泡，避免觸發外部點擊關閉
     var $wrap = $(this).closest('.tags-wrap');
+    var $panel = $(this).closest('.customer-detail-panel');
+    var customerId = $panel.data('customer-id');
     var rawName = $wrap.find('.new-tag-input').val().trim();
     var newColor = $wrap.find('.new-tag-color').val();
 
@@ -1321,17 +1457,49 @@ window.initCustomers = function () {
     // 新增到全域標籤池
     window.tagColorMap[newName] = newColor;
 
-    // 保留目前已勾選的狀態，重建 checkbox 清單
-    var checkedTags = [];
-    $wrap.find('.tag-checkbox:checked').each(function () {
-      checkedTags.push($(this).val());
+    if (!customerId) {
+      var checkedTags = [];
+      $wrap.find('.tag-checkbox:checked').each(function () {
+        checkedTags.push($(this).val());
+      });
+      if (checkedTags.indexOf(newName) === -1) {
+        checkedTags.push(newName);
+      }
+      $wrap.find('.tags-checkbox-list').html(buildTagsDropdown(checkedTags));
+      $wrap.find('.new-tag-input').val('');
+      syncNewTagPreview($wrap);
+      buildCustomerTagsFilterOptions();
+      window.showAdminToast('標籤「' + newName + '」已新增');
+      return;
+    }
+
+    // 將新標籤立即加入「目前客戶」的草稿標籤集合，並同步同客戶所有 panel
+    var draftTags = readTagsFromPanel($panel);
+    if (draftTags.indexOf(newName) === -1) {
+      draftTags.push(newName);
+    }
+    getCustomerPanels(customerId).each(function () {
+      var $targetPanel = $(this);
+      $targetPanel.data('draftTags', draftTags.slice());
+      $targetPanel.find('.tags-display').html(tagsToHtml(draftTags));
+
+      var $editor = $targetPanel.find('.tags-editor');
+      if (!$editor.hasClass('d-none')) {
+        var $menu = $editor.find('.tags-dropdown-menu');
+        var wasOpen = $menu.is(':visible');
+        $editor.find('.tags-checkbox-list').html(buildTagsDropdown(draftTags));
+        if (wasOpen) {
+          $menu.show();
+        }
+      }
     });
-    $wrap.find('.tags-checkbox-list').html(buildTagsDropdown(checkedTags));
 
     // 清空輸入欄位
     $wrap.find('.new-tag-input').val('');
+    syncNewTagPreview($wrap);
 
     buildCustomerTagsFilterOptions();
+    updateCustomerEditActions(customerId);
 
     // TODO: PUT /api/tag-pool  { tagColorMap: window.tagColorMap }
     window.showAdminToast('標籤「' + newName + '」已新增');
@@ -1448,19 +1616,23 @@ function buildTagsRowHtml(customerId, tagsHtml) {
     'style="min-width:176px; z-index:1050; top:calc(100% + 4px); left:0; display:none;">' +
     '<div class="tags-checkbox-list"></div>' +
     '<hr class="my-2">' +
-    '<div class="d-flex gap-1 align-items-center">' +
+    '<div class="yr-admin-customers-new-tag-row d-flex align-items-center gap-2">' +
     '<input type="text" class="form-control form-control-sm new-tag-input" ' +
-    'placeholder="新標籤名稱" style="flex:1; min-width:60px">' +
-    '<select class="form-select form-select-sm new-tag-color" style="width:60px">' +
-    '<option value="bg-warning text-dark">🟡 黃</option>' +
-    '<option value="bg-success">🟢 綠</option>' +
-    '<option value="bg-danger">🔴 紅</option>' +
-    '<option value="bg-info text-dark">🔵 藍</option>' +
-    '<option value="bg-primary">🟣 靛</option>' +
-    '<option value="bg-secondary" selected>⚫ 灰</option>' +
-    '<option value="bg-dark">⬛ 深</option>' +
+    'placeholder="新標籤名稱" style="flex:1; min-width:0">' +
+    '<div class="yr-admin-customers-new-tag-color-wrap position-relative">' +
+    '<select class="new-tag-color visually-hidden" aria-hidden="true" tabindex="-1">' +
+    buildNewTagColorSelectOptionsHtml() +
     '</select>' +
-    '<button type="button" class="btn btn-sm btn-success tag-add-btn" title="新增標籤">' +
+    '<button type="button" class="yr-admin-customers-new-tag-preview badge bg-secondary" ' +
+    'aria-haspopup="listbox" aria-expanded="false">' +
+    '<span class="yr-admin-customers-new-tag-preview-text">新標籤</span>' +
+    '<i class="fas fa-chevron-down yr-admin-customers-new-tag-preview-chevron" aria-hidden="true"></i>' +
+    '</button>' +
+    '<div class="yr-admin-customers-new-tag-color-menu d-none">' +
+    buildNewTagColorMenuOptionsHtml() +
+    '</div>' +
+    '</div>' +
+    '<button type="button" class="btn btn-sm btn-success tag-add-btn" title="新增標籤" aria-label="新增標籤">' +
     '<i class="fas fa-plus"></i>' +
     '</button>' +
     '</div>' +
@@ -1470,7 +1642,7 @@ function buildTagsRowHtml(customerId, tagsHtml) {
     '<button type="button" class="btn btn-sm btn-outline-success tags-done-btn d-none py-0 px-2" title="完成選擇">' +
     '完成' +
     '</button>' +
-    '<button type="button" class="btn btn-sm btn-secondary tags-cancel-btn d-none py-0 px-1" title="取消編輯">' +
+    '<button type="button" class="btn btn-sm btn-secondary tags-cancel-btn d-none py-0 px-1" title="取消編輯" aria-label="取消編輯">' +
     '<i class="fas fa-times"></i>' +
     '</button>' +
     '</div>' +

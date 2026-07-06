@@ -1138,10 +1138,16 @@
   border: 1px solid var(--yr-admin-state-sage-border);
 }
 
+.yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-primary {
+  background: #e3e5ee !important;
+  color: #4b5770 !important;
+  border: 1px solid #bcc4d6;
+}
+
 .yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-info {
-  background: var(--yr-admin-surface-sage) !important;
-  color: var(--yr-admin-state-neutral-text) !important;
-  border: 1px solid var(--yr-admin-state-neutral-border);
+  background: #e4ebf5 !important;
+  color: #43607f !important;
+  border: 1px solid #bfd0e6;
 }
 
 .yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-danger {
@@ -1150,10 +1156,315 @@
   border: 1px solid var(--yr-admin-state-danger-border);
 }
 
+.yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-warning {
+  background: var(--yr-admin-state-warm-bg) !important;
+  color: var(--yr-admin-state-warm-text) !important;
+  border: 1px solid var(--yr-admin-state-warm-border);
+}
+
 .yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-secondary {
   background: var(--yr-admin-state-neutral-bg) !important;
   color: var(--yr-admin-state-neutral-text) !important;
   border: 1px solid var(--yr-admin-state-neutral-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .badge.bg-dark {
+  background: #d9dce2 !important;
+  color: #404854 !important;
+  border: 1px solid #b1b7c1;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module {
+  --yr-admin-customers-btn-confirm-bg: #5f705d;
+  --yr-admin-customers-btn-confirm-border: #5f705d;
+  --yr-admin-customers-btn-confirm-hover-bg: #52634f;
+  --yr-admin-customers-btn-confirm-hover-border: #52634f;
+  --yr-admin-customers-btn-confirm-text: #ffffff;
+
+  --yr-admin-customers-btn-done-bg: #edf1e9;
+  --yr-admin-customers-btn-done-border: #c5d0c0;
+  --yr-admin-customers-btn-done-text: #4d604a;
+  --yr-admin-customers-btn-done-hover-bg: #e1e8dd;
+  --yr-admin-customers-btn-done-hover-border: #aebda8;
+
+  --yr-admin-customers-btn-add-bg: #faf7f0;
+  --yr-admin-customers-btn-add-border: #d7cec0;
+  --yr-admin-customers-btn-add-text: #5f705d;
+  --yr-admin-customers-btn-add-hover-bg: #f0ede5;
+  --yr-admin-customers-btn-add-hover-border: #bfc8b9;
+
+  --yr-admin-customers-btn-cancel-bg: #fffdf8;
+  --yr-admin-customers-btn-cancel-border: #d8cec2;
+  --yr-admin-customers-btn-cancel-text: #6d6259;
+  --yr-admin-customers-btn-cancel-hover-bg: #f3eee6;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .customer-edit-actions .customer-edit-confirm-btn {
+  background: var(--yr-admin-customers-btn-confirm-bg);
+  border-color: var(--yr-admin-customers-btn-confirm-border);
+  color: var(--yr-admin-customers-btn-confirm-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .customer-edit-actions .customer-edit-confirm-btn:hover {
+  background: var(--yr-admin-customers-btn-confirm-hover-bg);
+  border-color: var(--yr-admin-customers-btn-confirm-hover-border);
+  color: var(--yr-admin-customers-btn-confirm-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .customer-edit-actions .customer-edit-confirm-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .customer-edit-actions .customer-edit-cancel-all-btn {
+  background: var(--yr-admin-customers-btn-cancel-bg);
+  border-color: var(--yr-admin-customers-btn-cancel-border);
+  color: var(--yr-admin-customers-btn-cancel-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .customer-edit-actions .customer-edit-cancel-all-btn:hover {
+  background: var(--yr-admin-customers-btn-cancel-hover-bg);
+  border-color: var(--yr-admin-customers-btn-cancel-border);
+  color: var(--yr-admin-customers-btn-cancel-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 42px;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-wrap {
+  grid-column: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: 120px;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row .new-tag-input {
+  grid-column: 1 / -1;
+  min-width: 0;
+  width: 100%;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row .tag-add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 2;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  flex-shrink: 0;
+  border-radius: 9px;
+  border: 1px solid var(--yr-admin-customers-btn-add-border);
+  background: var(--yr-admin-customers-btn-add-bg);
+  color: var(--yr-admin-customers-btn-add-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row .tag-add-btn:hover {
+  background: var(--yr-admin-customers-btn-add-hover-bg);
+  color: var(--yr-admin-customers-btn-add-text);
+  border-color: var(--yr-admin-customers-btn-add-hover-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row .tag-add-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  max-width: 120px;
+  min-width: 0;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  border-width: 1px;
+  border-style: solid;
+  line-height: 1.1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-preview:hover {
+  filter: brightness(0.98);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-preview:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-preview-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-preview-chevron {
+  flex: 0 0 auto;
+  font-size: 0.65rem;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 140px;
+  padding: 0.25rem;
+  border: 1px solid var(--yr-admin-border);
+  border-radius: 10px;
+  background: var(--yr-admin-surface);
+  box-shadow: var(--yr-admin-shadow-sm);
+  z-index: 1060;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  padding: 0.2rem 0.35rem;
+  text-align: left;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-option:hover,
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-option:focus-visible {
+  background: var(--yr-admin-surface-subtle);
+  outline: none;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-option.is-selected {
+  background: var(--yr-admin-surface-soft);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-option-badge {
+  margin-right: 0;
+  min-width: 2.2rem;
+  text-align: center;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-option-label {
+  font-size: 0.78rem;
+  color: var(--yr-admin-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto 34px;
+  align-items: center;
+  column-gap: 6px;
+  row-gap: 8px;
+  min-width: 0;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-editor {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-editor > .position-relative {
+  display: block !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+  height: 35px;
+  padding: 0.38rem 0.62rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 8px;
+  border-color: var(--yr-admin-border-strong);
+  color: var(--yr-admin-text);
+  background: var(--yr-admin-surface);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-dropdown-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-done-btn {
+  grid-column: 2;
+  height: 35px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--yr-admin-customers-btn-done-border);
+  background: var(--yr-admin-customers-btn-done-bg);
+  color: var(--yr-admin-customers-btn-done-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-done-btn:hover {
+  background: var(--yr-admin-customers-btn-done-hover-bg);
+  color: var(--yr-admin-customers-btn-done-text);
+  border-color: var(--yr-admin-customers-btn-done-hover-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-done-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-cancel-btn {
+  grid-column: 3;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--yr-admin-customers-btn-cancel-border);
+  background: var(--yr-admin-customers-btn-cancel-bg);
+  color: var(--yr-admin-customers-btn-cancel-text);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-cancel-btn:hover {
+  background: var(--yr-admin-customers-btn-cancel-hover-bg);
+  color: var(--yr-admin-customers-btn-cancel-text);
+  border-color: var(--yr-admin-customers-btn-cancel-border);
+}
+
+.yr-admin-dashboard-page .yr-admin-customers-module .tags-wrap.yr-admin-customers-tags-wrap--editing .tags-cancel-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--yr-admin-focus-ring);
+}
+
+@media (min-width: 576px) {
+  .yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row {
+    grid-template-columns: minmax(92px, 1fr) minmax(78px, 102px) 34px;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row .new-tag-input {
+    grid-column: 1;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-color-wrap {
+    grid-column: 2;
+    width: auto;
+    max-width: 102px;
+  }
+
+  .yr-admin-dashboard-page .yr-admin-customers-module .yr-admin-customers-new-tag-row .tag-add-btn {
+    grid-column: 3;
+  }
 }
 
 .yr-admin-dashboard-page .yr-admin-customers-module .text-muted.small {
